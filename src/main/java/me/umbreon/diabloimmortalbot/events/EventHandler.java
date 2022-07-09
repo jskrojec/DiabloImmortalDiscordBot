@@ -2,6 +2,7 @@ package me.umbreon.diabloimmortalbot.events;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.GenericEvent;
@@ -13,8 +14,8 @@ public class EventHandler implements EventListener {
 
     private final MessageReceived messageReceived;
 
-    public EventHandler(DatabaseRequests databaseRequests, ClientCache clientCache) {
-        this.messageReceived = new MessageReceived(databaseRequests, clientCache);
+    public EventHandler(DatabaseRequests databaseRequests, ClientCache clientCache, ClientConfig clientConfig) {
+        this.messageReceived = new MessageReceived(databaseRequests, clientCache, clientConfig);
     }
 
     @Override

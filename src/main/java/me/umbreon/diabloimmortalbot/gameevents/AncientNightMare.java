@@ -20,7 +20,7 @@ public class AncientNightMare {
     }
 
     public String checkAncientNightMare(String timezone) {
-        if (!isTimeValid(timezone)) return null;
+        if (!isTimeValid(timezone)) return "";
 
         String notificationMessage;
 

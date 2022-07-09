@@ -22,7 +22,7 @@ public class HauntedCarriage {
     }
 
     public String checkHauntedCarriage(String timezone) {
-        if (!isTimeValid(timezone)) return null;
+        if (!isTimeValid(timezone)) return "";
 
         String notificationMessage;
 

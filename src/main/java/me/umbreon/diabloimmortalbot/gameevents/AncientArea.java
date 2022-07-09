@@ -20,7 +20,7 @@ public class AncientArea {
     }
 
     public String checkAncientArea(String timezone) {
-        if (!isTimeValid(timezone)) return null;
+        if (!isTimeValid(timezone)) return "";
 
         String notificationMessage;
 

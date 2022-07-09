@@ -20,7 +20,7 @@ public class Assembly {
     }
 
     public String checkAssembly(String timezone) {
-        if (!isTimeValid(timezone)) return null;
+        if (!isTimeValid(timezone)) return "";
 
         String notificationMessage;
 

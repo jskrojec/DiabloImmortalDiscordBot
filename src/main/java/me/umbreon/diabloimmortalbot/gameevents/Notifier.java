@@ -4,13 +4,16 @@ import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
+import me.umbreon.diabloimmortalbot.utils.Time;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
+/**
+ * @author Umbreon Majora
+ */
 public class Notifier {
 
     private final AncientArea ancientArea;
@@ -49,7 +52,7 @@ public class Notifier {
                             /*
                             If the textChannel is null, the channel got deleted or bot isn't on that server anymore.
                              */
-                            
+
                             StringBuilder notificationMessageBuilder = new StringBuilder();
 
                             switch (clientCache.getStatus(textChannel.getId())) {
@@ -102,8 +105,14 @@ public class Notifier {
 
                             if (notificationMessageBuilder.length() > 0) {
                                 notificationMessageBuilder.append(prepareMention(channel, textChannel.getGuild()));
+                                addDebugMessageIfInMode(channel, timezone, notificationMessageBuilder, textChannel);
                                 textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
+                                ClientLogger.createNewLogEntry("Sended Message to " + textChannel.getGuild().getName() + ".\n" +
+                                        notificationMessageBuilder + "\nID: " + textChannel.getGuild().getId() + "\n" +
+                                        "Timezone: " + timezone + ", Time: " + Time.getFullTime(timezone));
                             }
+
+
                         }
 
                     } catch (NullPointerException e) {
@@ -130,5 +139,15 @@ public class Notifier {
         }
 
         return mention;
+    }
+
+    private void addDebugMessageIfInMode(String channel, String timezone, StringBuilder notificationMessageBuilder, TextChannel textChannel) {
+        if (clientCache.isChannelInDebugMode(channel)) {
+            String message =
+                    "\n\nCT: " + Time.getFullTime(timezone) + "\n" +
+                            "ACT: " + Time.getFullTime("GMT+2") + " \n" +
+                            "TZ: " + timezone;
+            notificationMessageBuilder.append(message);
+        }
     }
 }

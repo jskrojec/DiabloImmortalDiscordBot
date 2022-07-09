@@ -20,7 +20,7 @@ public class Battleground {
     }
 
     public String checkBattleground(String timezone) {
-        if (!isTimeValid(timezone)) return null;
+        if (!isTimeValid(timezone)) return "";
 
         String notificationMessage;
 
@@ -34,12 +34,12 @@ public class Battleground {
     }
 
     private boolean isTimeValid(String timezone) {
-        String time = Time.getFullTime(timezone);
+        String time = Time.getTime(timezone);
         return listBattleground.get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
-        String time = Time.getFullTime(timezone);
+        String time = Time.getTime(timezone);
         return listBattleground.get(time);
     }
 

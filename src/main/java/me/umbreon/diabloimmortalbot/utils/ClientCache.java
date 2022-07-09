@@ -28,4 +28,8 @@ public class ClientCache {
         return listWithNotificationChannels.get(channelId).getRole();
     }
 
+    public boolean isChannelInDebugMode(String channelId) {
+        return listWithNotificationChannels.get(channelId).isInDebugMode();
+    }
+
 }

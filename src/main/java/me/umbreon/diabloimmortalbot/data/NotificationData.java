@@ -6,8 +6,9 @@ public class NotificationData {
     public String timezone;
     public int status;
     public String role;
+    public boolean inDebugMode;
 
-    public NotificationData(String channelId, String timezone, int status, String role) {
+    public NotificationData(String channelId, String timezone, int status, String role, boolean inDebugMode) {
         this.channelId = channelId;
         this.timezone = timezone;
         this.status = status;
@@ -24,5 +25,9 @@ public class NotificationData {
 
     public String getRole() {
         return role;
+    }
+
+    public boolean isInDebugMode() {
+        return inDebugMode;
     }
 }

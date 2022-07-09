@@ -20,7 +20,7 @@ public class Vault {
     }
 
     public String checkVault(String timezone) {
-        if (!isTimeValid(timezone)) return null;
+        if (!isTimeValid(timezone)) return "";
 
         String notificationMessage;
 
@@ -34,12 +34,12 @@ public class Vault {
     }
 
     private boolean isTimeValid(String timezone) {
-        String time = Time.getFullTime(timezone);
+        String time = Time.getTime(timezone);
         return listVault.get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
-        String time = Time.getFullTime(timezone);
+        String time = Time.getTime(timezone);
         return listVault.get(time);
     }
 

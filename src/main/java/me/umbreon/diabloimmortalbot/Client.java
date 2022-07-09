@@ -29,13 +29,14 @@ public class Client {
             return;
         }
 
+        ClientLogger.startTimer(clientConfig.getLogFolderPath());
         MySQLDatabaseConnection mySQLDatabaseConnection = new MySQLDatabaseConnection(clientConfig);
         DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
 
         clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
 
         Notifier notifier = new Notifier(databaseRequests, clientConfig, clientCache);
-        EventHandler eventHandler = new EventHandler(databaseRequests, clientCache);
+        EventHandler eventHandler = new EventHandler(databaseRequests, clientCache, clientConfig);
         setupJDALogger();
 
         JDA jda = null;

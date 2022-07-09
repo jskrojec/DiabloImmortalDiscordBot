@@ -22,7 +22,7 @@ public class ShadowLottery {
     }
 
     public String checkShadowLottery(String timezone) {
-        if (!isTimeValid(timezone)) return null;
+        if (!isTimeValid(timezone)) return "";
 
         String notificationMessage;
 

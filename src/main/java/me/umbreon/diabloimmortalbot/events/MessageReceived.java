@@ -3,6 +3,7 @@ package me.umbreon.diabloimmortalbot.events;
 import me.umbreon.diabloimmortalbot.commands.*;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -18,8 +19,12 @@ public class MessageReceived {
     private final RoleCommand roleCommand;
     private final HelpCommand helpCommand;
     private final UnnotifierCommand unnotifierCommand;
+    private final ClientConfig clientConfig;
+    private final DebugCommand debugCommand;
 
-    public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache) {
+    public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache, ClientConfig clientConfig) {
+        this.clientConfig = clientConfig;
+        this.debugCommand = new DebugCommand(databaseRequests, clientCache);
         this.notifierCommand = new NotifierCommand(databaseRequests, clientCache);
         this.statusCommand = new StatusCommand(databaseRequests, clientCache);
         this.timezoneCommand = new TimezoneCommand(databaseRequests, clientCache);
@@ -44,23 +49,26 @@ public class MessageReceived {
         }
 
         switch (args[0].toLowerCase()) {
-            case "/notifier":
+            case ">notifier":
                 notifierCommand.onNotifierCommand(event.getMessage());
                 break;
-            case "/unnotifier":
+            case ">unnotifier":
                 unnotifierCommand.onUnnotifierCommand(event.getMessage());
                 break;
-            case "/status":
+            case ">status":
                 statusCommand.runStatusCommand(event.getMessage());
                 break;
-            case "/timezone":
+            case ">timezone":
                 timezoneCommand.onTimezoneCommand(event.getMessage());
                 break;
-            case "/role":
+            case ">role":
                 roleCommand.onRoleCommand(event.getMessage());
                 break;
-            case "/help":
+            case ">help":
                 helpCommand.onHelpCommand(event.getMessage());
+                break;
+            case ">debug":
+                debugCommand.onDebugCommand(event.getMessage());
                 break;
         }
     }

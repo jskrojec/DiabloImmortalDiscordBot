@@ -23,15 +23,14 @@ public class ClientLogger {
     private static boolean createdNewLogFolder;
     private static String date;
 
-    public ClientLogger(String logFolderPath) {
+    public static void startTimer(String logFolderPath) {
         logFolder = new File(logFolderPath);
-        createNewLogFile(getCurrentDate());
-        startTimer();
-    }
+        date = getCurrentDate();
+        createNewLogFile();
 
-    private void startTimer() {
         new Timer().schedule(new TimerTask() {
             public void run() {
+                date = getCurrentDate();
                 compressLastTenLogFiles();
                 checkForNewDateAndCreateNewFileIfNeeded();
             }
@@ -40,7 +39,7 @@ public class ClientLogger {
 
     public static void createNewLogEntry(String message) {
         if (Files.notExists(Paths.get(String.valueOf(logFile)))) {
-            createNewLogFile(getCurrentDate());
+            createNewLogFile();
             return;
         }
 
@@ -54,9 +53,9 @@ public class ClientLogger {
         }
     }
 
-    private void checkForNewDateAndCreateNewFileIfNeeded() {
+    private static void checkForNewDateAndCreateNewFileIfNeeded() {
         if (!getCurrentDate().equals(date)) {
-            createNewLogFile(getCurrentDate());
+            createNewLogFile();
         }
     }
 
@@ -64,15 +63,15 @@ public class ClientLogger {
         return logFolder.exists();
     }
 
-    private static void createNewLogFile(String date) {
+    private static void createNewLogFile() {
         if (!doesLogFolderExists()) {
             createdNewLogFolder = logFolder.mkdir();
         }
-        logFile = new File("home/discord/logs/" + date + ".log");
+        logFile = new File("/home/discord/logs/" + date + ".log");
+        System.out.println(logFile);
         if (!doesLogFileExist()) {
             try {
                 boolean createdNewLogFile = logFile.createNewFile();
-                date = getCurrentDate();
                 BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
                 bufferedWriter.append("#### Author: Umbreon #### #### Date: ").append(getCurrentDate()).append(" ####\n\n");
                 bufferedWriter.close();
@@ -102,18 +101,18 @@ public class ClientLogger {
         return dateFormat.format(new Date());
     }
 
-    private String getOlderDate(int amount) {
+    private static String getOlderDate(int amount) {
         final Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -amount);
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         return dateFormat.format(cal.getTime());
     }
 
-    private void compressLastTenLogFiles() {
+    private static void compressLastTenLogFiles() {
 
         for (int i = 1; i <= 10; i++) {
             String date = getOlderDate(i);
-            String finalPath = "home/discord/logs/" + date + ".log";
+            String finalPath = "/home/discord/logs/" + date + ".log";
 
             Path source = Paths.get(finalPath);
             Path target = Paths.get(finalPath + ".gz");
@@ -139,7 +138,7 @@ public class ClientLogger {
 
     }
 
-    private void deleteLogFile(String path) {
+    private static void deleteLogFile(String path) {
         File file = new File(path);
         if (file.delete()) {
             createNewLogEntry("Deleted file " + file.getName());

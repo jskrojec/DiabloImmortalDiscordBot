@@ -8,9 +8,9 @@ Install:
 4. Create a textchannel u like to get the notifications in.
 
 Commands:
-- /notifier - Register that channel as "Notifier-Channel"
-- /timezone EST - Set your timezone 
-- /status 0 to select what messages you like to get.
+- '>notifier - Register that channel as "Notifier-Channel"'
+- '>timezone EST - Set your timezone'
+- '>status 0 to select what messages you like to get.'
 > 0 = All messages.
 > 1 = Only overworld.
 > 2 = Only Immortal
@@ -18,4 +18,6 @@ Commands:
 > 4 = Immortal with overworld
 > 5 = Shadow with overworld
 
-- /role @Role to set what role should be mentioned in this textchannel. If you dont set the role @everyone will be mentioned.
+- '>role @Role to set what role should be mentioned in this textchannel. If you dont set the role @everyone will be mentioned.'
+- '>debug Sets a channel as debug mode (You don't need that, it's just for me to help me finding and fixing bugs.'
+> 

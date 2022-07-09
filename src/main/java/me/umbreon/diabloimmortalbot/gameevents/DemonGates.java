@@ -20,7 +20,7 @@ public class DemonGates {
     }
 
     public String checkDemonGates(String timezone) {
-        if (!isTimeValid(timezone)) return null;
+        if (!isTimeValid(timezone)) return "";
 
         String notificationMessage;
 
