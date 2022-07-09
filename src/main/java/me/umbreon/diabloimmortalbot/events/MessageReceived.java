@@ -22,6 +22,7 @@ public class MessageReceived {
     private final ClientConfig clientConfig;
     private final DebugCommand debugCommand;
     private final SMACCommand smacCommand;
+    private final AYSTCommand aystCommand;
 
     public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache, ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
@@ -33,6 +34,7 @@ public class MessageReceived {
         this.helpCommand = new HelpCommand();
         this.unnotifierCommand = new UnnotifierCommand(databaseRequests, clientCache);
         this.smacCommand = new SMACCommand(clientCache);
+        this.aystCommand = new AYSTCommand();
     }
 
     public void onMessageReceivedEvent(MessageReceivedEvent event, Member member) {
@@ -74,6 +76,9 @@ public class MessageReceived {
                 break;
             case ">smac":
                 smacCommand.onSMACCommand(event.getAuthor(), event.getTextChannel());
+                break;
+            case ">ayst":
+                aystCommand.onAYSTCommand(event.getMessage());
                 break;
         }
     }
