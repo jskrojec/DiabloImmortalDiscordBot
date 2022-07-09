@@ -66,7 +66,8 @@ public class DatabaseRequests {
                     String timezone = resultSet.getString("timezone");
                     int status = resultSet.getInt("status");
                     String role = resultSet.getString("role");
-                    boolean debug = resultSet.getBoolean("debug");
+                    int debugInt = resultSet.getInt("debug");
+                    boolean debug = (debugInt == 1);
                     NotificationData notificationData = new NotificationData(channelId, timezone, status, role, debug);
                     listWithNotificationChannels.put(channelId, notificationData);
                 }

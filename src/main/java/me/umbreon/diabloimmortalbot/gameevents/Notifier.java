@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
 /**
  * @author Umbreon Majora
  */
@@ -34,7 +35,7 @@ public class Notifier {
         this.ancientNightMare = new AncientNightMare(databaseRequests, clientConfig);
         this.battleground = new Battleground(databaseRequests, clientConfig);
         this.demonGates = new DemonGates(databaseRequests, clientConfig);
-        this.hauntedCarriage = new HauntedCarriage(databaseRequests, clientConfig, clientCache);
+        this.hauntedCarriage = new HauntedCarriage(databaseRequests, clientConfig);
         this.vault = new Vault(databaseRequests, clientConfig);
     }
 
@@ -105,7 +106,7 @@ public class Notifier {
 
                             if (notificationMessageBuilder.length() > 0) {
                                 notificationMessageBuilder.append(prepareMention(channel, textChannel.getGuild()));
-                                addDebugMessageIfInMode(channel, timezone, notificationMessageBuilder, textChannel);
+                                addDebugMessageIfInMode(channel, timezone, notificationMessageBuilder);
                                 textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
                                 ClientLogger.createNewLogEntry("Sended Message to " + textChannel.getGuild().getName() + ".\n" +
                                         notificationMessageBuilder + "\nID: " + textChannel.getGuild().getId() + "\n" +
@@ -141,7 +142,9 @@ public class Notifier {
         return mention;
     }
 
-    private void addDebugMessageIfInMode(String channel, String timezone, StringBuilder notificationMessageBuilder, TextChannel textChannel) {
+    private void addDebugMessageIfInMode(String channel, String timezone, StringBuilder notificationMessageBuilder) {
+        System.out.println(clientCache.isChannelInDebugMode(channel));
+
         if (clientCache.isChannelInDebugMode(channel)) {
             String message =
                     "\n\nCT: " + Time.getFullTime(timezone) + "\n" +

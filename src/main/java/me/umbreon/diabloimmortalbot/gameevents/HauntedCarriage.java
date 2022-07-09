@@ -13,12 +13,10 @@ public class HauntedCarriage {
 
     private final Map<String, Boolean> listHauntedCarriage;
     private final ClientConfig clientConfig;
-    private final ClientCache clientCache;
 
-    public HauntedCarriage(DatabaseRequests databaseRequests, ClientConfig clientConfig, ClientCache clientCache) {
+    public HauntedCarriage(DatabaseRequests databaseRequests, ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
         this.listHauntedCarriage = databaseRequests.getEventTimes("event_haunted_carriage", false);
-        this.clientCache = clientCache;
     }
 
     public String checkHauntedCarriage(String timezone) {

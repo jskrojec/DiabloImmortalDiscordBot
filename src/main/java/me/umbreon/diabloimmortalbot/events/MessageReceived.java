@@ -21,6 +21,7 @@ public class MessageReceived {
     private final UnnotifierCommand unnotifierCommand;
     private final ClientConfig clientConfig;
     private final DebugCommand debugCommand;
+    private final SMACCommand smacCommand;
 
     public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache, ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
@@ -31,6 +32,7 @@ public class MessageReceived {
         this.roleCommand = new RoleCommand(databaseRequests, clientCache);
         this.helpCommand = new HelpCommand();
         this.unnotifierCommand = new UnnotifierCommand(databaseRequests, clientCache);
+        this.smacCommand = new SMACCommand(clientCache);
     }
 
     public void onMessageReceivedEvent(MessageReceivedEvent event, Member member) {
@@ -69,6 +71,9 @@ public class MessageReceived {
                 break;
             case ">debug":
                 debugCommand.onDebugCommand(event.getMessage());
+                break;
+            case ">smac":
+                smacCommand.onSMACCommand(event.getAuthor(), event.getTextChannel());
                 break;
         }
     }

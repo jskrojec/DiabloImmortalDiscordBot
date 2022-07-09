@@ -13,6 +13,7 @@ public class NotificationData {
         this.timezone = timezone;
         this.status = status;
         this.role = role;
+        this.inDebugMode = inDebugMode;
     }
 
     public String getTimezone() {
