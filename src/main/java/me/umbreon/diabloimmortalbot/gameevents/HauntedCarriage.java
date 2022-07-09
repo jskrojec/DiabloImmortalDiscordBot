@@ -21,24 +21,28 @@ public class HauntedCarriage {
         this.clientCache = clientCache;
     }
 
-    public void checkHauntedCarriage(TextChannel textChannel, String timezone) {
-        String time = Time.getFullTime(timezone);
-        if (listHauntedCarriage.get(time) == null) return;
+    public String checkHauntedCarriage(String timezone) {
+        if (!isTimeValid(timezone)) return null;
 
-        String roleId = clientCache.getRoleId(textChannel.getId());
+        String notificationMessage;
 
-        String mentionMessage = "@everyone, ";
-
-        if (roleId != null) {
-            Role role = textChannel.getGuild().getRoleById(roleId);
-            mentionMessage = role.getAsMention() + ", ";
-        }
-
-        if (listHauntedCarriage.get(time)) {
-            textChannel.sendMessage(mentionMessage + clientConfig.getHauntedCarriageHeadUpMessage()).queue();
+        if (isHeadUpTime(timezone)) {
+            notificationMessage = clientConfig.getHauntedCarriageHeadUpMessage() + "\n";
         } else {
-            textChannel.sendMessage(mentionMessage + clientConfig.getHauntedCarriageMessage()).queue();
+            notificationMessage = clientConfig.getHauntedCarriageMessage() + "\n";
         }
+
+        return notificationMessage;
+    }
+
+    private boolean isTimeValid(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listHauntedCarriage.get(time) != null;
+    }
+
+    private boolean isHeadUpTime(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listHauntedCarriage.get(time);
     }
 
 }

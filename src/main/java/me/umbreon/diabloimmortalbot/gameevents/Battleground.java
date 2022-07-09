@@ -13,32 +13,34 @@ public class Battleground {
 
     private final Map<String, Boolean> listBattleground;
     private final ClientConfig clientConfig;
-    private final ClientCache clientCache;
 
-    public Battleground(DatabaseRequests databaseRequests, ClientConfig clientConfig, ClientCache clientCache) {
+    public Battleground(DatabaseRequests databaseRequests, ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
         this.listBattleground = databaseRequests.getEventTimes("event_battleground", true);
-        this.clientCache = clientCache;
     }
 
-    public void checkBattleground(TextChannel textChannel, String timezone) {
-        String time = Time.getTime(timezone);
-        if (listBattleground.get(time) == null) return;
+    public String checkBattleground(String timezone) {
+        if (!isTimeValid(timezone)) return null;
 
-        String roleId = clientCache.getRoleId(textChannel.getId());
+        String notificationMessage;
 
-        String mentionMessage = "@everyone, ";
-
-        if (roleId != null) {
-            Role role = textChannel.getGuild().getRoleById(roleId);
-            mentionMessage = role.getAsMention() + ", ";
-        }
-
-        if (listBattleground.get(time)) {
-            textChannel.sendMessage(mentionMessage + clientConfig.getBattlegroundHeadUpMessage()).queue();
+        if (isHeadUpTime(timezone)) {
+            notificationMessage = clientConfig.getBattlegroundHeadUpMessage() + "\n";
         } else {
-            textChannel.sendMessage(mentionMessage + clientConfig.getBattlegroundMessage()).queue();
+            notificationMessage = clientConfig.getBattlegroundMessage() + "\n";
         }
+
+        return notificationMessage;
+    }
+
+    private boolean isTimeValid(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listBattleground.get(time) != null;
+    }
+
+    private boolean isHeadUpTime(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listBattleground.get(time);
     }
 
 }

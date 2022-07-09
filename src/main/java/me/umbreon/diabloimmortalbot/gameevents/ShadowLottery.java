@@ -21,26 +21,28 @@ public class ShadowLottery {
         this.clientCache = clientCache;
     }
 
-    public void checkShadowLottery(TextChannel textChannel, String timezone) {
-        String time = Time.getTime(timezone);
-        if (listShadowLottery.get(time) == null) return;
+    public String checkShadowLottery(String timezone) {
+        if (!isTimeValid(timezone)) return null;
 
-        String roleId = clientCache.getRoleId(textChannel.getId());
+        String notificationMessage;
 
-        String mentionMessage = "@everyone, ";
-
-        if (roleId != null) {
-            Role role = textChannel.getGuild().getRoleById(roleId);
-            mentionMessage = role.getAsMention() + ", ";
-        }
-
-        if (listShadowLottery.get(time)) {
-            textChannel.sendMessage(mentionMessage + clientConfig.getShadowLotteryHeadUpMessage()).queue();
+        if (isHeadUpTime(timezone)) {
+            notificationMessage = clientConfig.getShadowLotteryHeadUpMessage() + "\n";
         } else {
-            textChannel.sendMessage(mentionMessage + clientConfig.getShadowLotteryMessage()).queue();
+            notificationMessage = clientConfig.getShadowLotteryMessage() + "\n";
         }
+
+        return notificationMessage;
     }
 
+    private boolean isTimeValid(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listShadowLottery.get(time) != null;
+    }
 
+    private boolean isHeadUpTime(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listShadowLottery.get(time);
+    }
 
 }

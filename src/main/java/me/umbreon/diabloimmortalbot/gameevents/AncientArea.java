@@ -13,33 +13,34 @@ public class AncientArea {
 
     private final Map<String, Boolean> listAncientArea;
     private final ClientConfig clientConfig;
-    private final ClientCache clientCache;
 
-    public AncientArea(DatabaseRequests databaseRequests, ClientConfig clientConfig, ClientCache clientCache) {
+    public AncientArea(DatabaseRequests databaseRequests, ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
         this.listAncientArea = databaseRequests.getEventTimes("event_ancient_area", false);
-        this.clientCache = clientCache;
     }
 
-    public void checkAncientArea(TextChannel textChannel, String timezone) {
+    public String checkAncientArea(String timezone) {
+        if (!isTimeValid(timezone)) return null;
 
-        String time = Time.getFullTime(timezone);
-        if (listAncientArea.get(time) == null) return;
+        String notificationMessage;
 
-        String roleId = clientCache.getRoleId(textChannel.getId());
-
-        String mentionMessage = "@everyone, ";
-
-        if (roleId != null) {
-            Role role = textChannel.getGuild().getRoleById(roleId);
-            mentionMessage = role.getAsMention() + ", ";
-        }
-
-        if (listAncientArea.get(time)) {
-            textChannel.sendMessage(mentionMessage + clientConfig.getAncientAreaHeadUpMessage()).queue();
+        if (isHeadUpTime(timezone)) {
+            notificationMessage = clientConfig.getAncientAreaHeadUpMessage() + "\n";
         } else {
-            textChannel.sendMessage(mentionMessage + clientConfig.getAncientAreaMessage()).queue();
+            notificationMessage = clientConfig.getAncientAreaMessage() + "\n";
         }
+
+        return notificationMessage;
+    }
+
+    private boolean isTimeValid(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listAncientArea.get(time) != null;
+    }
+
+    private boolean isHeadUpTime(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listAncientArea.get(time);
     }
 
 }

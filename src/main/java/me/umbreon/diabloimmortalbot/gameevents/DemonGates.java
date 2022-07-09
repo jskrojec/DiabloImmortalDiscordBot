@@ -13,31 +13,33 @@ public class DemonGates {
 
     private final Map<String, Boolean> listDemonGates;
     private final ClientConfig clientConfig;
-    private final ClientCache clientCache;
 
-    public DemonGates(DatabaseRequests databaseRequests, ClientConfig clientConfig, ClientCache clientCache) {
+    public DemonGates(DatabaseRequests databaseRequests, ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
         this.listDemonGates = databaseRequests.getEventTimes("event_demon_gates", false);
-        this.clientCache = clientCache;
     }
 
-    public void checkDemonGates(TextChannel textChannel, String timezone) {
-        String time = Time.getFullTime(timezone);
-        if (listDemonGates.get(time) == null) return;
+    public String checkDemonGates(String timezone) {
+        if (!isTimeValid(timezone)) return null;
 
-        String roleId = clientCache.getRoleId(textChannel.getId());
+        String notificationMessage;
 
-        String mentionMessage = "@everyone, ";
-
-        if (roleId != null) {
-            Role role = textChannel.getGuild().getRoleById(roleId);
-            mentionMessage = role.getAsMention() + ", ";
-        }
-
-        if (listDemonGates.get(time)) {
-            textChannel.sendMessage(mentionMessage + clientConfig.getDemonGatesHeadUpMessage()).queue();
+        if (isHeadUpTime(timezone)) {
+            notificationMessage = clientConfig.getDemonGatesHeadUpMessage() + "\n";
         } else {
-            textChannel.sendMessage(mentionMessage + clientConfig.getDemonGatesMessage()).queue();
+            notificationMessage = clientConfig.getDemonGatesMessage() + "\n";
         }
+
+        return notificationMessage;
+    }
+
+    private boolean isTimeValid(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listDemonGates.get(time) != null;
+    }
+
+    private boolean isHeadUpTime(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listDemonGates.get(time);
     }
 }

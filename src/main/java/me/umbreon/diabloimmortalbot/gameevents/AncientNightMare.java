@@ -12,33 +12,35 @@ import java.util.Map;
 public class AncientNightMare {
 
     private final Map<String, Boolean> listAncientNightMare;
-    private ClientConfig clientConfig;
-    private final ClientCache clientCache;
+    private final ClientConfig clientConfig;
 
-    public AncientNightMare(DatabaseRequests databaseRequests, ClientConfig clientConfig, ClientCache clientCache) {
+    public AncientNightMare(DatabaseRequests databaseRequests, ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
         listAncientNightMare = databaseRequests.getEventTimes("event_ancient_nightmare", false);
-        this.clientCache = clientCache;
     }
 
-    public void checkAncientNightMare(TextChannel textChannel, String timezone) {
-        String time = Time.getFullTime(timezone);
-        if (listAncientNightMare.get(time) == null) return;
+    public String checkAncientNightMare(String timezone) {
+        if (!isTimeValid(timezone)) return null;
 
-        String roleId = clientCache.getRoleId(textChannel.getId());
+        String notificationMessage;
 
-        String mentionMessage = "@everyone, ";
-
-        if (roleId != null) {
-            Role role = textChannel.getGuild().getRoleById(roleId);
-            mentionMessage = role.getAsMention() + ", ";
-        }
-
-        if (listAncientNightMare.get(time)) {
-            textChannel.sendMessage(mentionMessage + clientConfig.getAncientNightmareHeadUpMessage()).queue();
+        if (isHeadUpTime(timezone)) {
+            notificationMessage = clientConfig.getAncientNightmareHeadUpMessage() + "\n";
         } else {
-            textChannel.sendMessage(mentionMessage + clientConfig.getAncientNightmareMessage()).queue();
+            notificationMessage = clientConfig.getAncientNightmareMessage() + "\n";
         }
+
+        return notificationMessage;
+    }
+
+    private boolean isTimeValid(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listAncientNightMare.get(time) != null;
+    }
+
+    private boolean isHeadUpTime(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listAncientNightMare.get(time);
     }
 
 }

@@ -13,32 +13,34 @@ public class Assembly {
 
     private final Map<String, Boolean> listAssembly;
     private final ClientConfig clientConfig;
-    private final ClientCache clientCache;
 
-    public Assembly(DatabaseRequests databaseRequests, ClientConfig clientConfig, ClientCache clientCache) {
+    public Assembly(DatabaseRequests databaseRequests, ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
         this.listAssembly = databaseRequests.getEventTimes("event_assembly", false);
-        this.clientCache = clientCache;
     }
 
-    public void checkAssembly(TextChannel textChannel, String timezone) {
-        String time = Time.getFullTime(timezone);
-        if (listAssembly.get(time) == null) return;
+    public String checkAssembly(String timezone) {
+        if (!isTimeValid(timezone)) return null;
 
-        String roleId = clientCache.getRoleId(textChannel.getId());
+        String notificationMessage;
 
-        String mentionMessage = "@everyone, ";
-
-        if (roleId != null) {
-            Role role = textChannel.getGuild().getRoleById(roleId);
-            mentionMessage = role.getAsMention() + ", ";
-        }
-
-        if (listAssembly.get(time)) {
-            textChannel.sendMessage(mentionMessage + clientConfig.getAssemblyHeadUpMessage()).queue();
+        if (isHeadUpTime(timezone)) {
+            notificationMessage = clientConfig.getAssemblyHeadUpMessage() + "\n";
         } else {
-            textChannel.sendMessage(mentionMessage + clientConfig.getAssemblyMessage()).queue();
+            notificationMessage = clientConfig.getAssemblyMessage() + "\n";
         }
+
+        return notificationMessage;
+    }
+
+    private boolean isTimeValid(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listAssembly.get(time) != null;
+    }
+
+    private boolean isHeadUpTime(String timezone) {
+        String time = Time.getFullTime(timezone);
+        return listAssembly.get(time);
     }
 
 }
