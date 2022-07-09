@@ -25,10 +25,17 @@ public class DebugCommand {
             return;
         }
 
-        databaseRequests.setDebugModeValue(textChannel.getId(), true);
-        message.getTextChannel().sendMessage(textChannel.getAsMention() + " is no in debug mode.").queue();
+        String[] args = message.getContentRaw().split(" ");
+
+        if (args[1].equalsIgnoreCase("false")) {
+            databaseRequests.setDebugModeValue(textChannel.getId(), false);
+            message.getTextChannel().sendMessage(textChannel.getAsMention() + " is no longer in debug mode.").queue();
+        } else {
+            databaseRequests.setDebugModeValue(textChannel.getId(), true);
+            message.getTextChannel().sendMessage(textChannel.getAsMention() + " is now in debug mode.").queue();
+        }
+
         clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
     }
-
 
 }
