@@ -134,17 +134,14 @@ public class Notifier {
             if (!roleId.isBlank()) {
                 mention = "|| " + guild.getRoleById(roleId).getAsMention() + " ||";
             }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            ClientLogger.createNewLogEntry(e.getMessage());
+        } catch (NullPointerException ignore) {
+            //If this exception happens, no role was set.
         }
 
         return mention;
     }
 
     private void addDebugMessageIfInMode(String channel, String timezone, StringBuilder notificationMessageBuilder) {
-        System.out.println(clientCache.isChannelInDebugMode(channel));
-
         if (clientCache.isChannelInDebugMode(channel)) {
             String message =
                     "\n\nCT: " + Time.getFullTime(timezone) + "\n" +

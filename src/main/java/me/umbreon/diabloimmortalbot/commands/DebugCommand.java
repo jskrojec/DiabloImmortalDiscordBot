@@ -27,10 +27,10 @@ public class DebugCommand {
 
         String[] args = message.getContentRaw().split(" ");
 
-        if (args[1].equalsIgnoreCase("false")) {
+        if (args[1].equalsIgnoreCase("off")) {
             databaseRequests.setDebugModeValue(textChannel.getId(), false);
             message.getTextChannel().sendMessage(textChannel.getAsMention() + " is no longer in debug mode.").queue();
-        } else {
+        } else if (args[1].equalsIgnoreCase("on")) {
             databaseRequests.setDebugModeValue(textChannel.getId(), true);
             message.getTextChannel().sendMessage(textChannel.getAsMention() + " is now in debug mode.").queue();
         }
