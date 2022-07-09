@@ -20,4 +20,3 @@ Commands:
 
 - '>role @Role to set what role should be mentioned in this textchannel. If you dont set the role @everyone will be mentioned.'
 - '>debug Sets a channel as debug mode (You don't need that, it's just for me to help me finding and fixing bugs.'
-> 
