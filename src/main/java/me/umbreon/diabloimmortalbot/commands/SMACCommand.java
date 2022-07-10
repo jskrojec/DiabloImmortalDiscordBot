@@ -5,6 +5,8 @@ import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * SMAC = Show me all channels
  */
@@ -28,7 +30,9 @@ public class SMACCommand {
                     notificationData.timezone + "\n" +
                     notificationData.status + "\n" +
                     notificationData.inDebugMode + "\n-------";
-            textChannel.sendMessage(message).queue();
+            textChannel.sendMessage(message).queue(message1 -> {
+                message1.delete().queueAfter(1, TimeUnit.HOURS);
+            });
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

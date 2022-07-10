@@ -24,12 +24,16 @@ public class ClientCache {
         return listWithNotificationChannels.get(channelId).getTimezone();
     }
 
-    public String getRoleId(String channelId) {
+    public String getMentionRoleID(String channelId) {
         return listWithNotificationChannels.get(channelId).getRole();
     }
 
     public boolean isChannelInDebugMode(String channelId) {
         return listWithNotificationChannels.get(channelId).isInDebugMode();
+    }
+
+    public boolean doNotificationChannelExists(String channelID) {
+        return listWithNotificationChannels.containsKey(channelID);
     }
 
 }

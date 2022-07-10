@@ -1,10 +1,8 @@
-package me.umbreon.diabloimmortalbot.gameevents;
+package me.umbreon.diabloimmortalbot.notifier;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ClientConfig;
-import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import me.umbreon.diabloimmortalbot.utils.Time;
+import me.umbreon.diabloimmortalbot.gameevents.*;
+import me.umbreon.diabloimmortalbot.utils.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -26,6 +24,7 @@ public class Notifier {
     private final ClientCache clientCache;
     private final Assembly assembly;
     private final ShadowLottery shadowLottery;
+    private final InformationNotifier informationNotifier;
 
     public Notifier(DatabaseRequests databaseRequests, ClientConfig clientConfig, ClientCache clientCache) {
         this.clientCache = clientCache;
@@ -37,6 +36,7 @@ public class Notifier {
         this.demonGates = new DemonGates(databaseRequests, clientConfig);
         this.hauntedCarriage = new HauntedCarriage(databaseRequests, clientConfig);
         this.vault = new Vault(databaseRequests, clientConfig);
+        this.informationNotifier = new InformationNotifier(clientCache);
     }
 
     public void runNotifierScheduler(JDA jda) {
@@ -44,17 +44,27 @@ public class Notifier {
         new Timer().schedule(new TimerTask() {
             public void run() {
 
+                StringBuilder infoNotificationBuilder = new StringBuilder();
+                StringBuilder aliveChecker = new StringBuilder();
+
                 for (String channel : clientCache.getListWithNotificationChannels().keySet()) {
                     try {
                         TextChannel textChannel = jda.getTextChannelById(channel);
                         String timezone = clientCache.getTimezone(channel);
 
                         if (textChannel != null) {
-                            /*
-                            If the textChannel is null, the channel got deleted or bot isn't on that server anymore.
-                             */
+
+                            if (Time.isTimeZoneUTC(timezone)) {
+                                // UTC+5 or UTC-9 or smt is't supported or idk?
+                                // so we r going to replace that.
+                                // UTC-2 -> GMT-2
+                                timezone = Time.replaceUtcTimeZone(timezone);
+                            }
+
+                            //If the textChannel is null, the channel got deleted or bot isn't on that server anymore.
 
                             StringBuilder notificationMessageBuilder = new StringBuilder();
+                            aliveChecker.append(channel).append(Time.getFullTime(timezone)).append(timezone).append("\n");
 
                             switch (clientCache.getStatus(textChannel.getId())) {
                                 case 0: //ALL MESSAGES
@@ -102,21 +112,25 @@ public class Notifier {
                                     notificationMessageBuilder.append(assembly.checkAssembly(timezone));
                                     notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone));
                                     break;
+                                case 128:
+                                    notificationMessageBuilder.append("Time: ").append(Time.getFullTime(timezone))
+                                            .append(" TimeZone: ").append(timezone);
                             }
 
                             if (notificationMessageBuilder.length() > 0) {
                                 notificationMessageBuilder.append(prepareMention(channel, textChannel.getGuild()));
                                 addDebugMessageIfInMode(channel, timezone, notificationMessageBuilder);
                                 textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
-                                ClientLogger.createNewLogEntry("Sended Message to " + textChannel.getGuild().getName() + ".\n" +
+                                String logInfoMessage = "Sended Message to " + textChannel.getGuild().getName() + ".\n" +
                                         notificationMessageBuilder + "\nID: " + textChannel.getGuild().getId() + "\n" +
-                                        "Timezone: " + timezone + ", Time: " + Time.getFullTime(timezone));
+                                        "Timezone: " + timezone + ", Time: " + Time.getFullTime(timezone);
+                                ClientLogger.createNewLogEntry(logInfoMessage);
+                                informationNotifier.sendInformationMessage(infoNotificationBuilder.toString(), jda);
                             }
-
 
                         }
 
-                    } catch (NullPointerException e) {
+                    } catch (Exception e) {
                         ClientLogger.createNewLogEntry(e.getMessage());
                     }
 
@@ -127,12 +141,12 @@ public class Notifier {
     }
 
     private String prepareMention(String channelId, Guild guild) {
-        String roleId = clientCache.getRoleId(channelId);
-        String mention = "|| @everyone ||";
+        String roleId = clientCache.getMentionRoleID(channelId);
+        String mention = "@everyone";
 
         try {
             if (!roleId.isBlank()) {
-                mention = "|| " + guild.getRoleById(roleId).getAsMention() + " ||";
+                mention = guild.getRoleById(roleId).getAsMention();
             }
         } catch (NullPointerException ignore) {
             //If this exception happens, no role was set.
@@ -150,4 +164,5 @@ public class Notifier {
             notificationMessageBuilder.append(message);
         }
     }
+
 }

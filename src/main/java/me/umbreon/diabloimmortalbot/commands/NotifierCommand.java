@@ -21,6 +21,10 @@ public class NotifierCommand {
         message.delete().queue();
         String channelId = textChannel.getId();
 
+        if (clientCache.doNotificationChannelExists(channelId)) {
+
+        }
+
         if (databaseRequests.doNotificationChannelExists(channelId)) {
             textChannel.sendMessage(textChannel.getAsMention() + " is already registered as Notify-Channel.").queue();
         } else {

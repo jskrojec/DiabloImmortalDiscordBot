@@ -4,7 +4,6 @@ import me.umbreon.diabloimmortalbot.commands.*;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientConfig;
-import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -23,6 +22,7 @@ public class MessageReceived {
     private final DebugCommand debugCommand;
     private final SMACCommand smacCommand;
     private final AYSTCommand aystCommand;
+    private final CheckTimeZoneCommand checkTimeZoneCommand;
 
     public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache, ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
@@ -35,6 +35,7 @@ public class MessageReceived {
         this.unnotifierCommand = new UnnotifierCommand(databaseRequests, clientCache);
         this.smacCommand = new SMACCommand(clientCache);
         this.aystCommand = new AYSTCommand();
+        this.checkTimeZoneCommand = new CheckTimeZoneCommand();
     }
 
     public void onMessageReceivedEvent(MessageReceivedEvent event, Member member) {
@@ -80,6 +81,12 @@ public class MessageReceived {
             case ">ayst":
                 aystCommand.onAYSTCommand(event.getMessage());
                 break;
+            case ">checktimezone":
+            case ">ctz":
+            case ">checktz":
+                checkTimeZoneCommand.onCheckTimeZoneCommand(event.getMessage());
+                break;
+
         }
     }
 

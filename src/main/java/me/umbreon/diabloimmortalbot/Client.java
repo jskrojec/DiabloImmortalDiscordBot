@@ -3,7 +3,7 @@ package me.umbreon.diabloimmortalbot;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
 import me.umbreon.diabloimmortalbot.events.EventHandler;
-import me.umbreon.diabloimmortalbot.gameevents.Notifier;
+import me.umbreon.diabloimmortalbot.notifier.Notifier;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;

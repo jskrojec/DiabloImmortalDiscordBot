@@ -24,4 +24,25 @@ public class Time {
         simpleDateFormat.setTimeZone(timeZone);
         return simpleDateFormat.format(currentDate);
     }
+
+    public static boolean isTimeZoneUTC(String timeZone) {
+        return timeZone.substring(0, 3).equalsIgnoreCase("utc");
+    }
+
+    public static boolean isTimeZoneCEST(String timeZone) {
+        return timeZone.substring(0, 4).equalsIgnoreCase("cest");
+    }
+
+    public static boolean isTimeZoneEST(String timeZone) {
+        return timeZone.substring(0, 3).equalsIgnoreCase("est");
+    }
+
+    public static boolean isTimeZoneGMT(String timeZone) {
+        return timeZone.substring(0, 3).equalsIgnoreCase("gmt");
+    }
+
+    public static String replaceUtcTimeZone(String timeZone) {
+        int timeZoneLength = timeZone.length();
+        return "GMT" + timeZone.substring(3, timeZoneLength);
+    }
 }

@@ -5,6 +5,8 @@ import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.util.concurrent.TimeUnit;
+
 public class UnnotifierCommand {
 
     private final DatabaseRequests databaseRequests;
@@ -22,10 +24,14 @@ public class UnnotifierCommand {
 
         if (databaseRequests.doNotificationChannelExists(channelId)) {
             databaseRequests.deleteNotificationChannelEntry(channelId);
-            textChannel.sendMessage(textChannel.getAsMention() + " is unregistered.").queue();
+            textChannel.sendMessage(textChannel.getAsMention() + " is unregistered.").queue(message1 -> {
+                message1.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
             clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
         } else {
-            textChannel.sendMessage(textChannel.getAsMention() + " isn't a Notify-Channel.").queue();
+            textChannel.sendMessage(textChannel.getAsMention() + " isn't a Notify-Channel.").queue(message1 -> {
+                message1.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
         }
 
     }

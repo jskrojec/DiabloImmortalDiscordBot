@@ -23,7 +23,7 @@ public class DatabaseRequests {
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO channel_notification (channel, timezone, status, role, debug) VALUES (?, ?, ?, ?, ?)")) {
             try {
                 preparedStatement.setString(1, channelId);
-                preparedStatement.setString(2, "PST");
+                preparedStatement.setString(2, "GMT");
                 preparedStatement.setInt(3, 0);
                 preparedStatement.setString(4, null);
                 preparedStatement.setBoolean(5, false);
