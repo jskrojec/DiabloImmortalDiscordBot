@@ -1,6 +1,6 @@
 package me.umbreon.diabloimmortalbot.database;
 
-import me.umbreon.diabloimmortalbot.data.NotificationData;
+import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 
 import java.sql.Connection;
@@ -18,15 +18,15 @@ public class DatabaseRequests {
         this.databaseConnection = databaseConnection;
     }
 
-    public void createNewNotificationChannelEntry(String channelId) {
+    public void createNewNotificationChannelEntry(NotificationChannel notificationChannel) {
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO channel_notification (channel, timezone, status, role, debug) VALUES (?, ?, ?, ?, ?)")) {
             try {
-                preparedStatement.setString(1, channelId);
-                preparedStatement.setString(2, "GMT");
-                preparedStatement.setInt(3, 0);
-                preparedStatement.setString(4, null);
-                preparedStatement.setBoolean(5, false);
+                preparedStatement.setString(1, notificationChannel.channelId);
+                preparedStatement.setString(2, notificationChannel.timezone);
+                preparedStatement.setInt(3, notificationChannel.status);
+                preparedStatement.setString(4, notificationChannel.role);
+                preparedStatement.setBoolean(5, notificationChannel.inDebugMode);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry(e.getMessage());
@@ -37,27 +37,8 @@ public class DatabaseRequests {
         }
     }
 
-    public boolean doNotificationChannelExists(String channelId) {
-        boolean exists = false;
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT channel FROM channel_notification WHERE channel = ?")) {
-            preparedStatement.setString(1, channelId);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    exists = true;
-                }
-            } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
-            }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
-        } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
-        }
-        return exists;
-    }
-
-    public Map<String, NotificationData> getAllNotificationChannels() {
-        Map<String, NotificationData> listWithNotificationChannels = new ConcurrentHashMap<>();
+    public Map<String, NotificationChannel> getAllNotificationChannels() {
+        Map<String, NotificationChannel> listWithNotificationChannels = new ConcurrentHashMap<>();
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM channel_notification")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -68,8 +49,8 @@ public class DatabaseRequests {
                     String role = resultSet.getString("role");
                     int debugInt = resultSet.getInt("debug");
                     boolean debug = (debugInt == 1);
-                    NotificationData notificationData = new NotificationData(channelId, timezone, status, role, debug);
-                    listWithNotificationChannels.put(channelId, notificationData);
+                    NotificationChannel notificationChannel = new NotificationChannel(channelId, timezone, status, role, debug);
+                    listWithNotificationChannels.put(channelId, notificationChannel);
                 }
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry(e.getMessage());

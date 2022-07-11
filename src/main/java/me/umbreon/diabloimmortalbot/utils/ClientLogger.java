@@ -12,9 +12,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.zip.GZIPOutputStream;
 
-/**
- * @author Umbreon Majora
- */
 
 public class ClientLogger {
 
@@ -22,6 +19,9 @@ public class ClientLogger {
     private static File logFile;
     private static boolean createdNewLogFolder;
     private static String date;
+
+    private ClientLogger() {
+    }
 
     public static void startTimer(String logFolderPath) {
         logFolder = new File(logFolderPath);
@@ -34,7 +34,7 @@ public class ClientLogger {
                 compressLastTenLogFiles();
                 checkForNewDateAndCreateNewFileIfNeeded();
             }
-        }, 0, (60 * 1000) * 60);
+        }, 0, ((60 * 1000) * 60) * 6);
     }
 
     public static void createNewLogEntry(String message) {
@@ -67,20 +67,25 @@ public class ClientLogger {
         if (!doesLogFolderExists()) {
             createdNewLogFolder = logFolder.mkdir();
         }
+
         logFile = new File("/home/discord/logs/" + date + ".log");
-        System.out.println(logFile);
+        System.out.println("Using file" + logFile + " as logfile.");
+
         if (!doesLogFileExist()) {
             try {
                 boolean createdNewLogFile = logFile.createNewFile();
                 BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
                 bufferedWriter.append("#### Author: Umbreon #### #### Date: ").append(getCurrentDate()).append(" ####\n\n");
                 bufferedWriter.close();
+
                 if (createdNewLogFolder) {
                     createNewLogEntry("Created new log folder.");
                 }
+
                 if (createdNewLogFile) {
                     createNewLogEntry("Created new log file.");
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -109,7 +114,6 @@ public class ClientLogger {
     }
 
     private static void compressLastTenLogFiles() {
-
         for (int i = 1; i <= 10; i++) {
             String date = getOlderDate(i);
             String finalPath = "/home/discord/logs/" + date + ".log";
@@ -128,14 +132,11 @@ public class ClientLogger {
                     }
 
                     deleteLogFile(finalPath);
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
         }
-
     }
 
     private static void deleteLogFile(String path) {
@@ -144,6 +145,4 @@ public class ClientLogger {
             createNewLogEntry("Deleted file " + file.getName());
         }
     }
-
-
 }

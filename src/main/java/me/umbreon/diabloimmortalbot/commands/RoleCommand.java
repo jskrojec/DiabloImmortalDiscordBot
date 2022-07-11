@@ -1,11 +1,16 @@
 package me.umbreon.diabloimmortalbot.commands;
 
+import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.configuration.LanguageEnglish;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
+
+import java.util.concurrent.TimeUnit;
 
 public class RoleCommand {
 
@@ -18,33 +23,41 @@ public class RoleCommand {
     }
 
     public void onRoleCommand(Message message) {
-        String[] args = message.getContentRaw().split(" ");
-        TextChannel textChannel = message.getTextChannel();
         message.delete().queue();
-        String channelId = textChannel.getId();
-        String roleNonReplaced = args[1];
-        String roleId = roleNonReplaced.replaceAll("[^\\d.]", "");
 
-        if (!databaseRequests.doNotificationChannelExists(channelId)) {
-            textChannel.sendMessage(textChannel.getAsMention() + " is not registered.").queue();
+        TextChannel textChannel = message.getTextChannel();
+        String channelID = textChannel.getId();
+
+        if (!clientCache.doNotificationChannelExists(channelID)) {
+            textChannel.sendMessage(textChannel.getAsMention() + LanguageController.getNotRegisteredMessage("ENG")).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
             return;
         }
 
-        Role role1;
+        String[] args = message.getContentRaw().split(" ");
+        String roleID = args[1].replaceAll("[^\\d.]", "");
+        Guild guild = message.getGuild();
+        Role role = getRoleByRoleID(roleID, guild);
+
+        if (role == null) {
+            textChannel.sendMessage(LanguageController.getRoleNotFoundMessage("ENG")).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
+            return;
+        }
+
+        clientCache.setRole(channelID, roleID);
+        databaseRequests.setRole(channelID, roleID);
+        message.getTextChannel().sendMessage(role.getAsMention() + " is now set.").queue(); //TODO: ADD LC
+    }
+
+    private Role getRoleByRoleID(String roleID, Guild guild) {
         try {
-            role1 = message.getGuild().getRoleById(roleId);
-        } catch (NullPointerException e) {
-            message.getTextChannel().sendMessage("Role does not exist.").queue();
+            return guild.getRoleById(roleID);
+        } catch (NullPointerException | IllegalAccessError e) { //TODO: What is IllegalAccessError?
             ClientLogger.createNewLogEntry(e.getMessage());
-            return;
-        } catch (IllegalAccessError e) {
-            message.getTextChannel().sendMessage("Unkown error occured, please check log file.").queue();
-            ClientLogger.createNewLogEntry(e.getMessage());
-            return;
+            return null;
         }
-
-        databaseRequests.setRole(textChannel.getId(), roleId);
-        message.getTextChannel().sendMessage(role1.getAsMention() + " is now set.").queue();
-        clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
     }
 }

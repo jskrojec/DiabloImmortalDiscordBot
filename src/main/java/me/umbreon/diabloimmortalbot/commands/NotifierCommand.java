@@ -1,10 +1,13 @@
 package me.umbreon.diabloimmortalbot.commands;
 
+import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
+
+import java.util.concurrent.TimeUnit;
 
 public class NotifierCommand {
 
@@ -17,22 +20,21 @@ public class NotifierCommand {
     }
 
     public void onNotifierCommand(Message message) {
-        TextChannel textChannel = message.getTextChannel();
         message.delete().queue();
-        String channelId = textChannel.getId();
 
-        if (clientCache.doNotificationChannelExists(channelId)) {
+        TextChannel textChannel = message.getTextChannel();
+        String channelID = textChannel.getId();
 
+        if (clientCache.doNotificationChannelExists(channelID)) {
+            textChannel.sendMessage(textChannel.getAsMention() + LanguageController.getAlreadyRegisteredMessage("ENG")).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
+            return;
         }
 
-        if (databaseRequests.doNotificationChannelExists(channelId)) {
-            textChannel.sendMessage(textChannel.getAsMention() + " is already registered as Notify-Channel.").queue();
-        } else {
-            databaseRequests.createNewNotificationChannelEntry(channelId);
-            textChannel.sendMessage(textChannel.getAsMention() + " is now a Notify-Channel.").queue();
-            clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
-        }
-
+        NotificationChannel notificationChannel = new NotificationChannel(channelID);
+        databaseRequests.createNewNotificationChannelEntry(notificationChannel);
+        clientCache.addNotificationChannel(notificationChannel);
+        textChannel.sendMessage(textChannel.getAsMention() + LanguageController.getRegisteredMessage("ENG")).queue();
     }
-
 }

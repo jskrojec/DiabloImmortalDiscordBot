@@ -1,0 +1,111 @@
+Ancient Nightmare
+
+CREATE TABLE event_ancient_nightmare (day VARCHAR(10), time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Wednesday", "12:00", 0);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Wednesday", "20:30", 0);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Wednesday", "22:00", 0);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Wednesday", "11:45", 1);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Wednesday", "20:15", 1);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Wednesday", "21:45", 1);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Friday", "12:00", 0);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Friday", "20:30", 0);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Friday", "22:00", 0);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Friday", "11:45", 1);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Friday", "20:15", 1);
+INSERT INTO event_ancient_nightmare (day, time, headup) VALUES ("Friday", "21:45", 1);
+
+Ancient Arena
+
+CREATE TABLE event_ancient_area (day VARCHAR(10), time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_ancient_area (day, time, headup) VALUES ("Tuesday", "21:30", 0);
+INSERT INTO event_ancient_area (day, time, headup) VALUES ("Thursday", "21:30", 0);
+INSERT INTO event_ancient_area (day, time, headup) VALUES ("Friday", "21:30", 0);
+INSERT INTO event_ancient_area (day, time, headup) VALUES ("Saturday", "21:30", 0);
+INSERT INTO event_ancient_area (day, time, headup) VALUES ("Tuesday", "21:15", 1);
+INSERT INTO event_ancient_area (day, time, headup) VALUES ("Thursday", "21:15", 1);
+INSERT INTO event_ancient_area (day, time, headup) VALUES ("Friday", "21:15", 1);
+INSERT INTO event_ancient_area (day, time, headup) VALUES ("Saturday", "21:15", 1);
+
+Vault
+
+CREATE TABLE event_vault (time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_vault (time, headup) VALUES ("12:00", 0);
+INSERT INTO event_vault (time, headup) VALUES ("11:45", 1);
+INSERT INTO event_vault (time, headup) VALUES ("19:00", 0);
+INSERT INTO event_vault (time, headup) VALUES ("18:45", 1);
+
+Haunted Carriage
+
+CREATE TABLE event_haunted_carriage (day VARCHAR(10), time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "12:00", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "11:45", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "20:30", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "20:15", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "22:00", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "21:45", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "12:00", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "11:45", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "20:30", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "20:15", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "22:00", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "21:45", 1);
+
+Demon Gates
+
+CREATE TABLE event_demon_gates (day VARCHAR(10), time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Monday", "12:00", 0);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Monday", "11:45", 1);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Monday", "20:30", 0);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Monday", "20:15", 1);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Monday", "22:00", 0);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Monday", "21:45", 1);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Thursday", "12:00", 0);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Thursday", "11:45", 1);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Thursday", "20:30", 0);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Thursday", "20:15", 1);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Thursday", "22:00", 0);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Thursday", "21:45", 1);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Sunday", "12:00", 0);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Sunday", "11:45", 1);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Sunday", "20:30", 0);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Sunday", "20:15", 1);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Sunday", "22:00", 0);
+INSERT INTO event_demon_gates (day, time, headup) VALUES ("Sunday", "21:45", 1);
+
+Battleground
+
+CREATE TABLE event_battleground (time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_battleground (time, headup) VALUES ("08:00", 0);
+INSERT INTO event_battleground (time, headup) VALUES ("07:45", 1);
+INSERT INTO event_battleground (time, headup) VALUES ("12:00", 0);
+INSERT INTO event_battleground (time, headup) VALUES ("11:45", 1);
+INSERT INTO event_battleground (time, headup) VALUES ("18:00", 0);
+INSERT INTO event_battleground (time, headup) VALUES ("17:45", 1);
+INSERT INTO event_battleground (time, headup) VALUES ("22:00", 0);
+INSERT INTO event_battleground (time, headup) VALUES ("21:45", 1);
+
+Assembly
+
+CREATE TABLE event_assembly (day VARCHAR(10), time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_assembly (day, time, headup) VALUES ("Monday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Monday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Tuesday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Tuesday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Wednesday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Wednesday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Thursday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Thursday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Friday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Friday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Saturday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Saturday", "17:45", 1);
+
+Shadow Lottery
+
+CREATE TABLE event_shadow_lottery (time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_shadow_lottery (time, headup) VALUES ("12:00", 0);
+INSERT INTO event_shadow_lottery (time, headup) VALUES ("11:45",1);
+INSERT INTO event_shadow_lottery (time, headup) VALUES ("18:00", 0);
+INSERT INTO event_shadow_lottery (time, headup) VALUES ("17:45",1);
+INSERT INTO event_shadow_lottery (time, headup) VALUES ("21:00", 0);
+INSERT INTO event_shadow_lottery (time, headup) VALUES ("20:45",1);

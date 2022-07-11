@@ -1,9 +1,12 @@
 package me.umbreon.diabloimmortalbot.commands;
 
+import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
+
+import java.util.concurrent.TimeUnit;
 
 public class DebugCommand {
 
@@ -16,26 +19,34 @@ public class DebugCommand {
     }
 
     public void onDebugCommand(Message message) {
-        TextChannel textChannel = message.getTextChannel();
         message.delete().queue();
-        String channelId = textChannel.getId();
 
-        if (!databaseRequests.doNotificationChannelExists(channelId)) {
-            textChannel.sendMessage(textChannel.getAsMention() + " is not registered.").queue();
+        TextChannel textChannel = message.getTextChannel();
+        String channelID = textChannel.getId();
+
+        if (clientCache.doNotificationChannelExists(channelID)) {
+            textChannel.sendMessage(textChannel.getAsMention() + LanguageController.getAlreadyRegisteredMessage("ENG")).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
             return;
         }
 
         String[] args = message.getContentRaw().split(" ");
 
-        if (args[1].equalsIgnoreCase("off")) {
-            databaseRequests.setDebugModeValue(textChannel.getId(), false);
-            message.getTextChannel().sendMessage(textChannel.getAsMention() + " is no longer in debug mode.").queue();
-        } else if (args[1].equalsIgnoreCase("on")) {
-            databaseRequests.setDebugModeValue(textChannel.getId(), true);
-            message.getTextChannel().sendMessage(textChannel.getAsMention() + " is now in debug mode.").queue();
+        if (args[1].equalsIgnoreCase("on")) {
+            databaseRequests.setDebugModeValue(channelID, true);
+            clientCache.setDebugValue(channelID, true);
+            textChannel.sendMessage(textChannel.getAsMention() +
+                    LanguageController.getNowInDebugMessage("ENG")).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
+        } else {
+            databaseRequests.setDebugModeValue(channelID, false);
+            clientCache.setDebugValue(channelID, false);
+            textChannel.sendMessage(textChannel.getAsMention() +
+                    LanguageController.getNoLongerDebugMessage("ENG")).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
         }
-
-        clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
     }
-
 }

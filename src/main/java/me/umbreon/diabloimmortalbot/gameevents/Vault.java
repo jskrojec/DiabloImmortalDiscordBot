@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
+import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientConfig;
@@ -12,25 +13,19 @@ import java.util.Map;
 public class Vault {
 
     private final Map<String, Boolean> listVault;
-    private final ClientConfig clientConfig;
 
-    public Vault(DatabaseRequests databaseRequests, ClientConfig clientConfig) {
-        this.clientConfig = clientConfig;
+    public Vault(DatabaseRequests databaseRequests) {
         this.listVault = databaseRequests.getEventTimes("event_vault", true);
     }
 
     public String checkVault(String timezone) {
         if (!isTimeValid(timezone)) return "";
 
-        String notificationMessage;
-
         if (isHeadUpTime(timezone)) {
-            notificationMessage = clientConfig.getVaultHeadUpMessage() + "\n";
+            return LanguageController.getVaultHeadUpMessage("ENG") + "\n";
         } else {
-            notificationMessage = clientConfig.getVaultMessage() + "\n";
+            return LanguageController.getVaultMessage("ENG") + "\n";
         }
-
-        return notificationMessage;
     }
 
     private boolean isTimeValid(String timezone) {

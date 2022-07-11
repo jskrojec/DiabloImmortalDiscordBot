@@ -16,25 +16,17 @@ public class MessageReceived {
     private final StatusCommand statusCommand;
     private final TimezoneCommand timezoneCommand;
     private final RoleCommand roleCommand;
-    private final HelpCommand helpCommand;
     private final UnnotifierCommand unnotifierCommand;
-    private final ClientConfig clientConfig;
     private final DebugCommand debugCommand;
-    private final SMACCommand smacCommand;
-    private final AYSTCommand aystCommand;
     private final CheckTimeZoneCommand checkTimeZoneCommand;
 
-    public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache, ClientConfig clientConfig) {
-        this.clientConfig = clientConfig;
+    public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.debugCommand = new DebugCommand(databaseRequests, clientCache);
         this.notifierCommand = new NotifierCommand(databaseRequests, clientCache);
         this.statusCommand = new StatusCommand(databaseRequests, clientCache);
         this.timezoneCommand = new TimezoneCommand(databaseRequests, clientCache);
         this.roleCommand = new RoleCommand(databaseRequests, clientCache);
-        this.helpCommand = new HelpCommand();
         this.unnotifierCommand = new UnnotifierCommand(databaseRequests, clientCache);
-        this.smacCommand = new SMACCommand(clientCache);
-        this.aystCommand = new AYSTCommand();
         this.checkTimeZoneCommand = new CheckTimeZoneCommand();
     }
 
@@ -43,15 +35,11 @@ public class MessageReceived {
             return;
         }
 
-        String[] args = event.getMessage().getContentRaw().split(" ");
-
-        if (event.getAuthor().isBot()) {
-            return;
-        }
-
         if (findBotRole(member) == null) {
             return;
         }
+
+        String[] args = event.getMessage().getContentRaw().split(" ");
 
         switch (args[0].toLowerCase()) {
             case ">notifier":
@@ -69,17 +57,8 @@ public class MessageReceived {
             case ">role":
                 roleCommand.onRoleCommand(event.getMessage());
                 break;
-            case ">help":
-                helpCommand.onHelpCommand(event.getMessage());
-                break;
             case ">debug":
                 debugCommand.onDebugCommand(event.getMessage());
-                break;
-            case ">smac":
-                smacCommand.onSMACCommand(event.getAuthor(), event.getTextChannel());
-                break;
-            case ">ayst":
-                aystCommand.onAYSTCommand(event.getMessage());
                 break;
             case ">checktimezone":
             case ">ctz":

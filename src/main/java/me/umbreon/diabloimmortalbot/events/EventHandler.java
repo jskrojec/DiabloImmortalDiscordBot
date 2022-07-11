@@ -14,8 +14,8 @@ public class EventHandler implements EventListener {
 
     private final MessageReceived messageReceived;
 
-    public EventHandler(DatabaseRequests databaseRequests, ClientCache clientCache, ClientConfig clientConfig) {
-        this.messageReceived = new MessageReceived(databaseRequests, clientCache, clientConfig);
+    public EventHandler(DatabaseRequests databaseRequests, ClientCache clientCache) {
+        this.messageReceived = new MessageReceived(databaseRequests, clientCache);
     }
 
     @Override

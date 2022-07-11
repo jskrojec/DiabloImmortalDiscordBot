@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.commands;
 
+import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
@@ -19,40 +20,35 @@ public class TimezoneCommand {
     }
 
     public void onTimezoneCommand(Message message) {
-        String[] args = message.getContentRaw().split(" ");
-        String timezone = args[1].toUpperCase();
-        TextChannel textChannel = message.getTextChannel();
-        String channelId = textChannel.getId();
         message.delete().queue();
 
-        if (!databaseRequests.doNotificationChannelExists(channelId)) {
-            message.reply("TextChannel is not registered.").queue(message1 -> {
-                message1.delete().queueAfter(10, TimeUnit.SECONDS);
+        TextChannel textChannel = message.getTextChannel();
+        String channelID = textChannel.getId();
+
+        if (!clientCache.doNotificationChannelExists(channelID)) {
+            textChannel.sendMessage(textChannel.getAsMention() +
+                    LanguageController.getNotRegisteredMessage("ENG")).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
             return;
         }
 
+        String[] args = message.getContentRaw().split(" ");
+        String timezone = args[1].toUpperCase();
 
-        if (Time.isTimeZoneCEST(timezone)) {
-            textChannel.sendMessage("CEST is not supported.").queue();
-            return;
+        if (!timezone.substring(0, 3).equalsIgnoreCase("GMT") || !timezone.substring(0, 3).equalsIgnoreCase("EST")) {
+            textChannel.sendMessage(String.format(LanguageController.getUnknownTimezoneMessage("ENG"), timezone)).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+            });
         }
 
-        if (!Time.isTimeZoneEST(timezone) && !(Time.isTimeZoneGMT(timezone))) {
-            textChannel.sendMessage("We detected that you're not using on of known working timezones.\n" +
-                    "Known working timezones are GMT & EST. Use >checktimezone " + timezone + " to see if your timezone" +
-                    "is supported.").queue();
-        }
+        databaseRequests.setTimezone(channelID, timezone);
+        clientCache.setTimezone(channelID, timezone);
 
-
-        databaseRequests.setTimezone(channelId, timezone);
-
-        message.getTextChannel().sendMessage(message.getTextChannel().getAsMention() + " Timezone now set to " + timezone + ".").queue(message1 -> {
-            message1.delete().queueAfter(10, TimeUnit.SECONDS);
+        message.getTextChannel().sendMessage(message.getTextChannel().getAsMention() +
+                LanguageController.getTimezoneSetToMessage("ENG") + timezone + ".").queue(sendMessage -> {
+            sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
         });
-
-        clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
-
     }
 }
 

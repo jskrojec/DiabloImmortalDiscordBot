@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.commands;
 
+import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.entities.Message;
@@ -18,22 +19,25 @@ public class UnnotifierCommand {
     }
 
     public void onUnnotifierCommand(Message message) {
-        TextChannel textChannel = message.getTextChannel();
         message.delete().queue();
-        String channelId = textChannel.getId();
 
-        if (databaseRequests.doNotificationChannelExists(channelId)) {
-            databaseRequests.deleteNotificationChannelEntry(channelId);
-            textChannel.sendMessage(textChannel.getAsMention() + " is unregistered.").queue(message1 -> {
-                message1.delete().queueAfter(10, TimeUnit.SECONDS);
+        TextChannel textChannel = message.getTextChannel();
+        String channelID = textChannel.getId();
+
+        if (!clientCache.doNotificationChannelExists(channelID)) {
+            textChannel.sendMessage(textChannel.getAsMention() +
+                    LanguageController.getNotRegisteredMessage("ENG")).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
-            clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
-        } else {
-            textChannel.sendMessage(textChannel.getAsMention() + " isn't a Notify-Channel.").queue(message1 -> {
-                message1.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+            return;
         }
 
-    }
+        databaseRequests.deleteNotificationChannelEntry(channelID);
+        clientCache.deleteNotificationChannel(channelID);
 
+        textChannel.sendMessage(textChannel.getAsMention() +
+                LanguageController.getUnregisteredChannel("ENG")).queue(sendMessage -> {
+            sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+        });
+    }
 }

@@ -6,8 +6,9 @@ import net.dv8tion.jda.api.entities.Message;
 public class CheckTimeZoneCommand {
 
     public void onCheckTimeZoneCommand(Message message) {
+        message.delete().queue();
         String[] args = message.getContentRaw().split(" ");
         String timeZone = args[1].toUpperCase();
-        message.getTextChannel().sendMessage(Time.getFullTime(timeZone)).queue();
+        message.getTextChannel().sendMessage(timeZone + " " + Time.getTimeWithWeekday(timeZone)).queue();
     }
 }

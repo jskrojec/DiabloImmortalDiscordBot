@@ -17,6 +17,8 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
         createConnection();
     }
 
+
+
     public boolean createConnection() {
         String host = clientConfig.getHost();
         String database = clientConfig.getDatabase();
@@ -33,13 +35,15 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
         dataSource.setUrl("jdbc:mysql://" + host + ":" + port + "/" + database + "?verifyServerCertificate=false&useSSL=true");
 
         try (Connection connection = dataSource.getConnection()) {
-            String channel_notification_statement =
-                    "CREATE TABLE IF NOT EXISTS channel_notification (" +
+            String channel_notification = "CREATE TABLE IF NOT EXISTS channel_notification (" +
                     "channel VARCHAR(50) PRIMARY KEY," +
-                            "timezone VARCHAR(10)," +
-                            "status INT" +
-                            ")";
-            connection.createStatement().execute(channel_notification_statement);
+                    "timezone VARCHAR(10)," +
+                    "status INT," +
+                    "role VARCHAR(20)," +
+                    "debug TINYINT(1)" +
+                    ")";
+
+            connection.createStatement().execute(channel_notification);
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry(e.getMessage());
         }
