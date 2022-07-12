@@ -74,7 +74,7 @@ public class Notifier {
                                     break;
                                 case 128:
                                     counter++;
-                                    if (counter == 5) {
+                                    if (counter == 15) {
                                         counter = 0;
                                         notificationMessageBuilder.append("Time: ").append(Time.getTimeWithWeekday(timezone))
                                                 .append(" TimeZone: ").append(timezone);

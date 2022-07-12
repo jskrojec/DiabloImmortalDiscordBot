@@ -49,7 +49,9 @@ public class RoleCommand {
 
         clientCache.setRole(channelID, roleID);
         databaseRequests.setRole(channelID, roleID);
-        message.getTextChannel().sendMessage(role.getAsMention() + " is now set.").queue(); //TODO: ADD LC
+        message.getTextChannel().sendMessage(role.getAsMention() + " is now set.").queue(sendMessage -> {
+            sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+        }); //TODO: ADD LC
     }
 
     private Role getRoleByRoleID(String roleID, Guild guild) {
