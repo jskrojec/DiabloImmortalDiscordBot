@@ -3,7 +3,6 @@ package me.umbreon.diabloimmortalbot.events;
 import me.umbreon.diabloimmortalbot.commands.*;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -12,22 +11,22 @@ import java.util.List;
 
 public class MessageReceived {
 
-    private final NotifierCommand notifierCommand;
+    private final RegisterCommand registerCommand;
     private final StatusCommand statusCommand;
     private final TimezoneCommand timezoneCommand;
     private final RoleCommand roleCommand;
-    private final UnnotifierCommand unnotifierCommand;
+    private final UnregisterCommand unregisterCommand;
     private final DebugCommand debugCommand;
     private final CheckTimeZoneCommand checkTimeZoneCommand;
     private final HelpCommand helpCommand;
 
     public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.debugCommand = new DebugCommand(databaseRequests, clientCache);
-        this.notifierCommand = new NotifierCommand(databaseRequests, clientCache);
+        this.registerCommand = new RegisterCommand(databaseRequests, clientCache);
         this.statusCommand = new StatusCommand(databaseRequests, clientCache);
         this.timezoneCommand = new TimezoneCommand(databaseRequests, clientCache);
         this.roleCommand = new RoleCommand(databaseRequests, clientCache);
-        this.unnotifierCommand = new UnnotifierCommand(databaseRequests, clientCache);
+        this.unregisterCommand = new UnregisterCommand(databaseRequests, clientCache);
         this.checkTimeZoneCommand = new CheckTimeZoneCommand();
         this.helpCommand = new HelpCommand();
     }
@@ -45,10 +44,12 @@ public class MessageReceived {
 
         switch (args[0].toLowerCase()) {
             case ">notifier":
-                notifierCommand.onNotifierCommand(event.getMessage());
+            case ">register":
+                registerCommand.onNotifierCommand(event.getMessage());
                 break;
             case ">unnotifier":
-                unnotifierCommand.onUnnotifierCommand(event.getMessage());
+            case ">unregister":
+                unregisterCommand.onUnnotifierCommand(event.getMessage());
                 break;
             case ">status":
                 statusCommand.runStatusCommand(event.getMessage());

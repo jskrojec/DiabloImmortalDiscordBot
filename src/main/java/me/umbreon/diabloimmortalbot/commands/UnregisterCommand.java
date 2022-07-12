@@ -8,12 +8,12 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.concurrent.TimeUnit;
 
-public class UnnotifierCommand {
+public class UnregisterCommand {
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
 
-    public UnnotifierCommand(DatabaseRequests databaseRequests, ClientCache clientCache) {
+    public UnregisterCommand(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }

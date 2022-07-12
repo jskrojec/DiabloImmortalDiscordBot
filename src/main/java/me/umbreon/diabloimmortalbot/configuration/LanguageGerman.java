@@ -6,15 +6,15 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.InputStream;
 import java.util.Map;
 
-public class LanguageEnglish {
+public class LanguageGerman {
 
     static Map<String, Object> messages;
 
     public void loadLanguageConfiguration() {
         Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("english.yaml");
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("german.yaml");
         messages = yaml.load(inputStream);
-        ClientLogger.createNewLogEntry("Loaded english.yaml.");
+        ClientLogger.createNewLogEntry("Loaded german.yaml");
     }
 
     public static String getVaultMessage() {

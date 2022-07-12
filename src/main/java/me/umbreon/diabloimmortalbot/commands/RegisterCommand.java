@@ -9,12 +9,12 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.concurrent.TimeUnit;
 
-public class NotifierCommand {
+public class RegisterCommand {
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
 
-    public NotifierCommand(DatabaseRequests databaseRequests, ClientCache clientCache) {
+    public RegisterCommand(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
