@@ -19,6 +19,7 @@ public class MessageReceived {
     private final UnnotifierCommand unnotifierCommand;
     private final DebugCommand debugCommand;
     private final CheckTimeZoneCommand checkTimeZoneCommand;
+    private final HelpCommand helpCommand;
 
     public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.debugCommand = new DebugCommand(databaseRequests, clientCache);
@@ -28,6 +29,7 @@ public class MessageReceived {
         this.roleCommand = new RoleCommand(databaseRequests, clientCache);
         this.unnotifierCommand = new UnnotifierCommand(databaseRequests, clientCache);
         this.checkTimeZoneCommand = new CheckTimeZoneCommand();
+        this.helpCommand = new HelpCommand();
     }
 
     public void onMessageReceivedEvent(MessageReceivedEvent event, Member member) {
@@ -59,6 +61,9 @@ public class MessageReceived {
                 break;
             case ">debug":
                 debugCommand.onDebugCommand(event.getMessage());
+                break;
+            case ">help":
+                helpCommand.onHelpCommand(event.getMessage());
                 break;
             case ">checktimezone":
             case ">ctz":
