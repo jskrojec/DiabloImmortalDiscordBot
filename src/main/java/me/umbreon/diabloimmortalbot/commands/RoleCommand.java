@@ -40,6 +40,11 @@ public class RoleCommand {
         Guild guild = message.getGuild();
         Role role = getRoleByRoleID(roleID, guild);
 
+        if (args[1].equalsIgnoreCase("@here")) {
+            setRoleToHere(message);
+            return;
+        }
+
         if (role == null) {
             textChannel.sendMessage(LanguageController.getRoleNotFoundMessage("ENG")).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
@@ -49,16 +54,28 @@ public class RoleCommand {
 
         clientCache.setRole(channelID, roleID);
         databaseRequests.setRole(channelID, roleID);
-        message.getTextChannel().sendMessage(role.getAsMention() + " is now set.").queue(sendMessage -> {
+        message.getTextChannel().sendMessage(role.getAsMention() + LanguageController.getIsSetMessage("ENG")).queue(sendMessage -> {
             sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
-        }); //TODO: ADD LC
+        });
+    }
+
+    private void setRoleToHere(Message message) {
+        TextChannel textChannel = message.getTextChannel();
+        String channelID = textChannel.getId();
+        String role = "@here";
+
+        clientCache.setRole(channelID, role);
+        databaseRequests.setRole(channelID, role);
+        message.getTextChannel().sendMessage("Here" + LanguageController.getIsSetMessage("ENG")).queue(sendMessage -> {
+            sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+        });
     }
 
     private Role getRoleByRoleID(String roleID, Guild guild) {
         try {
             return guild.getRoleById(roleID);
         } catch (NullPointerException | IllegalAccessError e) { //TODO: What is IllegalAccessError?
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry(guild.getId(), guild.getName(), guild.getOwnerId(), e.toString());
             return null;
         }
     }

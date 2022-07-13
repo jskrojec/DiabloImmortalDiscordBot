@@ -19,6 +19,7 @@ public class MessageReceived {
     private final DebugCommand debugCommand;
     private final CheckTimeZoneCommand checkTimeZoneCommand;
     private final HelpCommand helpCommand;
+    private final TimezonesCommand timezonesCommand;
 
     public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.debugCommand = new DebugCommand(databaseRequests, clientCache);
@@ -29,6 +30,7 @@ public class MessageReceived {
         this.unregisterCommand = new UnregisterCommand(databaseRequests, clientCache);
         this.checkTimeZoneCommand = new CheckTimeZoneCommand();
         this.helpCommand = new HelpCommand();
+        this.timezonesCommand = new TimezonesCommand();
     }
 
     public void onMessageReceivedEvent(MessageReceivedEvent event, Member member) {
@@ -49,7 +51,7 @@ public class MessageReceived {
                 break;
             case ">unnotifier":
             case ">unregister":
-                unregisterCommand.onUnnotifierCommand(event.getMessage());
+                unregisterCommand.onUnregisterCommand(event.getMessage());
                 break;
             case ">status":
                 statusCommand.runStatusCommand(event.getMessage());
@@ -70,6 +72,9 @@ public class MessageReceived {
             case ">ctz":
             case ">checktz":
                 checkTimeZoneCommand.onCheckTimeZoneCommand(event.getMessage());
+                break;
+            case ">timezones":
+                timezonesCommand.onTimezonesCommand(event.getMessage());
                 break;
 
         }

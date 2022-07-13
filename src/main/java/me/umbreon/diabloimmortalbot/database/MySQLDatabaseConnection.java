@@ -45,7 +45,7 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
 
             connection.createStatement().execute(channel_notification);
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
         return true;
     }
@@ -55,7 +55,7 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
             try {
                 dataSource.getConnection().close();
             } catch (SQLException e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             }
         }
     }
@@ -64,7 +64,7 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             return null;
         }
     }

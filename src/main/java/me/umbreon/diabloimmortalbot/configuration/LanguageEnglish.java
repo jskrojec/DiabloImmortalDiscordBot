@@ -14,7 +14,6 @@ public class LanguageEnglish {
         Yaml yaml = new Yaml();
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("english.yaml");
         messages = yaml.load(inputStream);
-        ClientLogger.createNewLogEntry("Loaded english.yaml.");
     }
 
     public static String getVaultMessage() {
@@ -139,6 +138,14 @@ public class LanguageEnglish {
 
     public static String getUnknownTimezoneMessage() {
         return messages.get("UNKNOWN_TIMEZONE").toString();
+    }
+
+    public static String getUnknownStatusMessage() {
+        return messages.get("UNKNOWN_STATUS").toString();
+    }
+
+    public static String getIsSetMessage() {
+        return messages.get("IS_SET").toString();
     }
 
 }

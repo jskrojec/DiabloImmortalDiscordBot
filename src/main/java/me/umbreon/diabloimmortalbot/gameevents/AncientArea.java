@@ -2,10 +2,14 @@ package me.umbreon.diabloimmortalbot.gameevents;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
 import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class AncientArea {
 

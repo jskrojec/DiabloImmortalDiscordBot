@@ -28,7 +28,7 @@ public class Client {
             return;
         }
 
-        ClientLogger.startTimer(clientConfig.getLogFolderPath());
+        ClientLogger.checkIfLogFolderExists(clientConfig.getLogFolderPath());
 
         LanguageController.loadConfigurations();
 
@@ -45,7 +45,7 @@ public class Client {
         try {
             jda = JDABuilder.createDefault(clientConfig.getToken()).addEventListeners(eventHandler).build().awaitReady();
         } catch (LoginException | InterruptedException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("login", "LoginErr", "Umbreon", e.toString());
             return;
         }
 

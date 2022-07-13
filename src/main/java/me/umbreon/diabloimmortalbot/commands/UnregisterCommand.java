@@ -18,7 +18,7 @@ public class UnregisterCommand {
         this.databaseRequests = databaseRequests;
     }
 
-    public void onUnnotifierCommand(Message message) {
+    public void onUnregisterCommand(Message message) {
         message.delete().queue();
 
         TextChannel textChannel = message.getTextChannel();

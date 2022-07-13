@@ -35,6 +35,7 @@ public class RegisterCommand {
         NotificationChannel notificationChannel = new NotificationChannel(channelID);
         databaseRequests.createNewNotificationChannelEntry(notificationChannel);
         clientCache.addNotificationChannel(notificationChannel);
+
         textChannel.sendMessage(textChannel.getAsMention() + LanguageController.getRegisteredMessage("ENG")).queue(sendMessage -> {
             sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
         });

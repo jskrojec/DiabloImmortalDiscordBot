@@ -11,10 +11,9 @@ public class LanguageGerman {
     static Map<String, Object> messages;
 
     public void loadLanguageConfiguration() {
-        Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("german.yaml");
-        messages = yaml.load(inputStream);
-        ClientLogger.createNewLogEntry("Loaded german.yaml");
+        //Yaml yaml = new Yaml();
+        //InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("german.yaml");
+        //messages = yaml.load(inputStream);
     }
 
     public static String getVaultMessage() {
@@ -139,6 +138,14 @@ public class LanguageGerman {
 
     public static String getUnknownTimezoneMessage() {
         return messages.get("UNKNOWN_TIMEZONE").toString();
+    }
+
+    public static String getUnknownStatusMessage() {
+        return messages.get("UNKNOWN_STATUS").toString();
+    }
+
+    public static String getIsSetMessage() {
+        return messages.get("IS_SET").toString();
     }
 
 }

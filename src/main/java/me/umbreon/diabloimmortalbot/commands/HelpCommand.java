@@ -13,8 +13,9 @@ public class HelpCommand {
         String helpMessage = "'>notifier - Register that channel as Notifier-Channel'\n" +
                 "'>unnotifier - Unregisters that channel.'\n" +
                 "'>timezone EST - Set your timezone'\n" +
-                "'>status 0 to select what messages you like to get.'\n" +
-                "'>role @Role to set what role should be mentioned in this textchannel. If you dont set the role everyone will be mentioned.'\n" +
+                "'>status 0 - Select what messages you like to get.'\n" +
+                "'>role @Role - Set what role should be mentioned in this textchannel. If you dont set the role everyone will be mentioned.'\n" +
+                "'>timeszones - Message with GMT times to see what timezone would fit you.\n" +
                 "'>checktimetone GMT+2 - Helps you find the right timezone for your server'\n\n" +
                 "Possible Codes for status:\n" +
                 "0 = All messages.\n" +
@@ -24,6 +25,6 @@ public class HelpCommand {
                 "4 = Immortal with overworld\n" +
                 "5 = Shadow with overworld";
 
-        textChannel.sendMessage(message).queue();
+        textChannel.sendMessage(helpMessage).queue();
     }
 }

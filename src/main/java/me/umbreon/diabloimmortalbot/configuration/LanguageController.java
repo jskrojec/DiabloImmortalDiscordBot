@@ -289,4 +289,24 @@ public class LanguageController {
         }
     }
 
+
+    public static String getUnknownStatusMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getUnknownStatusMessage();
+            default:
+                return LanguageEnglish.getUnknownStatusMessage();
+        }
+    }
+
+    public static String getIsSetMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getIsSetMessage();
+            default:
+                return LanguageEnglish.getIsSetMessage();
+        }
+    }
+
+
 }

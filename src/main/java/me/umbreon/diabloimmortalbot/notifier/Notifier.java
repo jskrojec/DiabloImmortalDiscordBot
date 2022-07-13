@@ -2,7 +2,9 @@ package me.umbreon.diabloimmortalbot.notifier;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.gameevents.*;
-import me.umbreon.diabloimmortalbot.utils.*;
+import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ClientLogger;
+import me.umbreon.diabloimmortalbot.utils.Time;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
@@ -22,8 +24,7 @@ public class Notifier {
     private final ClientCache clientCache;
     private final Assembly assembly;
     private final ShadowLottery shadowLottery;
-
-    int counter = 0;
+    private final DatabaseRequests databaseRequests;
 
     public Notifier(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.clientCache = clientCache;
@@ -35,6 +36,7 @@ public class Notifier {
         this.demonGates = new DemonGates(databaseRequests);
         this.hauntedCarriage = new HauntedCarriage(databaseRequests);
         this.vault = new Vault(databaseRequests);
+        this.databaseRequests = databaseRequests;
     }
 
     public void runNotifierScheduler(JDA jda) {
@@ -44,61 +46,86 @@ public class Notifier {
 
                 setActivity(jda);
 
+                String guildID = "0";
+                String ownerID = "0";
+
                 for (String channel : clientCache.getListWithNotificationChannels().keySet()) {
                     try {
                         TextChannel textChannel = jda.getTextChannelById(channel);
 
                         if (textChannel != null) {
-                            //If the textChannel is null, the channel got deleted or bot isn't on that server anymore.
-                            String timezone = clientCache.getTimezone(channel);
-                            StringBuilder notificationMessageBuilder = new StringBuilder();
+                            String[] guildInfo = sendMessageIfPossible(textChannel);
 
-                            switch (clientCache.getStatus(textChannel.getId())) {
-                                case 0: //ALL MESSAGES
-                                    checkForAnyEvent(notificationMessageBuilder, timezone);
-                                    break;
-                                case 1: //ONLY OVERWORLD
-                                    checkOverworldEvents(notificationMessageBuilder, timezone);
-                                    break;
-                                case 2: //ONLY IMMPORTAL
-                                    checkImmortalEvents(notificationMessageBuilder, timezone);
-                                    break;
-                                case 3: //ONLY SHADOW
-                                    checkShadowEvents(notificationMessageBuilder, timezone);
-                                    break;
-                                case 4: //IMMORTAL WITH OVERWORLD
-                                    checkImmortalWithOverworldEvents(notificationMessageBuilder, timezone);
-                                    break;
-                                case 5: //SHADOW WITH OVERWORLD
-                                    checkShadowWithOverworldEvents(notificationMessageBuilder, timezone);
-                                    break;
-                                case 128:
-                                    counter++;
-                                    if (counter == 15) {
-                                        counter = 0;
-                                        notificationMessageBuilder.append("Time: ").append(Time.getTimeWithWeekday(timezone))
-                                                .append(" TimeZone: ").append(timezone);
-                                    }
-                            }
-
-                            if (notificationMessageBuilder.length() > 0) {
-                                addMention(notificationMessageBuilder ,channel, textChannel.getGuild());
-                                addDebugMessageIfInMode(channel, timezone, notificationMessageBuilder);
-                                textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
-                                createLogInfo(notificationMessageBuilder, textChannel, timezone);
-                            }
+                            guildID = guildInfo[0];
+                            ownerID = guildInfo[1];
                         }
+
                     } catch (Exception e) {
-                        ClientLogger.createNewLogEntry(e.getMessage());
+                        databaseRequests.deleteNotificationChannelEntry(channel);
+                        ClientLogger.createNewLogEntry(channel, guildID, ownerID, e.toString());
                     }
                 }
             }
         }, 0, 60 * 1000);
     }
 
+    private String[] sendMessageIfPossible(TextChannel textChannel) {
+        String[] guildInfo = new String[2];
+
+        String channelID = textChannel.getId();
+        String timezone = clientCache.getTimezone(channelID);
+        int status = clientCache.getStatus(textChannel.getId());
+
+        Guild guild = textChannel.getGuild();
+        guildInfo[0] = guild.getId();
+        guildInfo[1] = guild.getOwnerId();
+
+        StringBuilder notificationMessageBuilder = new StringBuilder();
+
+        switch (status) {
+            case 0:
+                checkForAnyEvent(notificationMessageBuilder, timezone);
+                break;
+            case 1:
+                checkOverworldEvents(notificationMessageBuilder, timezone);
+                break;
+            case 2:
+                checkImmortalEvents(notificationMessageBuilder, timezone);
+                break;
+            case 3:
+                checkShadowEvents(notificationMessageBuilder, timezone);
+                break;
+            case 4:
+                checkImmortalWithOverworldEvents(notificationMessageBuilder, timezone);
+                break;
+            case 5:
+                checkShadowWithOverworldEvents(notificationMessageBuilder, timezone);
+                break;
+            case 9:
+              //Todo: Overworld Embed Messages
+            break;
+        }
+
+        if (notificationMessageBuilder.length() > 0) {
+            addMention(notificationMessageBuilder, channelID, textChannel.getGuild());
+            addDebugMessageIfInMode(channelID, timezone, notificationMessageBuilder);
+            textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
+        }
+
+        return guildInfo;
+    }
+
+
     private void addMention(StringBuilder stringBuilder, String channelId, Guild guild) {
         String roleId = clientCache.getMentionRoleID(channelId);
-        String mention = "@everyone";
+
+        String everyoneMention = "@everyone";
+        String hereMention = "@here";
+        String mention = everyoneMention;
+
+        if (roleId.equalsIgnoreCase(hereMention)) {
+            mention = hereMention;
+        }
 
         try {
             if (!roleId.isBlank()) {
@@ -170,13 +197,6 @@ public class Notifier {
         notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone));
         notificationMessageBuilder.append(assembly.checkAssembly(timezone));
         notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone));
-    }
-
-    private void createLogInfo(StringBuilder notificationMessageBuilder, TextChannel textChannel, String timezone) {
-        String logInfoMessage = "Sended Message to " + textChannel.getGuild().getName() + ".\n" +
-                notificationMessageBuilder + "\nID: " + textChannel.getGuild().getId() + "\n" +
-                "Timezone: " + timezone + ", Time: " + Time.getTimeWithWeekday(timezone);
-        ClientLogger.createNewLogEntry(logInfoMessage);
     }
 
     private void setActivity(JDA jda) {

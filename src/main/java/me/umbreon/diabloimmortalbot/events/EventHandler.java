@@ -27,9 +27,8 @@ public class EventHandler implements EventListener {
                 messageReceived.onMessageReceivedEvent((MessageReceivedEvent) event, member);
             }
         } catch (Exception e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("0" , "null", "0", String.valueOf(e));
         }
 
     }
-
 }

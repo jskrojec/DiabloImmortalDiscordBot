@@ -29,11 +29,11 @@ public class DatabaseRequests {
                 preparedStatement.setBoolean(5, notificationChannel.inDebugMode);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
     }
 
@@ -53,11 +53,11 @@ public class DatabaseRequests {
                     listWithNotificationChannels.put(channelId, notificationChannel);
                 }
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
         return listWithNotificationChannels;
     }
@@ -82,11 +82,11 @@ public class DatabaseRequests {
                     listEventTimeTables.put(finalTime, headup);
                 }
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
         return listEventTimeTables;
     }
@@ -99,11 +99,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
     }
 
@@ -115,11 +115,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
     }
 
@@ -131,11 +131,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
     }
 
@@ -146,11 +146,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(1, channelid);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
     }
 
@@ -162,11 +162,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
     }
 }
