@@ -10,32 +10,32 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Map;
 
-public class Battleground {
+public class RaidVault {
 
-    private final Map<String, Boolean> listBattleground;
+    private final Map<String, Boolean> listVault;
 
-    public Battleground(DatabaseRequests databaseRequests) {
-        this.listBattleground = databaseRequests.getEventTimes("event_battleground", true);
+    public RaidVault(DatabaseRequests databaseRequests) {
+        this.listVault = databaseRequests.getEventTimes("event_vault", true);
     }
 
-    public String checkBattleground(String timezone, String language) {
+    public String checkVault(String timezone, String language) {
         if (!isTimeValid(timezone)) return "";
 
         if (isHeadUpTime(timezone)) {
-            return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
+            return LanguageController.getRaidTheVaultHeadUpMessage(language) + "\n";
         } else {
-            return LanguageController.getBattlegroundMessage(language) + "\n";
+            return LanguageController.getRaidTheVaultMessage(language) + "\n";
         }
     }
 
     private boolean isTimeValid(String timezone) {
         String time = Time.getTime(timezone);
-        return listBattleground.get(time) != null;
+        return listVault.get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
         String time = Time.getTime(timezone);
-        return listBattleground.get(time);
+        return listVault.get(time);
     }
 
 }

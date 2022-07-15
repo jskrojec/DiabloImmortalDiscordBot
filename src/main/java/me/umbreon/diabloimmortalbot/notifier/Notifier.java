@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.notifier;
 
+import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.gameevents.*;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
@@ -10,6 +11,8 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,11 +23,14 @@ public class Notifier {
     private final Battleground battleground;
     private final DemonGates demonGates;
     private final HauntedCarriage hauntedCarriage;
-    private final Vault vault;
+    private final RaidVault raidVault;
     private final ClientCache clientCache;
     private final Assembly assembly;
     private final ShadowLottery shadowLottery;
     private final DatabaseRequests databaseRequests;
+    private final DefendVault defendVault;
+
+    private int debugMessageCountdown = 0;
 
     public Notifier(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.clientCache = clientCache;
@@ -35,8 +41,9 @@ public class Notifier {
         this.battleground = new Battleground(databaseRequests);
         this.demonGates = new DemonGates(databaseRequests);
         this.hauntedCarriage = new HauntedCarriage(databaseRequests);
-        this.vault = new Vault(databaseRequests);
+        this.raidVault = new RaidVault(databaseRequests);
         this.databaseRequests = databaseRequests;
+        this.defendVault = new DefendVault(databaseRequests);
     }
 
     public void runNotifierScheduler(JDA jda) {
@@ -61,8 +68,11 @@ public class Notifier {
                         }
 
                     } catch (Exception e) {
+                        StringWriter sw = new StringWriter();
+                        PrintWriter pw = new PrintWriter(sw);
+                        e.printStackTrace(pw);
                         databaseRequests.deleteNotificationChannelEntry(channel);
-                        ClientLogger.createNewLogEntry(channel, guildID, ownerID, e.toString());
+                        ClientLogger.createNewLogEntry(channel, guildID, ownerID, String.valueOf(pw));
                     }
                 }
             }
@@ -75,35 +85,46 @@ public class Notifier {
         String channelID = textChannel.getId();
         String timezone = clientCache.getTimezone(channelID);
         int status = clientCache.getStatus(textChannel.getId());
-
         Guild guild = textChannel.getGuild();
         guildInfo[0] = guild.getId();
         guildInfo[1] = guild.getOwnerId();
+        String language = clientCache.getLanguage(guildInfo[0]);
+
+
+        registerGuildIfNotExists(guildInfo[0], timezone);
 
         StringBuilder notificationMessageBuilder = new StringBuilder();
 
         switch (status) {
             case 0:
-                checkForAnyEvent(notificationMessageBuilder, timezone);
+                checkForAnyEvent(notificationMessageBuilder, timezone, language);
                 break;
             case 1:
-                checkOverworldEvents(notificationMessageBuilder, timezone);
+                checkOverworldEvents(notificationMessageBuilder, timezone, language);
                 break;
             case 2:
-                checkImmortalEvents(notificationMessageBuilder, timezone);
+                checkImmortalEvents(notificationMessageBuilder, timezone, language);
                 break;
             case 3:
-                checkShadowEvents(notificationMessageBuilder, timezone);
+                checkShadowEvents(notificationMessageBuilder, timezone, language);
                 break;
             case 4:
-                checkImmortalWithOverworldEvents(notificationMessageBuilder, timezone);
+                checkImmortalWithOverworldEvents(notificationMessageBuilder, timezone, language);
                 break;
             case 5:
-                checkShadowWithOverworldEvents(notificationMessageBuilder, timezone);
+                checkShadowWithOverworldEvents(notificationMessageBuilder, timezone, language);
                 break;
             case 9:
-              //Todo: Overworld Embed Messages
-            break;
+                checkForOverworldEvents(timezone, textChannel);
+                break;
+            case 128:
+                debugMessageCountdown++;
+                if (debugMessageCountdown == 30) {
+                    debugMessageCountdown = 0;
+                    String debugMessage = "Current time: " + Time.getTimeWithWeekday(timezone) + " in timezone " + timezone + ".";
+                    textChannel.sendMessage(debugMessage).queue();
+                }
+                break;
         }
 
         if (notificationMessageBuilder.length() > 0) {
@@ -113,6 +134,18 @@ public class Notifier {
         }
 
         return guildInfo;
+    }
+
+    private void registerGuildIfNotExists(String guildID, String timezone) {
+
+        if (clientCache.doGuildExists(guildID)) {
+            return;
+        }
+
+        GuildInformation guildInformation = new GuildInformation(guildID, "ENG", timezone);
+
+        databaseRequests.createNewGuildEntry(guildInformation);
+        clientCache.addGuildInformation(guildInformation);
     }
 
 
@@ -148,55 +181,62 @@ public class Notifier {
         }
     }
 
-    private void checkShadowWithOverworldEvents(StringBuilder notificationMessageBuilder, String timezone) {
-        notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timezone));
-        notificationMessageBuilder.append(demonGates.checkDemonGates(timezone));
-        notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone));
-        notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone));
-        notificationMessageBuilder.append(battleground.checkBattleground(timezone));
-        notificationMessageBuilder.append(vault.checkVault(timezone));
-        notificationMessageBuilder.append(assembly.checkAssembly(timezone));
-        notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone));
+    private void checkShadowWithOverworldEvents(StringBuilder notificationMessageBuilder, String timezone, String language) {
+        notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timezone, language));
+        notificationMessageBuilder.append(demonGates.checkDemonGates(timezone, language));
+        notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone, language));
+        notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone, language));
+        notificationMessageBuilder.append(battleground.checkBattleground(timezone, language));
+        notificationMessageBuilder.append(raidVault.checkVault(timezone, language));
+        notificationMessageBuilder.append(assembly.checkAssembly(timezone, language));
+        notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone, language));
     }
 
-    private void checkImmortalWithOverworldEvents(StringBuilder notificationMessageBuilder, String timezone) {
-        notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timezone));
-        notificationMessageBuilder.append(demonGates.checkDemonGates(timezone));
-        notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone));
-        notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone));
-        notificationMessageBuilder.append(battleground.checkBattleground(timezone));
-        notificationMessageBuilder.append(vault.checkVault(timezone));
+    private void checkImmortalWithOverworldEvents(StringBuilder notificationMessageBuilder, String timezone, String language) {
+        notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timezone, language));
+        notificationMessageBuilder.append(demonGates.checkDemonGates(timezone, language));
+        notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone, language));
+        notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone, language));
+        notificationMessageBuilder.append(battleground.checkBattleground(timezone, language));
+        notificationMessageBuilder.append(defendVault.checkDefendVault(timezone, language));
     }
 
-    private void checkShadowEvents(StringBuilder notificationMessageBuilder, String timezone) {
-        notificationMessageBuilder.append(vault.checkVault(timezone));
-        notificationMessageBuilder.append(assembly.checkAssembly(timezone));
-        notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone));
-        notificationMessageBuilder.append(battleground.checkBattleground(timezone));
+    private void checkShadowEvents(StringBuilder notificationMessageBuilder, String timezone, String language) {
+        notificationMessageBuilder.append(raidVault.checkVault(timezone, language));
+        notificationMessageBuilder.append(assembly.checkAssembly(timezone, language));
+        notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone, language));
+        notificationMessageBuilder.append(battleground.checkBattleground(timezone, language));
     }
 
-    private void checkImmortalEvents(StringBuilder notificationMessageBuilder, String timezone) {
-        notificationMessageBuilder.append(vault.checkVault(timezone));
-        notificationMessageBuilder.append(battleground.checkBattleground(timezone));
+    private void checkImmortalEvents(StringBuilder notificationMessageBuilder, String timezone, String language) {
+        notificationMessageBuilder.append(defendVault.checkDefendVault(timezone, language));
+        notificationMessageBuilder.append(battleground.checkBattleground(timezone, language));
     }
 
-    private void checkOverworldEvents(StringBuilder notificationMessageBuilder, String timezone) {
-        notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timezone));
-        notificationMessageBuilder.append(demonGates.checkDemonGates(timezone));
-        notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone));
-        notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone));
-        notificationMessageBuilder.append(battleground.checkBattleground(timezone));
+    private void checkOverworldEvents(StringBuilder notificationMessageBuilder, String timezone, String language) {
+        notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timezone, language));
+        notificationMessageBuilder.append(demonGates.checkDemonGates(timezone, language));
+        notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone, language));
+        notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone, language));
+        notificationMessageBuilder.append(battleground.checkBattleground(timezone, language));
     }
 
-    private void checkForAnyEvent(StringBuilder notificationMessageBuilder, String timezone) {
-        notificationMessageBuilder.append(vault.checkVault(timezone));
-        notificationMessageBuilder.append(battleground.checkBattleground(timezone));
-        notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timezone));
-        notificationMessageBuilder.append(demonGates.checkDemonGates(timezone));
-        notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone));
-        notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone));
-        notificationMessageBuilder.append(assembly.checkAssembly(timezone));
-        notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone));
+    private void checkForAnyEvent(StringBuilder notificationMessageBuilder, String timezone, String language) {
+        notificationMessageBuilder.append(raidVault.checkVault(timezone, language));
+        notificationMessageBuilder.append(battleground.checkBattleground(timezone, language));
+        notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timezone, language));
+        notificationMessageBuilder.append(demonGates.checkDemonGates(timezone, language));
+        notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone, language));
+        notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone, language));
+        notificationMessageBuilder.append(assembly.checkAssembly(timezone, language));
+        notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone, language));
+    }
+
+    private void checkForOverworldEvents(String timezone, TextChannel textChannel) {
+        textChannel.sendMessageEmbeds(ancientArea.checkAncientArenaFormatted(timezone)).queue();
+        textChannel.sendMessageEmbeds(ancientNightMare.checkAncientNightMareFormatted(timezone)).queue();
+        textChannel.sendMessageEmbeds(demonGates.checkHauntedCarriageFormatted(timezone)).queue();
+        textChannel.sendMessageEmbeds(hauntedCarriage.checkHauntedCarriageFormatted(timezone)).queue();
     }
 
     private void setActivity(JDA jda) {

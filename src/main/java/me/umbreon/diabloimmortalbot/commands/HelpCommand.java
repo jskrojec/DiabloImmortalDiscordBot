@@ -5,17 +5,19 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 public class HelpCommand {
 
-    public void onHelpCommand(Message message) {
+    public void runHelpCommand(Message message) {
         message.delete().queue();
 
         TextChannel textChannel = message.getTextChannel();
 
-        String helpMessage = "'>notifier - Register that channel as Notifier-Channel'\n" +
-                "'>unnotifier - Unregisters that channel.'\n" +
-                "'>timezone EST - Set your timezone'\n" +
+        String helpMessage = "**Diablo Immortal Notifier Commands:**\n" +
+                "'>register - Register that channel as Notifier-Channel'\n" +
+                "'>unregister - Unregisters that channel.'\n" +
+                "'>timezone GMT - Set your timezone. Known working timezones are GMT and EST.'\n" +
+                "'>timeszones - Message with GMT times to see what timezone would fit you.\n" +
                 "'>status 0 - Select what messages you like to get.'\n" +
                 "'>role @Role - Set what role should be mentioned in this textchannel. If you dont set the role everyone will be mentioned.'\n" +
-                "'>timeszones - Message with GMT times to see what timezone would fit you.\n" +
+                "'>language ENG - DISABLED, there is no other than english, requst an language on my Discord server.\n" +
                 "'>checktimetone GMT+2 - Helps you find the right timezone for your server'\n\n" +
                 "Possible Codes for status:\n" +
                 "0 = All messages.\n" +
@@ -23,7 +25,8 @@ public class HelpCommand {
                 "2 = Only Immortal\n" +
                 "3 = Only Shadow\n" +
                 "4 = Immortal with overworld\n" +
-                "5 = Shadow with overworld";
+                "5 = Shadow with overworld" +
+                "9 = Overworld Events with Embed (No ping!)";
 
         textChannel.sendMessage(helpMessage).queue();
     }

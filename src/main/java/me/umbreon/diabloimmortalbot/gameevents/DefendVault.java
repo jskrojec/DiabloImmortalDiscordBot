@@ -10,21 +10,21 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Map;
 
-public class Vault {
+public class DefendVault {
 
     private final Map<String, Boolean> listVault;
 
-    public Vault(DatabaseRequests databaseRequests) {
+    public DefendVault(DatabaseRequests databaseRequests) {
         this.listVault = databaseRequests.getEventTimes("event_vault", true);
     }
 
-    public String checkVault(String timezone) {
+    public String checkDefendVault(String timezone, String language) {
         if (!isTimeValid(timezone)) return "";
 
         if (isHeadUpTime(timezone)) {
-            return LanguageController.getVaultHeadUpMessage("ENG") + "\n";
+            return LanguageController.getDefendTheVaultHeadUpMessage(language) + "\n";
         } else {
-            return LanguageController.getVaultMessage("ENG") + "\n";
+            return LanguageController.getDefendTheVaultMessage(language) + "\n";
         }
     }
 
@@ -37,6 +37,5 @@ public class Vault {
         String time = Time.getTime(timezone);
         return listVault.get(time);
     }
-
 
 }

@@ -16,13 +16,13 @@ public class ShadowLottery {
         this.listShadowLottery = databaseRequests.getEventTimes("event_shadow_lottery", true);
     }
 
-    public String checkShadowLottery(String timezone) {
+    public String checkShadowLottery(String timezone, String language) {
         if (!isTimeValid(timezone)) return "";
 
         if (isHeadUpTime(timezone)) {
-            return LanguageController.getShadowLotteryHeadUpMessage("ENG") + "\n";
+            return LanguageController.getShadowLotteryHeadUpMessage(language) + "\n";
         } else {
-            return LanguageController.getShadowLotteryMessage("ENG") + "\n";
+            return LanguageController.getShadowLotteryMessage(language) + "\n";
         }
     }
 

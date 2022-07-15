@@ -19,14 +19,17 @@ public class RegisterCommand {
         this.databaseRequests = databaseRequests;
     }
 
-    public void onNotifierCommand(Message message) {
+    public void runRegisterCommand(Message message) {
         message.delete().queue();
 
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
+        String guildID = message.getGuild().getId();
+        String guildLanguage = clientCache.getLanguage(guildID);
 
         if (clientCache.doNotificationChannelExists(channelID)) {
-            textChannel.sendMessage(textChannel.getAsMention() + LanguageController.getAlreadyRegisteredMessage("ENG")).queue(sendMessage -> {
+            textChannel.sendMessage(textChannel.getAsMention() +
+                    LanguageController.getAlreadyRegisteredMessage(guildLanguage)).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
             return;
@@ -36,7 +39,8 @@ public class RegisterCommand {
         databaseRequests.createNewNotificationChannelEntry(notificationChannel);
         clientCache.addNotificationChannel(notificationChannel);
 
-        textChannel.sendMessage(textChannel.getAsMention() + LanguageController.getRegisteredMessage("ENG")).queue(sendMessage -> {
+        textChannel.sendMessage(textChannel.getAsMention() +
+                LanguageController.getRegisteredMessage(guildLanguage)).queue(sendMessage -> {
             sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
         });
     }

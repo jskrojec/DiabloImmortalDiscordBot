@@ -20,6 +20,7 @@ public class MessageReceived {
     private final CheckTimeZoneCommand checkTimeZoneCommand;
     private final HelpCommand helpCommand;
     private final TimezonesCommand timezonesCommand;
+    private final LanguageCommand languageCommand;
 
     public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.debugCommand = new DebugCommand(databaseRequests, clientCache);
@@ -31,6 +32,7 @@ public class MessageReceived {
         this.checkTimeZoneCommand = new CheckTimeZoneCommand();
         this.helpCommand = new HelpCommand();
         this.timezonesCommand = new TimezonesCommand();
+        this.languageCommand = new LanguageCommand(clientCache, databaseRequests);
     }
 
     public void onMessageReceivedEvent(MessageReceivedEvent event, Member member) {
@@ -47,11 +49,11 @@ public class MessageReceived {
         switch (args[0].toLowerCase()) {
             case ">notifier":
             case ">register":
-                registerCommand.onNotifierCommand(event.getMessage());
+                registerCommand.runRegisterCommand(event.getMessage());
                 break;
             case ">unnotifier":
             case ">unregister":
-                unregisterCommand.onUnregisterCommand(event.getMessage());
+                unregisterCommand.runUnregisterCommand(event.getMessage());
                 break;
             case ">status":
                 statusCommand.runStatusCommand(event.getMessage());
@@ -60,21 +62,24 @@ public class MessageReceived {
                 timezoneCommand.onTimezoneCommand(event.getMessage());
                 break;
             case ">role":
-                roleCommand.onRoleCommand(event.getMessage());
+                roleCommand.runRoleCommand(event.getMessage());
                 break;
             case ">debug":
-                debugCommand.onDebugCommand(event.getMessage());
+                debugCommand.runDebugCommand(event.getMessage());
                 break;
             case ">help":
-                helpCommand.onHelpCommand(event.getMessage());
+                helpCommand.runHelpCommand(event.getMessage());
                 break;
             case ">checktimezone":
             case ">ctz":
             case ">checktz":
-                checkTimeZoneCommand.onCheckTimeZoneCommand(event.getMessage());
+                checkTimeZoneCommand.runCheckTimezoneCommand(event.getMessage());
                 break;
             case ">timezones":
-                timezonesCommand.onTimezonesCommand(event.getMessage());
+                timezonesCommand.runTimezonesCommand(event.getMessage());
+                break;
+            case ">language":
+                languageCommand.runLanguageCommand(event.getMessage());
                 break;
 
         }

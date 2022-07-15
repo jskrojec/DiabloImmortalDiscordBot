@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.utils;
 
+import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 
 import java.util.Map;
@@ -58,6 +59,36 @@ public class ClientCache {
 
     public void setDebugValue(String channelID, boolean debugValue) {
         listWithNotificationChannels.get(channelID).setInDebugMode(debugValue);
+    }
+
+    private Map<String, GuildInformation> listWithGuildInformation;
+
+    public void setListWithGuildInformation(Map<String, GuildInformation> listWithGuildInformation) {
+        this.listWithGuildInformation = listWithGuildInformation;
+    }
+
+    public String getLanguage(String guildID) {
+        return listWithGuildInformation.get(guildID).getLanguage();
+    }
+
+    public String getTimezoneFromGuild(String guildID) {
+        return listWithGuildInformation.get(guildID).getTimezone();
+    }
+
+    public void setLanguage(String guildID, String language) {
+        listWithGuildInformation.get(guildID).setLanguage(language);
+    }
+
+    public void setTimezoneFromGuild(String guildID, String timezone) {
+        listWithGuildInformation.get(guildID).setTimezone(timezone);
+    }
+
+    public boolean doGuildExists(String guildID) {
+        return listWithGuildInformation.containsKey(guildID);
+    }
+
+    public void addGuildInformation(GuildInformation guildInformation) {
+        this.listWithGuildInformation.put(guildInformation.getGuildID(), guildInformation);
     }
 
 }

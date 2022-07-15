@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 public class CheckTimeZoneCommand {
 
-    public void onCheckTimeZoneCommand(Message message) {
+    public void runCheckTimezoneCommand(Message message) {
         message.delete().queue();
         String[] args = message.getContentRaw().split(" ");
         String timeZone = args[1].toUpperCase();

@@ -14,13 +14,13 @@ public class Assembly {
         this.listAssembly = databaseRequests.getEventTimes("event_assembly", false);
     }
 
-    public String checkAssembly(String timezone) {
+    public String checkAssembly(String timezone, String language) {
         if (!isTimeValid(timezone)) return "";
 
         if (isHeadUpTime(timezone)) {
-            return LanguageController.getAssemblyHeadUpMessage("ENG") + "\n";
+            return LanguageController.getAssemblyHeadUpMessage(language) + "\n";
         } else {
-            return LanguageController.getAssemblyMessage("ENG") + "\n";
+            return LanguageController.getAssemblyMessage(language) + "\n";
         }
     }
 

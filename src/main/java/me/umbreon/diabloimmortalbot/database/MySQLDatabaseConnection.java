@@ -17,8 +17,6 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
         createConnection();
     }
 
-
-
     public boolean createConnection() {
         String host = clientConfig.getHost();
         String database = clientConfig.getDatabase();
@@ -43,7 +41,13 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
                     "debug TINYINT(1)" +
                     ")";
 
+            String guilds = "CREATE TABLE IF NOT EXISTS guilds (" +
+                    "guildID VARCHAR(20)," +
+                    "language VARCHAR(5)," +
+                    "timezone VARCHAR(10)" + ")";
+
             connection.createStatement().execute(channel_notification);
+            connection.createStatement().execute(guilds);
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }

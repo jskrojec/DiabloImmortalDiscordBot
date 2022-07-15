@@ -18,15 +18,17 @@ public class UnregisterCommand {
         this.databaseRequests = databaseRequests;
     }
 
-    public void onUnregisterCommand(Message message) {
+    public void runUnregisterCommand(Message message) {
         message.delete().queue();
 
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
+        String guildID = message.getGuild().getId();
+        String guildLanguage = clientCache.getLanguage(guildID);
 
         if (!clientCache.doNotificationChannelExists(channelID)) {
             textChannel.sendMessage(textChannel.getAsMention() +
-                    LanguageController.getNotRegisteredMessage("ENG")).queue(sendMessage -> {
+                    LanguageController.getNotRegisteredMessage(guildLanguage)).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
             return;
@@ -36,7 +38,7 @@ public class UnregisterCommand {
         clientCache.deleteNotificationChannel(channelID);
 
         textChannel.sendMessage(textChannel.getAsMention() +
-                LanguageController.getUnregisteredChannel("ENG")).queue(sendMessage -> {
+                LanguageController.getUnregisteredChannel(guildLanguage)).queue(sendMessage -> {
             sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
         });
     }

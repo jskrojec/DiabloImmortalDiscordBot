@@ -3,6 +3,7 @@ package me.umbreon.diabloimmortalbot.commands;
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -18,14 +19,17 @@ public class DebugCommand {
         this.clientCache = clientCache;
     }
 
-    public void onDebugCommand(Message message) {
+    public void runDebugCommand(Message message) {
         message.delete().queue();
 
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
+        String guildID = message.getGuild().getId();
+        String language = clientCache.getLanguage(guildID);
 
         if (clientCache.doNotificationChannelExists(channelID)) {
-            textChannel.sendMessage(textChannel.getAsMention() + LanguageController.getAlreadyRegisteredMessage("ENG")).queue(sendMessage -> {
+            textChannel.sendMessage(textChannel.getAsMention() +
+                    LanguageController.getAlreadyRegisteredMessage(language)).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
             return;
@@ -37,14 +41,14 @@ public class DebugCommand {
             databaseRequests.setDebugModeValue(channelID, true);
             clientCache.setDebugValue(channelID, true);
             textChannel.sendMessage(textChannel.getAsMention() +
-                    LanguageController.getNowInDebugMessage("ENG")).queue(sendMessage -> {
+                    LanguageController.getNowInDebugMessage(language)).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
         } else {
             databaseRequests.setDebugModeValue(channelID, false);
             clientCache.setDebugValue(channelID, false);
             textChannel.sendMessage(textChannel.getAsMention() +
-                    LanguageController.getNoLongerDebugMessage("ENG")).queue(sendMessage -> {
+                    LanguageController.getNoLongerDebugMessage(language)).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
         }

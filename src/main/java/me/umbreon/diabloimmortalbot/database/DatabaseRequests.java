@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.database;
 
+import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 
@@ -91,6 +92,27 @@ public class DatabaseRequests {
         return listEventTimeTables;
     }
 
+    public ArrayList<String> getOverworldEventTimes(String table) {
+        ArrayList<String> listEventTimeTables = new ArrayList<>();
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + table)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String time = resultSet.getString("time");
+                    String day = resultSet.getString("day");
+                    String finalTime = day + " " + time;
+                    listEventTimeTables.add(finalTime);
+                }
+            } catch (Exception e) {
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            }
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+        }
+        return listEventTimeTables;
+    }
+
     public void setTimezone(String messageId, String timezone) {
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE channel_notification SET timezone = ? WHERE channel = ?")) {
@@ -169,4 +191,80 @@ public class DatabaseRequests {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
         }
     }
+
+    // Guilds
+
+    public void createNewGuildEntry(GuildInformation guildInformation) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, time) VALUES (?, ?, ?)")) {
+            try {
+                preparedStatement.setString(1, guildInformation.getGuildID());
+                preparedStatement.setString(2, guildInformation.getLanguage());
+                preparedStatement.setString(3, guildInformation.getTimezone());
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            }
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+        }
+    }
+
+    public void setGuildTimezone(String guilID, String timezone) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET timezone = ? WHERE guildID = ?")) {
+            try {
+                preparedStatement.setString(1, guilID);
+                preparedStatement.setString(2, timezone);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            }
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+        }
+    }
+
+    public void setGuildLanguage(String guilID, String language) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET language = ? WHERE guildID = ?")) {
+            try {
+                preparedStatement.setString(1, guilID);
+                preparedStatement.setString(2, language);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            }
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+        }
+    }
+
+    public Map<String, GuildInformation> getAllGuilds() {
+        Map<String, GuildInformation> listWithGuildInformation = new ConcurrentHashMap<>();
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM channel_notification")) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+
+                    String guildID = resultSet.getString("guildID");
+                    String language = resultSet.getString("language");
+                    String timezone = resultSet.getString("timezone");
+                    GuildInformation guildInformation = new GuildInformation(guildID, language, timezone);
+                    listWithGuildInformation.put(guildID, guildInformation);
+                }
+            } catch (Exception e) {
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            }
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+        }
+        return listWithGuildInformation;
+    }
+
+
 }

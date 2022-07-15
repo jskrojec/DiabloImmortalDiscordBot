@@ -308,5 +308,59 @@ public class LanguageController {
         }
     }
 
+    public static String getRaidTheVaultMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getRaidTheVaultMessage();
+            default:
+                return LanguageEnglish.getRaidTheVaultMessage();
+        }
+    }
+
+    public static String getRaidTheVaultHeadUpMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getRaidTheVaultHeadUpMessage();
+            default:
+                return LanguageEnglish.getRaidTheVaultHeadUpMessage();
+        }
+    }
+
+    public static String getDefendTheVaultMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getDefendTheVaultMessage();
+            default:
+                return LanguageEnglish.getDefendTheVaultMessage();
+        }
+    }
+
+    public static String getDefendTheVaultHeadUpMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getDefendTheVaultHeadUpMessage();
+            default:
+                return LanguageEnglish.getDefendTheVaultHeadUpMessage();
+        }
+    }
+
+    public static String getLanguageNotSupportedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLanguageNotSupportedMessage();
+            default:
+                return LanguageEnglish.getLanguageNotSupportedMessage();
+        }
+    }
+
+    public static String getLanguageUpdatedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLanguageUpdatedMessage();
+            default:
+                return LanguageEnglish.getLanguageUpdatedMessage();
+        }
+    }
+
 
 }

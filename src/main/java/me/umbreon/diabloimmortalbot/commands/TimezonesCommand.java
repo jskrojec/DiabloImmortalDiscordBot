@@ -9,13 +9,11 @@ import java.time.Instant;
 
 public class TimezonesCommand {
 
-    public void onTimezonesCommand(Message message) {
+    public void runTimezonesCommand(Message message) {
         message.delete().queue();
 
         TextChannel textChannel = message.getTextChannel();
-
         EmbedBuilder embedBuilder = new EmbedBuilder();
-
         embedBuilder.setTitle("Timezones");
         embedBuilder.setColor(Color.RED);
 

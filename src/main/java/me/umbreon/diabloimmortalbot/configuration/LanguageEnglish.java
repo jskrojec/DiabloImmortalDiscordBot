@@ -148,4 +148,27 @@ public class LanguageEnglish {
         return messages.get("IS_SET").toString();
     }
 
+    public static String getRaidTheVaultMessage() {
+        return messages.get("RAID_VAULT").toString();
+    }
+
+    public static String getRaidTheVaultHeadUpMessage() {
+        return messages.get("RAID_VAULT_HEADUP").toString();
+    }
+
+    public static String getDefendTheVaultMessage() {
+        return messages.get("DEFEND_VAULT").toString();
+    }
+
+    public static String getDefendTheVaultHeadUpMessage() {
+        return messages.get("DEFEND_VAULT_HEADUP").toString();
+    }
+
+    public static String getLanguageNotSupportedMessage() {
+        return messages.get("LANGUAGE_NOT_SUPPORTED").toString();
+    }
+
+    public static String getLanguageUpdatedMessage() {
+        return messages.get("LANGUAGE_UPDATED").toString();
+    }
 }

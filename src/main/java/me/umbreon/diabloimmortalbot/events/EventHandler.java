@@ -10,6 +10,8 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 public class EventHandler implements EventListener {
 
     private final MessageReceived messageReceived;
@@ -27,7 +29,7 @@ public class EventHandler implements EventListener {
                 messageReceived.onMessageReceivedEvent((MessageReceivedEvent) event, member);
             }
         } catch (Exception e) {
-            ClientLogger.createNewLogEntry("0" , "null", "0", String.valueOf(e));
+            ClientLogger.createNewLogEntry("0" , "null", "0", Arrays.toString(Thread.currentThread().getStackTrace()));
         }
 
     }

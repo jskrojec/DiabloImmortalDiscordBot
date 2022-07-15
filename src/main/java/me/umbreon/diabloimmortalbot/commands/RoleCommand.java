@@ -22,14 +22,18 @@ public class RoleCommand {
         this.clientCache = clientCache;
     }
 
-    public void onRoleCommand(Message message) {
+    public void runRoleCommand(Message message) {
         message.delete().queue();
 
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
 
+        String guildID = message.getGuild().getId();
+        String guildLanguage = clientCache.getLanguage(guildID);
+
         if (!clientCache.doNotificationChannelExists(channelID)) {
-            textChannel.sendMessage(textChannel.getAsMention() + LanguageController.getNotRegisteredMessage("ENG")).queue(sendMessage -> {
+            textChannel.sendMessage(textChannel.getAsMention() +
+                    LanguageController.getNotRegisteredMessage(guildLanguage)).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
             return;
@@ -41,12 +45,12 @@ public class RoleCommand {
         Role role = getRoleByRoleID(roleID, guild);
 
         if (args[1].equalsIgnoreCase("@here")) {
-            setRoleToHere(message);
+            setRoleToHere(message, guildLanguage);
             return;
         }
 
         if (role == null) {
-            textChannel.sendMessage(LanguageController.getRoleNotFoundMessage("ENG")).queue(sendMessage -> {
+            textChannel.sendMessage(LanguageController.getRoleNotFoundMessage(guildLanguage)).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
             return;
@@ -54,19 +58,20 @@ public class RoleCommand {
 
         clientCache.setRole(channelID, roleID);
         databaseRequests.setRole(channelID, roleID);
-        message.getTextChannel().sendMessage(role.getAsMention() + LanguageController.getIsSetMessage("ENG")).queue(sendMessage -> {
+        message.getTextChannel().sendMessage(role.getAsMention() +
+                LanguageController.getIsSetMessage(guildLanguage)).queue(sendMessage -> {
             sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
         });
     }
 
-    private void setRoleToHere(Message message) {
+    private void setRoleToHere(Message message, String language) {
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
         String role = "@here";
 
         clientCache.setRole(channelID, role);
         databaseRequests.setRole(channelID, role);
-        message.getTextChannel().sendMessage("Here" + LanguageController.getIsSetMessage("ENG")).queue(sendMessage -> {
+        message.getTextChannel().sendMessage("Here " + LanguageController.getIsSetMessage(language)).queue(sendMessage -> {
             sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
         });
     }
