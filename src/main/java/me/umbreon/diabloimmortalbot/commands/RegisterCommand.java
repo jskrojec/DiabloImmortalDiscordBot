@@ -24,12 +24,11 @@ public class RegisterCommand {
 
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
-        String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getLanguage(guildID);
+        String defaultLanguage = "ENG";
 
         if (clientCache.doNotificationChannelExists(channelID)) {
             textChannel.sendMessage(textChannel.getAsMention() +
-                    LanguageController.getAlreadyRegisteredMessage(guildLanguage)).queue(sendMessage -> {
+                    LanguageController.getAlreadyRegisteredMessage(defaultLanguage)).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
             });
             return;
@@ -40,7 +39,7 @@ public class RegisterCommand {
         clientCache.addNotificationChannel(notificationChannel);
 
         textChannel.sendMessage(textChannel.getAsMention() +
-                LanguageController.getRegisteredMessage(guildLanguage)).queue(sendMessage -> {
+                LanguageController.getRegisteredMessage(defaultLanguage)).queue(sendMessage -> {
             sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
         });
     }

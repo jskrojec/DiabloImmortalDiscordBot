@@ -18,6 +18,7 @@ public class HelpCommand {
                 "'>status 0 - Select what messages you like to get.'\n" +
                 "'>role @Role - Set what role should be mentioned in this textchannel. If you dont set the role everyone will be mentioned.'\n" +
                 "'>language ENG - DISABLED, there is no other than english, requst an language on my Discord server.\n" +
+                "'>whatismychannelid - Shows you your channelid.\n" +
                 "'>checktimetone GMT+2 - Helps you find the right timezone for your server'\n\n" +
                 "Possible Codes for status:\n" +
                 "0 = All messages.\n" +

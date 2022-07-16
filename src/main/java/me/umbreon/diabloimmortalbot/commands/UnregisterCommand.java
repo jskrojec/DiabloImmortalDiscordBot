@@ -24,7 +24,7 @@ public class UnregisterCommand {
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
         String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getLanguage(guildID);
+        String guildLanguage = "ENG"; //clientCache.getLanguage(guildID);
 
         if (!clientCache.doNotificationChannelExists(channelID)) {
             textChannel.sendMessage(textChannel.getAsMention() +

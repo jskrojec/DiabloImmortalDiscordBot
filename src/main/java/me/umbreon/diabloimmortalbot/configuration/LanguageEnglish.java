@@ -85,7 +85,7 @@ public class LanguageEnglish {
     }
 
     public static String getAlreadyRegisteredMessage() {
-        return messages.get("REGISTERED_REGISTERED").toString();
+        return messages.get("ALREADY_REGISTERED").toString();
     }
 
     public static String getRoleNotFoundMessage() {

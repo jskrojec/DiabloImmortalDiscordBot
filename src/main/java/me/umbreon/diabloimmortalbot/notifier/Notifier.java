@@ -11,8 +11,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -61,6 +60,11 @@ public class Notifier {
                         TextChannel textChannel = jda.getTextChannelById(channel);
 
                         if (textChannel != null) {
+
+                            guildID = textChannel.getGuild().getId();
+                            String timezone = clientCache.getTimezone(channel);
+                            registerGuildIfDoNotExists(guildID, timezone);
+
                             String[] guildInfo = sendMessageIfPossible(textChannel);
 
                             guildID = guildInfo[0];
@@ -68,15 +72,25 @@ public class Notifier {
                         }
 
                     } catch (Exception e) {
-                        StringWriter sw = new StringWriter();
-                        PrintWriter pw = new PrintWriter(sw);
-                        e.printStackTrace(pw);
-                        databaseRequests.deleteNotificationChannelEntry(channel);
-                        ClientLogger.createNewLogEntry(channel, guildID, ownerID, String.valueOf(pw));
+                        ClientLogger.createNewLogEntry(channel, guildID, ownerID, e.getMessage());
+                        e.printStackTrace();
                     }
                 }
             }
         }, 0, 60 * 1000);
+    }
+
+    private void registerGuildIfDoNotExists(String guildID, String timezone) {
+        try {
+            if (!clientCache.doGuildExists(guildID)) {
+                String language = "ENG";
+                GuildInformation guildInformation = new GuildInformation(guildID, language, timezone);
+                databaseRequests.createNewGuildEntry(guildInformation);
+                clientCache.addGuildInformation(guildInformation);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     private String[] sendMessageIfPossible(TextChannel textChannel) {
@@ -88,7 +102,7 @@ public class Notifier {
         Guild guild = textChannel.getGuild();
         guildInfo[0] = guild.getId();
         guildInfo[1] = guild.getOwnerId();
-        String language = clientCache.getLanguage(guildInfo[0]);
+        String language = "ENG"; //clientCache.getLanguage(guildInfo[0]);
 
 
         registerGuildIfNotExists(guildInfo[0], timezone);
@@ -150,25 +164,34 @@ public class Notifier {
 
 
     private void addMention(StringBuilder stringBuilder, String channelId, Guild guild) {
-        String roleId = clientCache.getMentionRoleID(channelId);
-
+        String mention;
         String everyoneMention = "@everyone";
-        String hereMention = "@here";
-        String mention = everyoneMention;
+        try {
+            mention = clientCache.getMentionRoleID(channelId);
+        } catch (NullPointerException exception) {
+            mention = everyoneMention;
+        }
 
-        if (roleId.equalsIgnoreCase(hereMention)) {
+        if (mention == null) {
+            mention = everyoneMention;
+        }
+
+        String hereMention = "@here";
+
+        if (mention.equalsIgnoreCase(hereMention)) {
             mention = hereMention;
+            stringBuilder.append(mention);
+            return;
         }
 
         try {
-            if (!roleId.isBlank()) {
-                mention = guild.getRoleById(roleId).getAsMention();
-            }
-        } catch (NullPointerException ignore) {
-            //If this exception happens, no role was set.
+            mention = Objects.requireNonNull(guild.getRoleById(mention)).getAsMention();
+        } catch (NullPointerException e) {
+            mention = everyoneMention;
         }
 
         stringBuilder.append(mention);
+
     }
 
     private void addDebugMessageIfInMode(String channel, String timezone, StringBuilder notificationMessageBuilder) {

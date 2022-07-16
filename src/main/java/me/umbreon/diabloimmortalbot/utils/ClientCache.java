@@ -68,7 +68,13 @@ public class ClientCache {
     }
 
     public String getLanguage(String guildID) {
-        return listWithGuildInformation.get(guildID).getLanguage();
+        String language;
+        try {
+            language = listWithGuildInformation.get(guildID).getLanguage();
+        } catch (NullPointerException e) {
+            language = "ENG";
+        }
+        return language;
     }
 
     public String getTimezoneFromGuild(String guildID) {

@@ -29,7 +29,7 @@ public class RoleCommand {
         String channelID = textChannel.getId();
 
         String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getLanguage(guildID);
+        String guildLanguage = "ENG"; //clientCache.getLanguage(guildID);
 
         if (!clientCache.doNotificationChannelExists(channelID)) {
             textChannel.sendMessage(textChannel.getAsMention() +
@@ -79,8 +79,10 @@ public class RoleCommand {
     private Role getRoleByRoleID(String roleID, Guild guild) {
         try {
             return guild.getRoleById(roleID);
-        } catch (NullPointerException | IllegalAccessError e) { //TODO: What is IllegalAccessError?
-            ClientLogger.createNewLogEntry(guild.getId(), guild.getName(), guild.getOwnerId(), e.toString());
+        } catch (NullPointerException | IllegalAccessError e) {
+            //ClientLogger.createNewLogEntry(guild.getId(), guild.getName(), guild.getOwnerId(), e.toString());
+            //e.printStackTrace();
+            //What is IllegalAccessError? = role does not exists
             return null;
         }
     }

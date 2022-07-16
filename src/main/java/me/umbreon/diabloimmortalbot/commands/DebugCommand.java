@@ -25,7 +25,7 @@ public class DebugCommand {
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
         String guildID = message.getGuild().getId();
-        String language = clientCache.getLanguage(guildID);
+        String language = "ENG"; //  clientCache.getLanguage(guildID);
 
         if (clientCache.doNotificationChannelExists(channelID)) {
             textChannel.sendMessage(textChannel.getAsMention() +

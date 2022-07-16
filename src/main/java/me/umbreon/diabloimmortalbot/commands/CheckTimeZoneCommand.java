@@ -8,7 +8,14 @@ public class CheckTimeZoneCommand {
     public void runCheckTimezoneCommand(Message message) {
         message.delete().queue();
         String[] args = message.getContentRaw().split(" ");
-        String timeZone = args[1].toUpperCase();
+        String timeZone;
+        try {
+            timeZone = args[1].toUpperCase();
+        } catch (NullPointerException e) {
+            message.getTextChannel().sendMessage("Invalid entry.").queue();
+            return;
+        }
+
         message.getTextChannel().sendMessage(timeZone + " " + Time.getTimeWithWeekday(timeZone)).queue();
     }
 }

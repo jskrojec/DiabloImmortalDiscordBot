@@ -31,10 +31,12 @@ public class DatabaseRequests {
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -55,10 +57,12 @@ public class DatabaseRequests {
                 }
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
         return listWithNotificationChannels;
     }
@@ -84,10 +88,12 @@ public class DatabaseRequests {
                 }
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
         return listEventTimeTables;
     }
@@ -105,10 +111,12 @@ public class DatabaseRequests {
                 }
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
         return listEventTimeTables;
     }
@@ -122,10 +130,12 @@ public class DatabaseRequests {
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -138,10 +148,12 @@ public class DatabaseRequests {
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -154,10 +166,12 @@ public class DatabaseRequests {
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -169,10 +183,12 @@ public class DatabaseRequests {
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -185,10 +201,12 @@ public class DatabaseRequests {
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -196,7 +214,7 @@ public class DatabaseRequests {
 
     public void createNewGuildEntry(GuildInformation guildInformation) {
         try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, time) VALUES (?, ?, ?)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, timezone) VALUES (?, ?, ?)")) {
             try {
                 preparedStatement.setString(1, guildInformation.getGuildID());
                 preparedStatement.setString(2, guildInformation.getLanguage());
@@ -204,10 +222,12 @@ public class DatabaseRequests {
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -220,10 +240,12 @@ public class DatabaseRequests {
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -236,17 +258,19 @@ public class DatabaseRequests {
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
     }
 
     public Map<String, GuildInformation> getAllGuilds() {
         Map<String, GuildInformation> listWithGuildInformation = new ConcurrentHashMap<>();
         try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM channel_notification")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM guilds")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
 
@@ -258,10 +282,12 @@ public class DatabaseRequests {
                 }
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
         } catch (SQLException e) {
             ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
         }
         return listWithGuildInformation;
     }

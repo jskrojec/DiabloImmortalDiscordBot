@@ -35,7 +35,7 @@ public class StatusCommand {
 
         String[] args = message.getContentRaw().split(" ");
         String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getLanguage(guildID);
+        String guildLanguage = "ENG"; //clientCache.getLanguage(guildID);
 
         switch (args[1].toLowerCase()) {
             case "0":

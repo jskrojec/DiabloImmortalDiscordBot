@@ -27,7 +27,7 @@ public class TimezoneCommand {
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
         String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getLanguage(guildID);
+        String guildLanguage = "ENG"; //clientCache.getLanguage(guildID);
 
         if (!clientCache.doNotificationChannelExists(channelID)) {
             textChannel.sendMessage(textChannel.getAsMention() +
@@ -40,11 +40,11 @@ public class TimezoneCommand {
         String[] args = message.getContentRaw().split(" ");
         String timezone = args[1].toUpperCase();
 
-        if (!timezone.substring(0, 3).equalsIgnoreCase("GMT") || !timezone.substring(0, 3).equalsIgnoreCase("EST")) {
-            textChannel.sendMessage(String.format(LanguageController.getUnknownTimezoneMessage(guildLanguage), timezone)).queue(sendMessage -> {
-                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
-        }
+        //if (!timezone.substring(0, 3).equalsIgnoreCase("GMT") || !timezone.substring(0, 3).equalsIgnoreCase("EST")) {
+        //    textChannel.sendMessage(String.format(LanguageController.getUnknownTimezoneMessage(guildLanguage), timezone)).queue(sendMessage -> {
+        //        sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
+        //    });
+        //}
 
         databaseRequests.setTimezone(channelID, timezone);
         clientCache.setTimezone(channelID, timezone);

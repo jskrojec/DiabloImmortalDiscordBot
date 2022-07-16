@@ -36,6 +36,7 @@ public class Client {
         DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
 
         clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
+        clientCache.setListWithGuildInformation(databaseRequests.getAllGuilds());
 
         Notifier notifier = new Notifier(databaseRequests, clientCache);
         EventHandler eventHandler = new EventHandler(databaseRequests, clientCache);

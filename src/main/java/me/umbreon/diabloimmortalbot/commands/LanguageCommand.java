@@ -28,7 +28,7 @@ public class LanguageCommand {
         TextChannel textChannel = message.getTextChannel();
 
         String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getLanguage(guildID);
+        String guildLanguage = "ENG"; //clientCache.getLanguage(guildID);
 
         if (!isLanguageSupported(language)) {
             textChannel.sendMessage(LanguageController.getLanguageUpdatedMessage(guildLanguage)).queue(sendMessage -> {

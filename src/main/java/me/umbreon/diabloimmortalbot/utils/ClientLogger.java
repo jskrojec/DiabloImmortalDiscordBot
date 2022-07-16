@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class ClientLogger {
@@ -34,6 +35,26 @@ public class ClientLogger {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
             bufferedWriter.append("\n[").append(getCurrentDate()).append(getCurrentTime()).append("] ").append(message);
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createNewLogEntry(String guildID, String guildName, String ownerID, Exception message) {
+        logFile = new File("/home/discord/logs/" + guildID + ".log");
+
+        if (!doesLogFileExist()) {
+            createNewLogFile(guildID, guildName, ownerID);
+        }
+
+        BufferedWriter bufferedWriter;
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
+            bufferedWriter.append("\n[").append(getCurrentDate()).append(getCurrentTime()).append("] ").append(message.getMessage()).append("\n");
+            for (StackTraceElement e : message.getStackTrace()) {
+                bufferedWriter.append(String.valueOf(e)).append("\n");
+            }
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
