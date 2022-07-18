@@ -44,7 +44,7 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
             String guilds = "CREATE TABLE IF NOT EXISTS guilds (" +
                     "guildID VARCHAR(20)," +
                     "language VARCHAR(5)," +
-                    "timezone VARCHAR(10)" + ")";
+                    "enable_headup TINYINT(1)" + ")";
 
             connection.createStatement().execute(channel_notification);
             connection.createStatement().execute(guilds);

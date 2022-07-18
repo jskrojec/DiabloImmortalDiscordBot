@@ -4,12 +4,12 @@ public class GuildInformation {
 
     private String guildID;
     private String language;
-    private String timezone;
+    private boolean isHeadUpEnabled;
 
-    public GuildInformation(String guildID, String language, String timezone) {
+    public GuildInformation(String guildID, String language, boolean isHeadUpEnabled) {
         this.guildID = guildID;
         this.language = language;
-        this.timezone = timezone;
+        this.isHeadUpEnabled = isHeadUpEnabled;
     }
 
     public String getGuildID() {
@@ -28,11 +28,11 @@ public class GuildInformation {
         this.language = language;
     }
 
-    public String getTimezone() {
-        return timezone;
+    public boolean isHeadUpEnabled() {
+        return isHeadUpEnabled;
     }
 
-    public void setTimezone(String timezone) {
-        this.timezone = timezone;
+    public void setHeadUpEnabled(boolean headUpEnabled) {
+        isHeadUpEnabled = headUpEnabled;
     }
 }

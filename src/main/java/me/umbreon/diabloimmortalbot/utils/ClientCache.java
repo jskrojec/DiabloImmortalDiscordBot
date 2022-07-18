@@ -29,10 +29,6 @@ public class ClientCache {
         return listWithNotificationChannels.get(channelId).getRole();
     }
 
-    public boolean isChannelInDebugMode(String channelId) {
-        return listWithNotificationChannels.get(channelId).isInDebugMode();
-    }
-
     public boolean doNotificationChannelExists(String channelID) {
         return listWithNotificationChannels.containsKey(channelID);
     }
@@ -57,10 +53,6 @@ public class ClientCache {
         listWithNotificationChannels.remove(channelID);
     }
 
-    public void setDebugValue(String channelID, boolean debugValue) {
-        listWithNotificationChannels.get(channelID).setInDebugMode(debugValue);
-    }
-
     private Map<String, GuildInformation> listWithGuildInformation;
 
     public void setListWithGuildInformation(Map<String, GuildInformation> listWithGuildInformation) {
@@ -77,16 +69,8 @@ public class ClientCache {
         return language;
     }
 
-    public String getTimezoneFromGuild(String guildID) {
-        return listWithGuildInformation.get(guildID).getTimezone();
-    }
-
     public void setLanguage(String guildID, String language) {
         listWithGuildInformation.get(guildID).setLanguage(language);
-    }
-
-    public void setTimezoneFromGuild(String guildID, String timezone) {
-        listWithGuildInformation.get(guildID).setTimezone(timezone);
     }
 
     public boolean doGuildExists(String guildID) {
@@ -95,6 +79,14 @@ public class ClientCache {
 
     public void addGuildInformation(GuildInformation guildInformation) {
         this.listWithGuildInformation.put(guildInformation.getGuildID(), guildInformation);
+    }
+
+    public void setHeadUpValue(String guildID, boolean headUpValue) {
+        listWithGuildInformation.get(guildID).setHeadUpEnabled(headUpValue);
+    }
+
+    public boolean getHeadUpValue(String guildID) {
+        return listWithGuildInformation.get(guildID).isHeadUpEnabled();
     }
 
 }

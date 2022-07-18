@@ -19,14 +19,15 @@ public class HelpCommand {
                 "'>role @Role - Set what role should be mentioned in this textchannel. If you dont set the role everyone will be mentioned.'\n" +
                 "'>language ENG - DISABLED, there is no other than english, requst an language on my Discord server.\n" +
                 "'>whatismychannelid - Shows you your channelid.\n" +
-                "'>checktimetone GMT+2 - Helps you find the right timezone for your server'\n\n" +
+                "'>headup on/off - Enable or disable 15 minutes prewarning message.\n" +
+                "'>checktimezone GMT+2 - Helps you find the right timezone for your server'\n\n" +
                 "Possible Codes for status:\n" +
                 "0 = All messages.\n" +
                 "1 = Only overworld.\n" +
                 "2 = Only Immortal\n" +
                 "3 = Only Shadow\n" +
                 "4 = Immortal with overworld\n" +
-                "5 = Shadow with overworld" +
+                "5 = Shadow with overworld\n" +
                 "9 = Overworld Events with Embed (No ping!)";
 
         textChannel.sendMessage(helpMessage).queue();

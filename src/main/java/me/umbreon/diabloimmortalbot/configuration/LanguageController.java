@@ -262,24 +262,6 @@ public class LanguageController {
         }
     }
 
-    public static String getNowInDebugMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getNowInDebugMessage();
-            default:
-                return LanguageEnglish.getNowInDebugMessage();
-        }
-    }
-
-    public static String getNoLongerDebugMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getNoLongerDebugMessage();
-            default:
-                return LanguageEnglish.getNoLongerDebugMessage();
-        }
-    }
-
     public static String getUnknownTimezoneMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
@@ -288,7 +270,6 @@ public class LanguageController {
                 return LanguageEnglish.getUnknownTimezoneMessage();
         }
     }
-
 
     public static String getUnknownStatusMessage(String lang) {
         switch (lang.toUpperCase()) {
@@ -362,5 +343,13 @@ public class LanguageController {
         }
     }
 
+    public static String getHeadUpValueSetToMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getHeadUpValueSetToMessage();
+            default:
+                return LanguageEnglish.getHeadUpValueSetToMessage();
+        }
+    }
 
 }

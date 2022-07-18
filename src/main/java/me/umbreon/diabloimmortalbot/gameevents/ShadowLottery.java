@@ -11,15 +11,17 @@ import java.util.Map;
 public class ShadowLottery {
 
     private final Map<String, Boolean> listShadowLottery;
+    private final ClientCache clientCache;
 
-    public ShadowLottery(DatabaseRequests databaseRequests) {
+    public ShadowLottery(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.listShadowLottery = databaseRequests.getEventTimes("event_shadow_lottery", true);
+        this.clientCache = clientCache;
     }
 
-    public String checkShadowLottery(String timezone, String language) {
+    public String checkShadowLottery(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone)) {
+        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
             return LanguageController.getShadowLotteryHeadUpMessage(language) + "\n";
         } else {
             return LanguageController.getShadowLotteryMessage(language) + "\n";

@@ -6,6 +6,6 @@ public class WhatsMyChannelIdCommand {
 
     public void runWhatsMyChannelIdCommand(Message message) {
         message.delete().queue();
-        message.getTextChannel().sendMessage("You channel identifier is: " + message.getTextChannel().getId()).queue();
+        message.getTextChannel().sendMessage("Your channel identifier is: " + message.getTextChannel().getId()).queue();
     }
 }

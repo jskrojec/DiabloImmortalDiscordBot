@@ -34,7 +34,8 @@ public class ClientLogger {
         BufferedWriter bufferedWriter;
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.append("\n[").append(getCurrentDate()).append(getCurrentTime()).append("] ").append(message);
+            bufferedWriter.append("\n[").append(getCurrentDate()).append(" ")
+                    .append(getCurrentTime()).append("] ").append(message);
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,10 +52,29 @@ public class ClientLogger {
         BufferedWriter bufferedWriter;
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.append("\n[").append(getCurrentDate()).append(getCurrentTime()).append("] ").append(message.getMessage()).append("\n");
+            bufferedWriter.append("\n[").append(getCurrentDate()).append(" ")
+                    .append(getCurrentTime()).append("] ").append(message.getMessage()).append("\n");
             for (StackTraceElement e : message.getStackTrace()) {
                 bufferedWriter.append(String.valueOf(e)).append("\n");
             }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createNewInfoLogEntry(String message) {
+        logFile = new File("/home/discord/logs/client-log.log");
+
+        if (!doesLogFileExist()) {
+            createNewLogFile("client-log", "Client_Log", "Umbreon");
+        }
+
+        BufferedWriter bufferedWriter;
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
+            bufferedWriter.append("\n[").append(getCurrentDate()).append(" ")
+                    .append(getCurrentTime()).append("] ").append(message);
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

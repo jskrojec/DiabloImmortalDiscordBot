@@ -128,14 +128,6 @@ public class LanguageGerman {
         return messages.get("UNREGISTERED").toString();
     }
 
-    public static String getNowInDebugMessage() {
-        return messages.get("NOW_IN_DEBUG").toString();
-    }
-
-    public static String getNoLongerDebugMessage() {
-        return messages.get("NO_LONGER_DEBUG").toString();
-    }
-
     public static String getUnknownTimezoneMessage() {
         return messages.get("UNKNOWN_TIMEZONE").toString();
     }
@@ -170,6 +162,10 @@ public class LanguageGerman {
 
     public static String getLanguageUpdatedMessage() {
         return messages.get("LANGUAGE_UPDATED").toString();
+    }
+
+    public static String getHeadUpValueSetToMessage() {
+        return messages.get("HEADUP_VALUE_SET_TO").toString();
     }
 
 }

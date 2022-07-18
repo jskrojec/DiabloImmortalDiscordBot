@@ -30,7 +30,7 @@ public class DatabaseRequests {
                 preparedStatement.setBoolean(5, notificationChannel.inDebugMode);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e);
                 e.printStackTrace();
             }
             ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
@@ -192,51 +192,15 @@ public class DatabaseRequests {
         }
     }
 
-    public void setDebugModeValue(String messageId, boolean debugMode) {
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE channel_notification SET debug = ? WHERE channel = ?")) {
-            try {
-                preparedStatement.setBoolean(1, debugMode);
-                preparedStatement.setString(2, messageId);
-                preparedStatement.executeUpdate();
-            } catch (Exception e) {
-                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
-                e.printStackTrace();
-            }
-            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
-        } catch (SQLException e) {
-            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
-            e.printStackTrace();
-        }
-    }
-
     // Guilds
 
     public void createNewGuildEntry(GuildInformation guildInformation) {
         try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, timezone) VALUES (?, ?, ?)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, enable_headup) VALUES (?, ?, ?)")) {
             try {
                 preparedStatement.setString(1, guildInformation.getGuildID());
                 preparedStatement.setString(2, guildInformation.getLanguage());
-                preparedStatement.setString(3, guildInformation.getTimezone());
-                preparedStatement.executeUpdate();
-            } catch (Exception e) {
-                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
-                e.printStackTrace();
-            }
-            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
-        } catch (SQLException e) {
-            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
-            e.printStackTrace();
-        }
-    }
-
-    public void setGuildTimezone(String guilID, String timezone) {
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET timezone = ? WHERE guildID = ?")) {
-            try {
-                preparedStatement.setString(1, guilID);
-                preparedStatement.setString(2, timezone);
+                preparedStatement.setBoolean(3, guildInformation.isHeadUpEnabled());
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
@@ -276,8 +240,8 @@ public class DatabaseRequests {
 
                     String guildID = resultSet.getString("guildID");
                     String language = resultSet.getString("language");
-                    String timezone = resultSet.getString("timezone");
-                    GuildInformation guildInformation = new GuildInformation(guildID, language, timezone);
+                    boolean isHeadUpEnabled = (resultSet.getInt("enable_headup") == 1);
+                    GuildInformation guildInformation = new GuildInformation(guildID, language, isHeadUpEnabled);
                     listWithGuildInformation.put(guildID, guildInformation);
                 }
             } catch (Exception e) {
@@ -290,6 +254,24 @@ public class DatabaseRequests {
             e.printStackTrace();
         }
         return listWithGuildInformation;
+    }
+
+    public void setHeadUpValue(String guilID, boolean headUpValue) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET enable_headup = ? WHERE guildID = ?")) {
+            try {
+                preparedStatement.setString(1, guilID);
+                preparedStatement.setBoolean(2, headUpValue);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+                e.printStackTrace();
+            }
+            ClientLogger.createNewLogEntry("sql-log", "MySQL-Statements", "Umbreon", preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewLogEntry("sql-err", "MySQL-Errors", "Umbreon", e.toString());
+            e.printStackTrace();
+        }
     }
 
 

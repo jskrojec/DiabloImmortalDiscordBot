@@ -3,6 +3,7 @@ package me.umbreon.diabloimmortalbot.commands;
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -24,22 +25,26 @@ public class UnregisterCommand {
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
         String guildID = message.getGuild().getId();
-        String guildLanguage = "ENG"; //clientCache.getLanguage(guildID);
+        String language = clientCache.getLanguage(guildID);
 
-        if (!clientCache.doNotificationChannelExists(channelID)) {
-            textChannel.sendMessage(textChannel.getAsMention() +
-                    LanguageController.getNotRegisteredMessage(guildLanguage)).queue(sendMessage -> {
-                sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
-            });
+        if (clientCache.doNotificationChannelExists(channelID)) {
+            String responseMessage = textChannel.getAsMention() + LanguageController.getNotRegisteredMessage(language);
+            textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
+            createLogEntry(message, responseMessage);
             return;
         }
 
         databaseRequests.deleteNotificationChannelEntry(channelID);
         clientCache.deleteNotificationChannel(channelID);
+        String responseMessage = String.format(LanguageController.getUnregisteredChannel(language), textChannel.getAsMention());
+        textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
+        createLogEntry(message, responseMessage);
+    }
 
-        textChannel.sendMessage(textChannel.getAsMention() +
-                LanguageController.getUnregisteredChannel(guildLanguage)).queue(sendMessage -> {
-            sendMessage.delete().queueAfter(10, TimeUnit.SECONDS);
-        });
+    private void createLogEntry(Message message, String responseMessage) {
+        String channelName = message.getTextChannel().getName();
+        String guildName = message.getGuild().getName();
+        String logMessage = "Sended message " + responseMessage + " to " + channelName + " in guild " + guildName + ".";
+        ClientLogger.createNewInfoLogEntry(logMessage);
     }
 }

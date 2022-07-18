@@ -13,15 +13,17 @@ import java.util.Map;
 public class Battleground {
 
     private final Map<String, Boolean> listBattleground;
+    private final ClientCache clientCache;
 
-    public Battleground(DatabaseRequests databaseRequests) {
+    public Battleground(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.listBattleground = databaseRequests.getEventTimes("event_battleground", true);
+        this.clientCache = clientCache;
     }
 
-    public String checkBattleground(String timezone, String language) {
+    public String checkBattleground(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone)) {
+        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
             return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
         } else {
             return LanguageController.getBattlegroundMessage(language) + "\n";

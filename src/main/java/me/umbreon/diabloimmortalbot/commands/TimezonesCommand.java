@@ -1,11 +1,11 @@
 package me.umbreon.diabloimmortalbot.commands;
 
+import me.umbreon.diabloimmortalbot.utils.Time;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
-import java.time.Instant;
 
 public class TimezonesCommand {
 
@@ -16,22 +16,33 @@ public class TimezonesCommand {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Timezones");
         embedBuilder.setColor(Color.RED);
+        String[] args = message.getContentRaw().split(" ");
 
-        long hourInSeconds = 3600;
-        long unixTime = Instant.now().getEpochSecond() + (hourInSeconds * 10);
+        String timezone;
+        if (args.length == 1) {
+            timezone = "GMT";
+        } else {
+            timezone = args[1];
+        }
 
         for (int i = 12; i > -12; i--) {
             String timezoneMessage;
             if (i > 0) {
-                timezoneMessage = "GMT+" + i;
+                timezoneMessage = timezone + "+" + i;
             } else if (i == 0) {
-                timezoneMessage = "GMT";
+                timezoneMessage = timezone;
             } else {
-                timezoneMessage = "GMT" + i;
+                timezoneMessage = timezone + i;
             }
 
-            embedBuilder.addField(timezoneMessage, "<t:" + unixTime + ">", true);
-            unixTime = unixTime - hourInSeconds;
+            String time = Time.getTimeWithWeekday(timezoneMessage);
+
+            if (time.equalsIgnoreCase("INVALID_TIMEZONE")) {
+                textChannel.sendMessage("Unknown Timezone. Known timezones are UTC, GMT & ET.").queue();
+                return;
+            }
+
+            embedBuilder.addField(timezoneMessage, time, true);
         }
 
         textChannel.sendMessageEmbeds(embedBuilder.build()).queue();

@@ -6,22 +6,25 @@ import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
-import java.util.concurrent.TimeUnit;
 
-public class LanguageCommand {
+import java.util.concurrent.TimeUnit;
+/**
+ * Command >headup [on/off]
+ * Alternative: >headup [true/false]
+ */
+public class HeadUpCommand {
 
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
 
-    public LanguageCommand(ClientCache clientCache, DatabaseRequests databaseRequests) {
+    public HeadUpCommand(ClientCache clientCache, DatabaseRequests databaseRequests) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
 
-    public void runLanguageCommand(Message message) {
+    public void runHeadUpCommand(Message message) {
         message.delete().queue();
 
-        TextChannel textChannel = message.getTextChannel();
         String[] args = message.getContentRaw().split(" ");
 
         if (args.length == 1) {
@@ -31,29 +34,48 @@ public class LanguageCommand {
             return;
         }
 
-        String language = args[1].toUpperCase();
         String guildID = message.getGuild().getId();
-        String defaultLanguage = "ENG";
+        TextChannel textChannel = message.getTextChannel();
+        String language = clientCache.getLanguage(guildID);
 
-        if (!isLanguageSupported(language)) {
-            String responseMessage = LanguageController.getLanguageNotSupportedMessage(defaultLanguage);
-            textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
+        if (isArgumentFalse(args[1])) {
+            setHeadUpValue(guildID, false);
+            sendResponseMessage(message, textChannel, language, "disabled");
             return;
         }
 
-        databaseRequests.setGuildLanguage(guildID, language);
-        clientCache.setLanguage(guildID, language);
+        if (isArgumentTrue(args[1])) {
+            setHeadUpValue(guildID, true);
+            sendResponseMessage(message, textChannel, language, "enabled");
+        }
+    }
 
-        String responseMessage = String.format(LanguageController.getLanguageUpdatedMessage(defaultLanguage), language);
+    private void sendResponseMessage(Message message, TextChannel textChannel, String language, String disabled) {
+        String responseMessage;
+        responseMessage = String.format(LanguageController.getHeadUpValueSetToMessage(language), disabled);
         textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
         createLogEntry(message, responseMessage);
     }
 
-    private boolean isLanguageSupported(String lang) {
-        switch (lang) {
-            case "GER":
-            case "ENG":
+    private void setHeadUpValue(String guildID, boolean headUpValue) {
+        clientCache.setHeadUpValue(guildID, headUpValue);
+        databaseRequests.setHeadUpValue(guildID, headUpValue);
+    }
+
+    private boolean isArgumentTrue(String arg) {
+        switch (arg.toLowerCase()) {
+            case "true":
+            case "on":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private boolean isArgumentFalse(String arg) {
+        switch (arg.toLowerCase()) {
+            case "false":
+            case "off":
                 return true;
             default:
                 return false;
