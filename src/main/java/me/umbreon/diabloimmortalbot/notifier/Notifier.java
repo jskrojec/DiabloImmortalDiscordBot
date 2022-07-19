@@ -15,7 +15,6 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 

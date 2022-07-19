@@ -1,7 +1,6 @@
 package me.umbreon.diabloimmortalbot.commands;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
-import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;

@@ -1,6 +1,5 @@
 package me.umbreon.diabloimmortalbot.configuration;
 
-import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;

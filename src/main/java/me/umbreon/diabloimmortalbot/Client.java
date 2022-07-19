@@ -1,7 +1,6 @@
 package me.umbreon.diabloimmortalbot;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
-import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
 import me.umbreon.diabloimmortalbot.events.EventHandler;
@@ -11,11 +10,9 @@ import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Guild;
 import org.apache.log4j.BasicConfigurator;
 
 import javax.security.auth.login.LoginException;
-import java.util.List;
 
 public class Client {
 

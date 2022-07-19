@@ -3,10 +3,7 @@ package me.umbreon.diabloimmortalbot.gameevents;
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import me.umbreon.diabloimmortalbot.utils.Time;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Map;
 

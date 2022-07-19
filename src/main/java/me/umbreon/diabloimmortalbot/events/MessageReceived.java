@@ -5,6 +5,7 @@ import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
@@ -25,6 +26,7 @@ public class MessageReceived {
     private final LanguageCommand languageCommand;
     private final WhatsMyChannelIdCommand whatsMyChannelIdCommand;
     private final HeadUpCommand headUpCommand;
+    private final InstructionCommand instructionCommand;
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
@@ -41,6 +43,7 @@ public class MessageReceived {
         this.languageCommand = new LanguageCommand(clientCache, databaseRequests);
         this.whatsMyChannelIdCommand = new WhatsMyChannelIdCommand();
         this.headUpCommand = new HeadUpCommand(clientCache, databaseRequests);
+        this.instructionCommand = new InstructionCommand();
 
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
@@ -51,14 +54,19 @@ public class MessageReceived {
             return;
         }
 
-        if (findBotRole(member) == null) {
-            return;
+        String[] args = event.getMessage().getContentRaw().split(" ");
+        String channelID = event.getMessage().getTextChannel().getId();
+        if (clientCache.doNotificationChannelExists(channelID)) {
+            String guildID = event.getGuild().getId();
+            registerGuildIfDoNotExist(guildID, channelID);
         }
 
-        String[] args = event.getMessage().getContentRaw().split(" ");
-        String guildID = event.getGuild().getId();
-        String channelID = event.getTextChannel().getId();
-        //registerGuildIfDoNotExist(guildID, channelID);
+        if (findBotRole(member) == null) {
+            if (member.hasPermission(Permission.MESSAGE_MANAGE)) {
+                checkForCommandsWithNoPermissions(args[0], event.getMessage());
+            }
+            return;
+        }
 
         switch (args[0].toLowerCase()) {
             case ">notifier":
@@ -109,7 +117,24 @@ public class MessageReceived {
                 headUpCommand.runHeadUpCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
                 break;
+            case ">instructions":
+            case ">instruction":
+            case ">install":
+                instructionCommand.runInstructionCommand(event.getMessage());
+                break;
+        }
+    }
 
+    private void checkForCommandsWithNoPermissions(String arg, Message message) {
+        switch (arg.toLowerCase()) {
+            case ">instruction":
+            case ">instructions":
+            case ">install":
+                instructionCommand.runInstructionCommand(message);
+                break;
+            case ">help":
+                helpCommand.runHelpCommand(message);
+                break;
         }
     }
 

@@ -1,6 +1,5 @@
 package me.umbreon.diabloimmortalbot.configuration;
 
-import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
@@ -11,9 +10,9 @@ public class LanguageGerman {
     static Map<String, Object> messages;
 
     public void loadLanguageConfiguration() {
-        //Yaml yaml = new Yaml();
-        //InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("german.yaml");
-        //messages = yaml.load(inputStream);
+        Yaml yaml = new Yaml();
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("german.yaml");
+        messages = yaml.load(inputStream);
     }
 
     public static String getVaultMessage() {
