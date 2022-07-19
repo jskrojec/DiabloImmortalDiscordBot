@@ -21,20 +21,23 @@ public class ShadowLottery {
     public String checkShadowLottery(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
-            return LanguageController.getShadowLotteryHeadUpMessage(language) + "\n";
+        if (isHeadUpTime(timezone)) {
+            if (clientCache.getHeadUpValue(guildID)) {
+                return LanguageController.getShadowLotteryHeadUpMessage(language) + "\n";
+            }
         } else {
             return LanguageController.getShadowLotteryMessage(language) + "\n";
         }
+        return "";
     }
 
     private boolean isTimeValid(String timezone) {
-        String time = Time.getTimeWithWeekday(timezone);
+        String time = Time.getTime(timezone);
         return listShadowLottery.get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
-        String time = Time.getTimeWithWeekday(timezone);
+        String time = Time.getTime(timezone);
         return listShadowLottery.get(time);
     }
 

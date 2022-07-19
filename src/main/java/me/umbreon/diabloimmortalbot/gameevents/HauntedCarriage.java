@@ -26,11 +26,14 @@ public class HauntedCarriage {
     public String checkHauntedCarriage(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
-            return LanguageController.getHauntedCarriageHeadUpMessage(language) + "\n";
+        if (isHeadUpTime(timezone)) {
+            if (clientCache.getHeadUpValue(guildID)) {
+                return LanguageController.getHauntedCarriageHeadUpMessage(language) + "\n";
+            }
         } else {
             return LanguageController.getHauntedCarriageMessage(language) + "\n";
         }
+        return null;
     }
 
     private boolean isTimeValid(String timezone) {

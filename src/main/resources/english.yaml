@@ -34,5 +34,5 @@ UNKNOWN_TIMEZONE: "Invalid timezone. Known working timezones are: GMT, UTC & ET.
 UNKNOWN_STATUS: "Unknown code, use >help to see all available codes."
 IS_SET: "%s is now set."
 LANGUAGE_NOT_SUPPORTED: "This language is not supported. Available: GER & ENG"
-LANGUAGE_UPDATED: "Bot language is not set to %s"
+LANGUAGE_UPDATED: "Bot language is set to %s"
 HEADUP_VALUE_SET_TO: "15 minutes warnings are now %s"

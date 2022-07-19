@@ -23,11 +23,14 @@ public class DefendVault {
     public String checkDefendVault(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
-            return LanguageController.getDefendTheVaultHeadUpMessage(language) + "\n";
+        if (isHeadUpTime(timezone)) {
+            if (clientCache.getHeadUpValue(guildID)) {
+                return LanguageController.getDefendTheVaultHeadUpMessage(language) + "\n";
+            }
         } else {
             return LanguageController.getDefendTheVaultMessage(language) + "\n";
         }
+        return "";
     }
 
     private boolean isTimeValid(String timezone) {

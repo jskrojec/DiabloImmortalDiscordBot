@@ -28,17 +28,22 @@ public class UnregisterCommand {
         String language = clientCache.getLanguage(guildID);
 
         if (clientCache.doNotificationChannelExists(channelID)) {
-            String responseMessage = textChannel.getAsMention() + LanguageController.getNotRegisteredMessage(language);
+            String responseMessage = String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention());
             textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
             createLogEntry(message, responseMessage);
             return;
         }
 
-        databaseRequests.deleteNotificationChannelEntry(channelID);
-        clientCache.deleteNotificationChannel(channelID);
+        removeNotificationChannel(channelID);
+
         String responseMessage = String.format(LanguageController.getUnregisteredChannel(language), textChannel.getAsMention());
         textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
         createLogEntry(message, responseMessage);
+    }
+
+    private void removeNotificationChannel(String channelID) {
+        databaseRequests.deleteNotificationChannelEntry(channelID);
+        clientCache.deleteNotificationChannel(channelID);
     }
 
     private void createLogEntry(Message message, String responseMessage) {

@@ -58,7 +58,7 @@ public class MessageReceived {
         String[] args = event.getMessage().getContentRaw().split(" ");
         String guildID = event.getGuild().getId();
         String channelID = event.getTextChannel().getId();
-        registerGuildIfDoNotExist(guildID, channelID);
+        //registerGuildIfDoNotExist(guildID, channelID);
 
         switch (args[0].toLowerCase()) {
             case ">notifier":

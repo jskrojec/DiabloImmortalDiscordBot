@@ -23,11 +23,14 @@ public class RaidVault {
     public String checkVault(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
-            return LanguageController.getRaidTheVaultHeadUpMessage(language) + "\n";
+        if (isHeadUpTime(timezone)) {
+            if (clientCache.getHeadUpValue(guildID)) {
+                return LanguageController.getRaidTheVaultHeadUpMessage(language) + "\n";
+            }
         } else {
             return LanguageController.getRaidTheVaultMessage(language) + "\n";
         }
+        return "";
     }
 
     private boolean isTimeValid(String timezone) {

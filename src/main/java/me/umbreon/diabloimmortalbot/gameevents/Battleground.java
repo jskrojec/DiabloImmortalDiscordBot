@@ -23,11 +23,14 @@ public class Battleground {
     public String checkBattleground(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
-            return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
+        if (isHeadUpTime(timezone)) {
+            if (clientCache.getHeadUpValue(guildID)) {
+                return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
+            }
         } else {
             return LanguageController.getBattlegroundMessage(language) + "\n";
         }
+        return "";
     }
 
     private boolean isTimeValid(String timezone) {

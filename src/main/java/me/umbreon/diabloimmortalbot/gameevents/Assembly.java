@@ -20,11 +20,14 @@ public class Assembly {
     public String checkAssembly(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
-            return LanguageController.getAssemblyHeadUpMessage(language) + "\n";
+        if (isHeadUpTime(timezone)) {
+            if (clientCache.getHeadUpValue(guildID)) {
+                return LanguageController.getAssemblyHeadUpMessage(language) + "\n";
+            }
         } else {
             return LanguageController.getAssemblyMessage(language) + "\n";
         }
+        return "";
     }
 
     private boolean isTimeValid(String timezone) {

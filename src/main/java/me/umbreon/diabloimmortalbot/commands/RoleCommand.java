@@ -39,8 +39,8 @@ public class RoleCommand {
         String guildID = message.getGuild().getId();
         String language = clientCache.getLanguage(guildID);
 
-        if (clientCache.doNotificationChannelExists(channelID)) {
-            String responseMessage = textChannel.getAsMention() + LanguageController.getNotRegisteredMessage(language);
+        if (!clientCache.doNotificationChannelExists(channelID)) {
+            String responseMessage = String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention());
             textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
             createLogEntry(message, responseMessage);
             return;

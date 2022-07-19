@@ -26,11 +26,14 @@ public class AncientNightMare {
     public String checkAncientNightMare(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
-            return LanguageController.getAncientNightmareHeadUpMessage(language) + "\n";
+        if (isHeadUpTime(timezone)) {
+            if (clientCache.getHeadUpValue(guildID)){
+                return LanguageController.getAncientNightmareHeadUpMessage(language) + "\n";
+            }
         } else {
             return LanguageController.getAncientNightmareMessage(language) + "\n";
         }
+        return "";
     }
 
     private boolean isTimeValid(String timezone) {

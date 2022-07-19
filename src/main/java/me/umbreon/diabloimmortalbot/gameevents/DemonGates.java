@@ -27,11 +27,14 @@ public class DemonGates {
     public String checkDemonGates(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone) && clientCache.getHeadUpValue(guildID)) {
-            return LanguageController.getDemonGatesHeadUpMessage(language) + "\n";
+        if (isHeadUpTime(timezone)) {
+            if (clientCache.getHeadUpValue(guildID)){
+                return LanguageController.getDemonGatesHeadUpMessage(language) + "\n";
+            }
         } else {
             return LanguageController.getDemonGatesMessage(language) + "\n";
         }
+        return "";
     }
 
     private boolean isTimeValid(String timezone) {
