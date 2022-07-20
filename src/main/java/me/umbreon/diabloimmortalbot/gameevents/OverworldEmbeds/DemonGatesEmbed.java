@@ -9,11 +9,9 @@ import java.util.ArrayList;
 
 public class DemonGatesEmbed {
 
-    private final DatabaseRequests databaseRequests;
     private final ArrayList<String> listDemonGatesFormatted;
 
     public DemonGatesEmbed(DatabaseRequests databaseRequests) {
-        this.databaseRequests = databaseRequests;
         this.listDemonGatesFormatted = databaseRequests.getOverworldEventTimes("overworld_demon_gates");
     }
 
@@ -24,7 +22,7 @@ public class DemonGatesEmbed {
             return;
         }
 
-        long unix = Time.getTimeInUnix(timezone) + (3600 * 6);
+        long unix = Time.getTimeInUnix(timezone) + (3600 * 2);
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Demon Gates | World Event");

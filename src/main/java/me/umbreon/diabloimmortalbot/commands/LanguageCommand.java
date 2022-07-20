@@ -55,6 +55,7 @@ public class LanguageCommand {
         switch (lang) {
             case "GER":
             case "ENG":
+            case "ESP":
                 return true;
             default:
                 return false;

@@ -63,6 +63,12 @@ public class StatusCommand {
             case "5":
                 updateStatusFromNotificationChannel(channelID, 5, message, LanguageController.getReceiveOwShadowMessage(language));
                 break;
+            case "7":
+                updateStatusFromNotificationChannel(channelID, 7, message, LanguageController.getReceiveOwImmortalMessage(language));
+                break;
+            case "8":
+                updateStatusFromNotificationChannel(channelID, 8, message, LanguageController.getReceiveOwShadowMessage(language));
+                break;
             case "9":
                 updateStatusFromNotificationChannel(channelID, 9, message, LanguageController.getReceiveOverworldMessage(language));
                 break;

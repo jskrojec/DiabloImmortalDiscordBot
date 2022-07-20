@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.utils;
 
+import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 
@@ -8,13 +9,37 @@ import java.util.Map;
 public class ClientCache {
 
     private Map<String, NotificationChannel> listWithNotificationChannels;
+    private Map<String, GuildInformation> listWithGuildInformation;
+    private Map<String, CustomMessage> listWithCustomMessages;
+
+    public void setListWithCustomMessages(Map<String, CustomMessage> listWithCustomMessages) {
+        this.listWithCustomMessages = listWithCustomMessages;
+    }
+
+    public Map<String, CustomMessage> getListWithCustomMessages() {
+        return listWithCustomMessages;
+    }
+
+    public CustomMessage getCustomMessageByChannelID(String channelID) {
+        return listWithCustomMessages.get(channelID);
+    }
+
+    public String getCustomMessageFullTimeByChannelID(String channelID) {
+        String day = listWithCustomMessages.get(channelID).getDay();
+        String time = listWithCustomMessages.get(channelID).getTime();
+        return day + " " + time;
+    }
+
+    public void setListWithNotificationChannels(Map<String, NotificationChannel> listWithNotificationChannels) {
+        this.listWithNotificationChannels = listWithNotificationChannels;
+    }
 
     public Map<String, NotificationChannel> getListWithNotificationChannels() {
         return listWithNotificationChannels;
     }
 
-    public void setListWithNotificationChannels(Map<String, NotificationChannel> listWithNotificationChannels) {
-        this.listWithNotificationChannels = listWithNotificationChannels;
+    public String getCustomMessageMessageByChannelID(String channelID) {
+        return listWithCustomMessages.get(channelID).getMessage();
     }
 
     public int getStatus(String channelId) {
@@ -53,7 +78,7 @@ public class ClientCache {
         listWithNotificationChannels.remove(channelID);
     }
 
-    private Map<String, GuildInformation> listWithGuildInformation;
+
 
     public void setListWithGuildInformation(Map<String, GuildInformation> listWithGuildInformation) {
         this.listWithGuildInformation = listWithGuildInformation;

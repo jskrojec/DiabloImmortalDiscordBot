@@ -22,7 +22,7 @@ public class AncientNightmareEmbed {
             return;
         }
 
-        long unix = Time.getTimeInUnix(timezone) + (3600 * 6);
+        long unix = Time.getTimeInUnix(timezone) + (3600 * 2);
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Ancient Nightmare | World Event");

@@ -9,11 +9,9 @@ import java.util.ArrayList;
 
 public class AncientArenaEmbed {
 
-    private final DatabaseRequests databaseRequests;
     private final ArrayList<String> listAncientArenaFormatted;
 
     public AncientArenaEmbed(DatabaseRequests databaseRequests) {
-        this.databaseRequests = databaseRequests;
         this.listAncientArenaFormatted = databaseRequests.getOverworldEventTimes("overworld_ancient_arena");
     }
 
@@ -24,7 +22,7 @@ public class AncientArenaEmbed {
             return;
         }
 
-        long unix = Time.getTimeInUnix(timezone) + (3600 * 6);
+        long unix = Time.getTimeInUnix(timezone) + (3600 * 2);
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Ancient Arena | World Event");

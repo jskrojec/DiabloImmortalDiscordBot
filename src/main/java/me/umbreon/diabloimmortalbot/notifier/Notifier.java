@@ -79,16 +79,16 @@ public class Notifier {
                             String timezone = clientCache.getTimezone(channel);
                             registerGuildIfDoNotExists(guildID, timezone);
 
-                            //String fullTimeWithWeekday = Time.getTimeWithWeekday(timezone);
+                            String fullTimeWithWeekday = Time.getTimeWithWeekday(timezone);
 
-                            //if (fullTimeWithWeekday.equalsIgnoreCase("INVALID_TIMEZONE")) {
-                            //    textChannel.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
-                            //        privateChannel.sendMessage("You're using an invalid timezone on your server " +
-                            //                textChannel.getGuild().getName() + ". Known working timezones are GMT, UTC and ET.").queue();
-                            //    });
-                            //    textChannel.sendMessage("Unknown Timezone. Known timezones are UTC, GMT & ET.").queue();
-                            //    return;w
-                            //}
+                            if (fullTimeWithWeekday.equalsIgnoreCase("INVALID_TIMEZONE")) {
+                                textChannel.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
+                                    privateChannel.sendMessage("You're using an invalid timezone on your server " +
+                                            textChannel.getGuild().getName() + ". Known working timezones are GMT, UTC and ET.").queue();
+                                });
+                                textChannel.sendMessage("Unknown Timezone. Known timezones are UTC, GMT & ET.").queue();
+                                return;
+                            }
 
                             String[] guildInfo = sendMessageIfPossible(textChannel);
 
@@ -149,6 +149,12 @@ public class Notifier {
                 break;
             case 5:
                 checkShadowWithOverworldEvents(notificationMessageBuilder, timezone, language, guildInfo[0]);
+                break;
+            case 7:
+                checkImmortalWithOverworldEmbededEvents(notificationMessageBuilder, timezone, language, guildInfo[0], textChannel);
+                break;
+            case 8:
+                checkShadowWithOverworldEmbededEvents(notificationMessageBuilder, timezone, language, guildInfo[0], textChannel);
                 break;
             case 9:
                 checkForOverworldEvents(timezone, textChannel);
@@ -245,16 +251,19 @@ public class Notifier {
         notificationMessageBuilder.append(demonGates.checkDemonGates(timezone, language, guildID));
         notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone, language, guildID));
         notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone, language, guildID));
+
         notificationMessageBuilder.append(battleground.checkBattleground(timezone, language, guildID));
     }
 
     private void checkForAnyEvent(StringBuilder notificationMessageBuilder, String timezone, String language, String guildID) {
         notificationMessageBuilder.append(raidVault.checkVault(timezone, language, guildID));
         notificationMessageBuilder.append(battleground.checkBattleground(timezone, language, guildID));
+
         notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timezone, language, guildID));
         notificationMessageBuilder.append(demonGates.checkDemonGates(timezone, language, guildID));
         notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timezone, language, guildID));
         notificationMessageBuilder.append(ancientArea.checkAncientArea(timezone, language, guildID));
+
         notificationMessageBuilder.append(assembly.checkAssembly(timezone, language, guildID));
         notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone, language, guildID));
     }
@@ -264,6 +273,26 @@ public class Notifier {
         ancientNightmareEmbed.checkAncientArenaFormatted(textChannel, timezone);
         demonGatesEmbed.checkAncientArenaFormatted(textChannel, timezone);
         hauntedCarriageEmbed.checkAncientArenaFormatted(textChannel ,timezone);
+    }
+
+    private void checkShadowWithOverworldEmbededEvents(StringBuilder notificationMessageBuilder, String timezone, String language, String guildID, TextChannel textChannel) {
+        ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timezone);
+        ancientNightmareEmbed.checkAncientArenaFormatted(textChannel, timezone);
+        demonGatesEmbed.checkAncientArenaFormatted(textChannel, timezone);
+        hauntedCarriageEmbed.checkAncientArenaFormatted(textChannel ,timezone);
+        notificationMessageBuilder.append(battleground.checkBattleground(timezone, language, guildID));
+        notificationMessageBuilder.append(raidVault.checkVault(timezone, language, guildID));
+        notificationMessageBuilder.append(assembly.checkAssembly(timezone, language, guildID));
+        notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone, language, guildID));
+    }
+
+    private void checkImmortalWithOverworldEmbededEvents(StringBuilder notificationMessageBuilder, String timezone, String language, String guildID, TextChannel textChannel) {
+        ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timezone);
+        ancientNightmareEmbed.checkAncientArenaFormatted(textChannel, timezone);
+        demonGatesEmbed.checkAncientArenaFormatted(textChannel, timezone);
+        hauntedCarriageEmbed.checkAncientArenaFormatted(textChannel ,timezone);
+        notificationMessageBuilder.append(battleground.checkBattleground(timezone, language, guildID));
+        notificationMessageBuilder.append(defendVault.checkDefendVault(timezone, language, guildID));
     }
 
     private void setActivity(JDA jda) {

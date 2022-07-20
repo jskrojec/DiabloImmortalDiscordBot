@@ -43,6 +43,8 @@ public class HelpCommand {
                         "3 = Only Shadow\n" +
                         "4 = Immortal with overworld\n" +
                         "5 = Shadow with overworld\n" +
+                        "7 = Immortal with Overworld Embed Messages\n" +
+                        "8 = Shadow with Overworld Embed Messages\n" +
                         "9 = Overworld Events with Embed (No ping!)\n" +
                         "128 = Debug Mode - Used for testing purposes: E.g.: Check if channel retrives messages.", false);
 

@@ -8,30 +8,17 @@ public class LanguageController {
 
         LanguageGerman languageGerman = new LanguageGerman();
         languageGerman.loadLanguageConfiguration();
-    }
 
-    public static String getVaultMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getVaultMessage();
-            default:
-                return LanguageEnglish.getVaultMessage();
-        }
-    }
-
-    public static String getVaultHeadUpMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getVaultHeadUpMessage();
-            default:
-                return LanguageEnglish.getVaultHeadUpMessage();
-        }
+        LanguageSpain languageSpain = new LanguageSpain();
+        languageSpain.loadLanguageConfiguration();
     }
 
     public static String getHauntedCarriageMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHauntedCarriageMessage();
+            case "ESP":
+                return LanguageSpain.getHauntedCarriageMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageMessage();
         }
@@ -41,6 +28,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHauntedCarriageHeadUpMessage();
+            case "ESP":
+                return LanguageSpain.getHauntedCarriageHeadUpMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageHeadUpMessage();
         }
@@ -50,6 +39,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getDemonGatesMessage();
+            case "ESP":
+                return LanguageSpain.getDemonGatesMessage();
             default:
                 return LanguageEnglish.getDemonGatesMessage();
         }
@@ -59,6 +50,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getDemonGatesHeadUpMessage();
+            case "ESP":
+                return LanguageSpain.getDemonGatesHeadUpMessage();
             default:
                 return LanguageEnglish.getDemonGatesHeadUpMessage();
         }
@@ -68,6 +61,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getBattlegroundMessage();
+            case "ESP":
+                return LanguageSpain.getBattlegroundMessage();
             default:
                 return LanguageEnglish.getBattlegroundMessage();
         }
@@ -77,6 +72,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getBattlegroundHeadUpMessage();
+            case "ESP":
+                return LanguageSpain.getBattlegroundHeadUpMessage();
             default:
                 return LanguageEnglish.getBattlegroundHeadUpMessage();
         }
@@ -86,6 +83,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientNightmareMessage();
+            case "ESP":
+                return LanguageSpain.getAncientNightmareMessage();
             default:
                 return LanguageEnglish.getAncientNightmareMessage();
         }
@@ -95,6 +94,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientNightmareHeadUpMessage();
+            case "ESP":
+                return LanguageSpain.getAncientNightmareHeadUpMessage();
             default:
                 return LanguageEnglish.getAncientNightmareHeadUpMessage();
         }
@@ -104,6 +105,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientArenaMessage();
+            case "ESP":
+                return LanguageSpain.getAncientArenaMessage();
             default:
                 return LanguageEnglish.getAncientArenaMessage();
         }
@@ -113,6 +116,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientArenaHeadUpMessage();
+            case "ESP":
+                return LanguageSpain.getAncientArenaHeadUpMessage();
             default:
                 return LanguageEnglish.getAncientArenaHeadUpMessage();
         }
@@ -122,6 +127,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAssemblyMessage();
+            case "ESP":
+                return LanguageSpain.getAssemblyMessage();
             default:
                 return LanguageEnglish.getAssemblyMessage();
         }
@@ -131,6 +138,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAssemblyHeadUpMessage();
+            case "ESP":
+                return LanguageSpain.getAssemblyHeadUpMessage();
             default:
                 return LanguageEnglish.getAssemblyHeadUpMessage();
         }
@@ -140,6 +149,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getShadowLotteryMessage();
+            case "ESP":
+                return LanguageSpain.getShadowLotteryMessage();
             default:
                 return LanguageEnglish.getShadowLotteryMessage();
         }
@@ -149,6 +160,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getShadowLotteryHeadUpMessage();
+            case "ESP":
+                return LanguageSpain.getShadowLotteryHeadUpMessage();
             default:
                 return LanguageEnglish.getShadowLotteryHeadUpMessage();
         }
@@ -158,6 +171,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getRegisteredMessage();
+            case "ESP":
+                return LanguageSpain.getRegisteredMessage();
             default:
                 return LanguageEnglish.getRegisteredMessage();
         }
@@ -167,6 +182,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAlreadyRegisteredMessage();
+            case "ESP":
+                return LanguageSpain.getAlreadyRegisteredMessage();
             default:
                 return LanguageEnglish.getAlreadyRegisteredMessage();
         }
@@ -176,6 +193,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getRoleNotFoundMessage();
+            case "ESP":
+                return LanguageSpain.getRoleNotFoundMessage();
             default:
                 return LanguageEnglish.getRoleNotFoundMessage();
         }
@@ -185,6 +204,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getNotRegisteredMessage();
+            case "ESP":
+                return LanguageSpain.getNotRegisteredMessage();
             default:
                 return LanguageEnglish.getNotRegisteredMessage();
         }
@@ -194,6 +215,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getReceiveAllMessagesMessage();
+            case "ESP":
+                return LanguageSpain.getReceiveAllMessagesMessage();
             default:
                 return LanguageEnglish.getReceiveAllMessagesMessage();
         }
@@ -203,6 +226,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getReceiveImmortalMessage();
+            case "ESP":
+                return LanguageSpain.getReceiveImmortalMessage();
             default:
                 return LanguageEnglish.getReceiveImmortalMessage();
         }
@@ -212,6 +237,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getReceiveShadowMessage();
+            case "ESP":
+                return LanguageSpain.getReceiveShadowMessage();
             default:
                 return LanguageEnglish.getReceiveShadowMessage();
         }
@@ -221,6 +248,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getReceiveOwImmortalMessage();
+            case "ESP":
+                return LanguageSpain.getReceiveOwImmortalMessage();
             default:
                 return LanguageEnglish.getReceiveOwImmortalMessage();
         }
@@ -230,6 +259,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getReceiveOwShadowMessage();
+            case "ESP":
+                return LanguageSpain.getReceiveOwShadowMessage();
             default:
                 return LanguageEnglish.getReceiveOwShadowMessage();
         }
@@ -239,6 +270,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getReceiveOverworldMessage();
+            case "ESP":
+                return LanguageSpain.getReceiveOverworldMessage();
             default:
                 return LanguageEnglish.getReceiveOverworldMessage();
         }
@@ -248,6 +281,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getTimezoneSetToMessage();
+            case "ESP":
+                return LanguageSpain.getTimezoneSetToMessage();
             default:
                 return LanguageEnglish.getTimezoneSetToMessage();
         }
@@ -257,6 +292,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getUnregisteredChannel();
+            case "ESP":
+                return LanguageSpain.getUnregisteredChannel();
             default:
                 return LanguageEnglish.getUnregisteredChannel();
         }
@@ -266,6 +303,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getUnknownTimezoneMessage();
+            case "ESP":
+                return LanguageSpain.getUnknownTimezoneMessage();
             default:
                 return LanguageEnglish.getUnknownTimezoneMessage();
         }
@@ -275,6 +314,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getUnknownStatusMessage();
+            case "ESP":
+                return LanguageSpain.getUnknownStatusMessage();
             default:
                 return LanguageEnglish.getUnknownStatusMessage();
         }
@@ -284,6 +325,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getIsSetMessage();
+            case "ESP":
+                return LanguageSpain.getIsSetMessage();
             default:
                 return LanguageEnglish.getIsSetMessage();
         }
@@ -293,6 +336,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getRaidTheVaultMessage();
+            case "ESP":
+                return LanguageSpain.getRaidTheVaultMessage();
             default:
                 return LanguageEnglish.getRaidTheVaultMessage();
         }
@@ -302,6 +347,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getRaidTheVaultHeadUpMessage();
+            case "ESP":
+                return LanguageSpain.getRaidTheVaultHeadUpMessage();
             default:
                 return LanguageEnglish.getRaidTheVaultHeadUpMessage();
         }
@@ -311,6 +358,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getDefendTheVaultMessage();
+            case "ESP":
+                return LanguageSpain.getDefendTheVaultMessage();
             default:
                 return LanguageEnglish.getDefendTheVaultMessage();
         }
@@ -320,6 +369,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getDefendTheVaultHeadUpMessage();
+            case "ESP":
+                return LanguageSpain.getDefendTheVaultHeadUpMessage();
             default:
                 return LanguageEnglish.getDefendTheVaultHeadUpMessage();
         }
@@ -329,6 +380,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLanguageNotSupportedMessage();
+            case "ESP":
+                return LanguageSpain.getLanguageNotSupportedMessage();
             default:
                 return LanguageEnglish.getLanguageNotSupportedMessage();
         }
@@ -338,6 +391,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLanguageUpdatedMessage();
+            case "ESP":
+                return LanguageSpain.getLanguageUpdatedMessage();
             default:
                 return LanguageEnglish.getLanguageUpdatedMessage();
         }
@@ -347,6 +402,8 @@ public class LanguageController {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHeadUpValueSetToMessage();
+            case "ESP":
+                return LanguageSpain.getHeadUpValueSetToMessage();
             default:
                 return LanguageEnglish.getHeadUpValueSetToMessage();
         }

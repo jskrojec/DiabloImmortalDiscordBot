@@ -4,6 +4,7 @@ import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
 import me.umbreon.diabloimmortalbot.events.EventHandler;
+import me.umbreon.diabloimmortalbot.events.TextChannelDelete;
 import me.umbreon.diabloimmortalbot.notifier.Notifier;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientConfig;
@@ -44,7 +45,11 @@ public class Client {
 
         JDA jda = null;
         try {
-            jda = JDABuilder.createDefault(clientConfig.getToken()).addEventListeners(eventHandler).build().awaitReady();
+            jda = JDABuilder.createDefault(clientConfig.getToken())
+                    .addEventListeners(eventHandler)
+                    .addEventListeners(new TextChannelDelete())
+                    .build()
+                    .awaitReady();
         } catch (LoginException | InterruptedException e) {
             ClientLogger.createNewLogEntry("login", "LoginErr", "Umbreon", e.toString());
             return;

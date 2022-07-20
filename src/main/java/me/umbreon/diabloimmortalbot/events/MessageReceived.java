@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
@@ -54,8 +55,17 @@ public class MessageReceived {
             return;
         }
 
+        TextChannel textChannel;
+
+        try {
+            textChannel = event.getMessage().getTextChannel();
+        } catch (IllegalStateException ignore) {
+            return;
+            //This message is not send in a text channel
+        }
+
         String[] args = event.getMessage().getContentRaw().split(" ");
-        String channelID = event.getMessage().getTextChannel().getId();
+        String channelID = textChannel.getId();
         if (clientCache.doNotificationChannelExists(channelID)) {
             String guildID = event.getGuild().getId();
             registerGuildIfDoNotExist(guildID, channelID);
