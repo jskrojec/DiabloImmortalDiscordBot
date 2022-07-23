@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands;
+package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
@@ -31,34 +31,28 @@ public class RoleCommand {
         if (args.length == 1) {
             String responseMessage = "Invalid command. Use >help";
             message.getTextChannel().sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
             return;
         }
 
         String guildID = message.getGuild().getId();
         String language = clientCache.getLanguage(guildID);
-
         if (!clientCache.doNotificationChannelExists(channelID)) {
             String responseMessage = String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention());
             textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
             return;
         }
 
         String roleID = args[1].replaceAll("[^\\d.]", "");
         Guild guild = message.getGuild();
-
         if (args[1].equalsIgnoreCase("@here")) {
             setRoleToHere(message, language);
             return;
         }
 
         Role role = getRoleByRoleID(roleID, guild);
-
         if (role == null) {
             String responseMessage = LanguageController.getRoleNotFoundMessage(language);
             textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
             return;
         }
 
@@ -66,7 +60,6 @@ public class RoleCommand {
         databaseRequests.setRole(channelID, roleID);
         String response = String.format(LanguageController.getIsSetMessage(language), role.getAsMention());
         textChannel.sendMessage(response).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-        createLogEntry(message, response);
     }
 
     private void setRoleToHere(Message message, String language) {
@@ -78,7 +71,6 @@ public class RoleCommand {
         databaseRequests.setRole(channelID, role);
         String responseMessage = String.format(LanguageController.getIsSetMessage(language), "Here");
         message.getTextChannel().sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-        createLogEntry(message, responseMessage);
     }
 
     private Role getRoleByRoleID(String roleID, Guild guild) {
@@ -87,12 +79,5 @@ public class RoleCommand {
         } catch (NullPointerException | IllegalAccessError e) {
             return null;
         }
-    }
-
-    private void createLogEntry(Message message, String responseMessage) {
-        String channelName = message.getTextChannel().getName();
-        String guildName = message.getGuild().getName();
-        String logMessage = "Sended message " + responseMessage + " to " + channelName + " in guild " + guildName + ".";
-        ClientLogger.createNewInfoLogEntry(logMessage);
     }
 }

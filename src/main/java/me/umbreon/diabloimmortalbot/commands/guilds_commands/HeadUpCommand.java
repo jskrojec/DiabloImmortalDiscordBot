@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands;
+package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
@@ -30,7 +30,6 @@ public class HeadUpCommand {
         if (args.length == 1) {
             String responseMessage = "Invalid command. Use >help";
             message.getTextChannel().sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
             return;
         }
 
@@ -54,7 +53,6 @@ public class HeadUpCommand {
         String responseMessage;
         responseMessage = String.format(LanguageController.getHeadUpValueSetToMessage(language), disabled);
         textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-        createLogEntry(message, responseMessage);
     }
 
     private void setHeadUpValue(String guildID, boolean headUpValue) {
@@ -80,12 +78,5 @@ public class HeadUpCommand {
             default:
                 return false;
         }
-    }
-
-    private void createLogEntry(Message message, String responseMessage) {
-        String channelName = message.getTextChannel().getName();
-        String guildName = message.getGuild().getName();
-        String logMessage = "Sended message " + responseMessage + " to " + channelName + " in guild " + guildName + ".";
-        ClientLogger.createNewInfoLogEntry(logMessage);
     }
 }

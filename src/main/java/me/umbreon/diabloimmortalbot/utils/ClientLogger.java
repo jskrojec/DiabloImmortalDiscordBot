@@ -4,9 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ClientLogger {
 
@@ -23,37 +20,24 @@ public class ClientLogger {
         }
     }
 
-    public static void createNewLogEntry(String guildID, String guildName, String ownerID, String message) {
-        logFile = new File("/home/discord/logs/" + guildID + ".log");
+    public static void createNewErrorLogEntry(Exception logMessage) {
+        logFile = new File("/home/discord/logs/error-log.log");
 
         if (!doesLogFileExist()) {
-            createNewLogFile(guildID, guildName, ownerID);
+            createNewLogFile("client-log");
         }
 
         BufferedWriter bufferedWriter;
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.append("\n[").append(getCurrentDate()).append(" ")
-                    .append(getCurrentTime()).append("] ").append(message);
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void createNewLogEntry(String guildID, String guildName, String ownerID, Exception message) {
-        logFile = new File("/home/discord/logs/" + guildID + ".log");
-
-        if (!doesLogFileExist()) {
-            createNewLogFile(guildID, guildName, ownerID);
-        }
-
-        BufferedWriter bufferedWriter;
-        try {
-            bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.append("\n[").append(getCurrentDate()).append(" ")
-                    .append(getCurrentTime()).append("] ").append(message.getMessage()).append("\n");
-            for (StackTraceElement e : message.getStackTrace()) {
+            bufferedWriter.append("\n[")
+                    .append(Time.getCurrentDate())
+                    .append(" ")
+                    .append(Time.getCurrentTime())
+                    .append("] ")
+                    .append(logMessage.getMessage())
+                    .append("\n");
+            for (StackTraceElement e : logMessage.getStackTrace()) {
                 bufferedWriter.append(String.valueOf(e)).append("\n");
             }
             bufferedWriter.close();
@@ -62,34 +46,35 @@ public class ClientLogger {
         }
     }
 
-    public static void createNewInfoLogEntry(String message) {
+    public static void createNewClientLogEntry(String logMessage) {
         logFile = new File("/home/discord/logs/client-log.log");
 
         if (!doesLogFileExist()) {
-            createNewLogFile("client-log", "Client_Log", "Umbreon");
+            createNewLogFile("client-log");
         }
 
         BufferedWriter bufferedWriter;
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.append("\n[").append(getCurrentDate()).append(" ")
-                    .append(getCurrentTime()).append("] ").append(message);
+            bufferedWriter.append("\n[")
+                    .append(Time.getCurrentDate())
+                    .append(" ")
+                    .append(Time.getCurrentTime())
+                    .append("] ")
+                    .append(logMessage);
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void createNewLogFile(String guildID, String guildName, String ownerID) {
-        logFile = new File("/home/discord/logs/" + guildID + ".log");
+    private static void createNewLogFile(String logFileName) {
+        logFile = new File("/home/discord/logs/" + logFileName + ".log");
 
         try {
             logFile.createNewFile();
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-
-            String headerMessage = "#### Author: Umbreon ####\n" +
-                    "GuildID: " + guildID + " | Guildname: " + guildName + " | OwnerID: " + ownerID + "\n\n";
-
+            String headerMessage = "#### Author: Umbreon ####";
             bufferedWriter.append(headerMessage);
             bufferedWriter.close();
         } catch (IOException e) {
@@ -105,15 +90,4 @@ public class ClientLogger {
     private static boolean doesLogFileExist() {
         return logFile.exists();
     }
-
-    private static String getCurrentDate() {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return dateFormat.format(new Date());
-    }
-
-    private static String getCurrentTime() {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
-        return dateFormat.format(new Date());
-    }
-
 }

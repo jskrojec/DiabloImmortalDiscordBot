@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands;
+package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
@@ -33,7 +33,6 @@ public class RegisterCommand {
         if (clientCache.doNotificationChannelExists(channelID)) {
             String responseMessage = textChannel.getAsMention() + LanguageController.getAlreadyRegisteredMessage(language);
             textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
             return;
         }
 
@@ -43,13 +42,5 @@ public class RegisterCommand {
 
         String responseMessage = String.format(LanguageController.getRegisteredMessage(language), textChannel.getAsMention());
         textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-        createLogEntry(message, responseMessage);
-    }
-
-    private void createLogEntry(Message message, String responseMessage) {
-        String channelName = message.getTextChannel().getName();
-        String guildName = message.getGuild().getName();
-        String logMessage = "Sended message " + responseMessage + " to " + channelName + " in guild " + guildName + ".";
-        ClientLogger.createNewInfoLogEntry(logMessage);
     }
 }

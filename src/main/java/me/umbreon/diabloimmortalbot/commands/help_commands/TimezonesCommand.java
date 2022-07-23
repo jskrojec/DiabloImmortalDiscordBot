@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands;
+package me.umbreon.diabloimmortalbot.commands.help_commands;
 
 import me.umbreon.diabloimmortalbot.utils.Time;
 import net.dv8tion.jda.api.EmbedBuilder;

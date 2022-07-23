@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands;
+package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
@@ -28,7 +28,6 @@ public class LanguageCommand {
         if (args.length == 1) {
             String responseMessage = "Invalid command. Use >help";
             message.getTextChannel().sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
             return;
         }
 
@@ -39,7 +38,6 @@ public class LanguageCommand {
         if (!isLanguageSupported(language)) {
             String responseMessage = LanguageController.getLanguageNotSupportedMessage(defaultLanguage);
             textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
             return;
         }
 
@@ -48,7 +46,6 @@ public class LanguageCommand {
 
         String responseMessage = String.format(LanguageController.getLanguageUpdatedMessage(defaultLanguage), language);
         textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-        createLogEntry(message, responseMessage);
     }
 
     private boolean isLanguageSupported(String lang) {
@@ -56,16 +53,11 @@ public class LanguageCommand {
             case "GER":
             case "ENG":
             case "ESP":
+            case "FRA":
+            case "POL":
                 return true;
             default:
                 return false;
         }
-    }
-
-    private void createLogEntry(Message message, String responseMessage) {
-        String channelName = message.getTextChannel().getName();
-        String guildName = message.getGuild().getName();
-        String logMessage = "Sended message " + responseMessage + " to " + channelName + " in guild " + guildName + ".";
-        ClientLogger.createNewInfoLogEntry(logMessage);
     }
 }

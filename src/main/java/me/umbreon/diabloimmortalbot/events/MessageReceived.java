@@ -1,6 +1,10 @@
 package me.umbreon.diabloimmortalbot.events;
 
-import me.umbreon.diabloimmortalbot.commands.*;
+import me.umbreon.diabloimmortalbot.commands.guilds_commands.NotificationsCommand;
+import me.umbreon.diabloimmortalbot.commands.guilds_commands.HeadUpCommand;
+import me.umbreon.diabloimmortalbot.commands.guilds_commands.LanguageCommand;
+import me.umbreon.diabloimmortalbot.commands.help_commands.*;
+import me.umbreon.diabloimmortalbot.commands.notifier_commands.*;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
@@ -28,6 +32,8 @@ public class MessageReceived {
     private final WhatsMyChannelIdCommand whatsMyChannelIdCommand;
     private final HeadUpCommand headUpCommand;
     private final InstructionCommand instructionCommand;
+    private final LanguagesCommand languagesCommand;
+    private final NotificationsCommand notificationsCommand;
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
@@ -45,6 +51,8 @@ public class MessageReceived {
         this.whatsMyChannelIdCommand = new WhatsMyChannelIdCommand();
         this.headUpCommand = new HeadUpCommand(clientCache, databaseRequests);
         this.instructionCommand = new InstructionCommand();
+        this.languagesCommand = new LanguagesCommand();
+        this.notificationsCommand = new NotificationsCommand(clientCache, databaseRequests);
 
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
@@ -131,7 +139,18 @@ public class MessageReceived {
             case ">instruction":
             case ">install":
                 instructionCommand.runInstructionCommand(event.getMessage());
+                logCommandExecution(member.getEffectiveName(), event.getMessage());
                 break;
+            case ">languages":
+                languagesCommand.runLanguagesCommand(event.getMessage());
+                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                break;
+            case ">notifications":
+            case ">notification":
+                notificationsCommand.runNotificationsCommand(event.getMessage());
+                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                break;
+
         }
     }
 
@@ -159,7 +178,7 @@ public class MessageReceived {
     private void registerGuildIfDoNotExist(String guildID, String channelID) {
         if (!clientCache.doGuildExists(guildID)) {
             String timezone = clientCache.getTimezone(channelID);
-            GuildInformation guildInformation = new GuildInformation(guildID, "ENG", true);
+            GuildInformation guildInformation = new GuildInformation(guildID, "ENG", true, true);
             clientCache.addGuildInformation(guildInformation);
             databaseRequests.createNewGuildEntry(guildInformation);
         }
@@ -167,7 +186,7 @@ public class MessageReceived {
 
     private void logCommandExecution(String userName, Message command) {
         System.out.println(userName + " used: " + command);
-        ClientLogger.createNewInfoLogEntry(userName + " used: " + command);
+        ClientLogger.createNewClientLogEntry(userName + " used: " + command);
     }
 
 }

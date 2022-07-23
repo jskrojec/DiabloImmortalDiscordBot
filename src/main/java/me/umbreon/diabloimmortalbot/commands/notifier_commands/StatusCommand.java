@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands;
+package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
@@ -93,6 +93,5 @@ public class StatusCommand {
         String channelName = message.getTextChannel().getName();
         String guildName = message.getGuild().getName();
         String logMessage = "Sended message " + responseMessage + " to " + channelName + " in guild " + guildName + ".";
-        ClientLogger.createNewInfoLogEntry(logMessage);
     }
 }

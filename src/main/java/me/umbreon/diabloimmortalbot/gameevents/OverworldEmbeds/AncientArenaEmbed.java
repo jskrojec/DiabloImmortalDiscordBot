@@ -26,7 +26,7 @@ public class AncientArenaEmbed {
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Ancient Arena | World Event");
-        embedBuilder.setImage("https://assets.maxroll.gg/wordpress/ZoneEvents_Ashwold_v1.1.jpg");
+        embedBuilder.setImage("https://assets.maxroll.gg/wordpress/ZoneEvents_Arena_v1.1.jpg");
         embedBuilder.addField("Spawn at", "<t:" + unix + ">", true);
         embedBuilder.addField("Countdown", "<t:" + unix + ":R>", true);
         embedBuilder.addField("Location Bilefen", "Ancient Arena", false);

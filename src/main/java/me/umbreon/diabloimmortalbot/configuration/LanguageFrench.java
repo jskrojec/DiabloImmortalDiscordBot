@@ -5,13 +5,13 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.InputStream;
 import java.util.Map;
 
-public class LanguageSpain {
+public class LanguageFrench {
 
     static Map<String, Object> messages;
 
     public void loadLanguageConfiguration() {
         Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("spain.yaml");
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("french.yaml");
         messages = yaml.load(inputStream);
     }
 
@@ -170,4 +170,5 @@ public class LanguageSpain {
     public static String getEventDisabledMessage() {
         return messages.get("EVENT_DISABLED").toString();
     }
+
 }

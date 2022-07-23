@@ -15,14 +15,6 @@ public class LanguageEnglish {
         messages = yaml.load(inputStream);
     }
 
-    public static String getVaultMessage() {
-        return messages.get("VAULT").toString();
-    }
-
-    public static String getVaultHeadUpMessage() {
-        return messages.get("VAULT_HEADUP").toString();
-    }
-
     public static String getHauntedCarriageMessage() {
         return messages.get("HAUNTED_CARRIAGE").toString();
     }
@@ -165,5 +157,17 @@ public class LanguageEnglish {
 
     public static String getHeadUpValueSetToMessage() {
         return messages.get("HEADUP_VALUE_SET_TO").toString();
+    }
+
+    public static String getLanguageMessage() {
+        return messages.get("LANGUAGE").toString();
+    }
+
+    public static String getEventEnabledMessage() {
+        return messages.get("EVENT_ENABLED").toString();
+    }
+
+    public static String getEventDisabledMessage() {
+        return messages.get("EVENT_DISABLED").toString();
     }
 }

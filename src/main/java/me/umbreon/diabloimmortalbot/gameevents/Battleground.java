@@ -20,6 +20,8 @@ public class Battleground {
     public String checkBattleground(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
+        if (!clientCache.isBattlegroundsNotificationsEnabled(guildID)) return "";
+
         if (isHeadUpTime(timezone)) {
             if (clientCache.getHeadUpValue(guildID)) {
                 return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";

@@ -27,7 +27,7 @@ public class EventHandler implements EventListener {
             }
 
         } catch (Exception e) {
-            ClientLogger.createNewLogEntry("0" , "null", "0", e);
+            ClientLogger.createNewErrorLogEntry(e);
             e.printStackTrace();
         }
 

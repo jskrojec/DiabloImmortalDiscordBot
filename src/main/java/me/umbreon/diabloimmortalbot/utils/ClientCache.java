@@ -11,9 +11,31 @@ public class ClientCache {
     private Map<String, NotificationChannel> listWithNotificationChannels;
     private Map<String, GuildInformation> listWithGuildInformation;
     private Map<String, CustomMessage> listWithCustomMessages;
+    private Map<String, String> customMessagesCreateList;
+    private Map<String, CustomMessage> preparingCustomMessageList;
+
+    public void addPreparingCustomMessage(String channelID, CustomMessage customMessage) {
+        preparingCustomMessageList.put(channelID, customMessage);
+    }
+
+    public CustomMessage getPreparingCustomMessage(String channelID) {
+        return preparingCustomMessageList.get(channelID);
+    }
 
     public void setListWithCustomMessages(Map<String, CustomMessage> listWithCustomMessages) {
         this.listWithCustomMessages = listWithCustomMessages;
+    }
+
+    public void addUserToCustomMessagesCreateList(String userID, String channelID) {
+        customMessagesCreateList.put(userID, channelID);
+    }
+
+    public boolean isUserInCustomMessagesCreateList(String userID) {
+        return customMessagesCreateList.containsKey(userID);
+    }
+
+    public String getChannelIDByUserInCustomMessagesCreateList(String userID) {
+        return customMessagesCreateList.get(userID);
     }
 
     public Map<String, CustomMessage> getListWithCustomMessages() {
@@ -112,6 +134,14 @@ public class ClientCache {
 
     public boolean getHeadUpValue(String guildID) {
         return listWithGuildInformation.get(guildID).isHeadUpEnabled();
+    }
+
+    public boolean isBattlegroundsNotificationsEnabled(String guildID) {
+        return listWithGuildInformation.get(guildID).isBattlegroundsNotificationsEnabled();
+    }
+
+    public void setBattlegroundsNotificationsEnabled(String guildID, boolean value) {
+        listWithGuildInformation.get(guildID).setBattlegroundsNotificationsEnabled(value);
     }
 
 }

@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands;
+package me.umbreon.diabloimmortalbot.commands.help_commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -48,6 +48,7 @@ public class HelpCommand {
                         "9 = Overworld Events with Embed (No ping!)\n" +
                         "128 = Debug Mode - Used for testing purposes: E.g.: Check if channel retrives messages.", false);
 
+        embedBuilder.addField("Support on Discord:", "https://discord.gg/hpBHYkffS3", false);
         embedBuilder.setFooter("Diablo Immortal Notifier - Created by Umbreon.");
         return embedBuilder.build();
     }

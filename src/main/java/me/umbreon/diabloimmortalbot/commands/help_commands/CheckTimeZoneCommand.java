@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands;
+package me.umbreon.diabloimmortalbot.commands.help_commands;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
@@ -32,7 +32,6 @@ public class CheckTimeZoneCommand {
         if (args.length == 1) {
             String responseMessage = "Invalid command. Use >help";
             message.getTextChannel().sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
             return;
         }
 
@@ -45,17 +44,9 @@ public class CheckTimeZoneCommand {
         if (time.equalsIgnoreCase("INVALID_TIMEZONE")) {
             String responseMessage = LanguageController.getUnknownTimezoneMessage(language);
             textChannel.sendMessage(responseMessage).queue();
-            createLogEntry(message, responseMessage);
             return;
         }
 
         textChannel.sendMessage(timeZone + " " + Time.getTimeWithWeekday(timeZone)).queue();
-    }
-
-    private void createLogEntry(Message message, String responseMessage) {
-        String channelName = message.getTextChannel().getName();
-        String guildName = message.getGuild().getName();
-        String logMessage = "Sended message " + responseMessage + " to " + channelName + " in guild " + guildName + ".";
-        ClientLogger.createNewInfoLogEntry(logMessage);
     }
 }

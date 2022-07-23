@@ -77,7 +77,7 @@ public class Notifier {
 
                             guildID = textChannel.getGuild().getId();
                             String timezone = clientCache.getTimezone(channel);
-                            registerGuildIfDoNotExists(guildID, timezone);
+                            registerGuildIfDoNotExists(guildID);
 
                             String fullTimeWithWeekday = Time.getTimeWithWeekday(timezone);
 
@@ -97,7 +97,7 @@ public class Notifier {
                         }
 
                     } catch (Exception e) {
-                        ClientLogger.createNewLogEntry(channel, guildID, ownerID, e.getMessage());
+                        ClientLogger.createNewErrorLogEntry(e);
                         e.printStackTrace();
                     }
                 }
@@ -105,11 +105,11 @@ public class Notifier {
         }, 0, 60 * 1000);
     }
 
-    private void registerGuildIfDoNotExists(String guildID, String timezone) {
+    private void registerGuildIfDoNotExists(String guildID) {
         try {
             if (!clientCache.doGuildExists(guildID)) {
                 String language = "ENG";
-                GuildInformation guildInformation = new GuildInformation(guildID, language, true);
+                GuildInformation guildInformation = new GuildInformation(guildID, language, true, true);
                 databaseRequests.createNewGuildEntry(guildInformation);
                 clientCache.addGuildInformation(guildInformation);
             }

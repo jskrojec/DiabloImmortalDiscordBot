@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands;
+package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
@@ -27,10 +27,9 @@ public class UnregisterCommand {
         String guildID = message.getGuild().getId();
         String language = clientCache.getLanguage(guildID);
 
-        if (clientCache.doNotificationChannelExists(channelID)) {
+        if (!clientCache.doNotificationChannelExists(channelID)) {
             String responseMessage = String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention());
             textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-            createLogEntry(message, responseMessage);
             return;
         }
 
@@ -38,7 +37,6 @@ public class UnregisterCommand {
 
         String responseMessage = String.format(LanguageController.getUnregisteredChannel(language), textChannel.getAsMention());
         textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
-        createLogEntry(message, responseMessage);
     }
 
     private void removeNotificationChannel(String channelID) {
@@ -46,10 +44,4 @@ public class UnregisterCommand {
         clientCache.deleteNotificationChannel(channelID);
     }
 
-    private void createLogEntry(Message message, String responseMessage) {
-        String channelName = message.getTextChannel().getName();
-        String guildName = message.getGuild().getName();
-        String logMessage = "Sended message " + responseMessage + " to " + channelName + " in guild " + guildName + ".";
-        ClientLogger.createNewInfoLogEntry(logMessage);
-    }
 }

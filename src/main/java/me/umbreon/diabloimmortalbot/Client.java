@@ -47,11 +47,11 @@ public class Client {
         try {
             jda = JDABuilder.createDefault(clientConfig.getToken())
                     .addEventListeners(eventHandler)
-                    .addEventListeners(new TextChannelDelete())
+                    .addEventListeners(new TextChannelDelete(clientCache, databaseRequests))
                     .build()
                     .awaitReady();
         } catch (LoginException | InterruptedException e) {
-            ClientLogger.createNewLogEntry("login", "LoginErr", "Umbreon", e.toString());
+            ClientLogger.createNewErrorLogEntry(e);
             return;
         }
 
