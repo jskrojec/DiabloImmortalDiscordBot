@@ -44,7 +44,7 @@ public class TimezonesCommand {
 
             embedBuilder.addField(timezoneMessage, time, true);
         }
-
+        embedBuilder.setFooter("These times are in 24HRS format!");
         textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
     }
 }

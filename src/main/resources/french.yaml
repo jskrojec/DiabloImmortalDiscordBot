@@ -37,5 +37,5 @@ ANCIENT_NIGHTMARE_HEADUP: "Cauchemar ancien disponible au Mont Zavain dans 15 mi
 ANCIENT_ARENA: "Arène antique disponible a Tourbefiel - Arène antique."
 ANCIENT_ARENA_HEADUP: "Arène antique disponible a Tourbefiel dans 15 minutes a Tourbefiel - Arène antique."
 LANGUAGE: "Change la langue du bot en français."
-EVENT_ENABLED: "%s notifications are now enabled."
-EVENT_DISABLED: "%s notifications are now disabled."
+EVENT_ENABLED: "%s envoie désormais des notifications."
+EVENT_DISABLED: "%s n'envoie désormais plus de notifications."

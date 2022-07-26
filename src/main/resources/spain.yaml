@@ -37,5 +37,5 @@ RECEIVE_SHADOW_MESSAGES: "%s Ahora recibirás mensajes del clan de las sombras."
 RECEIVE_OV_AND_IMMORTAL_MESSAGES: "%s Ahora recibirás mensajes del clan inmortal y eventos de mundo abierto."
 RECEIVE_OV_AND_SHADOW_MESSAGES: "%s Ahora recibirás mensajes del clan de las sombras y eventos de mundo abierto."
 LANGUAGE: "Cambia el idioma del bot a español."
-EVENT_ENABLED: "%s notifications are now enabled."
-EVENT_DISABLED: "%s notifications are now disabled."
+EVENT_ENABLED: "Las notificaciones de %s están ahora habilitadas".
+EVENT_DISABLED: "Las notificaciones de %s están ahora deshabilitadas".

@@ -13,6 +13,9 @@ import java.time.ZonedDateTime;
 import java.time.zone.ZoneRulesException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Command: /timezone GMT+2
+ */
 public class TimezoneCommand {
 
     private final DatabaseRequests databaseRequests;
