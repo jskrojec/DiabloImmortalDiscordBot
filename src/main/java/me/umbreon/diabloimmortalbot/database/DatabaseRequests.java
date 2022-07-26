@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.database;
 
+import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 
@@ -7,7 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DatabaseRequests {
@@ -29,11 +31,13 @@ public class DatabaseRequests {
                 preparedStatement.setBoolean(5, notificationChannel.inDebugMode);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
         }
     }
 
@@ -53,11 +57,13 @@ public class DatabaseRequests {
                     listWithNotificationChannels.put(channelId, notificationChannel);
                 }
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
         }
         return listWithNotificationChannels;
     }
@@ -82,11 +88,36 @@ public class DatabaseRequests {
                     listEventTimeTables.put(finalTime, headup);
                 }
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
+        }
+        return listEventTimeTables;
+    }
+
+    public ArrayList<String> getOverworldEventTimes(String table) {
+        ArrayList<String> listEventTimeTables = new ArrayList<>();
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + table)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String time = resultSet.getString("time");
+                    String day = resultSet.getString("day");
+                    String finalTime = day + " " + time;
+                    listEventTimeTables.add(finalTime);
+                }
+            } catch (Exception e) {
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
+            }
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
         }
         return listEventTimeTables;
     }
@@ -99,11 +130,13 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
         }
     }
 
@@ -115,11 +148,13 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
         }
     }
 
@@ -131,11 +166,13 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
         }
     }
 
@@ -146,27 +183,118 @@ public class DatabaseRequests {
                 preparedStatement.setString(1, channelid);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
         }
     }
 
-    public void setDebugModeValue(String messageId, boolean debugMode) {
+    // Guilds
+
+    public void createNewGuildEntry(GuildInformation guildInformation) {
         try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE channel_notification SET debug = ? WHERE channel = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, enable_headup) VALUES (?, ?, ?)")) {
             try {
-                preparedStatement.setBoolean(1, debugMode);
-                preparedStatement.setString(2, messageId);
+                preparedStatement.setString(1, guildInformation.getGuildID());
+                preparedStatement.setString(2, guildInformation.getLanguage());
+                preparedStatement.setBoolean(3, guildInformation.isHeadUpEnabled());
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewLogEntry(e.getMessage());
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
             }
-            ClientLogger.createNewLogEntry(preparedStatement.toString());
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
         }
     }
+
+    public void setGuildLanguage(String guildID, String language) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET language = ? WHERE guildID = ?")) {
+            try {
+                preparedStatement.setString(1, language);
+                preparedStatement.setString(2, guildID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
+            }
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public Map<String, GuildInformation> getAllGuilds() {
+        Map<String, GuildInformation> listWithGuildInformation = new ConcurrentHashMap<>();
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM guilds")) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+
+                    String guildID = resultSet.getString("guildID");
+                    String language = resultSet.getString("language");
+                    boolean isHeadUpEnabled = (resultSet.getInt("enable_headup") == 1);
+                    boolean battlegroundNotificationsEnabled = (resultSet.getInt("event_battlegrounds") == 1);
+                    GuildInformation guildInformation = new GuildInformation(guildID, language, isHeadUpEnabled, battlegroundNotificationsEnabled);
+                    listWithGuildInformation.put(guildID, guildInformation);
+                }
+            } catch (Exception e) {
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
+            }
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
+        }
+        return listWithGuildInformation;
+    }
+
+    public void setHeadUpValue(String guilID, boolean headUpValue) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET enable_headup = ? WHERE guildID = ?")) {
+            try {
+                preparedStatement.setString(1, guilID);
+                preparedStatement.setBoolean(2, headUpValue);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
+            }
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public void setEventValue(String event, boolean enabled, String guildID) {
+        String finalEventString = "event_" + event;
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET " + finalEventString + " = ? WHERE guildID = ?")) {
+            try {//UPDATE guilds SET event_battlegrounds = 0 WHERE guildID = "321377200660283393";
+                //'event_battlegrounds' = 0 WHERE guildID = '321377200660283393'
+                preparedStatement.setBoolean(1, enabled);
+                preparedStatement.setString(2, guildID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
+            }
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+
 }

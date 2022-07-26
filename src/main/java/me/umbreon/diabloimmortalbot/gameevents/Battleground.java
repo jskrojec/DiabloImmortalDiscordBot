@@ -3,29 +3,33 @@ package me.umbreon.diabloimmortalbot.gameevents;
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import me.umbreon.diabloimmortalbot.utils.Time;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Map;
 
 public class Battleground {
 
     private final Map<String, Boolean> listBattleground;
+    private final ClientCache clientCache;
 
-    public Battleground(DatabaseRequests databaseRequests) {
+    public Battleground(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.listBattleground = databaseRequests.getEventTimes("event_battleground", true);
+        this.clientCache = clientCache;
     }
 
-    public String checkBattleground(String timezone) {
+    public String checkBattleground(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
+        if (!clientCache.isBattlegroundsNotificationsEnabled(guildID)) return "";
+
         if (isHeadUpTime(timezone)) {
-            return LanguageController.getBattlegroundHeadUpMessage("ENG") + "\n";
+            if (clientCache.getHeadUpValue(guildID)) {
+                return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
+            }
         } else {
-            return LanguageController.getBattlegroundMessage("ENG") + "\n";
+            return LanguageController.getBattlegroundMessage(language) + "\n";
         }
+        return "";
     }
 
     private boolean isTimeValid(String timezone) {

@@ -3,7 +3,8 @@ package me.umbreon.diabloimmortalbot;
 import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
-import me.umbreon.diabloimmortalbot.events.EventHandler;
+import me.umbreon.diabloimmortalbot.events.MessageReceived;
+import me.umbreon.diabloimmortalbot.events.TextChannelDelete;
 import me.umbreon.diabloimmortalbot.notifier.Notifier;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientConfig;
@@ -28,7 +29,7 @@ public class Client {
             return;
         }
 
-        ClientLogger.startTimer(clientConfig.getLogFolderPath());
+        ClientLogger.checkIfLogFolderExists(clientConfig.getLogFolderPath());
 
         LanguageController.loadConfigurations();
 
@@ -36,16 +37,20 @@ public class Client {
         DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
 
         clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
+        clientCache.setListWithGuildInformation(databaseRequests.getAllGuilds());
 
         Notifier notifier = new Notifier(databaseRequests, clientCache);
-        EventHandler eventHandler = new EventHandler(databaseRequests, clientCache);
         BasicConfigurator.configure();
 
         JDA jda = null;
         try {
-            jda = JDABuilder.createDefault(clientConfig.getToken()).addEventListeners(eventHandler).build().awaitReady();
+            jda = JDABuilder.createDefault(clientConfig.getToken())
+                    .addEventListeners(new MessageReceived(databaseRequests, clientCache))
+                    .addEventListeners(new TextChannelDelete(clientCache, databaseRequests))
+                    .build()
+                    .awaitReady();
         } catch (LoginException | InterruptedException e) {
-            ClientLogger.createNewLogEntry(e.getMessage());
+            ClientLogger.createNewErrorLogEntry(e);
             return;
         }
 

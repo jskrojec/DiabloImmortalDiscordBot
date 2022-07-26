@@ -7,37 +7,37 @@ import me.umbreon.diabloimmortalbot.utils.Time;
 
 import java.util.Map;
 
-public class ShadowLottery {
+public class DefendVault {
 
-    private final Map<String, Boolean> listShadowLottery;
+    private final Map<String, Boolean> listVault;
     private final ClientCache clientCache;
 
-    public ShadowLottery(DatabaseRequests databaseRequests, ClientCache clientCache) {
-        this.listShadowLottery = databaseRequests.getEventTimes("event_shadow_lottery", true);
+    public DefendVault(DatabaseRequests databaseRequests, ClientCache clientCache) {
+        this.listVault = databaseRequests.getEventTimes("event_vault", true);
         this.clientCache = clientCache;
     }
 
-    public String checkShadowLottery(String timezone, String language, String guildID) {
+    public String checkDefendVault(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
         if (isHeadUpTime(timezone)) {
             if (clientCache.getHeadUpValue(guildID)) {
-                return LanguageController.getShadowLotteryHeadUpMessage(language) + "\n";
+                return LanguageController.getDefendTheVaultHeadUpMessage(language) + "\n";
             }
         } else {
-            return LanguageController.getShadowLotteryMessage(language) + "\n";
+            return LanguageController.getDefendTheVaultMessage(language) + "\n";
         }
         return "";
     }
 
     private boolean isTimeValid(String timezone) {
         String time = Time.getTime(timezone);
-        return listShadowLottery.get(time) != null;
+        return listVault.get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
         String time = Time.getTime(timezone);
-        return listShadowLottery.get(time);
+        return listVault.get(time);
     }
 
 }

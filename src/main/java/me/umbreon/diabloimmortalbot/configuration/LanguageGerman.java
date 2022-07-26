@@ -5,13 +5,13 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.InputStream;
 import java.util.Map;
 
-public class LanguageEnglish {
+public class LanguageGerman {
 
     static Map<String, Object> messages;
 
     public void loadLanguageConfiguration() {
         Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("english.yaml");
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("german.yaml");
         messages = yaml.load(inputStream);
     }
 
@@ -76,7 +76,7 @@ public class LanguageEnglish {
     }
 
     public static String getAlreadyRegisteredMessage() {
-        return messages.get("ALREADY_REGISTERED").toString();
+        return messages.get("REGISTERED_REGISTERED").toString();
     }
 
     public static String getRoleNotFoundMessage() {
@@ -170,4 +170,5 @@ public class LanguageEnglish {
     public static String getEventDisabledMessage() {
         return messages.get("EVENT_DISABLED").toString();
     }
+
 }
