@@ -15,10 +15,11 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.List;
 
-public class MessageReceived {
+public class MessageReceived extends ListenerAdapter {
 
     private final RegisterCommand registerCommand;
     private final StatusCommand statusCommand;
@@ -37,6 +38,9 @@ public class MessageReceived {
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
+
+    String MESSAGE_MANAGE = "Cannot perform action due to a lack of Permission. Missing permission: MESSAGE_MANAGE";
+    String no_permission_message = "I do not have permissions. I am missing %s.";
 
     public MessageReceived(DatabaseRequests databaseRequests, ClientCache clientCache) {
         this.registerCommand = new RegisterCommand(databaseRequests, clientCache);
@@ -58,11 +62,11 @@ public class MessageReceived {
         this.databaseRequests = databaseRequests;
     }
 
-    public void onMessageReceivedEvent(MessageReceivedEvent event, Member member) {
+    @Override
+    public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) {
             return;
         }
-
         TextChannel textChannel;
 
         try {
@@ -79,6 +83,7 @@ public class MessageReceived {
             registerGuildIfDoNotExist(guildID, channelID);
         }
 
+        Member member = event.getMember();
         if (findBotRole(member) == null) {
             if (member.hasPermission(Permission.MESSAGE_MANAGE)) {
                 checkForCommandsWithNoPermissions(args[0], event.getMessage());
@@ -86,6 +91,26 @@ public class MessageReceived {
             return;
         }
 
+        try {
+            checkForCommandAndRun(event, member, args);
+        } catch (Exception e) {
+            if (!checkForMissingPermissionsError(e.getMessage(), member)) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private boolean checkForMissingPermissionsError(String errorMessage, Member member) {
+        if (errorMessage.equals(MESSAGE_MANAGE)) {
+            member.getUser().openPrivateChannel().queue(channel -> {
+                channel.sendMessage(String.format(no_permission_message, "Manage Messages")).queue();
+            });
+            return true;
+        }
+        return false;
+    }
+
+    private void checkForCommandAndRun(MessageReceivedEvent event, Member member, String[] args) {
         switch (args[0].toLowerCase()) {
             case ">notifier":
             case ">register":

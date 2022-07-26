@@ -46,6 +46,14 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
                     "language VARCHAR(5)," +
                     "enable_headup TINYINT(1)" + ")";
 
+            String custom_messages = "CREATE TABLE IF NOT EXISTS custom_messages (" +
+                    "guildID VARCHAR(50) PRIMARY KEY," +
+                    "channelID VARCHAR(50)," +
+                    "message NVARCHAR," +
+                    "day VARCHAR(10)," +
+                    "repeat TINYINT(1)," +
+                    "id AUTO_INCREMENT" +
+                    ")";
             connection.createStatement().execute(channel_notification);
             connection.createStatement().execute(guilds);
         } catch (SQLException e) {

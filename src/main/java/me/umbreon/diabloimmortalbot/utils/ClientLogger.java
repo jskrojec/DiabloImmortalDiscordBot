@@ -74,8 +74,6 @@ public class ClientLogger {
         try {
             logFile.createNewFile();
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            String headerMessage = "#### Author: Umbreon ####";
-            bufferedWriter.append(headerMessage);
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

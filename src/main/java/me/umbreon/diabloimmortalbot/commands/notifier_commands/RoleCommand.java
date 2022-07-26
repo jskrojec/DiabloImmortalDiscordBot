@@ -42,7 +42,7 @@ public class RoleCommand {
             return;
         }
 
-        String roleID = args[1].replaceAll("[^\\d.]", "");
+        String roleID = args[1].replaceAll("[^\\d.]", ""); //Replaces non numbers with empty space
         Guild guild = message.getGuild();
         if (args[1].equalsIgnoreCase("@here")) {
             setRoleToHere(message, language);
@@ -79,5 +79,6 @@ public class RoleCommand {
         } catch (NullPointerException | IllegalAccessError e) {
             return null;
         }
+
     }
 }
