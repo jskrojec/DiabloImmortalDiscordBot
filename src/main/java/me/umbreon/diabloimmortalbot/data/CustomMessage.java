@@ -7,13 +7,26 @@ public class CustomMessage {
     private String message;
     private String day;
     private String time;
+    private int customMessageID;
+    private boolean repeat;
 
-    public CustomMessage(String channelID, String guildID, String message, String day, String time) {
+    public CustomMessage(String channelID, String guildID, String message, String day, String time, int customMessageID, boolean repeat) {
         this.channelID = channelID;
         this.guildID = guildID;
         this.message = message;
         this.day = day;
         this.time = time;
+        this.customMessageID = customMessageID;
+        this.repeat = repeat;
+    }
+
+    public CustomMessage(String channelID, String guildID, String message, String day, String time, boolean repeat) {
+        this.channelID = channelID;
+        this.guildID = guildID;
+        this.message = message;
+        this.day = day;
+        this.time = time;
+        this.repeat = repeat;
     }
 
     public String getChannelID() {
@@ -54,5 +67,13 @@ public class CustomMessage {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getCustomMessageID() {
+        return customMessageID;
+    }
+
+    public boolean isRepeat() {
+        return repeat;
     }
 }

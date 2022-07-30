@@ -1,9 +1,8 @@
 package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -20,14 +19,12 @@ public class LanguageCommand {
     }
 
     public void runLanguageCommand(Message message) {
-        message.delete().queue();
-
         TextChannel textChannel = message.getTextChannel();
         String[] args = message.getContentRaw().split(" ");
 
         if (args.length == 1) {
             String responseMessage = "Invalid command. Use >help";
-            message.getTextChannel().sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
+            textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
             return;
         }
 
@@ -55,6 +52,7 @@ public class LanguageCommand {
             case "ESP":
             case "FRA":
             case "POL":
+            case "ITA":
                 return true;
             default:
                 return false;

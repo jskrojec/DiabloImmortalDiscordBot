@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.configuration;
+package me.umbreon.diabloimmortalbot.languages;
 
 public class LanguageController {
 
@@ -17,6 +17,9 @@ public class LanguageController {
 
         LanguageFrench languageFrench = new LanguageFrench();
         languageFrench.loadLanguageConfiguration();
+
+        LanguageItalian languageItalian = new LanguageItalian();
+        languageItalian.loadLanguageConfiguration();
     }
 
     public static String getHauntedCarriageMessage(String lang) {
@@ -29,6 +32,8 @@ public class LanguageController {
                 return LanguagePolish.getHauntedCarriageMessage();
             case "FRA":
                 return LanguageFrench.getHauntedCarriageMessage();
+            case "ITA":
+                return LanguageItalian.getHauntedCarriageMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageMessage();
         }
@@ -44,6 +49,8 @@ public class LanguageController {
                 return LanguagePolish.getHauntedCarriageHeadUpMessage();
             case "FRA":
                 return LanguageFrench.getHauntedCarriageHeadUpMessage();
+            case "ITA":
+                return LanguageItalian.getHauntedCarriageHeadUpMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageHeadUpMessage();
         }
@@ -59,6 +66,8 @@ public class LanguageController {
                 return LanguagePolish.getDemonGatesMessage();
             case "FRA":
                 return LanguageFrench.getDemonGatesMessage();
+            case "ITA":
+                return LanguageItalian.getDemonGatesMessage();
             default:
                 return LanguageEnglish.getDemonGatesMessage();
         }
@@ -74,6 +83,8 @@ public class LanguageController {
                 return LanguagePolish.getDemonGatesHeadUpMessage();
             case "FRA":
                 return LanguageFrench.getDemonGatesHeadUpMessage();
+            case "ITA":
+                return LanguageItalian.getDemonGatesHeadUpMessage();
             default:
                 return LanguageEnglish.getDemonGatesHeadUpMessage();
         }
@@ -89,6 +100,8 @@ public class LanguageController {
                 return LanguagePolish.getBattlegroundMessage();
             case "FRA":
                 return LanguageFrench.getBattlegroundMessage();
+            case "ITA":
+                return LanguageItalian.getBattlegroundMessage();
             default:
                 return LanguageEnglish.getBattlegroundMessage();
         }
@@ -104,6 +117,8 @@ public class LanguageController {
                 return LanguagePolish.getBattlegroundHeadUpMessage();
             case "FRA":
                 return LanguageFrench.getBattlegroundHeadUpMessage();
+            case "ITA":
+                return LanguageItalian.getBattlegroundHeadUpMessage();
             default:
                 return LanguageEnglish.getBattlegroundHeadUpMessage();
         }
@@ -119,6 +134,8 @@ public class LanguageController {
                 return LanguagePolish.getAncientNightmareMessage();
             case "FRA":
                 return LanguageFrench.getAncientNightmareMessage();
+            case "ITA":
+                return LanguageItalian.getAncientNightmareMessage();
             default:
                 return LanguageEnglish.getAncientNightmareMessage();
         }
@@ -134,6 +151,8 @@ public class LanguageController {
                 return LanguagePolish.getAncientNightmareHeadUpMessage();
             case "FRA":
                 return LanguageFrench.getAncientNightmareHeadUpMessage();
+            case "ITA":
+                return LanguageItalian.getAncientNightmareHeadUpMessage();
             default:
                 return LanguageEnglish.getAncientNightmareHeadUpMessage();
         }
@@ -149,6 +168,8 @@ public class LanguageController {
                 return LanguagePolish.getAncientArenaMessage();
             case "FRA":
                 return LanguageFrench.getAncientArenaMessage();
+            case "ITA":
+                return LanguageItalian.getAncientArenaMessage();
             default:
                 return LanguageEnglish.getAncientArenaMessage();
         }
@@ -164,6 +185,8 @@ public class LanguageController {
                 return LanguagePolish.getAncientArenaHeadUpMessage();
             case "FRA":
                 return LanguageFrench.getAncientArenaHeadUpMessage();
+            case "ITA":
+                return LanguageItalian.getAncientArenaHeadUpMessage();
             default:
                 return LanguageEnglish.getAncientArenaHeadUpMessage();
         }
@@ -179,6 +202,8 @@ public class LanguageController {
                 return LanguagePolish.getAssemblyMessage();
             case "FRA":
                 return LanguageFrench.getAssemblyMessage();
+            case "ITA":
+                return LanguageItalian.getAssemblyMessage();
             default:
                 return LanguageEnglish.getAssemblyMessage();
         }
@@ -194,6 +219,8 @@ public class LanguageController {
                 return LanguagePolish.getAssemblyHeadUpMessage();
             case "FRA":
                 return LanguageFrench.getAssemblyHeadUpMessage();
+            case "ITA":
+                return LanguageItalian.getAssemblyHeadUpMessage();
             default:
                 return LanguageEnglish.getAssemblyHeadUpMessage();
         }
@@ -209,6 +236,8 @@ public class LanguageController {
                 return LanguagePolish.getShadowLotteryMessage();
             case "FRA":
                 return LanguageFrench.getShadowLotteryMessage();
+            case "ITA":
+                return LanguageItalian.getShadowLotteryMessage();
             default:
                 return LanguageEnglish.getShadowLotteryMessage();
         }
@@ -224,6 +253,8 @@ public class LanguageController {
                 return LanguagePolish.getShadowLotteryHeadUpMessage();
             case "FRA":
                 return LanguageFrench.getShadowLotteryHeadUpMessage();
+            case "ITA":
+                return LanguageItalian.getShadowLotteryHeadUpMessage();
             default:
                 return LanguageEnglish.getShadowLotteryHeadUpMessage();
         }
@@ -239,6 +270,8 @@ public class LanguageController {
                 return LanguagePolish.getRegisteredMessage();
             case "FRA":
                 return LanguageFrench.getRegisteredMessage();
+            case "ITA":
+                return LanguageItalian.getRegisteredMessage();
             default:
                 return LanguageEnglish.getRegisteredMessage();
         }
@@ -254,6 +287,8 @@ public class LanguageController {
                 return LanguagePolish.getAlreadyRegisteredMessage();
             case "FRA":
                 return LanguageFrench.getAlreadyRegisteredMessage();
+            case "ITA":
+                return LanguageItalian.getAlreadyRegisteredMessage();
             default:
                 return LanguageEnglish.getAlreadyRegisteredMessage();
         }
@@ -269,6 +304,8 @@ public class LanguageController {
                 return LanguagePolish.getRoleNotFoundMessage();
             case "FRA":
                 return LanguageFrench.getRoleNotFoundMessage();
+            case "ITA":
+                return LanguageItalian.getRoleNotFoundMessage();
             default:
                 return LanguageEnglish.getRoleNotFoundMessage();
         }
@@ -284,6 +321,8 @@ public class LanguageController {
                 return LanguagePolish.getNotRegisteredMessage();
             case "FRA":
                 return LanguageFrench.getNotRegisteredMessage();
+            case "ITA":
+                return LanguageItalian.getNotRegisteredMessage();
             default:
                 return LanguageEnglish.getNotRegisteredMessage();
         }
@@ -299,6 +338,8 @@ public class LanguageController {
                 return LanguagePolish.getReceiveAllMessagesMessage();
             case "FRA":
                 return LanguageFrench.getReceiveAllMessagesMessage();
+            case "ITA":
+                return LanguageItalian.getReceiveAllMessagesMessage();
             default:
                 return LanguageEnglish.getReceiveAllMessagesMessage();
         }
@@ -314,6 +355,8 @@ public class LanguageController {
                 return LanguagePolish.getReceiveImmortalMessage();
             case "FRA":
                 return LanguageFrench.getReceiveImmortalMessage();
+            case "ITA":
+                return LanguageItalian.getReceiveImmortalMessage();
             default:
                 return LanguageEnglish.getReceiveImmortalMessage();
         }
@@ -329,6 +372,8 @@ public class LanguageController {
                 return LanguagePolish.getReceiveShadowMessage();
             case "FRA":
                 return LanguageFrench.getReceiveShadowMessage();
+            case "ITA":
+                return LanguageItalian.getReceiveShadowMessage();
             default:
                 return LanguageEnglish.getReceiveShadowMessage();
         }
@@ -344,6 +389,8 @@ public class LanguageController {
                 return LanguagePolish.getReceiveOwImmortalMessage();
             case "FRA":
                 return LanguageFrench.getReceiveOwImmortalMessage();
+            case "ITA":
+                return LanguageItalian.getReceiveOwImmortalMessage();
             default:
                 return LanguageEnglish.getReceiveOwImmortalMessage();
         }
@@ -359,6 +406,8 @@ public class LanguageController {
                 return LanguagePolish.getReceiveOwShadowMessage();
             case "FRA":
                 return LanguageFrench.getReceiveOwShadowMessage();
+            case "ITA":
+                return LanguageItalian.getReceiveOwShadowMessage();
             default:
                 return LanguageEnglish.getReceiveOwShadowMessage();
         }
@@ -374,6 +423,8 @@ public class LanguageController {
                 return LanguagePolish.getReceiveOverworldMessage();
             case "FRA":
                 return LanguageFrench.getReceiveOverworldMessage();
+            case "ITA":
+                return LanguageItalian.getReceiveOverworldMessage();
             default:
                 return LanguageEnglish.getReceiveOverworldMessage();
         }
@@ -389,6 +440,8 @@ public class LanguageController {
                 return LanguagePolish.getTimezoneSetToMessage();
             case "FRA":
                 return LanguageFrench.getTimezoneSetToMessage();
+            case "ITA":
+                return LanguageItalian.getTimezoneSetToMessage();
             default:
                 return LanguageEnglish.getTimezoneSetToMessage();
         }
@@ -404,6 +457,8 @@ public class LanguageController {
                 return LanguagePolish.getUnregisteredChannel();
             case "FRA":
                 return LanguageFrench.getUnregisteredChannel();
+            case "ITA":
+                return LanguageItalian.getUnregisteredChannel();
             default:
                 return LanguageEnglish.getUnregisteredChannel();
         }
@@ -419,6 +474,8 @@ public class LanguageController {
                 return LanguagePolish.getUnknownTimezoneMessage();
             case "FRA":
                 return LanguageFrench.getUnknownTimezoneMessage();
+            case "ITA":
+                return LanguageItalian.getUnknownTimezoneMessage();
             default:
                 return LanguageEnglish.getUnknownTimezoneMessage();
         }
@@ -434,6 +491,8 @@ public class LanguageController {
                 return LanguagePolish.getUnknownStatusMessage();
             case "FRA":
                 return LanguageFrench.getUnknownStatusMessage();
+            case "ITA":
+                return LanguageItalian.getUnknownStatusMessage();
             default:
                 return LanguageEnglish.getUnknownStatusMessage();
         }
@@ -449,6 +508,8 @@ public class LanguageController {
                 return LanguagePolish.getIsSetMessage();
             case "FRA":
                 return LanguageFrench.getIsSetMessage();
+            case "ITA":
+                return LanguageItalian.getIsSetMessage();
             default:
                 return LanguageEnglish.getIsSetMessage();
         }
@@ -464,6 +525,8 @@ public class LanguageController {
                 return LanguagePolish.getRaidTheVaultMessage();
             case "FRA":
                 return LanguageFrench.getRaidTheVaultMessage();
+            case "ITA":
+                return LanguageItalian.getRaidTheVaultMessage();
             default:
                 return LanguageEnglish.getRaidTheVaultMessage();
         }
@@ -479,6 +542,8 @@ public class LanguageController {
                 return LanguagePolish.getRaidTheVaultHeadUpMessage();
             case "FRA":
                 return LanguageFrench.getRaidTheVaultHeadUpMessage();
+            case "ITA":
+                return LanguageItalian.getRaidTheVaultHeadUpMessage();
             default:
                 return LanguageEnglish.getRaidTheVaultHeadUpMessage();
         }
@@ -494,6 +559,8 @@ public class LanguageController {
                 return LanguagePolish.getDefendTheVaultMessage();
             case "FRA":
                 return LanguageFrench.getDefendTheVaultMessage();
+            case "ITA":
+                return LanguageItalian.getDefendTheVaultMessage();
             default:
                 return LanguageEnglish.getDefendTheVaultMessage();
         }
@@ -509,6 +576,8 @@ public class LanguageController {
                 return LanguagePolish.getDefendTheVaultHeadUpMessage();
             case "FRA":
                 return LanguageFrench.getDefendTheVaultHeadUpMessage();
+            case "ITA":
+                return LanguageItalian.getDefendTheVaultHeadUpMessage();
             default:
                 return LanguageEnglish.getDefendTheVaultHeadUpMessage();
         }
@@ -524,6 +593,8 @@ public class LanguageController {
                 return LanguagePolish.getLanguageNotSupportedMessage();
             case "FRA":
                 return LanguageFrench.getLanguageNotSupportedMessage();
+            case "ITA":
+                return LanguageItalian.getLanguageNotSupportedMessage();
             default:
                 return LanguageEnglish.getLanguageNotSupportedMessage();
         }
@@ -539,6 +610,8 @@ public class LanguageController {
                 return LanguagePolish.getLanguageUpdatedMessage();
             case "FRA":
                 return LanguageFrench.getLanguageUpdatedMessage();
+            case "ITA":
+                return LanguageItalian.getLanguageUpdatedMessage();
             default:
                 return LanguageEnglish.getLanguageUpdatedMessage();
         }
@@ -554,6 +627,8 @@ public class LanguageController {
                 return LanguagePolish.getHeadUpValueSetToMessage();
             case "FRA":
                 return LanguageFrench.getHeadUpValueSetToMessage();
+            case "ITA":
+                return LanguageItalian.getHeadUpValueSetToMessage();
             default:
                 return LanguageEnglish.getHeadUpValueSetToMessage();
         }
@@ -569,6 +644,8 @@ public class LanguageController {
                 return LanguagePolish.getLanguageMessage();
             case "FRA":
                 return LanguageFrench.getLanguageMessage();
+            case "ITA":
+                return LanguageItalian.getLanguageMessage();
             default:
                 return LanguageEnglish.getLanguageMessage();
         }
@@ -584,6 +661,8 @@ public class LanguageController {
                 return LanguagePolish.getEventEnabledMessage();
             case "FRA":
                 return LanguageFrench.getEventEnabledMessage();
+            case "ITA":
+                return LanguageItalian.getEventEnabledMessage();
             default:
                 return LanguageEnglish.getEventEnabledMessage();
         }
@@ -599,8 +678,146 @@ public class LanguageController {
                 return LanguagePolish.getEventDisabledMessage();
             case "FRA":
                 return LanguageFrench.getEventDisabledMessage();
+            case "ITA":
+                return LanguageItalian.getEventDisabledMessage();
             default:
                 return LanguageEnglish.getEventDisabledMessage();
+        }
+    }
+
+    public static String getChannelNotFoundMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getChannelNotFoundMessage();
+            case "ESP":
+                return LanguageSpain.getChannelNotFoundMessage();
+            case "POL":
+                return LanguagePolish.getChannelNotFoundMessage();
+            case "FRA":
+                return LanguageFrench.getChannelNotFoundMessage();
+            case "ITA":
+                return LanguageItalian.getChannelNotFoundMessage();
+            default:
+                return LanguageEnglish.getChannelNotFoundMessage();
+        }
+    }
+
+    public static String getDoBotGotRightsMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getDoBotGotRightsMessage();
+            case "ESP":
+                return LanguageSpain.getDoBotGotRightsMessage();
+            case "POL":
+                return LanguagePolish.getDoBotGotRightsMessage();
+            case "FRA":
+                return LanguageFrench.getDoBotGotRightsMessage();
+            case "ITA":
+                return LanguageItalian.getDoBotGotRightsMessage();
+            default:
+                return LanguageEnglish.getDoBotGotRightsMessage();
+        }
+    }
+
+    public static String getCustomMessageCreated(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getCustomMessageCreatedMessage();
+            case "ESP":
+                return LanguageSpain.getCustomMessageCreatedMessage();
+            case "POL":
+                return LanguagePolish.getCustomMessageCreatedMessage();
+            case "FRA":
+                return LanguageFrench.getCustomMessageCreatedMessage();
+            case "ITA":
+                return LanguageItalian.getCustomMessageCreatedMessage();
+            default:
+                return LanguageEnglish.getCustomMessageCreatedMessage();
+        }
+    }
+
+    public static String getNoCustomMessagesMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getNoCustomMessagesMessage();
+            case "ESP":
+                return LanguageSpain.getNoCustomMessagesMessage();
+            case "POL":
+                return LanguagePolish.getNoCustomMessagesMessage();
+            case "FRA":
+                return LanguageFrench.getNoCustomMessagesMessage();
+            case "ITA":
+                return LanguageItalian.getNoCustomMessagesMessage();
+            default:
+                return LanguageEnglish.getNoCustomMessagesMessage();
+        }
+    }
+
+    public static String getYourCustomMessagesMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getYourCustomMessagesMessage();
+            case "ESP":
+                return LanguageSpain.getYourCustomMessagesMessage();
+            case "POL":
+                return LanguagePolish.getYourCustomMessagesMessage();
+            case "FRA":
+                return LanguageFrench.getYourCustomMessagesMessage();
+            case "ITA":
+                return LanguageItalian.getYourCustomMessagesMessage();
+            default:
+                return LanguageEnglish.getYourCustomMessagesMessage();
+        }
+    }
+
+    public static String getCustomMessageDeletedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getCustomMessageDeletedMessage();
+            case "ESP":
+                return LanguageSpain.getCustomMessageDeletedMessage();
+            case "POL":
+                return LanguagePolish.getCustomMessageDeletedMessage();
+            case "FRA":
+                return LanguageFrench.getCustomMessageDeletedMessage();
+            case "ITA":
+                return LanguageItalian.getCustomMessageDeletedMessage();
+            default:
+                return LanguageEnglish.getCustomMessageDeletedMessage();
+        }
+    }
+
+    public static String getCustomMessageWithIdDeleted(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getCustomMessageWithIdDeleted();
+            case "ESP":
+                return LanguageSpain.getCustomMessageWithIdDeleted();
+            case "POL":
+                return LanguagePolish.getCustomMessageWithIdDeleted();
+            case "FRA":
+                return LanguageFrench.getCustomMessageWithIdDeleted();
+            case "ITA":
+                return LanguageItalian.getCustomMessageWithIdDeleted();
+            default:
+                return LanguageEnglish.getCustomMessageWithIdDeleted();
+        }
+    }
+
+    public static String getInvalidCommandMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInvalidCommandMessage();
+            case "ESP":
+                return LanguageSpain.getInvalidCommandMessage();
+            case "POL":
+                return LanguagePolish.getInvalidCommandMessage();
+            case "FRA":
+                return LanguageFrench.getInvalidCommandMessage();
+            case "ITA":
+                return LanguageItalian.getInvalidCommandMessage();
+            default:
+                return LanguageEnglish.getInvalidCommandMessage();
         }
     }
 

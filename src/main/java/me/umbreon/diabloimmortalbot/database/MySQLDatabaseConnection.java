@@ -39,25 +39,29 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
                     "status INT," +
                     "role VARCHAR(20)," +
                     "debug TINYINT(1)" +
-                    ")";
+                    ");";
 
             String guilds = "CREATE TABLE IF NOT EXISTS guilds (" +
                     "guildID VARCHAR(20)," +
                     "language VARCHAR(5)," +
-                    "enable_headup TINYINT(1)" + ")";
+                    "enable_headup TINYINT(1) DEFAULT 1" +
+                    ");";
 
             String custom_messages = "CREATE TABLE IF NOT EXISTS custom_messages (" +
-                    "guildID VARCHAR(50) PRIMARY KEY," +
+                    "guildID VARCHAR(50)," +
                     "channelID VARCHAR(50)," +
-                    "message NVARCHAR," +
+                    "message VARCHAR(2000)," +
                     "day VARCHAR(10)," +
-                    "repeat TINYINT(1)," +
-                    "id AUTO_INCREMENT" +
-                    ")";
+                    "time VARCHAR(10)," +
+                    "message_repeat TINYINT(1)," +
+                    "message_id int NOT NULL AUTO_INCREMENT PRIMARY KEY" + ")";
             connection.createStatement().execute(channel_notification);
             connection.createStatement().execute(guilds);
+            connection.createStatement().execute(custom_messages);
+
         } catch (SQLException e) {
             ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
         }
         return true;
     }

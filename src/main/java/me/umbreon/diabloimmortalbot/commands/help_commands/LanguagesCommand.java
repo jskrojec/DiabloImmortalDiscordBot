@@ -1,6 +1,6 @@
 package me.umbreon.diabloimmortalbot.commands.help_commands;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -16,7 +16,6 @@ public class LanguagesCommand {
     }
 
     public void runLanguagesCommand(Message message) {
-        message.delete().queue();
         TextChannel textChannel = message.getTextChannel();
         textChannel.sendMessageEmbeds(languagesMessageEmbed.build()).queue();
     }
@@ -24,11 +23,12 @@ public class LanguagesCommand {
     private void buildLanguagesMessageEmbed() {
         languagesMessageEmbed.setTitle("Languages:");
         languagesMessageEmbed.setColor(Color.ORANGE);
-        languagesMessageEmbed.addField("GER (Deutsch)", LanguageController.getLanguageMessage("GER"), false);
+        languagesMessageEmbed.addField("GER (German)", LanguageController.getLanguageMessage("GER"), false);
         languagesMessageEmbed.addField("ENG (English)", LanguageController.getLanguageMessage("ENG"), false);
         languagesMessageEmbed.addField("ESP (Spanish)", LanguageController.getLanguageMessage("ESP"), false);
         languagesMessageEmbed.addField("FRA (French)", LanguageController.getLanguageMessage("FRA"), false);
         languagesMessageEmbed.addField("POL (Polish)", LanguageController.getLanguageMessage("POL"), false);
+        languagesMessageEmbed.addField("ITA (Italian)", LanguageController.getLanguageMessage("ITA"), false);
         languagesMessageEmbed.addBlankField(false);
         languagesMessageEmbed.addField("Request new languages:", "Languages are added to the bot with" +
                 " the help of the community. Request a language on my Discord.", false);

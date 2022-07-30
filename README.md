@@ -23,7 +23,11 @@ Discord Bot for Diablo Immortal. Sends a message on events.
 |>whatismychannelid              |Returns that channelID. Used for bug reporting!| 
 |>instructions                   |Shows how to install the bot on your server.| 
 |>help                           |Shows the help message.| 
-|>notifications battlegrounds off|Allows you the individually enable or disable events.| 
+|>notifications battlegrounds off|Allows you the individually enable or disable events.|
+|>cm create #Textchannel Sunday 16:30 yes/no(Repeat?) Your Message|Creates a custom message. ">cm create TEXTCHANNEL DAY TIME REPEAT MESSAGE"|
+|>cm delete ID|Deletes an custom message. See ID's using >cm list.|
+|>cm list|Show's all custom messages|
+Custom messages create command time must be given in 24hrs format.
 
 ## Languages
 
@@ -42,6 +46,7 @@ Discord Bot for Diablo Immortal. Sends a message on events.
 - 3 = Shadow event messages
 - 4 = Immortal with overworld messages
 - 5 = Shadow with overworld messages
+- 6 = Empty. Could be used for custom messages.
 - (Embed messages does not ping!)
 - 7 = Immortal with overworld embed messages.
 - 8 = Shadow with overworld embed messages.

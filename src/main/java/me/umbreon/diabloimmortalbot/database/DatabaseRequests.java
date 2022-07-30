@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.database;
 
+import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
@@ -197,7 +198,7 @@ public class DatabaseRequests {
 
     public void createNewGuildEntry(GuildInformation guildInformation) {
         try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, enable_headup) VALUES (?, ?, ?)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, event_headup) VALUES (?, ?, ?)")) {
             try {
                 preparedStatement.setString(1, guildInformation.getGuildID());
                 preparedStatement.setString(2, guildInformation.getLanguage());
@@ -241,9 +242,10 @@ public class DatabaseRequests {
 
                     String guildID = resultSet.getString("guildID");
                     String language = resultSet.getString("language");
-                    boolean isHeadUpEnabled = (resultSet.getInt("enable_headup") == 1);
+                    boolean isHeadUpEnabled = (resultSet.getInt("event_headup") == 1);
                     boolean battlegroundNotificationsEnabled = (resultSet.getInt("event_battlegrounds") == 1);
-                    GuildInformation guildInformation = new GuildInformation(guildID, language, isHeadUpEnabled, battlegroundNotificationsEnabled);
+                    boolean eventMessagesEnabled = (resultSet.getInt("event_message") == 1);
+                    GuildInformation guildInformation = new GuildInformation(guildID, language, isHeadUpEnabled, battlegroundNotificationsEnabled, eventMessagesEnabled);
                     listWithGuildInformation.put(guildID, guildInformation);
                 }
             } catch (Exception e) {
@@ -258,30 +260,11 @@ public class DatabaseRequests {
         return listWithGuildInformation;
     }
 
-    public void setHeadUpValue(String guilID, boolean headUpValue) {
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET enable_headup = ? WHERE guildID = ?")) {
-            try {
-                preparedStatement.setString(1, guilID);
-                preparedStatement.setBoolean(2, headUpValue);
-                preparedStatement.executeUpdate();
-            } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
-                e.printStackTrace();
-            }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
-        } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
-            e.printStackTrace();
-        }
-    }
-
     public void setEventValue(String event, boolean enabled, String guildID) {
         String finalEventString = "event_" + event;
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET " + finalEventString + " = ? WHERE guildID = ?")) {
-            try {//UPDATE guilds SET event_battlegrounds = 0 WHERE guildID = "321377200660283393";
-                //'event_battlegrounds' = 0 WHERE guildID = '321377200660283393'
+            try {
                 preparedStatement.setBoolean(1, enabled);
                 preparedStatement.setString(2, guildID);
                 preparedStatement.executeUpdate();
@@ -296,5 +279,74 @@ public class DatabaseRequests {
         }
     }
 
+    public Map<String, CustomMessage> getAllCustomMessages() {
+        Map<String, CustomMessage> customMessagesList = new ConcurrentHashMap<>();
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM custom_messages")) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String guildID = resultSet.getString("guildID");
+                    String channelID = resultSet.getString("channelID");
+                    String message = resultSet.getString("message");
+                    String day = resultSet.getString("day");
+                    String time = resultSet.getString("time");
+                    boolean repeat = (resultSet.getInt("message_repeat") == 1);
+                    int id = resultSet.getInt("message_id");
 
+                    CustomMessage customMessage = new CustomMessage(channelID, guildID, message, day, time, id, repeat);
+                    customMessagesList.put(guildID, customMessage);
+                }
+
+
+            } catch (Exception e) {
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
+            }
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
+        }
+        return customMessagesList;
+    }
+
+    public void deleteCustomMessageEntry(int customMessageID) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM custom_messages WHERE message_id = ?")) {
+            try {
+                preparedStatement.setInt(1, customMessageID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
+            }
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public void createNewCustomMessageEntry(CustomMessage customMessage) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO custom_messages " +
+                     "(guildID, channelID, message, day, time, message_repeat) VALUES (?, ?, ?, ?, ?, ?)")) {
+            try {
+                preparedStatement.setString(1, customMessage.getGuildID());
+                preparedStatement.setString(2, customMessage.getChannelID());
+                preparedStatement.setString(3, customMessage.getMessage());
+                preparedStatement.setString(4, customMessage.getDay());
+                preparedStatement.setString(5, customMessage.getTime());
+                preparedStatement.setBoolean(6, customMessage.isRepeat());
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
+            }
+            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
+        } catch (SQLException e) {
+            ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
+        }
+    }
 }

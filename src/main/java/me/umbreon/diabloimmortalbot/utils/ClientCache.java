@@ -4,53 +4,16 @@ import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public class ClientCache {
 
+    // NOTIFICATIONS CHANNELS CACHE
+
     private Map<String, NotificationChannel> listWithNotificationChannels;
-    private Map<String, GuildInformation> listWithGuildInformation;
-    private Map<String, CustomMessage> listWithCustomMessages;
-    private Map<String, String> customMessagesCreateList;
-    private Map<String, CustomMessage> preparingCustomMessageList;
-
-    public void addPreparingCustomMessage(String channelID, CustomMessage customMessage) {
-        preparingCustomMessageList.put(channelID, customMessage);
-    }
-
-    public CustomMessage getPreparingCustomMessage(String channelID) {
-        return preparingCustomMessageList.get(channelID);
-    }
-
-    public void setListWithCustomMessages(Map<String, CustomMessage> listWithCustomMessages) {
-        this.listWithCustomMessages = listWithCustomMessages;
-    }
-
-    public void addUserToCustomMessagesCreateList(String userID, String channelID) {
-        customMessagesCreateList.put(userID, channelID);
-    }
-
-    public boolean isUserInCustomMessagesCreateList(String userID) {
-        return customMessagesCreateList.containsKey(userID);
-    }
-
-    public String getChannelIDByUserInCustomMessagesCreateList(String userID) {
-        return customMessagesCreateList.get(userID);
-    }
-
-    public Map<String, CustomMessage> getListWithCustomMessages() {
-        return listWithCustomMessages;
-    }
-
-    public CustomMessage getCustomMessageByChannelID(String channelID) {
-        return listWithCustomMessages.get(channelID);
-    }
-
-    public String getCustomMessageFullTimeByChannelID(String channelID) {
-        String day = listWithCustomMessages.get(channelID).getDay();
-        String time = listWithCustomMessages.get(channelID).getTime();
-        return day + " " + time;
-    }
 
     public void setListWithNotificationChannels(Map<String, NotificationChannel> listWithNotificationChannels) {
         this.listWithNotificationChannels = listWithNotificationChannels;
@@ -58,10 +21,6 @@ public class ClientCache {
 
     public Map<String, NotificationChannel> getListWithNotificationChannels() {
         return listWithNotificationChannels;
-    }
-
-    public String getCustomMessageMessageByChannelID(String channelID) {
-        return listWithCustomMessages.get(channelID).getMessage();
     }
 
     public int getStatus(String channelId) {
@@ -100,7 +59,9 @@ public class ClientCache {
         listWithNotificationChannels.remove(channelID);
     }
 
+    // GUILDS CACHE
 
+    private Map<String, GuildInformation> listWithGuildInformation;
 
     public void setListWithGuildInformation(Map<String, GuildInformation> listWithGuildInformation) {
         this.listWithGuildInformation = listWithGuildInformation;
@@ -128,20 +89,66 @@ public class ClientCache {
         this.listWithGuildInformation.put(guildInformation.getGuildID(), guildInformation);
     }
 
-    public void setHeadUpValue(String guildID, boolean headUpValue) {
-        listWithGuildInformation.get(guildID).setHeadUpEnabled(headUpValue);
-    }
-
     public boolean getHeadUpValue(String guildID) {
         return listWithGuildInformation.get(guildID).isHeadUpEnabled();
+    }
+
+    public boolean isEventMessageEnabled(String guildID) {
+        return listWithGuildInformation.get(guildID).isEventMessageEnabled();
     }
 
     public boolean isBattlegroundsNotificationsEnabled(String guildID) {
         return listWithGuildInformation.get(guildID).isBattlegroundsNotificationsEnabled();
     }
 
-    public void setBattlegroundsNotificationsEnabled(String guildID, boolean value) {
-        listWithGuildInformation.get(guildID).setBattlegroundsNotificationsEnabled(value);
+    public void setEventValue(String event, String guildID, boolean value) {
+        switch (event.toLowerCase()) {
+            case "battlegrounds":
+                listWithGuildInformation.get(guildID).setBattlegroundsNotificationsEnabled(value);
+                break;
+            case "message":
+                listWithGuildInformation.get(guildID).setEventMessageEnabled(value);
+                break;
+            case "headup":
+                listWithGuildInformation.get(guildID).setHeadUpEnabled(value);
+                break;
+        }
+    }
+
+    // CUSTOM MESSAGES CACHE
+
+    public Map<String, CustomMessage> customMessagesList;
+
+    public void setCustomMessagesList(Map<String, CustomMessage> customMessagesList) {
+        this.customMessagesList = customMessagesList;
+    }
+
+    public void deleteCustomMessageByID(int customMessageID) {
+        customMessagesList.forEach((key, customMessage) -> {
+            if (customMessage.getCustomMessageID() == customMessageID) {
+                customMessagesList.remove(key);
+            }
+        });
+    }
+
+    public List<CustomMessage> getAllCustomMessagesByGuildID(String guildID) {
+        List<CustomMessage> guildCustomMessagesList = new ArrayList<>();
+
+        customMessagesList.forEach((key, customMessage) -> {
+            if (customMessage.getGuildID().equals(guildID)) {
+                guildCustomMessagesList.add(customMessage);
+            }
+        });
+
+        return guildCustomMessagesList;
+    }
+
+    public Collection<CustomMessage> getAllCustomMessages() {
+        return this.customMessagesList.values();
+    }
+
+    public void addCustomMessageToList(CustomMessage customMessage) {
+        this.customMessagesList.put(customMessage.getGuildID(), customMessage);
     }
 
 }

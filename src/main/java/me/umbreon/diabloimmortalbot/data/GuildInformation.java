@@ -6,12 +6,14 @@ public class GuildInformation {
     private String language;
     private boolean isHeadUpEnabled;
     private boolean battlegroundsNotificationsEnabled;
+    private boolean eventMessageEnabled;
 
-    public GuildInformation(String guildID, String language, boolean isHeadUpEnabled, boolean battlegroundsNotificationsEnabled) {
+    public GuildInformation(String guildID, String language, boolean isHeadUpEnabled, boolean battlegroundsNotificationsEnabled, boolean eventMessageEnabled) {
         this.guildID = guildID;
         this.language = language;
         this.isHeadUpEnabled = isHeadUpEnabled;
         this.battlegroundsNotificationsEnabled = battlegroundsNotificationsEnabled;
+        this.eventMessageEnabled = eventMessageEnabled;
     }
 
     public String getGuildID() {
@@ -44,5 +46,13 @@ public class GuildInformation {
 
     public void setBattlegroundsNotificationsEnabled(boolean battlegroundsNotificationsEnabled) {
         this.battlegroundsNotificationsEnabled = battlegroundsNotificationsEnabled;
+    }
+
+    public boolean isEventMessageEnabled() {
+        return eventMessageEnabled;
+    }
+
+    public void setEventMessageEnabled(boolean eventMessageEnabled) {
+        this.eventMessageEnabled = eventMessageEnabled;
     }
 }

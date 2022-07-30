@@ -1,7 +1,7 @@
 package me.umbreon.diabloimmortalbot.events;
 
+import me.umbreon.diabloimmortalbot.commands.custom_messages.CustomMessageCommand;
 import me.umbreon.diabloimmortalbot.commands.guilds_commands.NotificationsCommand;
-import me.umbreon.diabloimmortalbot.commands.guilds_commands.HeadUpCommand;
 import me.umbreon.diabloimmortalbot.commands.guilds_commands.LanguageCommand;
 import me.umbreon.diabloimmortalbot.commands.help_commands.*;
 import me.umbreon.diabloimmortalbot.commands.notifier_commands.*;
@@ -31,10 +31,10 @@ public class MessageReceived extends ListenerAdapter {
     private final TimezonesCommand timezonesCommand;
     private final LanguageCommand languageCommand;
     private final WhatsMyChannelIdCommand whatsMyChannelIdCommand;
-    private final HeadUpCommand headUpCommand;
     private final InstructionCommand instructionCommand;
     private final LanguagesCommand languagesCommand;
     private final NotificationsCommand notificationsCommand;
+    private final CustomMessageCommand customMessageCommand;
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
@@ -53,10 +53,10 @@ public class MessageReceived extends ListenerAdapter {
         this.timezonesCommand = new TimezonesCommand();
         this.languageCommand = new LanguageCommand(clientCache, databaseRequests);
         this.whatsMyChannelIdCommand = new WhatsMyChannelIdCommand();
-        this.headUpCommand = new HeadUpCommand(clientCache, databaseRequests);
         this.instructionCommand = new InstructionCommand();
         this.languagesCommand = new LanguagesCommand();
         this.notificationsCommand = new NotificationsCommand(clientCache, databaseRequests);
+        this.customMessageCommand = new CustomMessageCommand(clientCache, databaseRequests);
 
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
@@ -116,64 +116,78 @@ public class MessageReceived extends ListenerAdapter {
             case ">register":
                 registerCommand.runRegisterCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">unnotifier":
             case ">unregister":
                 unregisterCommand.runUnregisterCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">status":
                 statusCommand.runStatusCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">timezone":
                 timezoneCommand.onTimezoneCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">role":
                 roleCommand.runRoleCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">help":
                 helpCommand.runHelpCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">checktimezone":
             case ">ctz":
             case ">checktz":
                 checkTimeZoneCommand.runCheckTimezoneCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">timezones":
                 timezonesCommand.runTimezonesCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">language":
                 languageCommand.runLanguageCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">whatismychannelid":
                 whatsMyChannelIdCommand.runWhatsMyChannelIdCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
-                break;
-            case ">headup":
-                headUpCommand.runHeadUpCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">instructions":
             case ">instruction":
             case ">install":
                 instructionCommand.runInstructionCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">languages":
                 languagesCommand.runLanguagesCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
                 break;
             case ">notifications":
             case ">notification":
                 notificationsCommand.runNotificationsCommand(event.getMessage());
                 logCommandExecution(member.getEffectiveName(), event.getMessage());
+                event.getMessage().delete().queue();
+                break;
+            case ">cm":
+            case ">customessage":
+                customMessageCommand.runCustomMessageCommand(event.getMessage());
+                event.getMessage().delete().queue();
                 break;
 
         }
@@ -203,7 +217,7 @@ public class MessageReceived extends ListenerAdapter {
     private void registerGuildIfDoNotExist(String guildID, String channelID) {
         if (!clientCache.doGuildExists(guildID)) {
             String timezone = clientCache.getTimezone(channelID);
-            GuildInformation guildInformation = new GuildInformation(guildID, "ENG", true, true);
+            GuildInformation guildInformation = new GuildInformation(guildID, "ENG", true, true, true );
             clientCache.addGuildInformation(guildInformation);
             databaseRequests.createNewGuildEntry(guildInformation);
         }

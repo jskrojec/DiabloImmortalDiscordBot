@@ -90,10 +90,7 @@ public class Notifier {
                                 return;
                             }
 
-                            String[] guildInfo = sendMessageIfPossible(textChannel);
-
-                            guildID = guildInfo[0];
-                            ownerID = guildInfo[1];
+                            sendMessageIfPossible(textChannel);
                         }
 
                     } catch (Exception e) {
@@ -109,7 +106,7 @@ public class Notifier {
         try {
             if (!clientCache.doGuildExists(guildID)) {
                 String language = "ENG";
-                GuildInformation guildInformation = new GuildInformation(guildID, language, true, true);
+                GuildInformation guildInformation = new GuildInformation(guildID, language, true, true, true);
                 databaseRequests.createNewGuildEntry(guildInformation);
                 clientCache.addGuildInformation(guildInformation);
             }
@@ -118,52 +115,52 @@ public class Notifier {
         }
     }
 
-    private String[] sendMessageIfPossible(TextChannel textChannel) {
-        String[] guildInfo = new String[2];
-
+    private void sendMessageIfPossible(TextChannel textChannel) {
         String channelID = textChannel.getId();
         String timezone = clientCache.getTimezone(channelID);
         int status = clientCache.getStatus(textChannel.getId());
         Guild guild = textChannel.getGuild();
-        guildInfo[0] = guild.getId();
-        guildInfo[1] = guild.getOwnerId();
-        String language = clientCache.getLanguage(guildInfo[0]);
+        String guildID = guild.getId();
+        String language = clientCache.getLanguage(guildID);
 
         StringBuilder notificationMessageBuilder = new StringBuilder();
 
         switch (status) {
             case 0:
-                checkForAnyEvent(notificationMessageBuilder, timezone, language, guildInfo[0]);
+                checkForAnyEvent(notificationMessageBuilder, timezone, language, guildID);
                 break;
             case 1:
-                checkOverworldEvents(notificationMessageBuilder, timezone, language, guildInfo[0]);
+                checkOverworldEvents(notificationMessageBuilder, timezone, language, guildID);
                 break;
             case 2:
-                checkImmortalEvents(notificationMessageBuilder, timezone, language, guildInfo[0]);
+                checkImmortalEvents(notificationMessageBuilder, timezone, language, guildID);
                 break;
             case 3:
-                checkShadowEvents(notificationMessageBuilder, timezone, language, guildInfo[0]);
+                checkShadowEvents(notificationMessageBuilder, timezone, language, guildID);
                 break;
             case 4:
-                checkImmortalWithOverworldEvents(notificationMessageBuilder, timezone, language, guildInfo[0]);
+                checkImmortalWithOverworldEvents(notificationMessageBuilder, timezone, language, guildID);
                 break;
             case 5:
-                checkShadowWithOverworldEvents(notificationMessageBuilder, timezone, language, guildInfo[0]);
+                checkShadowWithOverworldEvents(notificationMessageBuilder, timezone, language, guildID);
                 break;
             case 7:
-                checkImmortalWithOverworldEmbededEvents(notificationMessageBuilder, timezone, language, guildInfo[0], textChannel);
+                checkImmortalWithOverworldEmbededEvents(notificationMessageBuilder, timezone, language, guildID, textChannel);
                 break;
             case 8:
-                checkShadowWithOverworldEmbededEvents(notificationMessageBuilder, timezone, language, guildInfo[0], textChannel);
+                checkShadowWithOverworldEmbededEvents(notificationMessageBuilder, timezone, language, guildID, textChannel);
                 break;
             case 9:
                 checkForOverworldEvents(timezone, textChannel);
-                return guildInfo;
+                break;
             case 128:
                 debugMessageCountdown++;
                 if (debugMessageCountdown == 1) {
                     debugMessageCountdown = 0;
-                    String debugMessage = "Current time: " + Time.getTimeWithWeekday(timezone) + " in timezone " + timezone + ".";
+                    String debugMessage = "Current time: " + Time.getTimeWithWeekday(timezone) + " in timezone " + timezone + "." +
+                            "\nBattlegrounds: " + clientCache.isBattlegroundsNotificationsEnabled(guildID) +
+                            "\nEvent Messages: " + clientCache.isEventMessageEnabled(guildID) +
+                            "\nHeadUp Messages:" + clientCache.getHeadUpValue(guildID) + "\n";
                     notificationMessageBuilder.append(debugMessage);
                 }
                 break;
@@ -173,8 +170,6 @@ public class Notifier {
             addMention(notificationMessageBuilder, channelID, textChannel.getGuild());
             textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
         }
-
-        return guildInfo;
     }
 
 

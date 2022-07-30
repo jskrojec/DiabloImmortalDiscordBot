@@ -1,6 +1,6 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
@@ -25,6 +25,7 @@ public class DemonGates {
                 return LanguageController.getDemonGatesHeadUpMessage(language) + "\n";
             }
         } else {
+            if (clientCache.isEventMessageEnabled(guildID))
             return LanguageController.getDemonGatesMessage(language) + "\n";
         }
         return "";

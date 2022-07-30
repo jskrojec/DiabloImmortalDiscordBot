@@ -1,16 +1,17 @@
 package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 
 import java.util.concurrent.TimeUnit;
 /**
- * Command: >register
+ * Command: >register (TextChannelMention)
+ * Alias: >notifier (TextChannelMention)
+ * L:2
+ * (Optional)
  */
 public class RegisterCommand {
 
@@ -23,10 +24,17 @@ public class RegisterCommand {
     }
 
     public void runRegisterCommand(Message message) {
-        message.delete().queue();
+        String[] args = message.getContentRaw().split(" ");
+        Guild guild = message.getGuild();
+        //String channelID = args[1].replaceAll("[^\\d.]", ""); //Replaces non numbers with empty space
+        String channelID = message.getTextChannel().getId();
+        TextChannel targetTextChannel;
+        if (args.length == 2) {
+            targetTextChannel = guild.getTextChannelById(args[1]);
+
+        }
 
         TextChannel textChannel = message.getTextChannel();
-        String channelID = textChannel.getId();
         String guildID = message.getGuild().getId();
         String language = clientCache.getLanguage(guildID);
 
@@ -43,4 +51,5 @@ public class RegisterCommand {
         String responseMessage = String.format(LanguageController.getRegisteredMessage(language), textChannel.getAsMention());
         textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
     }
+
 }

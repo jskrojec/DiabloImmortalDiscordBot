@@ -1,7 +1,7 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
 
@@ -21,11 +21,12 @@ public class AncientNightMare {
         if (!isTimeValid(timezone)) return "";
 
         if (isHeadUpTime(timezone)) {
-            if (clientCache.getHeadUpValue(guildID)){
+            if (clientCache.getHeadUpValue(guildID)) {
                 return LanguageController.getAncientNightmareHeadUpMessage(language) + "\n";
             }
         } else {
-            return LanguageController.getAncientNightmareMessage(language) + "\n";
+            if (clientCache.isEventMessageEnabled(guildID))
+                return LanguageController.getAncientNightmareMessage(language) + "\n";
         }
         return "";
     }

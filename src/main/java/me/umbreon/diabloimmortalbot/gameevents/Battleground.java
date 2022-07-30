@@ -1,6 +1,6 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
@@ -27,6 +27,7 @@ public class Battleground {
                 return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
             }
         } else {
+            if (clientCache.isEventMessageEnabled(guildID))
             return LanguageController.getBattlegroundMessage(language) + "\n";
         }
         return "";

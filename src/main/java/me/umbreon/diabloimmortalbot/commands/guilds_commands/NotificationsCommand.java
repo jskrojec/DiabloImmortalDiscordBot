@@ -1,7 +1,8 @@
 package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.utils.BooleanAssistant;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -13,6 +14,9 @@ import java.util.ArrayList;
 
 /**
  * Command: /notifications battlegrounds on/off
+ * batlegrund
+ * Possible events: AncientArena, AncientNightmare, Assembly, Battlegrounds, DefendVault, RaidVault, DemonGates,
+ *                  ShadowLottery, HauntedCarriage, HeadUpMessage, EventMessage
  */
 public class NotificationsCommand {
 
@@ -34,8 +38,6 @@ public class NotificationsCommand {
     }
 
     public void runNotificationsCommand(Message message) {
-        message.delete().queue();
-
         TextChannel textChannel = message.getTextChannel();
         String[] args = message.getContentRaw().split(" ");
         String selectedEvent = args[1];
@@ -47,13 +49,13 @@ public class NotificationsCommand {
 
         String guildID = textChannel.getGuild().getId();
         String language = clientCache.getLanguage(guildID);
-        if (isArgumentTrue(args[2])) {
+        if (BooleanAssistant.isValueTrue(args[2])) {
             setEventValue(guildID, true, selectedEvent);
             textChannel.sendMessageEmbeds(buildEventUpdatedMessageEmbed(selectedEvent, true, language)).queue();
             return;
         }
 
-        if (isArgumentFalse(args[2])) {
+        if (BooleanAssistant.isValueFalse(args[2])) {
             setEventValue(guildID, false, selectedEvent);
             textChannel.sendMessageEmbeds(buildEventUpdatedMessageEmbed(selectedEvent, false, language)).queue();
             return;
@@ -64,6 +66,8 @@ public class NotificationsCommand {
 
     private void fillListWithEvents() {
         listWithEvents.add("battlegrounds");
+        listWithEvents.add("headup");
+        listWithEvents.add("message");
     }
 
     private void buildEventNotAvailableMessageEmbed() {
@@ -87,28 +91,8 @@ public class NotificationsCommand {
     }
 
     private void setEventValue(String guildID, boolean value, String event) {
-        clientCache.setBattlegroundsNotificationsEnabled(guildID, value);
+        clientCache.setEventValue(event, guildID, value);
         databaseRequests.setEventValue(event, value, guildID);
-    }
-
-    private boolean isArgumentTrue(String arg) {
-        switch (arg.toLowerCase()) {
-            case "true":
-            case "on":
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    private boolean isArgumentFalse(String arg) {
-        switch (arg.toLowerCase()) {
-            case "false":
-            case "off":
-                return true;
-            default:
-                return false;
-        }
     }
 
     private void buildInvalidCommandEmbed() {

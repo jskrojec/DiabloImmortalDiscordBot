@@ -1,9 +1,8 @@
 package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -20,8 +19,6 @@ public class UnregisterCommand {
     }
 
     public void runUnregisterCommand(Message message) {
-        message.delete().queue();
-
         TextChannel textChannel = message.getTextChannel();
         String channelID = textChannel.getId();
         String guildID = message.getGuild().getId();

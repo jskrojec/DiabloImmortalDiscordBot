@@ -1,7 +1,7 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
 
@@ -20,13 +20,13 @@ public class ShadowLottery {
     public String checkShadowLottery(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone)) {
+        if (isHeadUpTime(timezone))
             if (clientCache.getHeadUpValue(guildID)) {
                 return LanguageController.getShadowLotteryHeadUpMessage(language) + "\n";
+            } else {
+                if (clientCache.isEventMessageEnabled(guildID))
+                    return LanguageController.getShadowLotteryMessage(language) + "\n";
             }
-        } else {
-            return LanguageController.getShadowLotteryMessage(language) + "\n";
-        }
         return "";
     }
 

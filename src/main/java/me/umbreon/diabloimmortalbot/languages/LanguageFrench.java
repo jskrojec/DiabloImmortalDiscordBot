@@ -1,17 +1,17 @@
-package me.umbreon.diabloimmortalbot.configuration;
+package me.umbreon.diabloimmortalbot.languages;
 
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
 import java.util.Map;
 
-public class LanguageGerman {
+public class LanguageFrench {
 
     static Map<String, Object> messages;
 
     public void loadLanguageConfiguration() {
         Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("german.yaml");
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("french.yaml");
         messages = yaml.load(inputStream);
     }
 
@@ -169,6 +169,42 @@ public class LanguageGerman {
 
     public static String getEventDisabledMessage() {
         return messages.get("EVENT_DISABLED").toString();
+    }
+
+    public static String getChannelNotFoundMessage() {
+        return messages.get("CHANNEL_NOT_FOUND").toString();
+    }
+
+    public static String getDoBotGotRightsMessage() {
+        return messages.get("DO_BOT_GOT_RIGHTS").toString();
+    }
+
+    public static String getCustomMessageCreated() {
+        return messages.get("CUSTOM_MESSAGE_CREATED").toString();
+    }
+
+    public static String getNoCustomMessagesMessage() {
+        return messages.get("NO_CUSTOM_MESSAGES").toString();
+    }
+
+    public static String getYourCustomMessagesMessage() {
+        return messages.get("YOUR_CUSTOM_MESSAGES").toString();
+    }
+
+    public static String getCustomMessageCreatedMessage() {
+        return messages.get("CUSTOM_MESSAGE_CREATED").toString();
+    }
+
+    public static String getCustomMessageDeletedMessage() {
+        return messages.get("CUSTOM_MESSAGE_DELETED").toString();
+    }
+
+    public static String getCustomMessageWithIdDeleted() {
+        return messages.get("CUSTOM_MESSAGE_WITH_ID_DELETED").toString();
+    }
+
+    public static String getInvalidCommandMessage() {
+        return messages.get("INVALID_COMMAND").toString();
     }
 
 }

@@ -1,6 +1,6 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
@@ -25,6 +25,7 @@ public class HauntedCarriage {
                 return LanguageController.getHauntedCarriageHeadUpMessage(language) + "\n";
             }
         } else {
+            if (clientCache.isEventMessageEnabled(guildID))
             return LanguageController.getHauntedCarriageMessage(language) + "\n";
         }
         return null;

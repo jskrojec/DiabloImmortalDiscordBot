@@ -1,6 +1,6 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.configuration.LanguageController;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
@@ -25,7 +25,9 @@ public class AncientArea {
                 return LanguageController.getAncientArenaHeadUpMessage(language) + "\n";
             }
         } else {
-            return LanguageController.getAncientArenaMessage(language) + "\n";
+            if (clientCache.isEventMessageEnabled(guildID)) {
+                return LanguageController.getAncientArenaMessage(language) + "\n";
+            }
         }
         return "";
     }

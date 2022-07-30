@@ -10,8 +10,6 @@ import java.awt.*;
 public class TimezonesCommand {
 
     public void runTimezonesCommand(Message message) {
-        message.delete().queue();
-
         TextChannel textChannel = message.getTextChannel();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Timezones");
