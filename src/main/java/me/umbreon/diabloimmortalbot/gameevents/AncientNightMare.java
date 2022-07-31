@@ -21,9 +21,8 @@ public class AncientNightMare {
         if (!isTimeValid(timezone)) return "";
 
         if (isHeadUpTime(timezone)) {
-            if (clientCache.getHeadUpValue(guildID)) {
+            if (clientCache.getHeadUpValue(guildID))
                 return LanguageController.getAncientNightmareHeadUpMessage(language) + "\n";
-            }
         } else {
             if (clientCache.isEventMessageEnabled(guildID))
                 return LanguageController.getAncientNightmareMessage(language) + "\n";

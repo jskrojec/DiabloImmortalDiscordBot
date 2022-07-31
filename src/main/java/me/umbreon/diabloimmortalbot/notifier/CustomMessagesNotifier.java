@@ -1,6 +1,5 @@
 package me.umbreon.diabloimmortalbot.notifier;
 
-import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
@@ -24,8 +23,7 @@ public class CustomMessagesNotifier {
 
         new Timer().schedule(new TimerTask() {
             public void run() {
-                for (CustomMessage customMessage : clientCache.getAllCustomMessages()) {
-
+                clientCache.customMessagesList.forEach((integer, customMessage) -> {
                     String channel = customMessage.getChannelID();
 
                     if (!clientCache.doNotificationChannelExists(channel)) {
@@ -38,8 +36,16 @@ public class CustomMessagesNotifier {
                     String time = customMessage.getTime();
                     String fullTime = day + " " + time;
 
-                    if (!isTimeValid(timezone, fullTime)) {
-                        return;
+                    if (day.equalsIgnoreCase("everyday")) {
+                        if (!isTimeValid(timezone, time)) {
+                            //Invalid time message
+                            return;
+                        }
+                    } else {
+                        if (!isFulltimeValid(timezone, fullTime)) {
+                            //Invalid time message
+                            return;
+                        }
                     }
 
                     TextChannel textChannel;
@@ -51,20 +57,25 @@ public class CustomMessagesNotifier {
                     }
 
                     String message = customMessage.getMessage();
-
-                    textChannel.sendMessage(message).queue();
+                    if (textChannel != null) textChannel.sendMessage(message).queue();
 
                     if (!customMessage.isRepeat()) {
                         clientCache.deleteCustomMessageByID(customMessage.getCustomMessageID());
                         databaseRequests.deleteCustomMessageEntry(customMessage.getCustomMessageID());
                     }
-                }
+                });
+
             }
         }, 0, 60 * 1000);
     }
 
-    private boolean isTimeValid(String timezone, String fullTime) {
+    private boolean isFulltimeValid(String timezone, String fullTime) {
         String time = Time.getTimeWithWeekday(timezone);
         return time.equals(fullTime);
+    }
+
+    private boolean isTimeValid(String timezone, String time) {
+        String timeOnly = Time.getTime(timezone);
+        return time.equals(timeOnly);
     }
 }

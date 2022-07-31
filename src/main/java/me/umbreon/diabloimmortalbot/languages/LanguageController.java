@@ -821,4 +821,259 @@ public class LanguageController {
         }
     }
 
+    public static String getAncientArenaEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getAncientArenaEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getAncientArenaEmbedMessage();
+            case "POL":
+                return LanguagePolish.getAncientArenaEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getAncientArenaEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getAncientArenaEmbedMessage();
+            default:
+                return LanguageEnglish.getAncientArenaEmbedMessage();
+        }
+    }
+
+    public static String getLocationAncientArenaEmbedMessage1(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLocationAncientArenaEmbedMessage1();
+            case "ESP":
+                return LanguageSpain.getLocationAncientArenaEmbedMessage1();
+            case "POL":
+                return LanguagePolish.getLocationAncientArenaEmbedMessage1();
+            case "FRA":
+                return LanguageFrench.getLocationAncientArenaEmbedMessage1();
+            case "ITA":
+                return LanguageItalian.getLocationAncientArenaEmbedMessage1();
+            default:
+                return LanguageEnglish.getLocationAncientArenaEmbedMessage1();
+        }
+    }
+
+    public static String getLocationAncientArenaEmbedMessage2(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLocationAncientArenaEmbedMessage2();
+            case "ESP":
+                return LanguageSpain.getLocationAncientArenaEmbedMessage2();
+            case "POL":
+                return LanguagePolish.getLocationAncientArenaEmbedMessage2();
+            case "FRA":
+                return LanguageFrench.getLocationAncientArenaEmbedMessage2();
+            case "ITA":
+                return LanguageItalian.getLocationAncientArenaEmbedMessage2();
+            default:
+                return LanguageEnglish.getLocationAncientArenaEmbedMessage2();
+        }
+    }
+
+    public static String getAncientNightmareEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getAncientNightmareEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getAncientNightmareEmbedMessage();
+            case "POL":
+                return LanguagePolish.getAncientNightmareEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getAncientNightmareEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getAncientNightmareEmbedMessage();
+            default:
+                return LanguageEnglish.getAncientNightmareEmbedMessage();
+        }
+    }
+
+    public static String getLocationAncientNightmareEmbedMessage1(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLocationAncientNightmareEmbedMessage1();
+            case "ESP":
+                return LanguageSpain.getLocationAncientNightmareEmbedMessage1();
+            case "POL":
+                return LanguagePolish.getLocationAncientNightmareEmbedMessage1();
+            case "FRA":
+                return LanguageFrench.getLocationAncientNightmareEmbedMessage1();
+            case "ITA":
+                return LanguageItalian.getLocationAncientNightmareEmbedMessage1();
+            default:
+                return LanguageEnglish.getLocationAncientNightmareEmbedMessage1();
+        }
+    }
+
+    public static String getLocationAncientNightmareEmbedMessage2(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLocationAncientNightmareEmbedMessage2();
+            case "ESP":
+                return LanguageSpain.getLocationAncientNightmareEmbedMessage2();
+            case "POL":
+                return LanguagePolish.getLocationAncientNightmareEmbedMessage2();
+            case "FRA":
+                return LanguageFrench.getLocationAncientNightmareEmbedMessage2();
+            case "ITA":
+                return LanguageItalian.getLocationAncientNightmareEmbedMessage2();
+            default:
+                return LanguageEnglish.getLocationAncientNightmareEmbedMessage2();
+        }
+    }
+
+    public static String getDemonGatesEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getDemonGatesEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getDemonGatesEmbedMessage();
+            case "POL":
+                return LanguagePolish.getDemonGatesEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getDemonGatesEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getDemonGatesEmbedMessage();
+            default:
+                return LanguageEnglish.getDemonGatesEmbedMessage();
+        }
+    }
+
+    public static String getLocationDemonGatesEmbedMessage1(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLocationDemonGatesEmbedMessage1();
+            case "ESP":
+                return LanguageSpain.getLocationDemonGatesEmbedMessage1();
+            case "POL":
+                return LanguagePolish.getLocationDemonGatesEmbedMessage1();
+            case "FRA":
+                return LanguageFrench.getLocationDemonGatesEmbedMessage1();
+            case "ITA":
+                return LanguageItalian.getLocationDemonGatesEmbedMessage1();
+            default:
+                return LanguageEnglish.getLocationDemonGatesEmbedMessage1();
+        }
+    }
+
+    public static String getLocationDemonGatesEmbedMessage2(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLocationDemonGatesEmbedMessage2();
+            case "ESP":
+                return LanguageSpain.getLocationDemonGatesEmbedMessage2();
+            case "POL":
+                return LanguagePolish.getLocationDemonGatesEmbedMessage2();
+            case "FRA":
+                return LanguageFrench.getLocationDemonGatesEmbedMessage2();
+            case "ITA":
+                return LanguageItalian.getLocationDemonGatesEmbedMessage2();
+            default:
+                return LanguageEnglish.getLocationDemonGatesEmbedMessage2();
+        }
+    }
+
+    public static String getHauntedCarriageEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getHauntedCarriageEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getHauntedCarriageEmbedMessage();
+            case "POL":
+                return LanguagePolish.getHauntedCarriageEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getHauntedCarriageEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getHauntedCarriageEmbedMessage();
+            default:
+                return LanguageEnglish.getHauntedCarriageEmbedMessage();
+        }
+    }
+
+    public static String getLocationHauntedCarriageEmbedMessage1(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLocationHauntedCarriageEmbedMessage1();
+            case "ESP":
+                return LanguageSpain.getLocationHauntedCarriageEmbedMessage1();
+            case "POL":
+                return LanguagePolish.getLocationHauntedCarriageEmbedMessage1();
+            case "FRA":
+                return LanguageFrench.getLocationHauntedCarriageEmbedMessage1();
+            case "ITA":
+                return LanguageItalian.getLocationHauntedCarriageEmbedMessage1();
+            default:
+                return LanguageEnglish.getLocationHauntedCarriageEmbedMessage1();
+        }
+    }
+
+    public static String getLocationHauntedCarriageEmbedMessage2(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getLocationHauntedCarriageEmbedMessage2();
+            case "ESP":
+                return LanguageSpain.getLocationHauntedCarriageEmbedMessage2();
+            case "POL":
+                return LanguagePolish.getLocationHauntedCarriageEmbedMessage2();
+            case "FRA":
+                return LanguageFrench.getLocationHauntedCarriageEmbedMessage2();
+            case "ITA":
+                return LanguageItalian.getLocationHauntedCarriageEmbedMessage2();
+            default:
+                return LanguageEnglish.getLocationHauntedCarriageEmbedMessage2();
+        }
+    }
+
+    public static String getSpawnAtMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getSpawnAtMessage();
+            case "ESP":
+                return LanguageSpain.getSpawnAtMessage();
+            case "POL":
+                return LanguagePolish.getSpawnAtMessage();
+            case "FRA":
+                return LanguageFrench.getSpawnAtMessage();
+            case "ITA":
+                return LanguageItalian.getSpawnAtMessage();
+            default:
+                return LanguageEnglish.getSpawnAtMessage();
+        }
+    }
+
+    public static String getCountdownEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getCountdownEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getCountdownEmbedMessage();
+            case "POL":
+                return LanguagePolish.getCountdownEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getCountdownEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getCountdownEmbedMessage();
+            default:
+                return LanguageEnglish.getCountdownEmbedMessage();
+        }
+    }
+
+    public static String getWorldEventEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getWorldEventEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getWorldEventEmbedMessage();
+            case "POL":
+                return LanguagePolish.getWorldEventEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getWorldEventEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getWorldEventEmbedMessage();
+            default:
+                return LanguageEnglish.getWorldEventEmbedMessage();
+        }
+    }
+
 }

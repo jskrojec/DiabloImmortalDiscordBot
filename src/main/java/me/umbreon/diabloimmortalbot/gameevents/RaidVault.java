@@ -1,7 +1,7 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
 
@@ -21,12 +21,11 @@ public class RaidVault {
         if (!isTimeValid(timezone)) return "";
 
         if (isHeadUpTime(timezone)) {
-            if (clientCache.getHeadUpValue(guildID)) {
+            if (clientCache.getHeadUpValue(guildID))
                 return LanguageController.getRaidTheVaultHeadUpMessage(language) + "\n";
-            }
         } else {
             if (clientCache.isEventMessageEnabled(guildID))
-            return LanguageController.getRaidTheVaultMessage(language) + "\n";
+                return LanguageController.getRaidTheVaultMessage(language) + "\n";
         }
         return "";
     }

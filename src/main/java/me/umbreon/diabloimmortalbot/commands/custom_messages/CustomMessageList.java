@@ -44,16 +44,11 @@ public class CustomMessageList {
         embedBuilder.setTitle(LanguageController.getYourCustomMessagesMessage(language));
 
         customMessageList.forEach(customMessage -> {
-            String customMessageMessage;
-
-            if (customMessage.getMessage().length() > 15) {
-                customMessageMessage = customMessage.getMessage().substring(0, 15);
-            } else {
-                customMessageMessage = customMessage.getMessage();
-            }
-
-            String ID = "ID: " + customMessage.getCustomMessageID();
-            embedBuilder.addField(ID, customMessageMessage, false);
+            String customMessageID = "ID: " + customMessage.getCustomMessageID();
+            String s = "Channel: <#" + customMessage.getChannelID() + ">\n" +
+            "Message: " + customMessage.getMessage() + "\n" +
+            "Time: " + customMessage.getDay() + " " + customMessage.getTime() + "\n";
+            embedBuilder.addField(customMessageID, s,true);
         });
 
         return embedBuilder.build();

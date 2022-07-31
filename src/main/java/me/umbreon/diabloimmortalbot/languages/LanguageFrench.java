@@ -207,4 +207,64 @@ public class LanguageFrench {
         return messages.get("INVALID_COMMAND").toString();
     }
 
+    public static String getAncientArenaEmbedMessage() {
+        return messages.get("ANCIENT_ARENA_EMBED").toString();
+    }
+
+    public static String getLocationAncientArenaEmbedMessage1() {
+        return messages.get("LOCATION_ANCIENT_ARENA_EMBED_1").toString();
+    }
+
+    public static String getLocationAncientArenaEmbedMessage2() {
+        return messages.get("LOCATION_ANCIENT_ARENA_EMBED_2").toString();
+    }
+
+    public static String getAncientNightmareEmbedMessage() {
+        return messages.get("ANCIENT_NIGHTMARE_EMBED").toString();
+    }
+
+    public static String getLocationAncientNightmareEmbedMessage1() {
+        return messages.get("LOCATION_ANCIENT_NIGHTMARE_EMBED_1").toString();
+    }
+
+    public static String getLocationAncientNightmareEmbedMessage2() {
+        return messages.get("LOCATION_ANCIENT_NIGHTMARE_EMBED_2").toString();
+    }
+
+    public static String getDemonGatesEmbedMessage() {
+        return messages.get("DEMON_GATES_EMBED").toString();
+    }
+
+    public static String getLocationDemonGatesEmbedMessage1() {
+        return messages.get("LOCATION_DEMON_GATE_EMBED_1").toString();
+    }
+
+    public static String getLocationDemonGatesEmbedMessage2() {
+        return messages.get("LOCATION_DEMON_GATE_EMBED_2").toString();
+    }
+
+    public static String getHauntedCarriageEmbedMessage() {
+        return messages.get("DEMON_GATES_EMBED").toString();
+    }
+
+    public static String getLocationHauntedCarriageEmbedMessage1() {
+        return messages.get("LOCATION_DEMON_GATE_EMBED_1").toString();
+    }
+
+    public static String getLocationHauntedCarriageEmbedMessage2() {
+        return messages.get("LOCATION_DEMON_GATE_EMBED_2").toString();
+    }
+
+    public static String getSpawnAtMessage() {
+        return messages.get("SPAWN_AT_EMBED").toString();
+    }
+
+    public static String getCountdownEmbedMessage() {
+        return messages.get("COUNTDOWN_EMBED").toString();
+    }
+
+    public static String getWorldEventEmbedMessage() {
+        return messages.get("WORLD_EVENT_EMBED").toString();
+    }
+
 }

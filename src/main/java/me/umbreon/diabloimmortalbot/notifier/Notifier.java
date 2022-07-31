@@ -151,7 +151,7 @@ public class Notifier {
                 checkShadowWithOverworldEmbededEvents(notificationMessageBuilder, timezone, language, guildID, textChannel);
                 break;
             case 9:
-                checkForOverworldEvents(timezone, textChannel);
+                checkForOverworldEvents(timezone, textChannel, language);
                 break;
             case 128:
                 debugMessageCountdown++;
@@ -263,18 +263,18 @@ public class Notifier {
         notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timezone, language, guildID));
     }
 
-    private void checkForOverworldEvents(String timezone, TextChannel textChannel) {
-        ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timezone);
-        ancientNightmareEmbed.checkAncientArenaFormatted(textChannel, timezone);
-        demonGatesEmbed.checkAncientArenaFormatted(textChannel, timezone);
-        hauntedCarriageEmbed.checkAncientArenaFormatted(textChannel ,timezone);
+    private void checkForOverworldEvents(String timezone, TextChannel textChannel, String language) {
+        ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timezone, language);
+        ancientNightmareEmbed.checkAncientNightmareFormatted(textChannel, timezone, language);
+        demonGatesEmbed.checkDemonGatesFormatted(textChannel, timezone, language);
+        hauntedCarriageEmbed.checkHauntedCarriageFormatted(textChannel ,timezone, language);
     }
 
     private void checkShadowWithOverworldEmbededEvents(StringBuilder notificationMessageBuilder, String timezone, String language, String guildID, TextChannel textChannel) {
-        ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timezone);
-        ancientNightmareEmbed.checkAncientArenaFormatted(textChannel, timezone);
-        demonGatesEmbed.checkAncientArenaFormatted(textChannel, timezone);
-        hauntedCarriageEmbed.checkAncientArenaFormatted(textChannel ,timezone);
+        ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timezone, language);
+        ancientNightmareEmbed.checkAncientNightmareFormatted(textChannel, timezone, language);
+        demonGatesEmbed.checkDemonGatesFormatted(textChannel, timezone, language);
+        hauntedCarriageEmbed.checkHauntedCarriageFormatted(textChannel ,timezone, language);
         notificationMessageBuilder.append(battleground.checkBattleground(timezone, language, guildID));
         notificationMessageBuilder.append(raidVault.checkVault(timezone, language, guildID));
         notificationMessageBuilder.append(assembly.checkAssembly(timezone, language, guildID));
@@ -282,10 +282,10 @@ public class Notifier {
     }
 
     private void checkImmortalWithOverworldEmbededEvents(StringBuilder notificationMessageBuilder, String timezone, String language, String guildID, TextChannel textChannel) {
-        ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timezone);
-        ancientNightmareEmbed.checkAncientArenaFormatted(textChannel, timezone);
-        demonGatesEmbed.checkAncientArenaFormatted(textChannel, timezone);
-        hauntedCarriageEmbed.checkAncientArenaFormatted(textChannel ,timezone);
+        ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timezone, language);
+        ancientNightmareEmbed.checkAncientNightmareFormatted(textChannel, timezone, language);
+        demonGatesEmbed.checkDemonGatesFormatted(textChannel, timezone, language);
+        hauntedCarriageEmbed.checkHauntedCarriageFormatted(textChannel ,timezone, language);
         notificationMessageBuilder.append(battleground.checkBattleground(timezone, language, guildID));
         notificationMessageBuilder.append(defendVault.checkDefendVault(timezone, language, guildID));
     }

@@ -1,7 +1,7 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
 
@@ -19,16 +19,14 @@ public class Battleground {
 
     public String checkBattleground(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
-
         if (!clientCache.isBattlegroundsNotificationsEnabled(guildID)) return "";
 
         if (isHeadUpTime(timezone)) {
-            if (clientCache.getHeadUpValue(guildID)) {
+            if (clientCache.getHeadUpValue(guildID))
                 return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
-            }
         } else {
             if (clientCache.isEventMessageEnabled(guildID))
-            return LanguageController.getBattlegroundMessage(language) + "\n";
+                return LanguageController.getBattlegroundMessage(language) + "\n";
         }
         return "";
     }

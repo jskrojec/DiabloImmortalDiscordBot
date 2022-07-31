@@ -1,8 +1,8 @@
 package me.umbreon.diabloimmortalbot.commands.custom_messages;
 
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.BooleanAssistant;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
@@ -31,11 +31,16 @@ public class CustomMessageCreate {
         String[] args = message.getContentRaw().split(" ");
         String weekday = args[3];
         String time = args[4];
+
+        if (weekday.equalsIgnoreCase("everyday")) {
+            createEveryDayCustomMessage(message);
+            return;
+        }
+
         if (!areArgumentsValid(weekday, time, args)) {
             textChannel.sendMessageEmbeds(buildInvalidCommandUsageEmbed()).queue();
             return;
         }
-
         //Replaces non numbers with empty space to get the clear id
         String textchannelID = args[2].replaceAll("[^\\d.]", "");
         String guildID = message.getGuild().getId();
@@ -66,7 +71,7 @@ public class CustomMessageCreate {
             return;
         }
 
-        String notificationMessage = getNotificationMessage(args);
+        String notificationMessage = getNotificationMessage(args, 6);
         CustomMessage customMessage = new CustomMessage(textchannelID, guildID, notificationMessage, weekday, time, repeat);
         clientCache.addCustomMessageToList(customMessage);
         databaseRequests.createNewCustomMessageEntry(customMessage);
@@ -76,9 +81,56 @@ public class CustomMessageCreate {
         textChannel.sendMessageEmbeds(buildNewCustomMessageCreatedMessage(language)).queue();
     }
 
-    private String getNotificationMessage(String[] args) {
+    private void createEveryDayCustomMessage(Message message) {
+        String[] args = message.getContentRaw().split(" ");
+        //Replaces non numbers with empty space to get the clear id
+        String textchannelID = args[2].replaceAll("[^\\d.]", "");
+        String guildID = message.getGuild().getId();
+        String language = clientCache.getLanguage(guildID);
+        TextChannel textChannel = message.getTextChannel();
+        String weekday = args[3];
+        String time = args[4];
+        TextChannel targetTextChannel;
+
+        if (!isWeekdayValid(weekday)) {
+            textChannel.sendMessageEmbeds(buildInvalidCommandUsageEmbed()).queue();
+            return;
+        }
+
+        if (!isTimeInPattern(time)) {
+            textChannel.sendMessageEmbeds(buildInvalidCommandUsageEmbed()).queue();
+            return;
+        }
+
+        try {
+            targetTextChannel = message.getGuild().getTextChannelById(textchannelID);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().equalsIgnoreCase("ID may not be empty")) {
+                textChannel.sendMessageEmbeds(createChannelDoesNotExistEmbed(language)).queue();
+            } else {
+                textChannel.sendMessage("An error has occurred. Please report error \"0001\". No action " +
+                        "has been performed.").queue();
+                ClientLogger.createNewErrorLogEntry(e);
+                e.printStackTrace();
+            }
+            return;
+        }
+        //Command: >cm create TEXTCHANNEL everyday TIME MESSAGE
+
+
+        String notificationMessage = getNotificationMessage(args, 5);
+        CustomMessage customMessage = new CustomMessage(textchannelID, guildID, notificationMessage, weekday, time, true);
+        clientCache.addCustomMessageToList(customMessage);
+        databaseRequests.createNewCustomMessageEntry(customMessage);
+        //todo: remove this.
+        clientCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());
+
+        textChannel.sendMessageEmbeds(buildNewCustomMessageCreatedMessage(language)).queue();
+    }
+
+    private String getNotificationMessage(String[] args, int startingPoint) {
         StringBuilder notificationMessageBuilder = new StringBuilder();
-        for (int i = 6; i < args.length; i++) {
+        for (int i = startingPoint; i < args.length; i++) {
             notificationMessageBuilder.append(args[i]).append(" ");
         }
         return notificationMessageBuilder.toString();
@@ -116,6 +168,7 @@ public class CustomMessageCreate {
             case "friday":
             case "saturday":
             case "sunday":
+            case "everyday":
                 return true;
             default:
                 return false;

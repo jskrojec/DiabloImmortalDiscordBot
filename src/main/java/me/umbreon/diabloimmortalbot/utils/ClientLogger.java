@@ -20,6 +20,32 @@ public class ClientLogger {
         }
     }
 
+    public static void createNewSqlLogEntry(Exception logMessage) {
+        logFile = new File("/home/discord/logs/sql-log.log");
+
+        if (!doesLogFileExist()) {
+            createNewLogFile("sql-log");
+        }
+
+        BufferedWriter bufferedWriter;
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
+            bufferedWriter.append("\n[")
+                    .append(Time.getCurrentDate())
+                    .append(" ")
+                    .append(Time.getCurrentTime())
+                    .append("] ")
+                    .append(logMessage.getMessage())
+                    .append("\n");
+            for (StackTraceElement e : logMessage.getStackTrace()) {
+                bufferedWriter.append(String.valueOf(e)).append("\n");
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void createNewErrorLogEntry(Exception logMessage) {
         logFile = new File("/home/discord/logs/error-log.log");
 

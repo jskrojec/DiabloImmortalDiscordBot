@@ -32,12 +32,11 @@ public class DatabaseRequests {
                 preparedStatement.setBoolean(5, notificationChannel.inDebugMode);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
@@ -58,12 +57,11 @@ public class DatabaseRequests {
                     listWithNotificationChannels.put(channelId, notificationChannel);
                 }
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
         return listWithNotificationChannels;
@@ -89,12 +87,11 @@ public class DatabaseRequests {
                     listEventTimeTables.put(finalTime, headup);
                 }
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
         return listEventTimeTables;
@@ -112,12 +109,11 @@ public class DatabaseRequests {
                     listEventTimeTables.add(finalTime);
                 }
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
         return listEventTimeTables;
@@ -131,12 +127,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
@@ -149,12 +144,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
@@ -167,12 +161,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, messageId);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
@@ -184,12 +177,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(1, channelid);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
@@ -205,12 +197,11 @@ public class DatabaseRequests {
                 preparedStatement.setBoolean(3, guildInformation.isHeadUpEnabled());
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
@@ -223,12 +214,11 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, guildID);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
@@ -239,7 +229,6 @@ public class DatabaseRequests {
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM guilds")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-
                     String guildID = resultSet.getString("guildID");
                     String language = resultSet.getString("language");
                     boolean isHeadUpEnabled = (resultSet.getInt("event_headup") == 1);
@@ -249,12 +238,11 @@ public class DatabaseRequests {
                     listWithGuildInformation.put(guildID, guildInformation);
                 }
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
         return listWithGuildInformation;
@@ -269,18 +257,17 @@ public class DatabaseRequests {
                 preparedStatement.setString(2, guildID);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
 
-    public Map<String, CustomMessage> getAllCustomMessages() {
-        Map<String, CustomMessage> customMessagesList = new ConcurrentHashMap<>();
+    public Map<Integer, CustomMessage> getAllCustomMessages() {
+        Map<Integer, CustomMessage> customMessagesList = new ConcurrentHashMap<>();
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM custom_messages")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -292,19 +279,15 @@ public class DatabaseRequests {
                     String time = resultSet.getString("time");
                     boolean repeat = (resultSet.getInt("message_repeat") == 1);
                     int id = resultSet.getInt("message_id");
-
                     CustomMessage customMessage = new CustomMessage(channelID, guildID, message, day, time, id, repeat);
-                    customMessagesList.put(guildID, customMessage);
+                    customMessagesList.put(id, customMessage);
                 }
-
-
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
         return customMessagesList;
@@ -317,12 +300,11 @@ public class DatabaseRequests {
                 preparedStatement.setInt(1, customMessageID);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
@@ -340,12 +322,11 @@ public class DatabaseRequests {
                 preparedStatement.setBoolean(6, customMessage.isRepeat());
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
-                ClientLogger.createNewErrorLogEntry(e);
+                ClientLogger.createNewSqlLogEntry(e);
                 e.printStackTrace();
             }
-            ClientLogger.createNewClientLogEntry("Executed statement: " + preparedStatement.toString());
         } catch (SQLException e) {
-            ClientLogger.createNewErrorLogEntry(e);
+            ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }

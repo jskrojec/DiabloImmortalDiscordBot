@@ -29,12 +29,13 @@ public class HelpCommand {
         embedBuilder.addField(">status [STATUS]", "Select what messages you like to get.", false);
         embedBuilder.addField(">role [Role]", "Set what role should be mentioned in this textchannel. If you dont set the role everyone will be mentioned.", false);
         embedBuilder.addField(">language [Language]", "Sets bot language for this server.", false);
-        embedBuilder.addField(">headup on/off", "Enable or disable 15 minutes prewarning message.", false);
         embedBuilder.addField(">checktimezone", "Helps you find the right timezone for your server", false);
         embedBuilder.addField(">whatismychannelid", "Shows you your channelid.", false);
         embedBuilder.addField(">cm create #TextChannel DAY TIME yes/no(repeat) MESSAGE", "Creates an custom message.", false);
+        embedBuilder.addField(">cm create #TextChannel everyday TIME MESSAGE", "Creates an custom message what repeats everyday.", false);
         embedBuilder.addField(">cm delete ID", "Deletes an custom message. See ID's using >cm list.", false);
         embedBuilder.addField(">cm list", "Show's all custom messages.", false);
+        embedBuilder.addField(">cm info ID", "Show's all informations about a custom message.", false);
         embedBuilder.addField(">instructions", "Shows the bot instructions.", false);
         embedBuilder.addField(">help", "Shows this message.", false);
         embedBuilder.addBlankField(false);

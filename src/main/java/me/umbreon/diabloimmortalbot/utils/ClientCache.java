@@ -117,9 +117,9 @@ public class ClientCache {
 
     // CUSTOM MESSAGES CACHE
 
-    public Map<String, CustomMessage> customMessagesList;
+    public Map<Integer, CustomMessage> customMessagesList;
 
-    public void setCustomMessagesList(Map<String, CustomMessage> customMessagesList) {
+    public void setCustomMessagesList(Map<Integer, CustomMessage> customMessagesList) {
         this.customMessagesList = customMessagesList;
     }
 
@@ -133,9 +133,8 @@ public class ClientCache {
 
     public List<CustomMessage> getAllCustomMessagesByGuildID(String guildID) {
         List<CustomMessage> guildCustomMessagesList = new ArrayList<>();
-
-        customMessagesList.forEach((key, customMessage) -> {
-            if (customMessage.getGuildID().equals(guildID)) {
+        this.customMessagesList.forEach((key, customMessage) -> {
+            if (customMessage.getGuildID().equalsIgnoreCase(guildID)) {
                 guildCustomMessagesList.add(customMessage);
             }
         });
@@ -147,8 +146,12 @@ public class ClientCache {
         return this.customMessagesList.values();
     }
 
+    public CustomMessage getCustomMessageByID(int customMessageID) {
+        return customMessagesList.get(customMessageID);
+    }
+
     public void addCustomMessageToList(CustomMessage customMessage) {
-        this.customMessagesList.put(customMessage.getGuildID(), customMessage);
+        this.customMessagesList.put(customMessage.getCustomMessageID(), customMessage);
     }
 
 }

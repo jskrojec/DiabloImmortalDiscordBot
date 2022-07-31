@@ -1,7 +1,7 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.Time;
 
@@ -20,14 +20,13 @@ public class DemonGates {
     public String checkDemonGates(String timezone, String language, String guildID) {
         if (!isTimeValid(timezone)) return "";
 
-        if (isHeadUpTime(timezone)) {
-            if (clientCache.getHeadUpValue(guildID)){
+        if (isHeadUpTime(timezone))
+            if (clientCache.getHeadUpValue(guildID)) {
                 return LanguageController.getDemonGatesHeadUpMessage(language) + "\n";
+            } else {
+                if (clientCache.isEventMessageEnabled(guildID))
+                    return LanguageController.getDemonGatesMessage(language) + "\n";
             }
-        } else {
-            if (clientCache.isEventMessageEnabled(guildID))
-            return LanguageController.getDemonGatesMessage(language) + "\n";
-        }
         return "";
     }
 
