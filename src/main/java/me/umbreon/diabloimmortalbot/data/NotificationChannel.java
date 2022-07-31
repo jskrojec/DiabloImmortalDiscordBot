@@ -6,14 +6,12 @@ public class NotificationChannel {
     public String timezone;
     public int status;
     public String role;
-    public boolean inDebugMode;
 
-    public NotificationChannel(String channelId, String timezone, int status, String role, boolean inDebugMode) {
+    public NotificationChannel(String channelId, String timezone, int status, String role) {
         this.channelId = channelId;
         this.timezone = timezone;
         this.status = status;
         this.role = role;
-        this.inDebugMode = inDebugMode;
     }
 
     public NotificationChannel(String channelId) {
@@ -21,7 +19,6 @@ public class NotificationChannel {
         this.timezone = "GMT";
         this.status = 0;
         this.role = null;
-        this.inDebugMode = false;
     }
 
     public String getTimezone() {
@@ -36,10 +33,6 @@ public class NotificationChannel {
         return role;
     }
 
-    public boolean isInDebugMode() {
-        return inDebugMode;
-    }
-
     public void setTimezone(String timezone) {
         this.timezone = timezone;
     }
@@ -50,9 +43,5 @@ public class NotificationChannel {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public void setInDebugMode(boolean inDebugMode) {
-        this.inDebugMode = inDebugMode;
     }
 }

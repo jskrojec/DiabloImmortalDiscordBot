@@ -53,7 +53,7 @@ public class DatabaseRequests {
                     String role = resultSet.getString("role");
                     int debugInt = resultSet.getInt("debug");
                     boolean debug = (debugInt == 1);
-                    NotificationChannel notificationChannel = new NotificationChannel(channelId, timezone, status, role, debug);
+                    NotificationChannel notificationChannel = new NotificationChannel(channelId, timezone, status, role);
                     listWithNotificationChannels.put(channelId, notificationChannel);
                 }
             } catch (Exception e) {

@@ -39,7 +39,7 @@ public class ClientCache {
         return listWithNotificationChannels.containsKey(channelID);
     }
 
-    public void addNotificationChannel(NotificationChannel notificationChannel) {
+    public void createNewNotificationChannelEntry(NotificationChannel notificationChannel) {
         listWithNotificationChannels.put(notificationChannel.channelId, notificationChannel);
     }
 
