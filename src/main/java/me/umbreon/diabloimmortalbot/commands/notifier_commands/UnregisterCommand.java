@@ -5,9 +5,14 @@ import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.TimeUnit;
-
+/**
+ * Command: >unregister
+ * Command: >unregister #Channel
+ * Alias: >unnotifier
+ **/
 public class UnregisterCommand {
 
     private final DatabaseRequests databaseRequests;
@@ -20,20 +25,38 @@ public class UnregisterCommand {
 
     public void runUnregisterCommand(Message message) {
         TextChannel textChannel = message.getTextChannel();
-        String channelID = textChannel.getId();
+        String[] args = message.getContentRaw().split(" ");
         String guildID = message.getGuild().getId();
         String language = clientCache.getLanguage(guildID);
 
-        if (!clientCache.doNotificationChannelExists(channelID)) {
-            String responseMessage = String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention());
-            textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
+        String textChannelID = getTextChannelID(message, args);
+        if (!isChannelRegistered(textChannelID)) {
+            textChannel.sendMessage(String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention())).queue();
             return;
         }
 
-        removeNotificationChannel(channelID);
+        if (!clientCache.doNotificationChannelExists(textChannelID)) {
+            textChannel.sendMessage(String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention())).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
+            return;
+        }
 
-        String responseMessage = String.format(LanguageController.getUnregisteredChannel(language), textChannel.getAsMention());
-        textChannel.sendMessage(responseMessage).queue(sendMessage -> sendMessage.delete().queueAfter(10, TimeUnit.SECONDS));
+        removeNotificationChannel(textChannelID);
+        textChannel.sendMessage(String.format(LanguageController.getUnregisteredChannel(language), textChannel.getAsMention())).queue();
+    }
+
+    // -
+
+    @Nullable
+    private String getTextChannelID(Message message, String[] args) {
+        String textChannelID;
+        if (args.length == 2) {
+            textChannelID = args[1].replaceAll("[^\\d.]", "");
+        } else if (args.length == 1) {
+            textChannelID = message.getTextChannel().getId();
+        } else {
+            return null;
+        }
+        return textChannelID;
     }
 
     private void removeNotificationChannel(String channelID) {
@@ -41,4 +64,7 @@ public class UnregisterCommand {
         clientCache.deleteNotificationChannel(channelID);
     }
 
+    private boolean isChannelRegistered(String textChannelID) {
+        return clientCache.doNotificationChannelExists(textChannelID);
+    }
 }
