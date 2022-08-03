@@ -1,7 +1,7 @@
 package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.BooleanAssistant;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Command: /notifications battlegrounds on/off
  * batlegrund
  * Possible events: AncientArena, AncientNightmare, Assembly, Battlegrounds, DefendVault, RaidVault, DemonGates,
- *                  ShadowLottery, HauntedCarriage, HeadUpMessage, EventMessage
+ * ShadowLottery, HauntedCarriage, HeadUpMessage, EventMessage
  */
 public class NotificationsCommand {
 
@@ -67,7 +67,16 @@ public class NotificationsCommand {
     private void fillListWithEvents() {
         listWithEvents.add("battlegrounds");
         listWithEvents.add("headup");
+        listWithEvents.add("AncientArena");
+        listWithEvents.add("AncientNightmare");
+        listWithEvents.add("Assembly");
+        listWithEvents.add("DefendVault");
+        listWithEvents.add("RaidVault");
+        listWithEvents.add("DemonGates");
+        listWithEvents.add("ShadowLottery");
+        listWithEvents.add("HauntedCarriage");
         listWithEvents.add("message");
+
     }
 
     private void buildEventNotAvailableMessageEmbed() {

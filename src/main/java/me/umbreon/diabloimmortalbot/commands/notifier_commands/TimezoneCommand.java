@@ -3,6 +3,7 @@ package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.IdentifierConverter;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -96,7 +97,7 @@ public class TimezoneCommand {
     private String getTextChannelID(TextChannel textChannel, String[] args) {
         String textChannelID = null;
         if (args.length == 3) {
-            textChannelID = args[2].replaceAll("[^\\d.]", "");
+            textChannelID = IdentifierConverter.removeAllNonNumbers(args[1]);
         } else if (args.length == 2) {
             textChannelID = textChannel.getId();
         }

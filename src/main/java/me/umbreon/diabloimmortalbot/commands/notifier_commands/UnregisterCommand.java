@@ -3,6 +3,7 @@ package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.IdentifierConverter;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.jetbrains.annotations.Nullable;
@@ -50,7 +51,7 @@ public class UnregisterCommand {
     private String getTextChannelID(Message message, String[] args) {
         String textChannelID;
         if (args.length == 2) {
-            textChannelID = args[1].replaceAll("[^\\d.]", "");
+            textChannelID = IdentifierConverter.removeAllNonNumbers(args[1]);
         } else if (args.length == 1) {
             textChannelID = message.getTextChannel().getId();
         } else {

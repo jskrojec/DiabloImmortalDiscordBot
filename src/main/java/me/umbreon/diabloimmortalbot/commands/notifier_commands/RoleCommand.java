@@ -3,6 +3,7 @@ package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.IdentifierConverter;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
@@ -39,7 +40,7 @@ public class RoleCommand {
             return;
         }
 
-        String roleID = args[1].replaceAll("[^\\d.]", ""); //Replaces non numbers with empty space
+        String roleID = IdentifierConverter.removeAllNonNumbers(args[1]);
         Guild guild = message.getGuild();
         if (args[1].equalsIgnoreCase("@here")) {
             setRoleToHere(message, language);

@@ -53,6 +53,8 @@ public class LanguageCommand {
             case "FRA":
             case "POL":
             case "ITA":
+            case "RUS":
+            case "IND":
                 return true;
             default:
                 return false;

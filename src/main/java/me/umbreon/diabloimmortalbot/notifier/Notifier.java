@@ -63,11 +63,7 @@ public class Notifier {
 
         new Timer().schedule(new TimerTask() {
             public void run() {
-
                 setActivity(jda);
-
-                String guildID = "0";
-                String ownerID = "0";
 
                 for (String channel : clientCache.getListWithNotificationChannels().keySet()) {
                     try {
@@ -75,7 +71,7 @@ public class Notifier {
 
                         if (textChannel != null) {
 
-                            guildID = textChannel.getGuild().getId();
+                            String guildID = textChannel.getGuild().getId();
                             String timezone = clientCache.getTimezone(channel);
                             registerGuildIfDoNotExists(guildID);
 

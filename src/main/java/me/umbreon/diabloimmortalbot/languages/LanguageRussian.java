@@ -5,13 +5,13 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.InputStream;
 import java.util.Map;
 
-public class LanguageFrench {
+public class LanguageRussian {
 
     static Map<String, Object> messages;
 
     void loadLanguageConfiguration() {
         Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("french.yaml");
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("russian.yaml");
         messages = yaml.load(inputStream);
     }
 

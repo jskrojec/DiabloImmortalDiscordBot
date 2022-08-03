@@ -21,6 +21,7 @@ public class LanguagesCommand {
     }
 
     private void buildLanguagesMessageEmbed() {
+        //todo: Add "Languages" to languagesConfig
         languagesMessageEmbed.setTitle("Languages:");
         languagesMessageEmbed.setColor(Color.ORANGE);
         languagesMessageEmbed.addField("GER (German)", LanguageController.getLanguageMessage("GER"), false);
@@ -29,6 +30,8 @@ public class LanguagesCommand {
         languagesMessageEmbed.addField("FRA (French)", LanguageController.getLanguageMessage("FRA"), false);
         languagesMessageEmbed.addField("POL (Polish)", LanguageController.getLanguageMessage("POL"), false);
         languagesMessageEmbed.addField("ITA (Italian)", LanguageController.getLanguageMessage("ITA"), false);
+        languagesMessageEmbed.addField("IND (Indonesia)", LanguageController.getLanguageMessage("IND"), false);
+        languagesMessageEmbed.addField("RUS (Russian)", LanguageController.getLanguageMessage("RUS"), false);
         languagesMessageEmbed.addBlankField(false);
         languagesMessageEmbed.addField("Request new languages:", "Languages are added to the bot with" +
                 " the help of the community. Request a language on my Discord.", false);

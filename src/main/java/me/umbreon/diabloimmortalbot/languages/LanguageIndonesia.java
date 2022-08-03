@@ -5,13 +5,13 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.InputStream;
 import java.util.Map;
 
-public class LanguageFrench {
+public class LanguageIndonesia {
 
     static Map<String, Object> messages;
 
     void loadLanguageConfiguration() {
         Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("french.yaml");
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("indonesia.yaml");
         messages = yaml.load(inputStream);
     }
 
@@ -266,5 +266,4 @@ public class LanguageFrench {
     static String getWorldEventEmbedMessage() {
         return messages.get("WORLD_EVENT_EMBED").toString();
     }
-
 }
