@@ -1,6 +1,6 @@
 package me.umbreon.diabloimmortalbot.commands.help_commands;
 
-import me.umbreon.diabloimmortalbot.utils.Time;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -33,7 +33,7 @@ public class TimezonesCommand {
                 timezoneMessage = timezone + i;
             }
 
-            String time = Time.getTimeWithWeekday(timezoneMessage);
+            String time = TimeAssistant.getTimeWithWeekday(timezoneMessage);
 
             if (time.equalsIgnoreCase("INVALID_TIMEZONE")) {
                 textChannel.sendMessage("Unknown Timezone. Known timezones are UTC, GMT & ET.").queue();

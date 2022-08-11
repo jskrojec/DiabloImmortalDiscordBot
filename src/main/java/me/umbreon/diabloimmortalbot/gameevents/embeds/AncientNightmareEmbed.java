@@ -1,29 +1,34 @@
-package me.umbreon.diabloimmortalbot.gameevents.OverworldEmbeds;
+package me.umbreon.diabloimmortalbot.gameevents.embeds;
 
-import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.Time;
+import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
-
-import java.util.ArrayList;
 
 public class AncientNightmareEmbed {
 
-    private final ArrayList<String> listListAncientNightmareFormatted;
+    private final ClientCache clientCache;
 
-    public AncientNightmareEmbed(DatabaseRequests databaseRequests) {
-        this.listListAncientNightmareFormatted = databaseRequests.getOverworldEventTimes("overworld_ancient_nightmare");
+    public AncientNightmareEmbed(ClientCache clientCache) {
+        this.clientCache = clientCache;
     }
 
     public void checkAncientNightmareFormatted(TextChannel textChannel, String timezone, String language) {
-        String time = Time.getTimeWithWeekday(timezone);
+        String time = TimeAssistant.getTimeWithWeekday(timezone);
+        String textChannelID = textChannel.getId();
 
-        if (!listListAncientNightmareFormatted.contains(time)) {
+        if (!clientCache.getListWithAncientNightmareEmbedTimes().contains(time) || !clientCache.isAncientNightmareEmbedMessageEnabled(textChannelID)) {
             return;
         }
 
-        long unix = Time.getTimeInUnix(timezone) + (3600 * 2);
+        textChannel.sendMessageEmbeds(buildAncientNightmareEmbed(timezone, language)).queue();
+    }
+
+    private MessageEmbed buildAncientNightmareEmbed(String timezone, String language) {
+        EmbedBuilder embedBuilder = new EmbedBuilder();
 
         String eventTitle = LanguageController.getAncientNightmareEmbedMessage(language);
         String worldEventMessage = LanguageController.getWorldEventEmbedMessage(language);
@@ -32,16 +37,16 @@ public class AncientNightmareEmbed {
         String locationMessage1 = LanguageController.getLocationAncientNightmareEmbedMessage1(language);
         String locationMessage2 = LanguageController.getLocationAncientNightmareEmbedMessage2(language);
 
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+        long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
 
         embedBuilder.setTitle(eventTitle + " | " + worldEventMessage);
-        embedBuilder.setImage("https://assets.maxroll.gg/wordpress/ZoneEvents_Ancient_v1.1.jpg");
+        embedBuilder.setImage(ImageAssistant.getDiabloAncientNightmareImage());
         embedBuilder.addField(spawnAtMessage, "<t:" + unix + ">", true);
         embedBuilder.addField(countdownMessage, "<t:" + unix + ":R>", true);
         embedBuilder.addField(locationMessage1, locationMessage2, false);
-        embedBuilder.setThumbnail("https://blz-contentstack-images.akamaized.net/v3/assets/blt77f4425de611b362/blt7b64284fbcdfaa77/60e75dd92d26525ef67ac8c5/nav-icon.png");
+        embedBuilder.setThumbnail(ImageAssistant.getDiabloImmortalLogo());
 
-        textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
+        return embedBuilder.build();
     }
 
 }

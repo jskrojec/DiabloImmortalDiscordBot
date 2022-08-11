@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.zone.ZoneRulesException;
 import java.util.Date;
 
-public class Time {
+public class TimeAssistant {
 
     private static final String WEEKDAY_WITH_TIME_HH_MM = "EEEE HH:mm";
     private static final String TIME_HH_MM = "HH:mm";
@@ -18,7 +18,7 @@ public class Time {
     private static final DateFormat ddHHyyyy_dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private static final DateFormat HHmmssSSS_dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
 
-    private Time() {
+    private TimeAssistant() {
     }
 
     public static String getTimeWithWeekday(String timezone) {

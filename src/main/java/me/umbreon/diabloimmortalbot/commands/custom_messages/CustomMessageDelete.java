@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * Command: >cm delete ID
@@ -35,20 +36,17 @@ public class CustomMessageDelete {
         }
 
         int customMessageID = Integer.parseInt(args[2]);
+
+        String s = clientCache.getCustomMessageByID(customMessageID).getGuildID();
+        String s1 = message.getGuild().getId();
+
+        if (!Objects.equals(s1, s)) return;
+
         String guildID = textChannel.getGuild().getId();
-        String language = clientCache.getLanguage(guildID);
+        String language = clientCache.getGuildLanguage(guildID);
         clientCache.deleteCustomMessageByID(customMessageID);
         databaseRequests.deleteCustomMessageEntry(customMessageID);
-        textChannel.sendMessageEmbeds(buildCustomMessageDeletedEmbed(customMessageID, language)).queue();
-    }
-
-    private MessageEmbed buildCustomMessageDeletedEmbed(int customMessageID, String language) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-
-        embedBuilder.setColor(Color.GRAY);
-        embedBuilder.addField(LanguageController.getCustomMessageDeletedMessage(language), String.format(LanguageController.getCustomMessageWithIdDeleted(language), customMessageID), false);
-
-        return embedBuilder.build();
+        textChannel.sendMessage(String.format(LanguageController.getCustomMessageWithIdDeleted(language), customMessageID)).queue();
     }
 
     private void buildInvalidCommandUsageEmbed() {
@@ -60,21 +58,14 @@ public class CustomMessageDelete {
     }
 
     private boolean areArgumentsValid(String[] args) {
-
         if (args.length < 2) {
-            return true;
-        }
-
-        if (args[1].equalsIgnoreCase("delete")) {
             return true;
         }
 
         try {
             Integer.parseInt(args[2]);
             return true;
-        } catch (NumberFormatException ignored) {
-        }
-
+        } catch (NumberFormatException ignored) {}
 
         return false;
     }

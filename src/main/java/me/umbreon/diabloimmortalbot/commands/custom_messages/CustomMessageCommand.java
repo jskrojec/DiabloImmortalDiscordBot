@@ -2,7 +2,9 @@ package me.umbreon.diabloimmortalbot.commands.custom_messages;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 
 public class CustomMessageCommand {
 
@@ -40,5 +42,17 @@ public class CustomMessageCommand {
                 customMessageInfo.runCustomMessageInfoCommand(message);
                 break;
         }
+    }
+
+    public MessageEmbed buildCustomMessageInfoEmbed() {
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+
+        embedBuilder.setTitle("Custom messages command:");
+
+        return embedBuilder.build();
+    }
+
+    public CustomMessageCreate getCustomMessageCreate() {
+        return customMessageCreate;
     }
 }

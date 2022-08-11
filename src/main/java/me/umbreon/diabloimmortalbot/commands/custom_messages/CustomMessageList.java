@@ -27,7 +27,7 @@ public class CustomMessageList {
         String guildID = message.getGuild().getId();
 
         List<CustomMessage> customMessageList = clientCache.getAllCustomMessagesByGuildID(guildID);
-        String language = clientCache.getLanguage(guildID);
+        String language = clientCache.getGuildLanguage(guildID);
         if (customMessageList.size() == 0) {
             textChannel.sendMessage(LanguageController.getNoCustomMessagesMessage(language)).queue();
             return;

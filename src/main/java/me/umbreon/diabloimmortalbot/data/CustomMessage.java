@@ -10,6 +10,15 @@ public class CustomMessage {
     private int customMessageID;
     private boolean repeat;
 
+    public CustomMessage(String textChannelID, String guildID) {
+        this.channelID = textChannelID;
+        this.guildID = guildID;
+        this.message = null;
+        this.day = null;
+        this.time = null;
+        this.repeat = false;
+    }
+
     public CustomMessage(String channelID, String guildID, String message, String day, String time, int customMessageID, boolean repeat) {
         this.channelID = channelID;
         this.guildID = guildID;
@@ -75,5 +84,9 @@ public class CustomMessage {
 
     public boolean isRepeat() {
         return repeat;
+    }
+
+    public void setRepeating(boolean repeat) {
+        this.repeat = repeat;
     }
 }

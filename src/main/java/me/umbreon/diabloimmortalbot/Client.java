@@ -37,15 +37,28 @@ public class Client {
         MySQLDatabaseConnection mySQLDatabaseConnection = new MySQLDatabaseConnection(clientConfig);
         DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
 
-        clientCache.setListWithNotificationChannels(databaseRequests.getAllNotificationChannels());
+        clientCache.fillListWithEvents();
+        clientCache.fillListWithAvailableEventDays();
+
+        clientCache.setNotifierChannelsList(databaseRequests.getAllNotifierChannels());
         clientCache.setListWithGuildInformation(databaseRequests.getAllGuilds());
         clientCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());
 
-        Notifier notifier = new Notifier(databaseRequests, clientCache);
-        CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests);
-        BasicConfigurator.configure();
+        clientCache.setListWithShadowLotteryTimes(databaseRequests.getEventTimes("event_shadow_lottery", true));
+        clientCache.setListWithVaultTimes(databaseRequests.getEventTimes("event_vault", true));
+        clientCache.setListWithHauntedCarriageTimes(databaseRequests.getEventTimes("event_haunted_carriage", false));
+        clientCache.setListWithDemonGatesTimes(databaseRequests.getEventTimes("event_demon_gates", false));
+        clientCache.setListWithBattlegroundTimes(databaseRequests.getEventTimes("event_battleground", true));
+        clientCache.setListWithAncientAreaTimes(databaseRequests.getEventTimes("event_ancient_area", false));
+        clientCache.setListWithAncientNightmareTimes(databaseRequests.getEventTimes("event_ancient_nightmare", false));
+        clientCache.setListWithAssemblyTimes(databaseRequests.getEventTimes("event_assembly", false));
 
-        JDA jda = null;
+        clientCache.setListWithHauntedCarriageEmbedTimes(databaseRequests.getOverworldEventTimes("overworld_haunted_carriage"));
+        clientCache.setListWithAncientArenaEmbedTimes(databaseRequests.getOverworldEventTimes("overworld_ancient_arena"));
+        clientCache.setListWithAncientNightmareEmbedTimes(databaseRequests.getOverworldEventTimes("overworld_ancient_nightmare"));
+        clientCache.setListWithDemonGateEmbedTimes(databaseRequests.getOverworldEventTimes("overworld_demon_gates"));
+
+        JDA jda;
         try {
             jda = JDABuilder.createDefault(clientConfig.getToken())
                     .addEventListeners(new MessageReceived(databaseRequests, clientCache))
@@ -57,7 +70,11 @@ public class Client {
             return;
         }
 
-        notifier.runNotifierScheduler(jda);
+        Notifier notifier = new Notifier(databaseRequests, clientCache);
+        CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests);
+        BasicConfigurator.configure();
+
+        notifier.runScheduler(jda);
         customMessagesNotifier.runCustomMessagesNotifierScheduler(jda);
     }
 }

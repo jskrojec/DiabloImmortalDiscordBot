@@ -2,10 +2,12 @@ package me.umbreon.diabloimmortalbot.notifier;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.Time;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,32 +22,31 @@ public class CustomMessagesNotifier {
     }
 
     public void runCustomMessagesNotifierScheduler(JDA jda) {
+        Date date = Calendar.getInstance().getTime();
+        date.setMinutes(date.getMinutes() + 1);
+        date.setSeconds(0);
 
         new Timer().schedule(new TimerTask() {
             public void run() {
-                clientCache.customMessagesList.forEach((integer, customMessage) -> {
+                clientCache.getAllCustomMessages().forEach((integer, customMessage) -> {
                     String channel = customMessage.getChannelID();
 
-                    if (!clientCache.doNotificationChannelExists(channel)) {
-                        //Needs to be registered to send messages, could use status 6 for private messages.
-                        return;
+                    if (!clientCache.doNotifierChannelExists(channel)) {
+                        return; //Needs to be registered to send messages.
                     }
 
-                    String timezone = clientCache.getTimezone(channel);
+                    if (!customMessage.getGuildID().equalsIgnoreCase("998122292028653568")) return;
+
+                    String guildID = customMessage.getGuildID();
+                    String timezone = clientCache.getGuildTimeZone(guildID);
                     String day = customMessage.getDay();
                     String time = customMessage.getTime();
                     String fullTime = day + " " + time;
 
                     if (day.equalsIgnoreCase("everyday")) {
-                        if (!isTimeValid(timezone, time)) {
-                            //Invalid time message
-                            return;
-                        }
+                        if (!isTimeValid(timezone, time)) return; //Invalid time message
                     } else {
-                        if (!isFulltimeValid(timezone, fullTime)) {
-                            //Invalid time message
-                            return;
-                        }
+                        if (!isFulltimeValid(timezone, fullTime)) return; //Invalid time message
                     }
 
                     TextChannel textChannel;
@@ -66,16 +67,16 @@ public class CustomMessagesNotifier {
                 });
 
             }
-        }, 0, 60 * 1000);
+        }, date, 60 * 1000);
     }
 
     private boolean isFulltimeValid(String timezone, String fullTime) {
-        String time = Time.getTimeWithWeekday(timezone);
+        String time = TimeAssistant.getTimeWithWeekday(timezone);
         return time.equals(fullTime);
     }
 
     private boolean isTimeValid(String timezone, String time) {
-        String timeOnly = Time.getTime(timezone);
+        String timeOnly = TimeAssistant.getTime(timezone);
         return time.equals(timeOnly);
     }
 }

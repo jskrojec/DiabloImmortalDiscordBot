@@ -9,6 +9,7 @@ public class ClientLogger {
 
     private static File logFolder;
     private static File logFile;
+    private static final String path = "/home/discord/logs/";
 
     private ClientLogger() {
     }
@@ -21,7 +22,7 @@ public class ClientLogger {
     }
 
     public static void createNewSqlLogEntry(Exception logMessage) {
-        logFile = new File("/home/discord/logs/sql-log.log");
+        logFile = new File( path + "sql-log.log");
 
         if (!doesLogFileExist()) {
             createNewLogFile("sql-log");
@@ -31,9 +32,9 @@ public class ClientLogger {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
             bufferedWriter.append("\n[")
-                    .append(Time.getCurrentDate())
+                    .append(TimeAssistant.getCurrentDate())
                     .append(" ")
-                    .append(Time.getCurrentTime())
+                    .append(TimeAssistant.getCurrentTime())
                     .append("] ")
                     .append(logMessage.getMessage())
                     .append("\n");
@@ -47,7 +48,7 @@ public class ClientLogger {
     }
 
     public static void createNewErrorLogEntry(Exception logMessage) {
-        logFile = new File("/home/discord/logs/error-log.log");
+        logFile = new File(path + "error-log.log");
 
         if (!doesLogFileExist()) {
             createNewLogFile("client-log");
@@ -57,9 +58,9 @@ public class ClientLogger {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
             bufferedWriter.append("\n[")
-                    .append(Time.getCurrentDate())
+                    .append(TimeAssistant.getCurrentDate())
                     .append(" ")
-                    .append(Time.getCurrentTime())
+                    .append(TimeAssistant.getCurrentTime())
                     .append("] ")
                     .append(logMessage.getMessage())
                     .append("\n");
@@ -73,7 +74,7 @@ public class ClientLogger {
     }
 
     public static void createNewClientLogEntry(String logMessage) {
-        logFile = new File("/home/discord/logs/client-log.log");
+        logFile = new File(path + "client-log.log");
 
         if (!doesLogFileExist()) {
             createNewLogFile("client-log");
@@ -83,9 +84,9 @@ public class ClientLogger {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
             bufferedWriter.append("\n[")
-                    .append(Time.getCurrentDate())
+                    .append(TimeAssistant.getCurrentDate())
                     .append(" ")
-                    .append(Time.getCurrentTime())
+                    .append(TimeAssistant.getCurrentTime())
                     .append("] ")
                     .append(logMessage);
             bufferedWriter.close();
@@ -95,7 +96,7 @@ public class ClientLogger {
     }
 
     private static void createNewLogFile(String logFileName) {
-        logFile = new File("/home/discord/logs/" + logFileName + ".log");
+        logFile = new File(path + logFileName + ".log");
 
         try {
             logFile.createNewFile();

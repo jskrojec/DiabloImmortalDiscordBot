@@ -10,11 +10,9 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Command: /notifications battlegrounds on/off
- * batlegrund
  * Possible events: AncientArena, AncientNightmare, Assembly, Battlegrounds, DefendVault, RaidVault, DemonGates,
  * ShadowLottery, HauntedCarriage, HeadUpMessage, EventMessage
  */
@@ -22,7 +20,6 @@ public class NotificationsCommand {
 
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
-    private final ArrayList<String> listWithEvents = new ArrayList<>();
     private MessageEmbed eventNotAvailableEmbed;
 
     private String availableEventsString;
@@ -31,7 +28,6 @@ public class NotificationsCommand {
     public NotificationsCommand(ClientCache clientCache, DatabaseRequests databaseRequests) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
-        fillListWithEvents();
         buildEventNotAvailableString();
         buildEventNotAvailableMessageEmbed();
         buildInvalidCommandEmbed();
@@ -40,43 +36,28 @@ public class NotificationsCommand {
     public void runNotificationsCommand(Message message) {
         TextChannel textChannel = message.getTextChannel();
         String[] args = message.getContentRaw().split(" ");
-        String selectedEvent = args[1];
+        String selectedEvent = args[1].toLowerCase();
 
-        if (!listWithEvents.contains(selectedEvent)) {
+        if (!clientCache.getListWithAvailableNotifications().contains(selectedEvent)) {
             textChannel.sendMessageEmbeds(eventNotAvailableEmbed).queue();
             return;
         }
 
         String guildID = textChannel.getGuild().getId();
-        String language = clientCache.getLanguage(guildID);
+        String language = clientCache.getGuildLanguage(guildID);
         if (BooleanAssistant.isValueTrue(args[2])) {
-            setEventValue(guildID, true, selectedEvent);
+            setEventValue(true, selectedEvent, textChannel.getId());
             textChannel.sendMessageEmbeds(buildEventUpdatedMessageEmbed(selectedEvent, true, language)).queue();
             return;
         }
 
         if (BooleanAssistant.isValueFalse(args[2])) {
-            setEventValue(guildID, false, selectedEvent);
+            setEventValue(false, selectedEvent, textChannel.getId());
             textChannel.sendMessageEmbeds(buildEventUpdatedMessageEmbed(selectedEvent, false, language)).queue();
             return;
         }
 
         textChannel.sendMessageEmbeds(invalidCommandEmbed).queue();
-    }
-
-    private void fillListWithEvents() {
-        listWithEvents.add("battlegrounds");
-        listWithEvents.add("headup");
-        listWithEvents.add("AncientArena");
-        listWithEvents.add("AncientNightmare");
-        listWithEvents.add("Assembly");
-        listWithEvents.add("DefendVault");
-        listWithEvents.add("RaidVault");
-        listWithEvents.add("DemonGates");
-        listWithEvents.add("ShadowLottery");
-        listWithEvents.add("HauntedCarriage");
-        listWithEvents.add("message");
-
     }
 
     private void buildEventNotAvailableMessageEmbed() {
@@ -92,16 +73,16 @@ public class NotificationsCommand {
     private void buildEventNotAvailableString() {
         StringBuilder eventNotAvailableStringBuilder = new StringBuilder();
 
-        for (String event : listWithEvents) {
+        for (String event : clientCache.getListWithAvailableNotifications()) {
             eventNotAvailableStringBuilder.append(event).append(", ");
         }
 
         this.availableEventsString = eventNotAvailableStringBuilder.toString();
     }
 
-    private void setEventValue(String guildID, boolean value, String event) {
-        clientCache.setEventValue(event, guildID, value);
-        databaseRequests.setEventValue(event, value, guildID);
+    private void setEventValue(boolean value, String event, String textChannelID) {
+        databaseRequests.updateNotifierChannelEventMessage(event, textChannelID, value);
+        clientCache.setNotificationsValue(event, value, textChannelID);
     }
 
     private void buildInvalidCommandEmbed() {

@@ -1,43 +1,45 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.Time;
-
-import java.util.Map;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 
 public class RaidVault {
 
-    private final Map<String, Boolean> listVault;
     private final ClientCache clientCache;
 
-    public RaidVault(DatabaseRequests databaseRequests, ClientCache clientCache) {
-        this.listVault = databaseRequests.getEventTimes("event_vault", true);
+    public RaidVault(ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public String checkVault(String timezone, String language, String guildID) {
+    public String checkVault(String timezone, String language, String guildID, String textChannelID) {
         if (!isTimeValid(timezone)) return "";
+        if (!clientCache.isRaidVaultMessageEnabled(textChannelID)) return "";
 
         if (isHeadUpTime(timezone)) {
-            if (clientCache.getHeadUpValue(guildID))
-                return LanguageController.getRaidTheVaultHeadUpMessage(language) + "\n";
+            if (!clientCache.isHeadUpOnServerEnabled(guildID) || !clientCache.isHeadUpMessageOnChannelEnabled(textChannelID)) {
+                return "";
+            }
+
+            return LanguageController.getRaidTheVaultHeadUpMessage(language) + "\n";
+
         } else {
-            if (clientCache.isEventMessageEnabled(guildID))
-                return LanguageController.getRaidTheVaultMessage(language) + "\n";
+            if (!clientCache.isEventMessageOnServerEnabled(guildID) || !clientCache.isEventMessageOnChannelEnabled(textChannelID)) {
+                return "";
+            }
+
+            return LanguageController.getRaidTheVaultMessage(language) + "\n";
         }
-        return "";
     }
 
     private boolean isTimeValid(String timezone) {
-        String time = Time.getTime(timezone);
-        return listVault.get(time) != null;
+        String time = TimeAssistant.getTime(timezone);
+        return clientCache.getListWithVaultTimes().get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
-        String time = Time.getTime(timezone);
-        return listVault.get(time);
+        String time = TimeAssistant.getTime(timezone);
+        return clientCache.getListWithVaultTimes().get(time);
     }
 
 }

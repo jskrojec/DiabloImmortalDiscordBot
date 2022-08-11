@@ -1329,4 +1329,298 @@ public class LanguageController {
                 return LanguageEnglish.getWorldEventEmbedMessage();
         }
     }
+
+    public static String getInvalidTimezoneMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInvalidTimezoneMessage();
+            case "ESP":
+                return LanguageSpain.getInvalidTimezoneMessage();
+            case "POL":
+                return LanguagePolish.getInvalidTimezoneMessage();
+            case "FRA":
+                return LanguageFrench.getInvalidTimezoneMessage();
+            case "ITA":
+                return LanguageItalian.getInvalidTimezoneMessage();
+            case "RUS":
+                return LanguageRussian.getInvalidTimezoneMessage();
+            case "IND":
+                return LanguageIndonesia.getInvalidTimezoneMessage();
+            default:
+                return LanguageEnglish.getInvalidTimezoneMessage();
+        }
+    }
+
+    public static String getHeadUpEnabledMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getHeadUpEnabledMessage();
+            case "ESP":
+                return LanguageSpain.getHeadUpEnabledMessage();
+            case "POL":
+                return LanguagePolish.getHeadUpEnabledMessage();
+            case "FRA":
+                return LanguageFrench.getHeadUpEnabledMessage();
+            case "ITA":
+                return LanguageItalian.getHeadUpEnabledMessage();
+            case "RUS":
+                return LanguageRussian.getHeadUpEnabledMessage();
+            case "IND":
+                return LanguageIndonesia.getHeadUpEnabledMessage();
+            default:
+                return LanguageEnglish.getHeadUpEnabledMessage();
+        }
+    }
+
+    public static String getHeadUpDisabledMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getHeadUpDisabledMessage();
+            case "ESP":
+                return LanguageSpain.getHeadUpDisabledMessage();
+            case "POL":
+                return LanguagePolish.getHeadUpDisabledMessage();
+            case "FRA":
+                return LanguageFrench.getHeadUpDisabledMessage();
+            case "ITA":
+                return LanguageItalian.getHeadUpDisabledMessage();
+            case "RUS":
+                return LanguageRussian.getHeadUpDisabledMessage();
+            case "IND":
+                return LanguageIndonesia.getHeadUpDisabledMessage();
+            default:
+                return LanguageEnglish.getHeadUpDisabledMessage();
+        }
+    }
+
+    public static String getCannotDisableEventMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getCannotDisableEventMessage();
+            case "ESP":
+                return LanguageSpain.getCannotDisableEventMessage();
+            case "POL":
+                return LanguagePolish.getCannotDisableEventMessage();
+            case "FRA":
+                return LanguageFrench.getCannotDisableEventMessage();
+            case "ITA":
+                return LanguageItalian.getCannotDisableEventMessage();
+            case "RUS":
+                return LanguageRussian.getCannotDisableEventMessage();
+            case "IND":
+                return LanguageIndonesia.getCannotDisableEventMessage();
+            default:
+                return LanguageEnglish.getCannotDisableEventMessage();
+        }
+    }
+
+    public static String getEventDoesNotExistMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getEventDoesNotExistMessage();
+            case "ESP":
+                return LanguageSpain.getEventDoesNotExistMessage();
+            case "POL":
+                return LanguagePolish.getEventDoesNotExistMessage();
+            case "FRA":
+                return LanguageFrench.getEventDoesNotExistMessage();
+            case "ITA":
+                return LanguageItalian.getEventDoesNotExistMessage();
+            case "RUS":
+                return LanguageRussian.getEventDoesNotExistMessage();
+            case "IND":
+                return LanguageIndonesia.getEventDoesNotExistMessage();
+            default:
+                return LanguageEnglish.getEventDoesNotExistMessage();
+        }
+    }
+
+    public static String getAvailableEventsMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getAvailableEventsMessage();
+            case "ESP":
+                return LanguageSpain.getAvailableEventsMessage();
+            case "POL":
+                return LanguagePolish.getAvailableEventsMessage();
+            case "FRA":
+                return LanguageFrench.getAvailableEventsMessage();
+            case "ITA":
+                return LanguageItalian.getAvailableEventsMessage();
+            case "RUS":
+                return LanguageRussian.getAvailableEventsMessage();
+            case "IND":
+                return LanguageIndonesia.getAvailableEventsMessage();
+            default:
+                return LanguageEnglish.getAvailableEventsMessage();
+        }
+    }
+
+    public static String getWhatTextChannelMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getWhatTextChannelMessage();
+            case "ESP":
+                return LanguageSpain.getWhatTextChannelMessage();
+            case "POL":
+                return LanguagePolish.getWhatTextChannelMessage();
+            case "FRA":
+                return LanguageFrench.getWhatTextChannelMessage();
+            case "ITA":
+                return LanguageItalian.getWhatTextChannelMessage();
+            case "RUS":
+                return LanguageRussian.getWhatTextChannelMessage();
+            case "IND":
+                return LanguageIndonesia.getWhatTextChannelMessage();
+            default:
+                return LanguageEnglish.getWhatTextChannelMessage();
+        }
+    }
+
+    public static String getThisMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getThisMessage();
+            case "ESP":
+                return LanguageSpain.getThisMessage();
+            case "POL":
+                return LanguagePolish.getThisMessage();
+            case "FRA":
+                return LanguageFrench.getThisMessage();
+            case "ITA":
+                return LanguageItalian.getThisMessage();
+            case "RUS":
+                return LanguageRussian.getThisMessage();
+            case "IND":
+                return LanguageIndonesia.getThisMessage();
+            default:
+                return LanguageEnglish.getThisMessage();
+        }
+    }
+
+    public static String getWhatDayMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getWhatDayMessage();
+            case "ESP":
+                return LanguageSpain.getWhatDayMessage();
+            case "POL":
+                return LanguagePolish.getWhatDayMessage();
+            case "FRA":
+                return LanguageFrench.getWhatDayMessage();
+            case "ITA":
+                return LanguageItalian.getWhatDayMessage();
+            case "RUS":
+                return LanguageRussian.getWhatDayMessage();
+            case "IND":
+                return LanguageIndonesia.getWhatDayMessage();
+            default:
+                return LanguageEnglish.getWhatDayMessage();
+        }
+    }
+
+    public static String getWhatTimeMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getWhatTimeMessage();
+            case "ESP":
+                return LanguageSpain.getWhatTimeMessage();
+            case "POL":
+                return LanguagePolish.getWhatTimeMessage();
+            case "FRA":
+                return LanguageFrench.getWhatTimeMessage();
+            case "ITA":
+                return LanguageItalian.getWhatTimeMessage();
+            case "RUS":
+                return LanguageRussian.getWhatTimeMessage();
+            case "IND":
+                return LanguageIndonesia.getWhatTimeMessage();
+            default:
+                return LanguageEnglish.getWhatTimeMessage();
+        }
+    }
+
+    public static String getWhatMessageMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getWhatMessageMessage();
+            case "ESP":
+                return LanguageSpain.getWhatMessageMessage();
+            case "POL":
+                return LanguagePolish.getWhatMessageMessage();
+            case "FRA":
+                return LanguageFrench.getWhatMessageMessage();
+            case "ITA":
+                return LanguageItalian.getWhatMessageMessage();
+            case "RUS":
+                return LanguageRussian.getWhatMessageMessage();
+            case "IND":
+                return LanguageIndonesia.getWhatMessageMessage();
+            default:
+                return LanguageEnglish.getWhatMessageMessage();
+        }
+    }
+
+    public static String getMessageFrequentlyMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getMessageFrequentlyMessage();
+            case "ESP":
+                return LanguageSpain.getMessageFrequentlyMessage();
+            case "POL":
+                return LanguagePolish.getMessageFrequentlyMessage();
+            case "FRA":
+                return LanguageFrench.getMessageFrequentlyMessage();
+            case "ITA":
+                return LanguageItalian.getMessageFrequentlyMessage();
+            case "RUS":
+                return LanguageRussian.getMessageFrequentlyMessage();
+            case "IND":
+                return LanguageIndonesia.getMessageFrequentlyMessage();
+            default:
+                return LanguageEnglish.getMessageFrequentlyMessage();
+        }
+    }
+
+    public static String getYesOrNoMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getYesOrNoMessage();
+            case "ESP":
+                return LanguageSpain.getYesOrNoMessage();
+            case "POL":
+                return LanguagePolish.getYesOrNoMessage();
+            case "FRA":
+                return LanguageFrench.getYesOrNoMessage();
+            case "ITA":
+                return LanguageItalian.getYesOrNoMessage();
+            case "RUS":
+                return LanguageRussian.getYesOrNoMessage();
+            case "IND":
+                return LanguageIndonesia.getYesOrNoMessage();
+            default:
+                return LanguageEnglish.getYesOrNoMessage();
+        }
+    }
+
+    public static String getInvalidDayMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInvalidDayMessage();
+            case "ESP":
+                return LanguageSpain.getInvalidDayMessage();
+            case "POL":
+                return LanguagePolish.getInvalidDayMessage();
+            case "FRA":
+                return LanguageFrench.getInvalidDayMessage();
+            case "ITA":
+                return LanguageItalian.getInvalidDayMessage();
+            case "RUS":
+                return LanguageRussian.getInvalidDayMessage();
+            case "IND":
+                return LanguageIndonesia.getInvalidDayMessage();
+            default:
+                return LanguageEnglish.getInvalidDayMessage();
+        }
+    }
 }

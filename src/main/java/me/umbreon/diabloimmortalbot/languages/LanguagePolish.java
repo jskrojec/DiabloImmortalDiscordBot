@@ -266,4 +266,60 @@ public class LanguagePolish {
     static String getWorldEventEmbedMessage() {
         return messages.get("WORLD_EVENT_EMBED").toString();
     }
+
+    static String getInvalidTimezoneMessage() {
+        return messages.get("INVALID_TIMEZONE").toString();
+    }
+
+    static String getHeadUpEnabledMessage() {
+        return messages.get("HEADUP_ENABLED").toString();
+    }
+
+    static String getHeadUpDisabledMessage() {
+        return messages.get("HEADUP_DISABLED").toString();
+    }
+
+    static String getCannotDisableEventMessage() {
+        return messages.get("CANNOT_DISABLE_EVENT").toString();
+    }
+
+    static String getEventDoesNotExistMessage() {
+        return messages.get("CANNOT_DISABLE_EVENT").toString();
+    }
+
+    static String getAvailableEventsMessage() {
+        return messages.get("AVAILABLE_EVENTS").toString();
+    }
+
+    static String getWhatTextChannelMessage() {
+        return messages.get("WHAT_TEXTCHANNEL").toString();
+    }
+
+    static String getThisMessage() {
+        return messages.get("THIS").toString();
+    }
+
+    static String getWhatDayMessage() {
+        return messages.get("WHAT_DAY").toString();
+    }
+
+    static String getWhatTimeMessage() {
+        return messages.get("WHAT_TIME").toString();
+    }
+
+    static String getWhatMessageMessage() {
+        return messages.get("WHAT_MESSAGE").toString();
+    }
+
+    static String getMessageFrequentlyMessage() {
+        return messages.get("MESSAGE_FREQUENTLY").toString();
+    }
+
+    static String getYesOrNoMessage() {
+        return messages.get("YES_OR_NO").toString();
+    }
+
+    static String getInvalidDayMessage() {
+        return messages.get("INVALID_DAY").toString();
+    }
 }

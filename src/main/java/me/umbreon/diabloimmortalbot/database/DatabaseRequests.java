@@ -2,7 +2,7 @@ package me.umbreon.diabloimmortalbot.database;
 
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
-import me.umbreon.diabloimmortalbot.data.NotificationChannel;
+import me.umbreon.diabloimmortalbot.data.NotifierChannel;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 
 import java.sql.Connection;
@@ -19,52 +19,6 @@ public class DatabaseRequests {
 
     public DatabaseRequests(DatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
-    }
-
-    public void createNewNotificationChannelEntry(NotificationChannel notificationChannel) {
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO channel_notification (channel, timezone, status, role, debug) VALUES (?, ?, ?, ?, ?)")) {
-            try {
-                preparedStatement.setString(1, notificationChannel.channelId);
-                preparedStatement.setString(2, notificationChannel.timezone);
-                preparedStatement.setInt(3, notificationChannel.status);
-                preparedStatement.setString(4, notificationChannel.role);
-                preparedStatement.setBoolean(5, notificationChannel.inDebugMode);
-                preparedStatement.executeUpdate();
-            } catch (Exception e) {
-                ClientLogger.createNewSqlLogEntry(e);
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            ClientLogger.createNewSqlLogEntry(e);
-            e.printStackTrace();
-        }
-    }
-
-    public Map<String, NotificationChannel> getAllNotificationChannels() {
-        Map<String, NotificationChannel> listWithNotificationChannels = new ConcurrentHashMap<>();
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM channel_notification")) {
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    String channelId = resultSet.getString("channel");
-                    String timezone = resultSet.getString("timezone");
-                    int status = resultSet.getInt("status");
-                    String role = resultSet.getString("role");
-                    int debugInt = resultSet.getInt("debug");
-                    boolean debug = (debugInt == 1);
-                    NotificationChannel notificationChannel = new NotificationChannel(channelId, timezone, status, role);
-                    listWithNotificationChannels.put(channelId, notificationChannel);
-                }
-            } catch (Exception e) {
-                ClientLogger.createNewSqlLogEntry(e);
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            ClientLogger.createNewSqlLogEntry(e);
-            e.printStackTrace();
-        }
-        return listWithNotificationChannels;
     }
 
     public Map<String, Boolean> getEventTimes(String table, boolean everyDay) {
@@ -119,82 +73,17 @@ public class DatabaseRequests {
         return listEventTimeTables;
     }
 
-    public void setTimezone(String messageId, String timezone) {
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE channel_notification SET timezone = ? WHERE channel = ?")) {
-            try {
-                preparedStatement.setString(1, timezone);
-                preparedStatement.setString(2, messageId);
-                preparedStatement.executeUpdate();
-            } catch (Exception e) {
-                ClientLogger.createNewSqlLogEntry(e);
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            ClientLogger.createNewSqlLogEntry(e);
-            e.printStackTrace();
-        }
-    }
-
-    public void setStatus(String messageId, int status) {
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE channel_notification SET status = ? WHERE channel = ?")) {
-            try {
-                preparedStatement.setInt(1, status);
-                preparedStatement.setString(2, messageId);
-                preparedStatement.executeUpdate();
-            } catch (Exception e) {
-                ClientLogger.createNewSqlLogEntry(e);
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            ClientLogger.createNewSqlLogEntry(e);
-            e.printStackTrace();
-        }
-    }
-
-    public void setRole(String messageId, String roleId) {
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE channel_notification SET role = ? WHERE channel = ?")) {
-            try {
-                preparedStatement.setString(1, roleId);
-                preparedStatement.setString(2, messageId);
-                preparedStatement.executeUpdate();
-            } catch (Exception e) {
-                ClientLogger.createNewSqlLogEntry(e);
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            ClientLogger.createNewSqlLogEntry(e);
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteNotificationChannelEntry(String channelid) {
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM channel_notification WHERE channel = ?")) {
-            try {
-                preparedStatement.setString(1, channelid);
-                preparedStatement.executeUpdate();
-            } catch (Exception e) {
-                ClientLogger.createNewSqlLogEntry(e);
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            ClientLogger.createNewSqlLogEntry(e);
-            e.printStackTrace();
-        }
-    }
-
     // Guilds
 
     public void createNewGuildEntry(GuildInformation guildInformation) {
         try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, event_headup) VALUES (?, ?, ?)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds (guildID, language, timezone, event_headup, event_message) VALUES (?, ?, ?, ?, ?)")) {
             try {
                 preparedStatement.setString(1, guildInformation.getGuildID());
                 preparedStatement.setString(2, guildInformation.getLanguage());
-                preparedStatement.setBoolean(3, guildInformation.isHeadUpEnabled());
+                preparedStatement.setString(3, guildInformation.getTimezone());
+                preparedStatement.setBoolean(4, guildInformation.isHeadUpEnabled());
+                preparedStatement.setBoolean(5, guildInformation.isEventMessageEnabled());
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewSqlLogEntry(e);
@@ -223,6 +112,23 @@ public class DatabaseRequests {
         }
     }
 
+    public void setGuildTimezone(String guildID, String timezone) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET timezone = ? WHERE guildID = ?")) {
+            try {
+                preparedStatement.setString(1, timezone);
+                preparedStatement.setString(2, guildID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
     public Map<String, GuildInformation> getAllGuilds() {
         Map<String, GuildInformation> listWithGuildInformation = new ConcurrentHashMap<>();
         try (Connection connection = databaseConnection.getConnection();
@@ -231,10 +137,10 @@ public class DatabaseRequests {
                 while (resultSet.next()) {
                     String guildID = resultSet.getString("guildID");
                     String language = resultSet.getString("language");
+                    String timezone = resultSet.getString("timezone");
                     boolean isHeadUpEnabled = (resultSet.getInt("event_headup") == 1);
-                    boolean battlegroundNotificationsEnabled = (resultSet.getInt("event_battlegrounds") == 1);
                     boolean eventMessagesEnabled = (resultSet.getInt("event_message") == 1);
-                    GuildInformation guildInformation = new GuildInformation(guildID, language, isHeadUpEnabled, battlegroundNotificationsEnabled, eventMessagesEnabled);
+                    GuildInformation guildInformation = new GuildInformation(guildID, language, timezone, isHeadUpEnabled, eventMessagesEnabled);
                     listWithGuildInformation.put(guildID, guildInformation);
                 }
             } catch (Exception e) {
@@ -248,10 +154,26 @@ public class DatabaseRequests {
         return listWithGuildInformation;
     }
 
-    public void setEventValue(String event, boolean enabled, String guildID) {
-        String finalEventString = "event_" + event;
+    public void setEventHeadUpOnServerValue(boolean enabled, String guildID) {
         try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET " + finalEventString + " = ? WHERE guildID = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET event_headup = ? WHERE guildID = ?")) {
+            try {
+                preparedStatement.setBoolean(1, enabled);
+                preparedStatement.setString(2, guildID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public void setEventMessageOnServerValue(boolean enabled, String guildID) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET event_message = ? WHERE guildID = ?")) {
             try {
                 preparedStatement.setBoolean(1, enabled);
                 preparedStatement.setString(2, guildID);
@@ -330,4 +252,136 @@ public class DatabaseRequests {
             e.printStackTrace();
         }
     }
+
+
+    //NOTIFIER CHANNELS
+
+    public void updateNotifierChannelEventMessage(String eventMessage, String textChannelID, boolean value) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE channel_notification SET " + eventMessage + " = ? WHERE textChannelID = ?")) {
+            try {
+                preparedStatement.setBoolean(1, value);
+                preparedStatement.setString(2, textChannelID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteNotifierChannelEntry(String textChannelID) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM channel_notification WHERE textChannelID = ?")) {
+            try {
+                preparedStatement.setString(1, textChannelID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public void updateNotifierChannelRole(String textChannelID, String roleID) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE channel_notification SET roleID = ? WHERE textChannelID = ?")) {
+            try {
+                preparedStatement.setString(1, roleID);
+                preparedStatement.setString(2, textChannelID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public void createNewNotifierChannel(NotifierChannel notifierChannel) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO channel_notification (textChannelID, guildID, roleID, message, headUp, ancientarena, ancientnightmare, assembly, battlegrounds, defendvault, raidvault, demongates, shadowlottery, hauntedcarriage, demongatesembed, ancientarenaembed, hauntedcarriageembed, ancientnightmareembed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            try {
+                preparedStatement.setString(1, notifierChannel.getTextChannelID());
+                preparedStatement.setString(2, notifierChannel.getGuildID());
+                preparedStatement.setString(3, notifierChannel.getRoleID());
+                preparedStatement.setBoolean(4, notifierChannel.isEventMessageEnabled());
+                preparedStatement.setBoolean(5, notifierChannel.isEventHeadUpEnabled());
+                preparedStatement.setBoolean(6, notifierChannel.isAncientArenaMessageEnabled());
+                preparedStatement.setBoolean(7, notifierChannel.isAncientNightmareMessageEnabled());
+                preparedStatement.setBoolean(8, notifierChannel.isAssemblyMessageEnabled());
+                preparedStatement.setBoolean(9, notifierChannel.isBattlegroundsMessageEnabled());
+                preparedStatement.setBoolean(10, notifierChannel.isDefendVaultMessageEnabled());
+                preparedStatement.setBoolean(11, notifierChannel.isRaidVaultMessageEnabled());
+                preparedStatement.setBoolean(12, notifierChannel.isDemonGatesMessageEnabled());
+                preparedStatement.setBoolean(13, notifierChannel.isShadowLotteryMessageEnabled());
+                preparedStatement.setBoolean(14, notifierChannel.isHauntedCarriageMessageEnabled());
+                preparedStatement.setBoolean(15, notifierChannel.isDemonGatesMessageEmbedEnabled());
+                preparedStatement.setBoolean(16, notifierChannel.isAncientArenaMessageEmbedEnabled());
+                preparedStatement.setBoolean(17, notifierChannel.isHauntedCarriageMessageEmbedEnabled());
+                preparedStatement.setBoolean(18, notifierChannel.isAncientNightmareMessageEmbedEnabled());
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public Map<String, NotifierChannel> getAllNotifierChannels() {
+        Map<String, NotifierChannel> notifierChannelList = new ConcurrentHashMap<>();
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM channel_notification")) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+
+                    String textChannelID = resultSet.getString("textChannelID");
+                    String guildID = resultSet.getString("guildID");
+                    String roleID = resultSet.getString("roleID");
+
+                    boolean message = (resultSet.getInt("message") == 1);
+                    boolean headup = (resultSet.getInt("headUp") == 1);
+                    boolean ancientarena = (resultSet.getInt("ancientarena") == 1);
+                    boolean ancientnightmare = (resultSet.getInt("ancientnightmare") == 1);
+                    boolean assembly = (resultSet.getInt("assembly") == 1);
+                    boolean battlegrounds = (resultSet.getInt("battlegrounds") == 1);
+                    boolean defendvault = (resultSet.getInt("defendvault") == 1);
+                    boolean raidvault = (resultSet.getInt("raidvault") == 1);
+                    boolean demongates = (resultSet.getInt("demongates") == 1);
+                    boolean shadowlottery = (resultSet.getInt("shadowlottery") == 1);
+                    boolean hauntedcarriage = (resultSet.getInt("hauntedcarriage") == 1);
+                    boolean hauntedcarriageembed = (resultSet.getInt("hauntedcarriageembed") == 1);
+                    boolean demongatesembed = (resultSet.getInt("demongatesembed") == 1);
+                    boolean ancientnightmareembed = (resultSet.getInt("ancientnightmareembed") == 1);
+                    boolean ancientarenaembed = (resultSet.getInt("ancientarenaembed") == 1);
+
+                    NotifierChannel notificationChannel = new NotifierChannel(roleID, guildID, textChannelID,
+                            headup, message, assembly, raidvault, demongates, defendvault, ancientarena, shadowlottery,
+                            battlegrounds, hauntedcarriage, ancientnightmare, demongatesembed, ancientarenaembed,
+                            hauntedcarriageembed, ancientnightmareembed);
+
+                    notifierChannelList.put(textChannelID, notificationChannel);
+                }
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
+        return notifierChannelList;
+    }
+
 }

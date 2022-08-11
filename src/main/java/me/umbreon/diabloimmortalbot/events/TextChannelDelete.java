@@ -1,6 +1,5 @@
 package me.umbreon.diabloimmortalbot.events;
 
-import me.umbreon.diabloimmortalbot.Client;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.events.channel.ChannelDeleteEvent;
@@ -22,9 +21,9 @@ public class TextChannelDelete extends ListenerAdapter {
 
             String channelID = event.getChannel().getId();
 
-            if (clientCache.doNotificationChannelExists(channelID)) {
-                clientCache.deleteNotificationChannel(channelID);
-                databaseRequests.deleteNotificationChannelEntry(channelID);
+            if (clientCache.doNotifierChannelExists(channelID)) {
+                clientCache.removeNotifierChannelFromList(channelID);
+                databaseRequests.deleteNotifierChannelEntry(channelID);
             }
 
         }

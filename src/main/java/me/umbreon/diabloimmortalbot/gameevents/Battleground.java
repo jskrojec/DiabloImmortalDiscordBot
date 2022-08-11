@@ -1,44 +1,44 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.Time;
-
-import java.util.Map;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 
 public class Battleground {
 
-    private final Map<String, Boolean> listBattleground;
     private final ClientCache clientCache;
 
-    public Battleground(DatabaseRequests databaseRequests, ClientCache clientCache) {
-        this.listBattleground = databaseRequests.getEventTimes("event_battleground", true);
+    public Battleground(ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public String checkBattleground(String timezone, String language, String guildID) {
+    public String checkBattleground(String timezone, String language, String guildID, String textChannelID) {
         if (!isTimeValid(timezone)) return "";
-        if (!clientCache.isBattlegroundsNotificationsEnabled(guildID)) return "";
+        if (!clientCache.isBattlegroundMessageEnabled(textChannelID)) return "";
 
         if (isHeadUpTime(timezone)) {
-            if (clientCache.getHeadUpValue(guildID))
-                return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
+            if (!clientCache.isHeadUpOnServerEnabled(guildID) || !clientCache.isHeadUpMessageOnChannelEnabled(textChannelID)) {
+                return "";
+            }
+
+            return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
+
         } else {
-            if (clientCache.isEventMessageEnabled(guildID))
-                return LanguageController.getBattlegroundMessage(language) + "\n";
+            if (!clientCache.isEventMessageOnServerEnabled(guildID) || !clientCache.isEventMessageOnChannelEnabled(textChannelID)) {
+                return "";
+            }
+
+            return LanguageController.getBattlegroundMessage(language) + "\n";
         }
-        return "";
     }
 
     private boolean isTimeValid(String timezone) {
-        String time = Time.getTime(timezone);
-        return listBattleground.get(time) != null;
+        String time = TimeAssistant.getTime(timezone);
+        return clientCache.getListWithBattlegroundTimes().get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
-        String time = Time.getTime(timezone);
-        return listBattleground.get(time);
+        String time = TimeAssistant.getTime(timezone);
+        return clientCache.getListWithBattlegroundTimes().get(time);
     }
-
 }

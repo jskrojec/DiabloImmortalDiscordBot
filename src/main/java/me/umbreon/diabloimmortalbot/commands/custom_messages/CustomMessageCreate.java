@@ -3,18 +3,14 @@ package me.umbreon.diabloimmortalbot.commands.custom_messages;
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.BooleanAssistant;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
+import me.umbreon.diabloimmortalbot.utils.*;
+import net.dv8tion.jda.api.entities.*;
+import org.intellij.lang.annotations.Language;
 
-import java.awt.*;
+import java.util.List;
 
 /**
- * Command: >cm create TEXTCHANNEL DAY TIME REPEAT MESSAGE
+ * Command: >cm create
  */
 public class CustomMessageCreate {
 
@@ -27,179 +23,143 @@ public class CustomMessageCreate {
     }
 
     public void runCustomMessageCreateCommand(Message message) {
-        TextChannel textChannel = message.getTextChannel();
-        String[] args = message.getContentRaw().split(" ");
-        String weekday = args[3];
-        String time = args[4];
+        addUserToOperatingMode(message);
+    }
 
-        if (weekday.equalsIgnoreCase("everyday")) {
-            createEveryDayCustomMessage(message);
-            return;
-        }
-
-        if (!areArgumentsValid(weekday, time, args)) {
-            textChannel.sendMessageEmbeds(buildInvalidCommandUsageEmbed()).queue();
-            return;
-        }
-        //Replaces non numbers with empty space to get the clear id
-        String textchannelID = args[2].replaceAll("[^\\d.]", "");
+    //cm create -> TextChannel Eingabe
+    private void addUserToOperatingMode(Message message) {
+        String userID = message.getAuthor().getId();
+        String textChannelID = message.getTextChannel().getId();
         String guildID = message.getGuild().getId();
-        String language = clientCache.getLanguage(guildID);
-        TextChannel targetTextChannel;
-        try {
-            targetTextChannel = message.getGuild().getTextChannelById(textchannelID);
-        } catch (IllegalArgumentException e) {
-            if (e.getMessage().equalsIgnoreCase("ID may not be empty")) {
-                textChannel.sendMessageEmbeds(createChannelDoesNotExistEmbed(language)).queue();
-            } else {
-                textChannel.sendMessage("An error has occurred. Please report error \"0001\". No action " +
-                        "has been performed.").queue();
-                ClientLogger.createNewErrorLogEntry(e);
-                e.printStackTrace();
-            }
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
+
+        clientCache.addToPreparingCustomMessageUserList(textChannelID, userID);
+        clientCache.addToWaitingForTextChannelList(textChannelID, userID);
+        message.getTextChannel().sendMessage(LanguageController.getWhatTextChannelMessage(guildLanguage)).queue();
+    }
+
+    public void addTextChannelToPreparingCustomMessage(Message message) {
+        String targetTextChannelID;
+        String textChannelID = message.getTextChannel().getId();
+        String userID = message.getAuthor().getId();
+        String guildID = message.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
+
+        if (message.getContentRaw().equalsIgnoreCase("this")) {
+            targetTextChannelID = message.getTextChannel().getId();
+            clientCache.removeFromWaitingForTextChannelList(textChannelID);
+            clientCache.addToWaitingForDayList(textChannelID, userID);
+            clientCache.addToPreparingCustomMessagesList(textChannelID, new CustomMessage(targetTextChannelID, guildID));
+            message.getTextChannel().sendMessage(LanguageController.getWhatDayMessage(guildLanguage)).queue();
             return;
         }
 
-        String repeatValue = args[5];
-        boolean repeat;
-        if (BooleanAssistant.isValueTrue(repeatValue)) {
-            repeat = true;
-        } else if (BooleanAssistant.isValueFalse(repeatValue)) {
-            repeat = false;
+        targetTextChannelID = StringAssistant.removeAllNonNumbers(message.getContentRaw());
+        if (findTextChannel(targetTextChannelID, message.getGuild()) != null) {
+            clientCache.removeFromWaitingForTextChannelList(textChannelID);
+            clientCache.addToWaitingForDayList(textChannelID, userID);
+            clientCache.addToPreparingCustomMessagesList(textChannelID, new CustomMessage(targetTextChannelID, guildID));
+            message.getTextChannel().sendMessage(LanguageController.getWhatDayMessage(guildLanguage)).queue();
+            return;
+        }
+
+        message.getTextChannel().sendMessage(LanguageController.getChannelNotFoundMessage(guildLanguage)).queue();
+    }
+
+    public void addDayToPreparingCustomMessage(Message message) {
+        String guildID = message.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
+
+        if (clientCache.getListOfAvailableEventDays().contains(message.getContentRaw().toLowerCase())) {
+            String textChannelID = message.getTextChannel().getId();
+            clientCache.removeFromWaitingForDayList(textChannelID);
+            clientCache.getPreparingCustomMessage(textChannelID).setDay(message.getContentRaw());
+            clientCache.addToWaitingForTimeList(textChannelID, message.getAuthor().getId());
+            message.getTextChannel().sendMessage(LanguageController.getWhatTimeMessage(guildLanguage)).queue();
         } else {
-            textChannel.sendMessageEmbeds(buildInvalidCommandUsageEmbed()).queue();
-            return;
-        }
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(LanguageController.getInvalidDayMessage(guildLanguage));
 
-        String notificationMessage = getNotificationMessage(args, 6);
-        CustomMessage customMessage = new CustomMessage(textchannelID, guildID, notificationMessage, weekday, time, repeat);
-        clientCache.addCustomMessageToList(customMessage);
-        databaseRequests.createNewCustomMessageEntry(customMessage);
-        //todo: remove this.
-        clientCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());
-
-        textChannel.sendMessageEmbeds(buildNewCustomMessageCreatedMessage(language)).queue();
-    }
-
-    private void createEveryDayCustomMessage(Message message) {
-        String[] args = message.getContentRaw().split(" ");
-        //Replaces non numbers with empty space to get the clear id
-        String textchannelID = args[2].replaceAll("[^\\d.]", "");
-        String guildID = message.getGuild().getId();
-        String language = clientCache.getLanguage(guildID);
-        TextChannel textChannel = message.getTextChannel();
-        String weekday = args[3];
-        String time = args[4];
-        TextChannel targetTextChannel;
-
-        if (!isWeekdayValid(weekday)) {
-            textChannel.sendMessageEmbeds(buildInvalidCommandUsageEmbed()).queue();
-            return;
-        }
-
-        if (!isTimeInPattern(time)) {
-            textChannel.sendMessageEmbeds(buildInvalidCommandUsageEmbed()).queue();
-            return;
-        }
-
-        try {
-            targetTextChannel = message.getGuild().getTextChannelById(textchannelID);
-        } catch (IllegalArgumentException e) {
-            if (e.getMessage().equalsIgnoreCase("ID may not be empty")) {
-                textChannel.sendMessageEmbeds(createChannelDoesNotExistEmbed(language)).queue();
-            } else {
-                textChannel.sendMessage("An error has occurred. Please report error \"0001\". No action " +
-                        "has been performed.").queue();
-                ClientLogger.createNewErrorLogEntry(e);
-                e.printStackTrace();
+            for (int i = 0; i <= clientCache.getListOfAvailableEventDays().size(); i++) {
+                stringBuilder.append(clientCache.getListOfAvailableEventDays().get(i));
+                if (i == clientCache.getListOfAvailableEventDays().size() - 1) {
+                    stringBuilder.append(" & ");
+                } if (i == clientCache.getListOfAvailableEventDays().size()) {
+                    stringBuilder.append(" ");
+                } else {
+                    stringBuilder.append(" , ");
+                }
             }
+
+            message.getTextChannel().sendMessage(stringBuilder).queue();
+        }
+    }
+
+    public void addTimeToPreparingCustomMessage(Message message) {
+        if (StringAssistant.isStringInTimePattern(message.getContentRaw())) {
+            String textChannelID = message.getTextChannel().getId();
+            String guildID = message.getGuild().getId();
+            String guildLanguage = clientCache.getGuildLanguage(guildID);
+            clientCache.removeFromWaitingForTimeList(textChannelID);
+            CustomMessage preparingCustomMessage = clientCache.getPreparingCustomMessage(textChannelID);
+            preparingCustomMessage.setTime(message.getContentRaw());
+
+            if (preparingCustomMessage.getDay().equalsIgnoreCase("everyday")) {
+                clientCache.addToWaitingForMessageList(textChannelID, message.getAuthor().getId());
+                preparingCustomMessage.setRepeating(true);
+                message.getTextChannel().sendMessage(LanguageController.getWhatMessageMessage(guildLanguage)).queue();
+                return;
+            }
+
+            clientCache.addToWaitingForRepeatingList(textChannelID, message.getAuthor().getId());
+            message.getTextChannel().sendMessage(LanguageController.getMessageFrequentlyMessage(guildLanguage)).queue();;
+        }
+    }
+
+    public void addRepeatingValueToCustomMessage(Message message) {
+        String textChannelID = message.getTextChannel().getId();
+        String guildID = message.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
+
+        if (BooleanAssistant.isValueTrue(message.getContentRaw().toLowerCase())) {
+            clientCache.getPreparingCustomMessage(textChannelID).setRepeating(true);
+            clientCache.removeFromWaitingForRepeatingList(textChannelID);
+            clientCache.addToWaitingForMessageList(textChannelID, message.getAuthor().getId());
+            message.getTextChannel().sendMessage(LanguageController.getWhatMessageMessage(guildLanguage)).queue();
             return;
         }
-        //Command: >cm create TEXTCHANNEL everyday TIME MESSAGE
 
+        if (BooleanAssistant.isValueFalse(message.getContentRaw().toLowerCase())) {
+            clientCache.getPreparingCustomMessage(textChannelID).setRepeating(false);
+            clientCache.removeFromPreparingCustomMessagesList(textChannelID);
+            clientCache.addToWaitingForMessageList(textChannelID, message.getAuthor().getId());
+            message.getTextChannel().sendMessage(LanguageController.getWhatMessageMessage(guildLanguage)).queue();
+            return;
+        }
 
-        String notificationMessage = getNotificationMessage(args, 5);
-        CustomMessage customMessage = new CustomMessage(textchannelID, guildID, notificationMessage, weekday, time, true);
-        clientCache.addCustomMessageToList(customMessage);
-        databaseRequests.createNewCustomMessageEntry(customMessage);
-        //todo: remove this.
+        message.getTextChannel().sendMessage(LanguageController.getYesOrNoMessage(guildLanguage)).queue();
+    }
+
+    public void addMessageToCustomMessage(Message message) {
+        String textChannelID = message.getTextChannel().getId();
+        CustomMessage preparingCustomMessage = clientCache.getPreparingCustomMessage(textChannelID);
+        preparingCustomMessage.setMessage(message.getContentRaw());
+        String guildID = message.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        databaseRequests.createNewCustomMessageEntry(preparingCustomMessage);
         clientCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());
-
-        textChannel.sendMessageEmbeds(buildNewCustomMessageCreatedMessage(language)).queue();
+        clientCache.removeFromPreparingCustomMessagesList(textChannelID);
+        clientCache.removeFromPreparingCustomMessageUserList(textChannelID);
+        clientCache.removeFromWaitingForMessageList(textChannelID);
+        message.getTextChannel().sendMessage(LanguageController.getCustomMessageCreated(guildLanguage)).queue();
     }
 
-    private String getNotificationMessage(String[] args, int startingPoint) {
-        StringBuilder notificationMessageBuilder = new StringBuilder();
-        for (int i = startingPoint; i < args.length; i++) {
-            notificationMessageBuilder.append(args[i]).append(" ");
-        }
-        return notificationMessageBuilder.toString();
-    }
-
-    private boolean areArgumentsValid(String weekday, String time, String[] args) {
-        if (args.length < 6) {
-            return false;
-        }
-
-        if (!args[1].equalsIgnoreCase("create")) {
-            return false;
-        }
-
-
-        if (!isWeekdayValid(weekday)) {
-            return false;
-        }
-
-
-        if (!isTimeInPattern(time)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    //todo: that's an ugly way to to that :(
-    private boolean isWeekdayValid(String weekday) {
-        switch (weekday.toLowerCase()) {
-            case "monday":
-            case "tuesday":
-            case "wednesday":
-            case "thursday":
-            case "friday":
-            case "saturday":
-            case "sunday":
-            case "everyday":
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    private boolean isTimeInPattern(String time) {
-        //Checks if time is valid
-        return time.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
-    }
-
-    private MessageEmbed buildInvalidCommandUsageEmbed() {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.RED);
-        embedBuilder.addField("Invalid command", "Command example: >cm create #YOUR_TEXTCHANNEL " +
-                "Tuesday 16:30 Yes Here's your custom message.", false);
-        return embedBuilder.build();
-    }
-
-    private MessageEmbed createChannelDoesNotExistEmbed(String language) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.RED);
-        embedBuilder.addField(LanguageController.getChannelNotFoundMessage(language), LanguageController.getDoBotGotRightsMessage(language), false);
-        return embedBuilder.build();
-    }
-
-    private MessageEmbed buildNewCustomMessageCreatedMessage(String language) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.GRAY);
-        embedBuilder.setTitle(LanguageController.getCustomMessageCreated(language));
-        return embedBuilder.build();
+    private TextChannel findTextChannel(String textChannelID, Guild guild) {
+        List<TextChannel> textChannels = guild.getTextChannels();
+        return textChannels.stream()
+                .filter(textChannel -> textChannel.getId().equalsIgnoreCase(textChannelID))
+                .findFirst()
+                .orElse(null);
     }
 
 }

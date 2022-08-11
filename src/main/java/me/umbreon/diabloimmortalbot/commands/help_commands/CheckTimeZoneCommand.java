@@ -2,15 +2,14 @@ package me.umbreon.diabloimmortalbot.commands.help_commands;
 
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.Time;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
+
 /**
  * Command: >checktimezone GMT+2
  * Aliases: "ctz", "checktz", "checktimezone"
@@ -27,7 +26,7 @@ public class CheckTimeZoneCommand {
         TextChannel textChannel = message.getTextChannel();
         String[] args = message.getContentRaw().split(" ");
         String guildID = message.getGuild().getId();
-        String language = clientCache.getLanguage(guildID);
+        String language = clientCache.getGuildLanguage(guildID);
 
         if (!areArgumentsValid(args)) {
             textChannel.sendMessageEmbeds(buildInvalidCommandEmbed(language)).queue();
@@ -35,7 +34,7 @@ public class CheckTimeZoneCommand {
         }
 
         String timeZone = args[1].toUpperCase();
-        String time = Time.getTimeWithWeekday(timeZone);
+        String time = TimeAssistant.getTimeWithWeekday(timeZone);
 
         if (!isTimeZoneValid(time)) {
             textChannel.sendMessageEmbeds(buildUnknownTimezoneEmbed(language)).queue();

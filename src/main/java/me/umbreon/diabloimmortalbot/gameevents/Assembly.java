@@ -1,43 +1,43 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.Time;
-
-import java.util.Map;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 
 public class Assembly {
 
-    private final Map<String, Boolean> listAssembly;
     private final ClientCache clientCache;
 
-    public Assembly(DatabaseRequests databaseRequests, ClientCache clientCache) {
-        this.listAssembly = databaseRequests.getEventTimes("event_assembly", false);
+    public Assembly(ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public String checkAssembly(String timezone, String language, String guildID) {
+    public String checkAssembly(String timezone, String language, String guildID, String textChannelID) {
         if (!isTimeValid(timezone)) return "";
+        if (!clientCache.isAssemblyMessageEnabled(textChannelID)) return "";
 
         if (isHeadUpTime(timezone)) {
-            if (clientCache.getHeadUpValue(guildID))
-                return LanguageController.getAssemblyHeadUpMessage(language) + "\n";
+            if (!clientCache.isHeadUpOnServerEnabled(guildID) || !clientCache.isHeadUpMessageOnChannelEnabled(textChannelID)) {
+                return "";
+            }
+
+            return LanguageController.getAssemblyHeadUpMessage(language) + "\n";
         } else {
-            if (clientCache.isEventMessageEnabled(guildID))
-                return LanguageController.getAssemblyMessage(language) + "\n";
+            if (!clientCache.isEventMessageOnServerEnabled(guildID) || !clientCache.isEventMessageOnChannelEnabled(textChannelID)) {
+                return "";
+            }
+
+            return LanguageController.getAssemblyMessage(language) + "\n";
         }
-        return "";
     }
 
     private boolean isTimeValid(String timezone) {
-        String time = Time.getTimeWithWeekday(timezone);
-        return listAssembly.get(time) != null;
+        String time = TimeAssistant.getTimeWithWeekday(timezone);
+        return clientCache.getListWithAssemblyTimes().get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
-        String time = Time.getTimeWithWeekday(timezone);
-        return listAssembly.get(time);
+        String time = TimeAssistant.getTimeWithWeekday(timezone);
+        return clientCache.getListWithAssemblyTimes().get(time);
     }
-
 }

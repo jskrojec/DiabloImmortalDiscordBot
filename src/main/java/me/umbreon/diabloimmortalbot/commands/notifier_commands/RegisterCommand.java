@@ -1,12 +1,14 @@
 package me.umbreon.diabloimmortalbot.commands.notifier_commands;
 
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.data.NotificationChannel;
+import me.umbreon.diabloimmortalbot.data.NotifierChannel;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.IdentifierConverter;
-import net.dv8tion.jda.api.entities.*;
+import me.umbreon.diabloimmortalbot.utils.StringAssistant;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 import org.jetbrains.annotations.Nullable;
+
 /**
  * Command: >register
  * Command: >register #Channel
@@ -26,7 +28,7 @@ public class RegisterCommand {
         String[] args = message.getContentRaw().split(" ");
         TextChannel textChannel = message.getTextChannel();
         String guildID = message.getGuild().getId();
-        String language = clientCache.getLanguage(guildID);
+        String language = clientCache.getGuildLanguage(guildID);
 
         String textChannelID = getTextChannelID(message, args);
         if (textChannelID == null) {
@@ -39,9 +41,10 @@ public class RegisterCommand {
             return;
         }
 
-        NotificationChannel notificationChannel = new NotificationChannel(textChannelID);
-        createNotificationChannel(notificationChannel);
-        textChannel.sendMessage(String.format(LanguageController.getRegisteredMessage(language), textChannel.getAsMention())).queue();
+        NotifierChannel notifierChannel = new NotifierChannel(textChannelID, guildID);
+        createNotifierChannel(notifierChannel);
+        TextChannel targetTextChannel = message.getGuild().getTextChannelById(textChannelID);
+        textChannel.sendMessage(String.format(LanguageController.getRegisteredMessage(language), targetTextChannel.getAsMention())).queue();
     }
 
     // -
@@ -50,7 +53,7 @@ public class RegisterCommand {
     private String getTextChannelID(Message message, String[] args) {
         String textChannelID;
         if (args.length == 2) {
-            textChannelID = IdentifierConverter.removeAllNonNumbers(args[1]);
+            textChannelID = StringAssistant.removeAllNonNumbers(args[1]);
         } else if (args.length == 1) {
             textChannelID = message.getTextChannel().getId();
         } else {
@@ -60,13 +63,12 @@ public class RegisterCommand {
     }
 
     private boolean isChannelRegistered(String textChannelID) {
-        return clientCache.doNotificationChannelExists(textChannelID);
+        return clientCache.doNotifierChannelExists(textChannelID);
     }
 
-    private void createNotificationChannel(NotificationChannel notificationChannel) {
-        databaseRequests.createNewNotificationChannelEntry(notificationChannel);
-        clientCache.createNewNotificationChannelEntry(notificationChannel);
+    public void createNotifierChannel(NotifierChannel notifierChannel) {
+        databaseRequests.createNewNotifierChannel(notifierChannel);
+        clientCache.addNotifierChannelToList(notifierChannel);
     }
-
 
 }

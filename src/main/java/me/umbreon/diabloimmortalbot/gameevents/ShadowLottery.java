@@ -1,44 +1,47 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.languages.LanguageEnglish;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.Time;
-
-import java.util.Map;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 
 public class ShadowLottery {
 
-    private final Map<String, Boolean> listShadowLottery;
     private final ClientCache clientCache;
 
-    public ShadowLottery(DatabaseRequests databaseRequests, ClientCache clientCache) {
-        this.listShadowLottery = databaseRequests.getEventTimes("event_shadow_lottery", true);
+    public ShadowLottery(ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public String checkShadowLottery(String timezone, String language, String guildID) {
-        if (!isTimeValid(timezone)) return "";
+    public String checkShadowLottery(String timezone, String language, String guildID, String textChannelID) {
 
-        if (isHeadUpTime(timezone))
-            if (clientCache.getHeadUpValue(guildID)) {
-                return LanguageController.getShadowLotteryHeadUpMessage(language) + "\n";
-            } else {
-                if (clientCache.isEventMessageEnabled(guildID))
-                    return LanguageController.getShadowLotteryMessage(language) + "\n";
+        if (!isTimeValid(timezone)) return "";
+        if (!clientCache.isShadowLotteryMessageEnabled(textChannelID)) return "";
+
+        if (isHeadUpTime(timezone)) {
+            if (!clientCache.isHeadUpOnServerEnabled(guildID) || !clientCache.isHeadUpMessageOnChannelEnabled(textChannelID)) {
+                return "";
             }
-        return "";
+
+            return LanguageController.getShadowLotteryHeadUpMessage(language) + "\n";
+
+        } else {
+            if (!clientCache.isEventMessageOnServerEnabled(guildID) || !clientCache.isEventMessageOnChannelEnabled(textChannelID)) {
+                return "";
+            }
+
+            return LanguageController.getShadowLotteryMessage(language) + "\n";
+
+        }
     }
 
     private boolean isTimeValid(String timezone) {
-        String time = Time.getTime(timezone);
-        return listShadowLottery.get(time) != null;
+        String time = TimeAssistant.getTime(timezone);
+        return clientCache.getListWithShadowLotteryTimes().get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
-        String time = Time.getTime(timezone);
-        return listShadowLottery.get(time);
+        String time = TimeAssistant.getTime(timezone);
+        return clientCache.getListWithShadowLotteryTimes().get(time);
     }
 
 }

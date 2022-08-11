@@ -1,42 +1,44 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
-import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.Time;
-
-import java.util.Map;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 
 public class DemonGates {
 
-    private final Map<String, Boolean> listDemonGates;
     private final ClientCache clientCache;
 
-    public DemonGates(DatabaseRequests databaseRequests, ClientCache clientCache) {
-        this.listDemonGates = databaseRequests.getEventTimes("event_demon_gates", false);
+    public DemonGates(ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public String checkDemonGates(String timezone, String language, String guildID) {
+    public String checkDemonGates(String timezone, String language, String guildID, String textChannelID) {
         if (!isTimeValid(timezone)) return "";
+        if (!clientCache.isDemonGatesMessageEnabled(textChannelID)) return "";
 
-        if (isHeadUpTime(timezone))
-            if (clientCache.getHeadUpValue(guildID)) {
-                return LanguageController.getDemonGatesHeadUpMessage(language) + "\n";
-            } else {
-                if (clientCache.isEventMessageEnabled(guildID))
-                    return LanguageController.getDemonGatesMessage(language) + "\n";
+        if (isHeadUpTime(timezone)) {
+            if (!clientCache.isHeadUpOnServerEnabled(guildID) || !clientCache.isHeadUpMessageOnChannelEnabled(textChannelID)) {
+                return "";
             }
-        return "";
+
+            return LanguageController.getDemonGatesHeadUpMessage(language) + "\n";
+
+        } else {
+            if (!clientCache.isEventMessageOnServerEnabled(guildID) || !clientCache.isEventMessageOnChannelEnabled(textChannelID)) {
+                return "";
+            }
+
+            return LanguageController.getDemonGatesMessage(language) + "\n";
+        }
     }
 
     private boolean isTimeValid(String timezone) {
-        String time = Time.getTimeWithWeekday(timezone);
-        return listDemonGates.get(time) != null;
+        String time = TimeAssistant.getTimeWithWeekday(timezone);
+        return clientCache.getListWithDemonGatesTimes().get(time) != null;
     }
 
     private boolean isHeadUpTime(String timezone) {
-        String time = Time.getTimeWithWeekday(timezone);
-        return listDemonGates.get(time);
+        String time = TimeAssistant.getTimeWithWeekday(timezone);
+        return clientCache.getListWithDemonGatesTimes().get(time);
     }
 }

@@ -4,15 +4,23 @@ public class GuildInformation {
 
     private String guildID;
     private String language;
+    private String timezone;
     private boolean isHeadUpEnabled;
-    private boolean battlegroundsNotificationsEnabled;
     private boolean eventMessageEnabled;
 
-    public GuildInformation(String guildID, String language, boolean isHeadUpEnabled, boolean battlegroundsNotificationsEnabled, boolean eventMessageEnabled) {
+    public GuildInformation(String guildID) {
+        this.guildID = guildID;
+        this.language = "ENG";
+        this.timezone = "GMT";
+        this.isHeadUpEnabled = true;
+        this.eventMessageEnabled = true;
+    }
+
+    public GuildInformation(String guildID, String language, String timezone, boolean isHeadUpEnabled, boolean eventMessageEnabled) {
         this.guildID = guildID;
         this.language = language;
+        this.timezone = timezone;
         this.isHeadUpEnabled = isHeadUpEnabled;
-        this.battlegroundsNotificationsEnabled = battlegroundsNotificationsEnabled;
         this.eventMessageEnabled = eventMessageEnabled;
     }
 
@@ -40,19 +48,19 @@ public class GuildInformation {
         isHeadUpEnabled = headUpEnabled;
     }
 
-    public boolean isBattlegroundsNotificationsEnabled() {
-        return battlegroundsNotificationsEnabled;
-    }
-
-    public void setBattlegroundsNotificationsEnabled(boolean battlegroundsNotificationsEnabled) {
-        this.battlegroundsNotificationsEnabled = battlegroundsNotificationsEnabled;
-    }
-
     public boolean isEventMessageEnabled() {
         return eventMessageEnabled;
     }
 
     public void setEventMessageEnabled(boolean eventMessageEnabled) {
         this.eventMessageEnabled = eventMessageEnabled;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
     }
 }

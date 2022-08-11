@@ -1,29 +1,36 @@
-package me.umbreon.diabloimmortalbot.gameevents.OverworldEmbeds;
+package me.umbreon.diabloimmortalbot.gameevents.embeds;
 
-import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.Time;
+import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
-
-import java.util.ArrayList;
 
 public class AncientArenaEmbed {
 
-    private final ArrayList<String> listAncientArenaFormatted;
+    private final ClientCache clientCache;
 
-    public AncientArenaEmbed(DatabaseRequests databaseRequests) {
-        this.listAncientArenaFormatted = databaseRequests.getOverworldEventTimes("overworld_ancient_arena");
+    public AncientArenaEmbed(ClientCache clientCache) {
+        this.clientCache = clientCache;
     }
 
     public void checkAncientArenaFormatted(TextChannel textChannel, String timezone, String language) {
-        String time = Time.getTimeWithWeekday(timezone);
+        String time = TimeAssistant.getTimeWithWeekday(timezone);
+        String textChannelID = textChannel.getId();
 
-        if (!listAncientArenaFormatted.contains(time)) {
+        if (!clientCache.getListWithAncientArenaEmbedTimes().contains(time) || !clientCache.isAncientArenaEmbedMessageEnabled(textChannelID)) {
             return;
         }
 
-        long unix = Time.getTimeInUnix(timezone) + (3600 * 2);
+        textChannel.sendMessageEmbeds(buildAncientArenaEmbed(timezone, language)).queue();
+    }
+
+    private MessageEmbed buildAncientArenaEmbed(String timezone, String language) {
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+
+        long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
 
         String eventTitle = LanguageController.getAncientArenaEmbedMessage(language);
         String worldEventMessage = LanguageController.getWorldEventEmbedMessage(language);
@@ -32,16 +39,14 @@ public class AncientArenaEmbed {
         String locationMessage1 = LanguageController.getLocationAncientArenaEmbedMessage1(language);
         String locationMessage2 = LanguageController.getLocationAncientArenaEmbedMessage2(language);
 
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-
         embedBuilder.setTitle(eventTitle + " | " + worldEventMessage);
-        embedBuilder.setImage("https://assets.maxroll.gg/wordpress/ZoneEvents_Arena_v1.1.jpg");
+        embedBuilder.setImage(ImageAssistant.getDiabloAncientArenaImage());
         embedBuilder.addField(spawnAtMessage, "<t:" + unix + ">", true);
         embedBuilder.addField(countdownMessage, "<t:" + unix + ":R>", true);
         embedBuilder.addField(locationMessage1, locationMessage2, false);
-        embedBuilder.setThumbnail("https://img.game8.co/3538126/8b47d33ca42b94d1177e9e0ee2fc7550.png/show");
+        embedBuilder.setThumbnail(ImageAssistant.getDiabloImmortalLogo());
 
-        textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
+        return embedBuilder.build();
     }
 
 }
