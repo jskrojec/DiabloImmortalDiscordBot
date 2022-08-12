@@ -3,6 +3,7 @@ package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.StringAssistant;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -37,7 +38,7 @@ public class ServerTimezoneCommand {
 
         String timezone = args[2].toUpperCase();
         if (!isTimeZoneValid(timezone)) {
-            message.getTextChannel().sendMessage("Invalid timezone.").queue();
+            message.getTextChannel().sendMessage(LanguageController.getInvalidTimezoneMessage(guildLanguage)).queue();
             return;
         }
 
@@ -52,6 +53,10 @@ public class ServerTimezoneCommand {
     }
 
     private boolean isTimeZoneValid(String timezone) {
+        if (StringAssistant.isStringSingleDashWithDigits(timezone)) { //e.g. -7
+            return false;
+        }
+
         try {
             Instant timeStamp = Instant.now();
             ZonedDateTime dateTime = timeStamp.atZone(ZoneId.of(timezone));

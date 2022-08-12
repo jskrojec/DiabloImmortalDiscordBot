@@ -322,4 +322,101 @@ public class LanguagePolish {
     static String getInvalidDayMessage() {
         return messages.get("INVALID_DAY").toString();
     }
+
+    static String getRegistersChannelMessage() {
+        return messages.get("REGISTERS_CHANNEL").toString();
+    }
+
+    static String getUnregistersChannelMessage() {
+        return messages.get("UNREGISTERS_CHANNEL").toString();
+    }
+
+    static String getSetsChannelRoleMessage() {
+        return messages.get("SETS_CHANNEL_ROLE").toString();
+    }
+
+    static String getShowsChannelInfoMessage() {
+        return messages.get("SHOWS_CHANNEL_INFO").toString();
+    }
+
+    static String getCreateCustomMessageMessage() {
+        return messages.get("CREATE_CUSTOM_MESSAGE").toString();
+    }
+
+    static String getDeleteCustomMessageMessage() {
+        return messages.get("DELETE_CUSTOM_MESSAGE").toString();
+    }
+
+    static String getShowsAllCustomMessageMessage() {
+        return messages.get("SHOWS_ALL_CUSTOM_MESSAGE").toString();
+    }
+
+    static String getShowsCustomMessageInfoMessage() {
+        return messages.get("SHOWS_CUSTOM_MESSAGE_INFO").toString();
+    }
+
+    static String getHeadUpActivationMessage() {
+        return messages.get("HEADUP_ACTIVATION").toString();
+    }
+
+    static String getMessageActivationMessage() {
+        return messages.get("MESSAGE_ACTIVATION").toString();
+    }
+
+    static String getShowsServerConfigMessage() {
+        return messages.get("SHOWS_SERVER_CONFIG").toString();
+    }
+
+    static String getSetsServerLanguageMessage() {
+        return messages.get("SETS_SERVER_LANGUAGE").toString();
+    }
+
+    static String getSetsTimezoneLanguageMessage() {
+        return messages.get("SETS_TIMEZONE_LANGUAGE").toString();
+    }
+
+    static String getShowsBotInstallMessage() {
+        return messages.get("SHOWS_BOT_INSTALL").toString();
+    }
+
+    static String getShowsThisMessageMessage() {
+        return messages.get("SHOWS_THIS_MESSAGE").toString();
+    }
+
+    static String getSupportDiscordMessage() {
+        return messages.get("SUPPORT_DISCORD").toString();
+    }
+
+    static String getCreatedByMessage() {
+        return messages.get("CREATED_BY").toString();
+    }
+
+    static String getAutoDeleteActivationMessage() {
+        return messages.get("AUTODELETE_ACTIVATION").toString();
+    }
+
+    static String getAutoDeleteValueMessage() {
+        return messages.get("AUTODELETE_VALUE").toString();
+    }
+
+    static String getShortHoursMessage() {
+        return messages.get("SHORT_HOURS").toString();
+    }
+
+
+    static String getErrorOccurredMessage() {
+        return messages.get("ERROR_OCCURRED").toString();
+    }
+
+    static String getReportToDevMessage() {
+        return messages.get("REPORT_TO_DEV").toString();
+    }
+
+    static String getYesMessage() {
+        return messages.get("YES").toString();
+    }
+
+    static String getNoMessage() {
+        return messages.get("No").toString();
+    }
 }

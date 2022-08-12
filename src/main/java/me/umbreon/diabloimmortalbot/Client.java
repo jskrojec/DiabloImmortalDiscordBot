@@ -1,10 +1,10 @@
 package me.umbreon.diabloimmortalbot;
 
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
 import me.umbreon.diabloimmortalbot.events.MessageReceived;
 import me.umbreon.diabloimmortalbot.events.TextChannelDelete;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
 import me.umbreon.diabloimmortalbot.notifier.Notifier;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
@@ -70,11 +70,12 @@ public class Client {
             return;
         }
 
-        Notifier notifier = new Notifier(databaseRequests, clientCache);
+        Notifier notifier = new Notifier(clientCache);
         CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests);
         BasicConfigurator.configure();
 
         notifier.runScheduler(jda);
         customMessagesNotifier.runCustomMessagesNotifierScheduler(jda);
+
     }
 }

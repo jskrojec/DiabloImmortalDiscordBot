@@ -16,6 +16,22 @@ public class ClientCache {
 
     public Map<String, GuildInformation> listWithGuildInformation;
 
+    public boolean isAutoDeleteEnabled(String guildID) {
+        return listWithGuildInformation.get(guildID).isAutoDeleteEnabled();
+    }
+
+    public void setAutoDeleteBoolValue(String guildID, boolean bool) {
+        listWithGuildInformation.get(guildID).setAutoDeleteEnabled(bool);
+    }
+
+    public int getAutoDeleteValue(String guildID) {
+        return listWithGuildInformation.get(guildID).getAutoDeleteValue();
+    }
+
+    public void setAutoDeleteIntValue(String guildID, int i) {
+        listWithGuildInformation.get(guildID).setAutoDeleteValue(i);
+    }
+
     public void setListWithGuildInformation(Map<String, GuildInformation> listWithGuildInformation) {
         this.listWithGuildInformation = listWithGuildInformation;
     }

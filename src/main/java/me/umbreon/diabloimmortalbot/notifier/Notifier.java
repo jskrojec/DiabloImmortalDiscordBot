@@ -1,6 +1,5 @@
 package me.umbreon.diabloimmortalbot.notifier;
 
-import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.gameevents.*;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.AncientArenaEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.AncientNightmareEmbed;
@@ -9,18 +8,17 @@ import me.umbreon.diabloimmortalbot.gameevents.embeds.HauntedCarriageEmbed;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class Notifier {
 
     private final ClientCache clientCache;
-    private final DatabaseRequests databaseRequests;
 
     private final AncientArena ancientArena;
     private final AncientNightMare ancientNightMare;
@@ -38,9 +36,8 @@ public class Notifier {
     private final DemonGatesEmbed demonGatesEmbed;
     private final HauntedCarriageEmbed hauntedCarriageEmbed;
 
-    public Notifier(DatabaseRequests databaseRequests, ClientCache clientCache) {
+    public Notifier(ClientCache clientCache) {
         this.clientCache = clientCache;
-        this.databaseRequests = databaseRequests;
 
         this.assembly = new Assembly(clientCache);
         this.shadowLottery = new ShadowLottery(clientCache);
@@ -62,78 +59,106 @@ public class Notifier {
         Date date = Calendar.getInstance().getTime();
         date.setMinutes(date.getMinutes() + 1);
         date.setSeconds(0);
-
         new Timer().schedule(new TimerTask() {
             public void run() {
-                setActivity(jda);
-                if (clientCache.getListWithNotifierChannels().size() == 0) return;
-                clientCache.getListWithNotifierChannels().forEach((textChannelID, notifierChannel) -> {
-                    TextChannel textChannel = jda.getTextChannelById(textChannelID);
+                try {
+                    if (clientCache.getListWithNotifierChannels().size() == 0) return;
+                    clientCache.getListWithNotifierChannels().forEach((textChannelID, notifierChannel) -> {
+                        TextChannel textChannel;
 
-                    String guildID = clientCache.getGuildIdByChannelID(textChannelID);
-                    String timeZone = clientCache.getGuildTimeZone(guildID);
-                    String guildLanguage = clientCache.getGuildLanguage(guildID);
+                        if (textChannelID != null) {
+                            textChannel = jda.getTextChannelById(textChannelID);
+                        } else {
+                            return;
+                        }
 
-                    StringBuilder notificationMessageBuilder = new StringBuilder();
+                        if (textChannel == null) return;
 
-                    if (clientCache.isRaidVaultMessageEnabled(textChannelID)) {
-                        notificationMessageBuilder.append(raidVault.checkVault(timeZone, guildLanguage, guildID, textChannelID));
-                    }
+                        String guildID = clientCache.getGuildIdByChannelID(textChannelID);
+                        String timeZone = clientCache.getGuildTimeZone(guildID);
+                        String guildLanguage = clientCache.getGuildLanguage(guildID);
 
-                    if (clientCache.isBattlegroundMessageEnabled(textChannelID)) {
-                        notificationMessageBuilder.append(battleground.checkBattleground(timeZone, guildLanguage, guildID, textChannelID));
-                    }
+                        StringBuilder notificationMessageBuilder = new StringBuilder();
 
-                    if (clientCache.isAncientNightmareMessageEnabled(textChannelID)) {
-                        notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timeZone, guildLanguage, guildID, textChannelID));
-                    }
+                        if (clientCache.isRaidVaultMessageEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(raidVault.checkVault(timeZone, guildLanguage, guildID, textChannelID));
+                        }
 
-                    if (clientCache.isDemonGatesMessageEnabled(textChannelID)) {
-                        notificationMessageBuilder.append(demonGates.checkDemonGates(timeZone, guildLanguage, guildID, textChannelID));
-                    }
+                        if (clientCache.isBattlegroundMessageEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(battleground.checkBattleground(timeZone, guildLanguage, guildID, textChannelID));
+                        }
 
-                    if (clientCache.isHauntedCarriageMessageEnabled(textChannelID)) {
-                        notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timeZone, guildLanguage, guildID, textChannelID));
-                    }
+                        if (clientCache.isAncientNightmareMessageEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timeZone, guildLanguage, guildID, textChannelID));
+                        }
 
-                    if (clientCache.isAncientArenaMessageEnabled(textChannelID)) {
-                        notificationMessageBuilder.append(ancientArena.checkAncientArea(timeZone, guildLanguage, guildID, textChannelID));
-                    }
+                        if (clientCache.isDemonGatesMessageEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(demonGates.checkDemonGates(timeZone, guildLanguage, guildID, textChannelID));
+                        }
 
-                    if (clientCache.isAssemblyMessageEnabled(textChannelID)) {
-                        notificationMessageBuilder.append(assembly.checkAssembly(timeZone, guildLanguage, guildID, textChannelID));
-                    }
+                        if (clientCache.isHauntedCarriageMessageEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timeZone, guildLanguage, guildID, textChannelID));
+                        }
 
-                    if (clientCache.isShadowLotteryMessageEnabled(textChannelID)) {
-                        notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timeZone, guildLanguage, guildID, textChannelID));
-                    }
+                        if (clientCache.isAncientArenaMessageEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(ancientArena.checkAncientArea(timeZone, guildLanguage, guildID, textChannelID));
+                        }
 
-                    if (clientCache.isDefendVaultMessageEnabled(textChannelID)) {
-                        notificationMessageBuilder.append(defendVault.checkDefendVault(timeZone, guildLanguage, guildID, textChannelID));
-                    }
+                        if (clientCache.isAssemblyMessageEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(assembly.checkAssembly(timeZone, guildLanguage, guildID, textChannelID));
+                        }
 
-                    //Embeds
-                    if (clientCache.isAncientArenaEmbedMessageEnabled(textChannelID)) {
-                        ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timeZone, guildLanguage);
-                    }
+                        if (clientCache.isShadowLotteryMessageEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timeZone, guildLanguage, guildID, textChannelID));
+                        }
 
-                    if (clientCache.isAncientNightmareEmbedMessageEnabled(textChannelID)) {
-                        ancientNightmareEmbed.checkAncientNightmareFormatted(textChannel, timeZone, guildLanguage);
-                    }
+                        if (clientCache.isDefendVaultMessageEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(defendVault.checkDefendVault(timeZone, guildLanguage, guildID, textChannelID));
+                        }
 
-                    if (clientCache.isDemonGatesEmbedMessageEnabled(textChannelID)) {
-                        demonGatesEmbed.checkDemonGatesFormatted(textChannel, timeZone, guildLanguage);
-                    }
+                        //Embeds
+                        if (clientCache.isAncientArenaEmbedMessageEnabled(textChannelID)) {
+                            ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timeZone, guildLanguage);
+                        }
 
-                    if (clientCache.isHauntedCarriageEmbedMessageEnabled(textChannelID)) {
-                        hauntedCarriageEmbed.checkHauntedCarriageFormatted(textChannel, timeZone, guildLanguage);
-                    }
+                        if (clientCache.isAncientNightmareEmbedMessageEnabled(textChannelID)) {
+                            ancientNightmareEmbed.checkAncientNightmareFormatted(textChannel, timeZone, guildLanguage);
+                        }
 
-                    if (notificationMessageBuilder.length() > 0) {
-                        addMentionToMessage(notificationMessageBuilder, textChannel);
-                        textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
-                    }
-                });
+                        if (clientCache.isDemonGatesEmbedMessageEnabled(textChannelID)) {
+                            demonGatesEmbed.checkDemonGatesFormatted(textChannel, timeZone, guildLanguage);
+                        }
+
+                        if (clientCache.isHauntedCarriageEmbedMessageEnabled(textChannelID)) {
+                            hauntedCarriageEmbed.checkHauntedCarriageFormatted(textChannel, timeZone, guildLanguage);
+                        }
+
+                        if (notificationMessageBuilder.length() > 0) {
+                            addMentionToMessage(notificationMessageBuilder, textChannel);
+
+                            if (clientCache.isAutoDeleteEnabled(guildID)) {
+
+                                int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
+                                switch (autoDeleteValue) {
+                                    case 24:
+                                    case 48:
+                                    case 72:
+                                        textChannel.sendMessage(notificationMessageBuilder.toString()).queue(message -> {
+                                            message.delete().queueAfter(autoDeleteValue, TimeUnit.HOURS);
+                                        });
+                                        break;
+                                }
+
+                            }
+
+                            textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
+                        }
+
+                    });
+                    setActivity(jda);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }, date, 60 * 1000);
     }
@@ -156,9 +181,20 @@ public class Notifier {
         stringBuilder.append(mention);
     }
 
+    int x = 1;
+
     private void setActivity(JDA jda) {
         int counter = jda.getGuilds().size();
-        jda.getPresence().setActivity(Activity.playing("Diablo Immortal (" + counter + ")"));
+
+        if (x == 1) {
+            jda.getPresence().setActivity(Activity.playing("Diablo Immortal [" + counter + "]"));
+            x--;
+        } else if (x == 0) {
+            jda.getPresence().setActivity(Activity.playing("Diablo Immortal (" + counter + ")"));
+            x++;
+        } else {
+            jda.getPresence().setActivity(Activity.playing("Diablo Immortal >" + counter + ">"));
+        }
     }
 
 }

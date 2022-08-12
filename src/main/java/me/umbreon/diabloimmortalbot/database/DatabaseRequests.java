@@ -140,7 +140,9 @@ public class DatabaseRequests {
                     String timezone = resultSet.getString("timezone");
                     boolean isHeadUpEnabled = (resultSet.getInt("event_headup") == 1);
                     boolean eventMessagesEnabled = (resultSet.getInt("event_message") == 1);
-                    GuildInformation guildInformation = new GuildInformation(guildID, language, timezone, isHeadUpEnabled, eventMessagesEnabled);
+                    int autoDeleteValue = resultSet.getInt("autodelete_value");
+                    boolean isAutoDeleteEnabled = (resultSet.getInt("autodelete") == 1);
+                    GuildInformation guildInformation = new GuildInformation(guildID, language, timezone, isHeadUpEnabled, eventMessagesEnabled, isAutoDeleteEnabled, autoDeleteValue);
                     listWithGuildInformation.put(guildID, guildInformation);
                 }
             } catch (Exception e) {
@@ -382,6 +384,40 @@ public class DatabaseRequests {
             e.printStackTrace();
         }
         return notifierChannelList;
+    }
+
+    public void setAutoDeleteEnabled(String guildID, boolean autoDeleteValue) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET autodelete = ? WHERE guildID = ?")) {
+            try {
+                preparedStatement.setBoolean(1, autoDeleteValue);
+                preparedStatement.setString(2, guildID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public void setAutoDeleteValue(String guildID, int autoDeleteValue) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET autodelete_value = ? WHERE guildID = ?")) {
+            try {
+                preparedStatement.setInt(1, autoDeleteValue);
+                preparedStatement.setString(2, guildID);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
     }
 
 }

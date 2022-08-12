@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.util.concurrent.TimeUnit;
+
 public class AncientNightmareEmbed {
 
     private final ClientCache clientCache;
@@ -22,6 +24,22 @@ public class AncientNightmareEmbed {
 
         if (!clientCache.getListWithAncientNightmareEmbedTimes().contains(time) || !clientCache.isAncientNightmareEmbedMessageEnabled(textChannelID)) {
             return;
+        }
+
+        String guildID = textChannel.getGuild().getId();
+
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+
+            int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
+            switch (autoDeleteValue) {
+                case 24:
+                case 48:
+                case 72:
+                    textChannel.sendMessageEmbeds(buildAncientNightmareEmbed(timezone, language)).queue(sendMessage -> {
+                        sendMessage.delete().queueAfter(autoDeleteValue, TimeUnit.HOURS);
+                    });
+                    break;
+            }
         }
 
         textChannel.sendMessageEmbeds(buildAncientNightmareEmbed(timezone, language)).queue();

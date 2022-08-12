@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands.notifier_commands;
+package me.umbreon.diabloimmortalbot.commands.channel_commands;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Command: >role @Role #Channel
  * Command: >role @Role
  **/
 public class RoleCommand {
@@ -37,47 +36,72 @@ public class RoleCommand {
             return;
         }
 
-        String textChannelID = getTextChannelID(textChannel, args);
+        String textChannelID = textChannel.getId();
         if (!isChannelRegistered(textChannelID)) {
             textChannel.sendMessage(String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention())).queue();
             return;
         }
 
-        String roleID = StringAssistant.removeAllNonNumbers(args[1]);
-        Guild guild = textChannel.getGuild();
-        if (!doRoleExistInGuild(guild, roleID)) {
+        Role mentionedRole = getRoleFromMessage(message, textChannel);
+        if (mentionedRole == null) {
             textChannel.sendMessage(LanguageController.getRoleNotFoundMessage(language)).queue();
             return;
         }
 
+        String roleID = mentionedRole.getId();
         setRole(textChannelID, roleID);
-        textChannel.sendMessage(String.format(LanguageController.getIsSetMessage(language), guild.getTextChannelById(roleID).getAsMention())).queue();
+        textChannel.sendMessage(String.format(LanguageController.getIsSetMessage(language), mentionedRole.getAsMention())).queue();
     }
 
-    public boolean areArgumentsValid(String[] args) {
-        return args.length > 1 && args.length <= 3;
-    }
+    // -
 
-    private String getTextChannelID(TextChannel textChannel, String[] args) {
-        String textChannelID = null;
-        if (args.length == 3) {
-            textChannelID = StringAssistant.removeAllNonNumbers(args[1]);
-        } else if (args.length == 2) {
-            textChannelID = textChannel.getId();
+    private Role getRoleFromMessage(Message message, TextChannel textChannel) {
+        String[] args = message.getContentRaw().split(" ");
+        String role = args[1];
+        String roleID = StringAssistant.removeAllNonNumbers(role);
+        Guild guild = textChannel.getGuild();
+
+        if (getRoleByID(guild, roleID) != null) {
+            return getRoleByID(guild, roleID);
         }
-        return textChannelID;
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 1; i < args.length; i++) {
+            stringBuilder.append(args[i]);
+            if (i != args.length - 1) {
+                stringBuilder.append(" ");
+            }
+        }
+
+        String roleName = stringBuilder.toString();
+        if (getRoleByName(guild, roleName) != null) {
+            return getRoleByName(guild, roleName);
+        }
+
+        return null;
+    }
+
+    private boolean areArgumentsValid(String[] args) {
+        return args.length > 1 && args.length <= 3;
     }
 
     private boolean isChannelRegistered(String textChannelID) {
         return clientCache.doNotifierChannelExists(textChannelID);
     }
 
-    private boolean doRoleExistInGuild(Guild guild, String roleID) {
+    private Role getRoleByID(Guild guild, String roleID) {
         List<Role> roles = guild.getRoles();
-        Role tempRole = roles.stream().filter(role -> Objects.equals(role.getId(), roleID))
+        return  roles.stream().filter(role -> Objects.equals(role.getId(), roleID))
                 .findFirst()
                 .orElse(null);
-        return tempRole != null;
+    }
+
+    private Role getRoleByName(Guild guild, String roleName) {
+        List<Role> roles = guild.getRoles();
+
+        return roles.stream().filter(role -> Objects.equals(role.getName(), roleName))
+                .findFirst()
+                .orElse(null);
     }
 
     private void setRole(String textChannelID, String roleID) {

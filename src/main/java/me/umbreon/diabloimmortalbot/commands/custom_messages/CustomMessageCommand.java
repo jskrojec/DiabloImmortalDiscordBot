@@ -44,14 +44,6 @@ public class CustomMessageCommand {
         }
     }
 
-    public MessageEmbed buildCustomMessageInfoEmbed() {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-
-        embedBuilder.setTitle("Custom messages command:");
-
-        return embedBuilder.build();
-    }
-
     public CustomMessageCreate getCustomMessageCreate() {
         return customMessageCreate;
     }

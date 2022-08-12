@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class CustomMessagesNotifier {
 
@@ -25,7 +26,6 @@ public class CustomMessagesNotifier {
         Date date = Calendar.getInstance().getTime();
         date.setMinutes(date.getMinutes() + 1);
         date.setSeconds(0);
-
         new Timer().schedule(new TimerTask() {
             public void run() {
                 clientCache.getAllCustomMessages().forEach((integer, customMessage) -> {
@@ -34,8 +34,6 @@ public class CustomMessagesNotifier {
                     if (!clientCache.doNotifierChannelExists(channel)) {
                         return; //Needs to be registered to send messages.
                     }
-
-                    if (!customMessage.getGuildID().equalsIgnoreCase("998122292028653568")) return;
 
                     String guildID = customMessage.getGuildID();
                     String timezone = clientCache.getGuildTimeZone(guildID);
@@ -58,6 +56,23 @@ public class CustomMessagesNotifier {
                     }
 
                     String message = customMessage.getMessage();
+
+                    if (clientCache.isAutoDeleteEnabled(guildID)) {
+
+                        int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
+                        switch (autoDeleteValue) {
+                            case 24:
+                            case 48:
+                            case 72:
+                                if (textChannel != null)
+                                    textChannel.sendMessage(message).queue(sendMessage -> {
+                                        sendMessage.delete().queueAfter(autoDeleteValue, TimeUnit.HOURS);
+                                    });
+                                break;
+                        }
+
+                    }
+
                     if (textChannel != null) textChannel.sendMessage(message).queue();
 
                     if (!customMessage.isRepeat()) {

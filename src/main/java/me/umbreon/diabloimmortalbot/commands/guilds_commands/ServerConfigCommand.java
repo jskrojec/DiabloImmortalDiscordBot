@@ -1,6 +1,7 @@
 package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
@@ -34,14 +35,21 @@ public class ServerConfigCommand {
         embedBuilder.addField("Timezone:", guildInformation.getTimezone(), true);
         embedBuilder.addField("GuildID:", guildInformation.getGuildID(), true);
 
-        String headUpMessagesEnabled = guildInformation.isHeadUpEnabled() ? "Yes" : "No";
-        embedBuilder.addField("Event messages", headUpMessagesEnabled, true);
-
         String eventMessageEnabled = guildInformation.isEventMessageEnabled() ? "Yes" : "No";
-        embedBuilder.addField("Head up messages", eventMessageEnabled, true);
-
+        String headUpMessagesEnabled = guildInformation.isHeadUpEnabled() ? "Yes" : "No";
         String doUserGotBotAdminRole = hasBotAdminRole ? "Yes" : "No";
+        String isAutoSaveEnabled = clientCache.isAutoDeleteEnabled(guildID) ? "Yes" : "No";
+
+        embedBuilder.addField("Event messages", eventMessageEnabled, true);
+        embedBuilder.addField("Head up messages", headUpMessagesEnabled, true);
         embedBuilder.addField("Is user Bot Admin", doUserGotBotAdminRole, true);
+        embedBuilder.addField("Auto delete enabled", isAutoSaveEnabled, true);
+
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            embedBuilder.addField("Auto delete value", clientCache.getAutoDeleteValue(guildID) +
+                    LanguageController.getShortHoursMessage(guildID), true);
+        }
+
         return embedBuilder.build();
     }
 

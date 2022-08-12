@@ -1,24 +1,24 @@
 package me.umbreon.diabloimmortalbot.events;
 
+import me.umbreon.diabloimmortalbot.commands.channel_commands.InfoCommand;
+import me.umbreon.diabloimmortalbot.commands.channel_commands.RegisterCommand;
+import me.umbreon.diabloimmortalbot.commands.channel_commands.RoleCommand;
+import me.umbreon.diabloimmortalbot.commands.channel_commands.UnregisterCommand;
 import me.umbreon.diabloimmortalbot.commands.custom_messages.CustomMessageCommand;
-import me.umbreon.diabloimmortalbot.commands.guilds_commands.NotificationsCommand;
+import me.umbreon.diabloimmortalbot.commands.channel_commands.NotificationsCommand;
 import me.umbreon.diabloimmortalbot.commands.guilds_commands.ServerCommand;
 import me.umbreon.diabloimmortalbot.commands.guilds_commands.ServerLanguageCommand;
 import me.umbreon.diabloimmortalbot.commands.guilds_commands.ServerTimezoneCommand;
-import me.umbreon.diabloimmortalbot.commands.help_commands.*;
-import me.umbreon.diabloimmortalbot.commands.notifier_commands.InfoCommand;
-import me.umbreon.diabloimmortalbot.commands.notifier_commands.RegisterCommand;
-import me.umbreon.diabloimmortalbot.commands.notifier_commands.RoleCommand;
-import me.umbreon.diabloimmortalbot.commands.notifier_commands.UnregisterCommand;
+import me.umbreon.diabloimmortalbot.commands.help_commands.HelpCommand;
+import me.umbreon.diabloimmortalbot.commands.help_commands.InstructionCommand;
+import me.umbreon.diabloimmortalbot.commands.help_commands.LanguagesCommand;
+import me.umbreon.diabloimmortalbot.commands.help_commands.TimezonesCommand;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -51,7 +51,7 @@ public class MessageReceived extends ListenerAdapter {
         this.serverTimezoneCommand = new ServerTimezoneCommand(databaseRequests, clientCache);
         this.roleCommand = new RoleCommand(databaseRequests, clientCache);
         this.unregisterCommand = new UnregisterCommand(databaseRequests, clientCache);
-        this.helpCommand = new HelpCommand();
+        this.helpCommand = new HelpCommand(clientCache);
         this.timezonesCommand = new TimezonesCommand();
         this.serverLanguageCommand = new ServerLanguageCommand(clientCache, databaseRequests);
         this.instructionCommand = new InstructionCommand();
@@ -65,150 +65,125 @@ public class MessageReceived extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
-        TextChannel textChannel;
+        if (!isChannelTypeTextChannel(event.getChannel().getType())) return;
 
+        TextChannel textChannel = event.getMessage().getTextChannel();
 
-        try {
-            textChannel = event.getMessage().getTextChannel();
-        } catch (IllegalStateException ignore) {
-            return; //This message is not send in a text channel
-        }
-
-        if (clientCache.isUserInOperationMode(textChannel.getId(), event.getAuthor().getId())) {
-
-            if (clientCache.isOperatingUserForChannel(textChannel.getId(), event.getAuthor().getId())) {
-
-                customMessageCommand.getCustomMessageCreate().addTextChannelToPreparingCustomMessage(event.getMessage());
-                return;
-            }
-
-            if (clientCache.isOperatingUserForDay(textChannel.getId(), event.getAuthor().getId())) {
-
-                customMessageCommand.getCustomMessageCreate().addDayToPreparingCustomMessage(event.getMessage());
-                return;
-            }
-
-            if (clientCache.isOperatingUserForTime(textChannel.getId(), event.getAuthor().getId())) {
-
-                customMessageCommand.getCustomMessageCreate().addTimeToPreparingCustomMessage(event.getMessage());
-                return;
-            }
-
-            if (clientCache.isOperatingUserForRepeating(textChannel.getId(), event.getAuthor().getId())) {
-
-                customMessageCommand.getCustomMessageCreate().addRepeatingValueToCustomMessage(event.getMessage());
-                return;
-            }
-
-            if (clientCache.isOperatingUserForMessage(textChannel.getId(), event.getAuthor().getId())) {
-
-                customMessageCommand.getCustomMessageCreate().addMessageToCustomMessage(event.getMessage());
-
-            }
-
-        }
-
-
+        checkForCustomMessageCreationMessage(textChannel, event);
         String[] args = event.getMessage().getContentRaw().split(" ");
         String guildID = event.getGuild().getId();
         registerGuildIfDoNotExist(guildID);
-
         Member member = event.getMember();
-        if (findBotRole(member) == null) {
-            if (member.hasPermission(Permission.MESSAGE_MANAGE)) {
-                checkForCommandsWithNoPermissions(args[0], event.getMessage());
-            }
-            return;
-        }
+        String effectiveName = member.getEffectiveName();
+        Message eventMessage = event.getMessage();
 
         try {
-            checkForCommandAndRun(event, member, args);
+            if (!isUserPermitted(member) && hasUserMessageManagePermission(member)) {
+                checkForCommandsWithNoPermissions(eventMessage, effectiveName, args[0].toLowerCase());
+                return;
+            }
+
+            checkForCommandsWithPermissions(eventMessage, effectiveName, args[0].toLowerCase());
         } catch (Exception e) {
             e.printStackTrace();
+            ClientLogger.createNewErrorLogEntry(e);
         }
     }
 
-    private void checkForCommandAndRun(MessageReceivedEvent event, Member member, String[] args) {
-        switch (args[0].toLowerCase()) {
+    private boolean isChannelTypeTextChannel(ChannelType channelType) {
+        return channelType.getId() == 0;
+    }
+
+    private void checkForCommandsWithPermissions(Message message, String effectiveName, String command) {
+
+        switch (command) {
             case ">notifier":
             case ">register":
-                registerCommand.runRegisterCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                registerCommand.runRegisterCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">unnotifier":
             case ">unregister":
-                unregisterCommand.runUnregisterCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                unregisterCommand.runUnregisterCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">timezone":
-                serverTimezoneCommand.runTimezoneCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                serverTimezoneCommand.runTimezoneCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">role":
-                roleCommand.runRoleCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                roleCommand.runRoleCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">help":
-                helpCommand.runHelpCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                helpCommand.runHelpCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">timezones":
-                timezonesCommand.runTimezonesCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                timezonesCommand.runTimezonesCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">language":
-                serverLanguageCommand.runLanguageCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                serverLanguageCommand.runLanguageCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">instructions":
             case ">instruction":
             case ">install":
-                instructionCommand.runInstructionCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                instructionCommand.runInstructionCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">languages":
-                languagesCommand.runLanguagesCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                languagesCommand.runLanguagesCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">notifications":
             case ">notification":
-                notificationsCommand.runNotificationsCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                notificationsCommand.runNotificationsCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">cm":
             case ">customessage":
-                customMessageCommand.runCustomMessageCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                customMessageCommand.runCustomMessageCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">info":
-                infoCommand.runInfoCommand(event.getMessage());
+                infoCommand.runInfoCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">server":
-                serverCommand.runCustomMessageCommand(event.getMessage());
-                logCommandExecution(member.getEffectiveName(), event.getMessage());
+                serverCommand.runCustomMessageCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
         }
     }
 
-    private void checkForCommandsWithNoPermissions(String arg, Message message) {
-        switch (arg.toLowerCase()) {
+    private void checkForCommandsWithNoPermissions(Message message, String effectiveName, String command) {
+        switch (command) {
             case ">instruction":
             case ">instructions":
             case ">install":
                 instructionCommand.runInstructionCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
             case ">help":
                 helpCommand.runHelpCommand(message);
+                logCommandExecution(effectiveName, message);
                 break;
         }
     }
 
-    private Role findBotRole(Member member) {
+    private boolean isUserPermitted(Member member) {
         List<Role> roles = member.getRoles();
-        return roles.stream()
+        Role tempRole = roles.stream()
                 .filter(role -> role.getName().equalsIgnoreCase("Bot Admin"))
                 .findFirst()
                 .orElse(null);
+        return tempRole != null;
+    }
+
+    private boolean hasUserMessageManagePermission(Member member) {
+        return member.hasPermission(Permission.MESSAGE_MANAGE);
     }
 
     private void registerGuildIfDoNotExist(String guildID) {
@@ -224,4 +199,32 @@ public class MessageReceived extends ListenerAdapter {
         ClientLogger.createNewClientLogEntry(userName + " used: " + command.getContentRaw());
     }
 
+    private void checkForCustomMessageCreationMessage(TextChannel textChannel, MessageReceivedEvent event) {
+        if (clientCache.isUserInOperationMode(textChannel.getId(), event.getAuthor().getId())) {
+
+            if (clientCache.isOperatingUserForChannel(textChannel.getId(), event.getAuthor().getId())) {
+                customMessageCommand.getCustomMessageCreate().addTextChannelToPreparingCustomMessage(event.getMessage());
+                return;
+            }
+
+            if (clientCache.isOperatingUserForDay(textChannel.getId(), event.getAuthor().getId())) {
+                customMessageCommand.getCustomMessageCreate().addDayToPreparingCustomMessage(event.getMessage());
+                return;
+            }
+
+            if (clientCache.isOperatingUserForTime(textChannel.getId(), event.getAuthor().getId())) {
+                customMessageCommand.getCustomMessageCreate().addTimeToPreparingCustomMessage(event.getMessage());
+                return;
+            }
+
+            if (clientCache.isOperatingUserForRepeating(textChannel.getId(), event.getAuthor().getId())) {
+                customMessageCommand.getCustomMessageCreate().addRepeatingValueToCustomMessage(event.getMessage());
+                return;
+            }
+
+            if (clientCache.isOperatingUserForMessage(textChannel.getId(), event.getAuthor().getId())) {
+                customMessageCommand.getCustomMessageCreate().addMessageToCustomMessage(event.getMessage());
+            }
+        }
+    }
 }

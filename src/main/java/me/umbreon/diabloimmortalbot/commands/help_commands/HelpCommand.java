@@ -1,5 +1,7 @@
 package me.umbreon.diabloimmortalbot.commands.help_commands;
 
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
+import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -7,46 +9,53 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
+
 /**
  * Command: >help
  */
 public class HelpCommand {
 
-    public void runHelpCommand(Message message) {
-        TextChannel textChannel = message.getTextChannel();
-        textChannel.sendMessageEmbeds(buildHelpMessage()).queue();
+    private final ClientCache clientCache;
+
+    public HelpCommand(ClientCache clientCache) {
+        this.clientCache = clientCache;
     }
 
-    private MessageEmbed buildHelpMessage() {
+    public void runHelpCommand(Message message) {
+        TextChannel textChannel = message.getTextChannel();
+        String guildID = message.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        textChannel.sendMessageEmbeds(buildHelpMessage(guildLanguage)).queue();
+    }
+
+    private MessageEmbed buildHelpMessage(String guildLanguage) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Diablo Immortal Notifier Commands");
         embedBuilder.setColor(Color.RED);
         embedBuilder.setThumbnail(ImageAssistant.getDiabloImmortalLogo());
-
-        embedBuilder.addField(">register", "Registers that channel as notifier-channel.", false);
-        embedBuilder.addField(">unregister", "Unregisters that channel.", false);
-
-        embedBuilder.addField(">timezone [Timezone]", "Sets your timezone server wide.", false);
-        embedBuilder.addField(">role [Role]", "Set what role should be mentioned in this textchannel. If you dont set the role everyone will be mentioned.", false);
-
-        embedBuilder.addField(">cm create", "Creates an custom message.", false);
-        embedBuilder.addField(">cm delete ID", "Deletes an custom message. See ID's using >cm list.", false);
-        embedBuilder.addField(">cm list", "Show's all custom messages.", false);
-        embedBuilder.addField(">cm info ID", "Show's all informations about a custom message.", false);
-
-        embedBuilder.addField(">server headup on/off", "Disables or enables headup messages server wide.", false);
-        embedBuilder.addField(">server message on/off", "Disables or enables event messages server wide.", false);
-        embedBuilder.addField(">server config", "Shows all server configurations", false);
-        embedBuilder.addField(">server lanugae", "Sets language for your server.", false);
-        embedBuilder.addField(">server timezone", "Sets timezone for your server.", false);
-
-        embedBuilder.addField(">instructions", "Shows the bot instructions.", false);
-        embedBuilder.addField(">help", "Shows this message.", false);
-        embedBuilder.addField(">info", "Shows channel informations.", false);
-
+        embedBuilder.addField(">register", LanguageController.getRegistersChannelMessage(guildLanguage), false);
+        embedBuilder.addField(">unregister", LanguageController.getUnregistersChannelMessage(guildLanguage), false);
+        embedBuilder.addField(">role @YOUR_ROLE", LanguageController.getSetsChannelRoleMessage(guildLanguage), false);
+        embedBuilder.addField(">info", LanguageController.getShowsChannelInfoMessage(guildLanguage), false);
         embedBuilder.addBlankField(false);
-        embedBuilder.addField("Support on Discord:", "https://discord.gg/hpBHYkffS3", false);
-        embedBuilder.setFooter("Diablo Immortal Notifier - Created by Umbreon.");
+        embedBuilder.addField(">cm create", LanguageController.getCreateCustomMessageMessage(guildLanguage), false);
+        embedBuilder.addField(">cm delete ID", LanguageController.getDeleteCustomMessageMessage(guildLanguage), false);
+        embedBuilder.addField(">cm list", LanguageController.getShowsAllCustomMessageMessage(guildLanguage), false);
+        embedBuilder.addField(">cm info ID", LanguageController.getShowsCustomMessageInfoMessage(guildLanguage), false);
+        embedBuilder.addBlankField(false);
+        embedBuilder.addField(">server headup on/off", LanguageController.getHeadUpActivationMessage(guildLanguage), false);
+        embedBuilder.addField(">server message on/off", LanguageController.getMessageActivationMessage(guildLanguage), false);
+        embedBuilder.addField(">server config", LanguageController.getShowsServerConfigMessage(guildLanguage), false);
+        embedBuilder.addField(">server language", LanguageController.getSetsServerLanguageMessage(guildLanguage), false);
+        embedBuilder.addField(">server timezone", LanguageController.getSetsTimezoneLanguageMessage(guildLanguage), false);
+        embedBuilder.addField(">server autodelete on/off", LanguageController.getAutoDeleteActivationMessage(guildLanguage), false);
+        embedBuilder.addField(">server autodelete 24/48/72", LanguageController.getAutoDeleteValueMessage(guildLanguage), false);
+        embedBuilder.addBlankField(false);
+        embedBuilder.addField(">install", LanguageController.getShowsBotInstallMessage(guildLanguage), false);
+        embedBuilder.addField(">help", LanguageController.getShowsThisMessageMessage(guildLanguage), false);
+        embedBuilder.addBlankField(false);
+        embedBuilder.addField(LanguageController.getSupportDiscordMessage(guildLanguage), "https://discord.gg/hpBHYkffS3", false);
+        embedBuilder.setFooter(String.format(LanguageController.getCreatedByMessage(guildLanguage), "Diablo Immortal Notifier - ", "Umbreon"));
         return embedBuilder.build();
     }
 }

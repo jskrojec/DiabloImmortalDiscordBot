@@ -3,9 +3,12 @@ package me.umbreon.diabloimmortalbot.commands.custom_messages;
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.*;
-import net.dv8tion.jda.api.entities.*;
-import org.intellij.lang.annotations.Language;
+import me.umbreon.diabloimmortalbot.utils.BooleanAssistant;
+import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.StringAssistant;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.List;
 
@@ -24,6 +27,16 @@ public class CustomMessageCreate {
 
     public void runCustomMessageCreateCommand(Message message) {
         addUserToOperatingMode(message);
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        if (clientCache.isUserInOperationMode(message.getTextChannel().getId(), message.getAuthor().getId())) {
+                            clientCache.removeFromPreparingCustomMessageUserList(message.getTextChannel().getId());
+                        }
+                    }
+                }, 300000 // 5 Minutes
+        );
     }
 
     //cm create -> TextChannel Eingabe
@@ -84,7 +97,8 @@ public class CustomMessageCreate {
                 stringBuilder.append(clientCache.getListOfAvailableEventDays().get(i));
                 if (i == clientCache.getListOfAvailableEventDays().size() - 1) {
                     stringBuilder.append(" & ");
-                } if (i == clientCache.getListOfAvailableEventDays().size()) {
+                }
+                if (i == clientCache.getListOfAvailableEventDays().size()) {
                     stringBuilder.append(" ");
                 } else {
                     stringBuilder.append(" , ");
@@ -112,7 +126,8 @@ public class CustomMessageCreate {
             }
 
             clientCache.addToWaitingForRepeatingList(textChannelID, message.getAuthor().getId());
-            message.getTextChannel().sendMessage(LanguageController.getMessageFrequentlyMessage(guildLanguage)).queue();;
+            message.getTextChannel().sendMessage(LanguageController.getMessageFrequentlyMessage(guildLanguage)).queue();
+            ;
         }
     }
 
@@ -131,7 +146,7 @@ public class CustomMessageCreate {
 
         if (BooleanAssistant.isValueFalse(message.getContentRaw().toLowerCase())) {
             clientCache.getPreparingCustomMessage(textChannelID).setRepeating(false);
-            clientCache.removeFromPreparingCustomMessagesList(textChannelID);
+            clientCache.removeFromWaitingForRepeatingList(textChannelID);
             clientCache.addToWaitingForMessageList(textChannelID, message.getAuthor().getId());
             message.getTextChannel().sendMessage(LanguageController.getWhatMessageMessage(guildLanguage)).queue();
             return;

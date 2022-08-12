@@ -1,4 +1,4 @@
-package me.umbreon.diabloimmortalbot.commands.guilds_commands;
+package me.umbreon.diabloimmortalbot.commands.channel_commands;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;

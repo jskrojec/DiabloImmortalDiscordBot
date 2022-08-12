@@ -44,12 +44,14 @@ public class ServerHeadUpCommand {
         if (BooleanAssistant.isValueTrue(args[2])) {
             databaseRequests.setEventHeadUpOnServerValue(true, guildID);
             clientCache.setHeadUpOnServerValue(guildID, true);
+            textChannel.sendMessage(String.format(LanguageController.getEventEnabledMessage(guildLanguage), "Head up")).queue();
             return;
         }
 
         if (BooleanAssistant.isValueFalse(args[2])) {
             databaseRequests.setEventHeadUpOnServerValue(false, guildID);
             clientCache.setHeadUpOnServerValue(guildID, false);
+            textChannel.sendMessage(String.format(LanguageController.getEventDisabledMessage(guildLanguage), "Head up")).queue();
             return;
         }
 

@@ -44,12 +44,14 @@ public class ServerEventMessageCommand {
         if (BooleanAssistant.isValueTrue(args[2])) {
             databaseRequests.setEventMessageOnServerValue(true, guildID);
             clientCache.setEventMessageOnServerValue(guildID, true);
+            textChannel.sendMessage(String.format(LanguageController.getEventEnabledMessage(guildLanguage), "Event messages")).queue();
             return;
         }
 
         if (BooleanAssistant.isValueFalse(args[2])) {
             databaseRequests.setEventMessageOnServerValue(false, guildID);
             clientCache.setEventMessageOnServerValue(guildID, false);
+            textChannel.sendMessage(String.format(LanguageController.getEventDisabledMessage(guildLanguage), "Event messages")).queue();
             return;
         }
 
