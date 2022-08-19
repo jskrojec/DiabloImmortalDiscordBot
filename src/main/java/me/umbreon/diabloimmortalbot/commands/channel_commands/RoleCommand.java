@@ -11,10 +11,8 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Command: >role @Role
- **/
 public class RoleCommand {
 
     private final DatabaseRequests databaseRequests;
@@ -29,31 +27,38 @@ public class RoleCommand {
         TextChannel textChannel = message.getTextChannel();
         String[] args = message.getContentRaw().split(" ");
         String guildID = message.getGuild().getId();
-        String language = clientCache.getGuildLanguage(guildID);
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (!areArgumentsValid(args)) {
-            textChannel.sendMessage(LanguageController.getInvalidCommandMessage(language)).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getInvalidCommandMessage(guildLanguage));
             return;
         }
 
         String textChannelID = textChannel.getId();
         if (!isChannelRegistered(textChannelID)) {
-            textChannel.sendMessage(String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention())).queue();
+            String notRegisteredMessage = String.format(LanguageController.getChannelNotRegisteredMessage(guildLanguage), textChannel.getAsMention());
+            sendMessageToTextChannel(guildID, textChannel, notRegisteredMessage);
+            return;
+        }
+
+        if (args[1].equalsIgnoreCase("@here") || args[1].equalsIgnoreCase("here")) {
+            setRole(textChannelID, args[1]);
+            String isSetMessage = String.format(LanguageController.getRoleChangedMessage(guildLanguage), args[1]);
+            sendMessageToTextChannel(guildID, textChannel, isSetMessage);
             return;
         }
 
         Role mentionedRole = getRoleFromMessage(message, textChannel);
         if (mentionedRole == null) {
-            textChannel.sendMessage(LanguageController.getRoleNotFoundMessage(language)).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getRoleNotFoundMessage(guildLanguage));
             return;
         }
 
         String roleID = mentionedRole.getId();
         setRole(textChannelID, roleID);
-        textChannel.sendMessage(String.format(LanguageController.getIsSetMessage(language), mentionedRole.getAsMention())).queue();
+        String isSetMessage = String.format(LanguageController.getRoleChangedMessage(guildLanguage), mentionedRole.getAsMention());
+        sendMessageToTextChannel(guildID, textChannel, isSetMessage);
     }
-
-    // -
 
     private Role getRoleFromMessage(Message message, TextChannel textChannel) {
         String[] args = message.getContentRaw().split(" ");
@@ -61,23 +66,16 @@ public class RoleCommand {
         String roleID = StringAssistant.removeAllNonNumbers(role);
         Guild guild = textChannel.getGuild();
 
-        if (getRoleByID(guild, roleID) != null) {
-            return getRoleByID(guild, roleID);
-        }
+        if (getRoleByID(guild, roleID) != null) return getRoleByID(guild, roleID);
 
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1; i < args.length; i++) {
             stringBuilder.append(args[i]);
-            if (i != args.length - 1) {
-                stringBuilder.append(" ");
-            }
+            if (i != args.length - 1) stringBuilder.append(" ");
         }
 
         String roleName = stringBuilder.toString();
-        if (getRoleByName(guild, roleName) != null) {
-            return getRoleByName(guild, roleName);
-        }
-
+        if (getRoleByName(guild, roleName) != null) return getRoleByName(guild, roleName);
         return null;
     }
 
@@ -91,7 +89,7 @@ public class RoleCommand {
 
     private Role getRoleByID(Guild guild, String roleID) {
         List<Role> roles = guild.getRoles();
-        return  roles.stream().filter(role -> Objects.equals(role.getId(), roleID))
+        return roles.stream().filter(role -> Objects.equals(role.getId(), roleID))
                 .findFirst()
                 .orElse(null);
     }
@@ -109,4 +107,11 @@ public class RoleCommand {
         databaseRequests.updateNotifierChannelRole(textChannelID, roleID);
     }
 
+    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessage(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessage(message).queue();
+    }
 }

@@ -7,9 +7,8 @@ import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-/**
- * Command: >server message on/off
- */
+import java.util.concurrent.TimeUnit;
+
 public class ServerEventMessageCommand {
 
     public ClientCache clientCache;
@@ -24,42 +23,52 @@ public class ServerEventMessageCommand {
         String[] args = message.getContentRaw().split(" ");
         TextChannel textChannel = message.getTextChannel();
         String guildID = textChannel.getGuild().getId();
-
         String guildLanguage = clientCache.getGuildLanguage(guildID);
+
         if (!areArgumentsValid(args)) {
-            textChannel.sendMessage(LanguageController.getInvalidCommandMessage(guildLanguage)).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getInvalidCommandMessage(guildLanguage));
             return;
         }
 
         if (clientCache.isEventMessageOnServerEnabled(guildID) && BooleanAssistant.isValueTrue(args[2])) {
-            textChannel.sendMessage("Event messages are already enabled on your server.").queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getEventMessagesAlreadyOnMessage(guildLanguage));
             return;
         }
 
         if (!clientCache.isEventMessageOnServerEnabled(guildID) && BooleanAssistant.isValueFalse(args[2])) {
-            textChannel.sendMessage("Event messages are already disabled on your server.").queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getEventMessagesAlreadyOffMessage(guildLanguage));
             return;
         }
 
         if (BooleanAssistant.isValueTrue(args[2])) {
-            databaseRequests.setEventMessageOnServerValue(true, guildID);
-            clientCache.setEventMessageOnServerValue(guildID, true);
+            setEventMessageOnServerValue(guildID, true);
             textChannel.sendMessage(String.format(LanguageController.getEventEnabledMessage(guildLanguage), "Event messages")).queue();
             return;
         }
 
         if (BooleanAssistant.isValueFalse(args[2])) {
-            databaseRequests.setEventMessageOnServerValue(false, guildID);
-            clientCache.setEventMessageOnServerValue(guildID, false);
+            setEventMessageOnServerValue(guildID, false);
             textChannel.sendMessage(String.format(LanguageController.getEventDisabledMessage(guildLanguage), "Event messages")).queue();
             return;
         }
 
-        //Todo: add useful invalid command message
         textChannel.sendMessage(LanguageController.getInvalidCommandMessage(guildLanguage)).queue();
     }
 
     private boolean areArgumentsValid(String[] args) {
         return args.length == 3;
+    }
+
+    private void setEventMessageOnServerValue(String guildID, boolean value) {
+        databaseRequests.setEventMessageOnServerValue(value, guildID);
+        clientCache.setEventMessageOnServerValue(guildID, value);
+    }
+
+    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessage(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessage(message).queue();
     }
 }

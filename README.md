@@ -1,32 +1,37 @@
 # Diablo Immortal Discord Bot
+
 Discord Bot for Diablo Immortal. Sends a message on events.
 
 ## Installation:
-1. Add the Bot to your Discord Server using: https://discord.com/oauth2/authorize?client_id=527511535309029407&scope=bot&permissions=8
+
+You can skip step 2 and 3 if you're the server owner.
+
+1. Add the Bot to your Discord Server
+   using: https://discord.com/oauth2/authorize?client_id=527511535309029407&scope=bot&permissions=8
 2. Create a role on your discord server called "Bot Admin". People with that role can control the bot.
-3. Assign the created role (Bot Admin) to yourself! Not to the bot!
-4. Create a textchannel u like to get the notifications in.
+3. Assign the created role (Bot Admin) to yourself! The bot checks on that role.
+4. Create a textchannel you like to get the notifications in.
+5. Use /server timezone <timezone> to set your timezone. You can see what GMT timezone matches your time using
+   /timezones.
+6. Register your created channel as notifier-channel using /register. On Default all messages are enabled.
+7. You can enable or disable an event using /event <event> on/off. See all events using /event list.
+8. See what events are enabled using /info.
+9. On default the bot will mention @everyone, change that using /role <Role>.
+10. That's it. use /help to see all commands. And to unregister a channel use /unregister.
 
 ## Commands:
 
+| Command | Description | Aliases |
+|------|------|------|
+|/register #channel | Register the channel you send the message in using /register and to register a different channel using /register #channel.|
+|/unregister #channel | Unregister the channel you send the message in using /unregister and to unregister a different channel using /unregister #channel. |
+|/role @role | Change the mentioned role in that channel you send the message in. You do not need to mention the role. Just write the exact name. |
+|info #channel | Shows the info of the channel where the message is send in or using /info #channel to see a different channels information.
+|
 
-| Command | Description |
-|------|------|
-|>register                       |Registers that channel as notifier-channel.| 
-|>unregister                     |Unregisters that channel as notifier-channel.| 
-|>timezone GMT                   |Sets the timezone of the notifier-channel. Default: GMT
-|>status 7                       |Sets what messages will appear. Later that command will be replaced with >notifications. Default: 0|
-|>role @Your_role                |Sets what role should get mentioned. Default: @everyone| 
-|>language ENG                   |Sets the bot language for your server. See more in 'Languages'| 
-|>headup                         |Enabled or disables the 15 minutes warm up message.| 
-|>ctz GMT+2                      |Short form for >checktimezone. Returns a message with the time in that timezone.                     | 
-|>whatismychannelid              |Returns that channelID. Used for bug reporting!| 
-|>instructions                   |Shows how to install the bot on your server.| 
-|>help                           |Shows the help message.| 
-|>notifications battlegrounds off|Allows you the individually enable or disable events.|
-|>cm create #Textchannel Sunday 16:30 yes/no(Repeat?) Your Message|Creates a custom message. ">cm create TEXTCHANNEL DAY TIME REPEAT MESSAGE"|
-|>cm delete ID|Deletes an custom message. See ID's using >cm list.|
-|>cm list|Show's all custom messages|
+|/server timezone <Timezone> | Default timezone is GMT. GMT is known as a working timezone for this bot. | /server
+tz <timezone> | |/
+
 Custom messages create command time must be given in 24hrs format.
 
 ## Languages
@@ -38,7 +43,7 @@ Custom messages create command time must be given in 24hrs format.
 - ITA
 - FRA
 
-##Available Status
+## Available Status
 
 - 0 = All messages
 - 1 = Only Overworld

@@ -6,6 +6,7 @@ import me.umbreon.diabloimmortalbot.gameevents.embeds.AncientNightmareEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.DemonGatesEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.HauntedCarriageEmbed;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -29,6 +30,7 @@ public class Notifier {
     private final Assembly assembly;
     private final ShadowLottery shadowLottery;
     private final DefendVault defendVault;
+    private final WrathborneInvasion wrathborneInvasion;
 
     //Overworld Embed Notifications
     private final AncientNightmareEmbed ancientNightmareEmbed;
@@ -48,6 +50,7 @@ public class Notifier {
         this.hauntedCarriage = new HauntedCarriage(clientCache);
         this.raidVault = new RaidVault(clientCache);
         this.defendVault = new DefendVault(clientCache);
+        this.wrathborneInvasion = new WrathborneInvasion(clientCache);
 
         this.ancientNightmareEmbed = new AncientNightmareEmbed(clientCache);
         this.ancientArenaEmbed = new AncientArenaEmbed(clientCache);
@@ -116,6 +119,10 @@ public class Notifier {
                             notificationMessageBuilder.append(defendVault.checkDefendVault(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
+                        if (clientCache.isWrathborneInvasionEnabled(textChannelID)) {
+                            notificationMessageBuilder.append(wrathborneInvasion.checkWrathborneInvasion(timeZone, guildLanguage, guildID, textChannelID));
+                        }
+
                         //Embeds
                         if (clientCache.isAncientArenaEmbedMessageEnabled(textChannelID)) {
                             ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timeZone, guildLanguage);
@@ -137,21 +144,16 @@ public class Notifier {
                             addMentionToMessage(notificationMessageBuilder, textChannel);
 
                             if (clientCache.isAutoDeleteEnabled(guildID)) {
-
                                 int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
                                 switch (autoDeleteValue) {
-                                    case 24:
-                                    case 48:
-                                    case 72:
+                                    case 24: case 48: case 72:
                                         textChannel.sendMessage(notificationMessageBuilder.toString()).queue(message -> {
                                             message.delete().queueAfter(autoDeleteValue, TimeUnit.HOURS);
                                         });
-                                        break;
                                 }
-
+                            } else {
+                                textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
                             }
-
-                            textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
                         }
 
                     });

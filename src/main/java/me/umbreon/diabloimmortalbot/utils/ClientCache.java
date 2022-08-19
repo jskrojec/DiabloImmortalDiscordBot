@@ -178,6 +178,10 @@ public class ClientCache {
         return notifierChannelsList.get(textchannelID).isAncientNightmareMessageEnabled();
     }
 
+    public boolean isWrathborneInvasionEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isWrathborneInvasionEnabled();
+    }
+
     public boolean isDemonGatesEmbedMessageEnabled(String textchannelID) {
         return notifierChannelsList.get(textchannelID).isDemonGatesMessageEmbedEnabled();
     }
@@ -265,6 +269,8 @@ public class ClientCache {
             case "ancientarenaembed":
                 notifierChannelsList.get(textChannelID).setAncientArenaMessageEmbedEnabled(value);
                 break;
+            case "wrathborneinvasion":
+                notifierChannelsList.get(textChannelID).setWrathborneInvasionEnabled(value);
         }
     }
 
@@ -481,6 +487,18 @@ public class ClientCache {
         this.listWithAncientAreaTimes = listWithAncientAreaTimes;
     }
 
+    // -
+
+    private Map<String, Boolean> listWithWrathborneInvasionTimes;
+
+    public Map<String, Boolean> getListWithWrathborneInvasionTimes() {
+        return listWithWrathborneInvasionTimes;
+    }
+
+    public void setListWithWrathborneInvasionTimes(Map<String, Boolean> listWithAncientAreaTimes) {
+        this.listWithWrathborneInvasionTimes = listWithAncientAreaTimes;
+    }
+
     // - Demon Gates Embed
 
     private ArrayList<String> listWithDemonGateEmbedTimes;
@@ -546,6 +564,7 @@ public class ClientCache {
         listWithAvailableNotifications.add("demongates");
         listWithAvailableNotifications.add("shadowlottery");
         listWithAvailableNotifications.add("hauntedcarriage");
+        listWithAvailableNotifications.add("wrathborneinvasion");
         //Todo: add new event
 
         listWithAvailableNotifications.add("hauntedcarriageembed");

@@ -40,18 +40,20 @@ public class AncientNightmareEmbed {
                     });
                     break;
             }
+        } else {
+            textChannel.sendMessageEmbeds(buildAncientNightmareEmbed(timezone, language)).queue();
         }
 
-        textChannel.sendMessageEmbeds(buildAncientNightmareEmbed(timezone, language)).queue();
+
     }
 
     private MessageEmbed buildAncientNightmareEmbed(String timezone, String language) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
         String eventTitle = LanguageController.getAncientNightmareEmbedMessage(language);
-        String worldEventMessage = LanguageController.getWorldEventEmbedMessage(language);
-        String spawnAtMessage = LanguageController.getSpawnAtMessage(language);
-        String countdownMessage = LanguageController.getCountdownEmbedMessage(language);
+        String worldEventMessage = LanguageController.getEmbedWorldEventMessage(language);
+        String spawnAtMessage = LanguageController.getEmbedSpawnAtMessage(language);
+        String countdownMessage = LanguageController.getEmbedCountdownMessage(language);
         String locationMessage1 = LanguageController.getLocationAncientNightmareEmbedMessage1(language);
         String locationMessage2 = LanguageController.getLocationAncientNightmareEmbedMessage2(language);
 

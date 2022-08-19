@@ -1,7 +1,7 @@
 package me.umbreon.diabloimmortalbot.commands.custom_messages;
 
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -41,14 +41,14 @@ public class CustomMessageList {
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
         embedBuilder.setColor(Color.GRAY);
-        embedBuilder.setTitle(LanguageController.getYourCustomMessagesMessage(language));
+        embedBuilder.setTitle(LanguageController.getShowAllCustomMessages(language));
 
         customMessageList.forEach(customMessage -> {
             String customMessageID = "ID: " + customMessage.getCustomMessageID();
             String s = "Channel: <#" + customMessage.getChannelID() + ">\n" +
-            "Message: " + customMessage.getMessage() + "\n" +
-            "Time: " + customMessage.getDay() + " " + customMessage.getTime() + "\n";
-            embedBuilder.addField(customMessageID, s,true);
+                    "Message: " + customMessage.getMessage() + "\n" +
+                    "Time: " + customMessage.getDay() + " " + customMessage.getTime() + "\n";
+            embedBuilder.addField(customMessageID, s, true);
         });
 
         return embedBuilder.build();

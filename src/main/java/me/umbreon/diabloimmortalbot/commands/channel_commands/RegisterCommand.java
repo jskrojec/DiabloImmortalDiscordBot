@@ -9,11 +9,8 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Command: >register
- * Command: >register #Channel
- * Alias: >notifier
- **/
+import java.util.concurrent.TimeUnit;
+
 public class RegisterCommand {
 
     private final DatabaseRequests databaseRequests;
@@ -32,22 +29,23 @@ public class RegisterCommand {
 
         String textChannelID = getTextChannelID(message, args);
         if (textChannelID == null) {
-            textChannel.sendMessage(LanguageController.getChannelNotFoundMessage(language)).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getChannelNotFoundMessage(language));
             return;
         }
 
         if (isChannelRegistered(textChannelID)) {
-            textChannel.sendMessage(String.format(LanguageController.getAlreadyRegisteredMessage(language), textChannel.getAsMention())).queue();
+            String alreadyRegisteredMessage = String.format(LanguageController.getChannelAlreadyRegisteredMessage(language), textChannel.getAsMention());
+            sendMessageToTextChannel(guildID, textChannel, alreadyRegisteredMessage);
             return;
         }
 
+        TextChannel targetTextChannel = message.getGuild().getTextChannelById(textChannelID);
+        if (targetTextChannel == null) return;
         NotifierChannel notifierChannel = new NotifierChannel(textChannelID, guildID);
         createNotifierChannel(notifierChannel);
-        TextChannel targetTextChannel = message.getGuild().getTextChannelById(textChannelID);
-        textChannel.sendMessage(String.format(LanguageController.getRegisteredMessage(language), targetTextChannel.getAsMention())).queue();
+        String formattedChannelRegisteredMessage = String.format(LanguageController.getChannelRegisteredMessage(language), targetTextChannel.getAsMention());
+        sendMessageToTextChannel(guildID, textChannel, formattedChannelRegisteredMessage);
     }
-
-    // -
 
     @Nullable
     private String getTextChannelID(Message message, String[] args) {
@@ -71,4 +69,11 @@ public class RegisterCommand {
         clientCache.addNotifierChannelToList(notifierChannel);
     }
 
+    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessage(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessage(message).queue();
+    }
 }

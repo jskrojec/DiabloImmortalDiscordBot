@@ -1,15 +1,14 @@
 package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.BooleanAssistant;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-/**
- * Command: >server autodelete on/off
- * Command: >server autodelete 24/48/72
- */
+import java.util.concurrent.TimeUnit;
+
 public class ServerAutoDeleteCommand {
 
     private final ClientCache clientCache;
@@ -25,45 +24,57 @@ public class ServerAutoDeleteCommand {
         String value = args[2];
         String guildID = message.getGuild().getId();
         TextChannel textChannel = message.getTextChannel();
+        String guildLanugage = clientCache.getGuildLanguage(guildID);
 
         if (BooleanAssistant.isValueTrue(value)) {
-            clientCache.setAutoDeleteBoolValue(guildID, true);
-            databaseRequests.setAutoDeleteEnabled(guildID, true);
-            textChannel.sendMessage("Message auto delete enabled.").queue();
+            setAutoDeleteValue(guildID, true);
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getAutoDeleteEnabledMessage(guildLanugage));
             return;
         }
 
         if (BooleanAssistant.isValueFalse(value)) {
-            clientCache.setAutoDeleteBoolValue(guildID, false);
-            databaseRequests.setAutoDeleteEnabled(guildID, false);
-            textChannel.sendMessage("Message auto delete disabled.").queue();
+            setAutoDeleteValue(guildID, false);
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getAutoDeleteDisabledMessage(guildLanugage));
             return;
         }
 
-        int s;
+        int autoDeleteValue;
         try {
-            s = Integer.parseInt(value);
+            autoDeleteValue = Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            textChannel.sendMessage("Invalid command input. Command Example: >server autodelete on\n" +
-                    "Possible values: on/off").queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getInvalidCommandMessage(guildLanugage));
             return;
         }
 
-        switch (s) {
-            case 24:
-            case 48:
-            case 72:
-                setAutoDeleteValue(guildID, s);
-                textChannel.sendMessage(String.format("Auto delete timer set to %s hours.", s)).queue();
-                break;
-            default:
-                textChannel.sendMessage("Invalid command input. Command Example: >server autodelete 24\n" +
-                        "Possible values: 24, 48 & 72.").queue();
+        if (isAutoSaveValueValid(autoDeleteValue)) {
+            setAutoDeleteValue(guildID, autoDeleteValue);
+            String autoDeleteValueUpdatedMessage = String.format(LanguageController.getAutoDeleteValueSetMessage(guildLanugage), autoDeleteValue);
+            sendMessageToTextChannel(guildID, textChannel, autoDeleteValueUpdatedMessage);
+            return;
         }
+
+        sendMessageToTextChannel(guildID, textChannel, LanguageController.getInvalidCommandMessage(guildLanugage));
     }
 
     private void setAutoDeleteValue(String guildID, int autoDeleteValue) {
         clientCache.setAutoDeleteIntValue(guildID, autoDeleteValue);
         databaseRequests.setAutoDeleteValue(guildID, autoDeleteValue);
+    }
+
+    private void setAutoDeleteValue(String guildID, boolean value) {
+        clientCache.setAutoDeleteBoolValue(guildID, value);
+        databaseRequests.setAutoDeleteEnabled(guildID, value);
+    }
+
+    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessage(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessage(message).queue();
+    }
+
+    private boolean isAutoSaveValueValid(int autoSaveValue) {
+        return (autoSaveValue == 24 || autoSaveValue == 48 || autoSaveValue == 72);
     }
 }

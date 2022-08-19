@@ -11,10 +11,8 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.zone.ZoneRulesException;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Command: >server timezone GMT+2
- **/
 public class ServerTimezoneCommand {
 
     private final DatabaseRequests databaseRequests;
@@ -32,21 +30,19 @@ public class ServerTimezoneCommand {
         String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (!areArgumentsValid(args)) {
-            textChannel.sendMessage(LanguageController.getInvalidCommandMessage(guildLanguage)).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getInvalidCommandMessage(guildLanguage));
             return;
         }
 
         String timezone = args[2].toUpperCase();
         if (!isTimeZoneValid(timezone)) {
-            message.getTextChannel().sendMessage(LanguageController.getInvalidTimezoneMessage(guildLanguage)).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getInvalidTimezoneMessage(guildLanguage));
             return;
         }
 
         setGuildTimeZone(guildID, timezone);
-        textChannel.sendMessage(String.format(LanguageController.getTimezoneSetToMessage(guildLanguage), textChannel.getAsMention(), timezone)).queue();
+        sendMessageToTextChannel(guildID, textChannel, String.format(LanguageController.getTimezoneChangedMessage(guildLanguage), textChannel.getAsMention(), timezone));
     }
-
-    // -
 
     private boolean areArgumentsValid(String[] args) {
         return args.length == 3;
@@ -69,5 +65,13 @@ public class ServerTimezoneCommand {
     private void setGuildTimeZone(String guildID, String timeZone) {
         databaseRequests.setGuildTimezone(guildID, timeZone);
         clientCache.setGuildTimeZone(guildID, timeZone);
+    }
+
+    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessage(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessage(message).queue();
     }
 }

@@ -40,9 +40,11 @@ public class DemonGatesEmbed {
                     });
                     break;
             }
+        } else {
+            textChannel.sendMessageEmbeds(buildDemonGatesEmbed(timezone, language)).queue();
         }
 
-        textChannel.sendMessageEmbeds(buildDemonGatesEmbed(timezone, language)).queue();
+
     }
 
     private MessageEmbed buildDemonGatesEmbed(String timezone, String language) {
@@ -51,9 +53,9 @@ public class DemonGatesEmbed {
         long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
 
         String eventTitle = LanguageController.getDemonGatesEmbedMessage(language);
-        String worldEventMessage = LanguageController.getWorldEventEmbedMessage(language);
-        String spawnAtMessage = LanguageController.getSpawnAtMessage(language);
-        String countdownMessage = LanguageController.getCountdownEmbedMessage(language);
+        String worldEventMessage = LanguageController.getEmbedWorldEventMessage(language);
+        String spawnAtMessage = LanguageController.getEmbedSpawnAtMessage(language);
+        String countdownMessage = LanguageController.getEmbedCountdownMessage(language);
         String locationMessage1 = LanguageController.getLocationDemonGatesEmbedMessage1(language);
         String locationMessage2 = LanguageController.getLocationDemonGatesEmbedMessage2(language);
 

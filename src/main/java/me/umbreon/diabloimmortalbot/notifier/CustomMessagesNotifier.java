@@ -71,9 +71,9 @@ public class CustomMessagesNotifier {
                                 break;
                         }
 
+                    } else {
+                        if (textChannel != null) textChannel.sendMessage(message).queue();
                     }
-
-                    if (textChannel != null) textChannel.sendMessage(message).queue();
 
                     if (!customMessage.isRepeat()) {
                         clientCache.deleteCustomMessageByID(customMessage.getCustomMessageID());

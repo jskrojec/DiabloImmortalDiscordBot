@@ -9,414 +9,519 @@ public class LanguageSpain {
 
     static Map<String, Object> messages;
 
-     void loadLanguageConfiguration() {
+    void loadLanguageConfiguration() {
         Yaml yaml = new Yaml();
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("spain.yaml");
         messages = yaml.load(inputStream);
     }
 
-     static String getHauntedCarriageMessage() {
-        return messages.get("HAUNTED_CARRIAGE").toString();
+    // Event messages
+    static String getHauntedCarriageMessage() {
+        return messages.get("event-haunted-carriage").toString();
     }
 
-     static String getHauntedCarriageHeadUpMessage() {
-        return messages.get("HAUNTED_CARRIAGE_HEADUP").toString();
+    static String getHauntedCarriageHeadUpMessage() {
+        return messages.get("event-haunted-carriage-headup").toString();
     }
 
-     static String getDemonGatesMessage() {
-        return messages.get("DEMON_GATES").toString();
+    static String getDemonGatesMessage() {
+        return messages.get("event-demon-gates").toString();
     }
 
-     static String getDemonGatesHeadUpMessage() {
-        return messages.get("DEMON_GATES_HEADUP").toString();
+    static String getDemonGatesHeadUpMessage() {
+        return messages.get("event-demon-gates-headup").toString();
     }
 
-     static String getBattlegroundMessage() {
-        return messages.get("BATTLEGROUND").toString();
+    static String getBattlegroundMessage() {
+        return messages.get("event-battleground").toString();
     }
 
-     static String getBattlegroundHeadUpMessage() {
-        return messages.get("BATTLEGROUND_HEADUP").toString();
+    static String getBattlegroundHeadUpMessage() {
+        return messages.get("event-battleground-headup").toString();
     }
 
-     static String getAncientNightmareMessage() {
-        return messages.get("ANCIENT_NIGHTMARE").toString();
+    static String getAncientNightmareMessage() {
+        return messages.get("event-ancient-nightmare").toString();
     }
 
-     static String getAncientNightmareHeadUpMessage() {
-        return messages.get("ANCIENT_NIGHTMARE_HEADUP").toString();
+    static String getAncientNightmareHeadUpMessage() {
+        return messages.get("event-ancient-nightmare-headup").toString();
     }
 
-     static String getAncientArenaMessage() {
-        return messages.get("ANCIENT_ARENA").toString();
+    static String getRaidTheVaultMessage() {
+        return messages.get("event-raid-vault").toString();
     }
 
-     static String getAncientArenaHeadUpMessage() {
-        return messages.get("ANCIENT_ARENA_HEADUP").toString();
+    static String getRaidTheVaultHeadUpMessage() {
+        return messages.get("event-raid-vault-headup").toString();
     }
 
-     static String getAssemblyMessage() {
-        return messages.get("ASSEMBLY").toString();
+    static String getDefendTheVaultMessage() {
+        return messages.get("event-defend-vault").toString();
     }
 
-     static String getAssemblyHeadUpMessage() {
-        return messages.get("ASSEMBLY_HEADUP").toString();
+    static String getDefendTheVaultHeadUpMessage() {
+        return messages.get("event-defend-vault-headup").toString();
     }
 
-     static String getShadowLotteryMessage() {
-        return messages.get("SHADOW_LOTTERY").toString();
+    static String getAncientArenaMessage() {
+        return messages.get("event-ancient-arena").toString();
     }
 
-     static String getShadowLotteryHeadUpMessage() {
-        return messages.get("SHADOW_LOTTERY_HEADUP").toString();
+    static String getAncientArenaHeadUpMessage() {
+        return messages.get("event-ancient-arena-headup").toString();
     }
 
-     static String getRegisteredMessage() {
-        return messages.get("REGISTERED").toString();
+    static String getAssemblyMessage() {
+        return messages.get("event-assembly").toString();
     }
 
-     static String getAlreadyRegisteredMessage() {
-        return messages.get("REGISTERED_REGISTERED").toString();
+    static String getAssemblyHeadUpMessage() {
+        return messages.get("event-assembly-headup").toString();
     }
 
-     static String getRoleNotFoundMessage() {
-        return messages.get("ROLE_NOT_FOUND").toString();
+    static String getShadowLotteryMessage() {
+        return messages.get("event-shadow-lottery").toString();
     }
 
-     static String getNotRegisteredMessage() {
-        return messages.get("NOT_REGISTERED").toString();
+    static String getShadowLotteryHeadUpMessage() {
+        return messages.get("event-shadow-lottery-headup").toString();
     }
 
-     static String getReceiveAllMessagesMessage() {
-        return messages.get("RECEIVE_ALL_MESSAGES").toString();
+    static String getWrathborneInvasionMessage() {
+        return messages.get("event-wrathborne-invasion").toString();
     }
 
-     static String getReceiveImmortalMessage() {
-        return messages.get("RECEIVE_IMMORTAL_MESSAGES").toString();
+    static String getWrathborneInvasionHeadUpMessage() {
+        return messages.get("event-wrathborne-invasion-headup").toString();
     }
 
-     static String getReceiveShadowMessage() {
-        return messages.get("RECEIVE_SHADOW_MESSAGES").toString();
+    static String getEventEnabledMessage() {
+        return messages.get("event-enabled").toString();
     }
 
-     static String getReceiveOwImmortalMessage() {
-        return messages.get("RECEIVE_OV_AND_IMMORTAL_MESSAGES").toString();
+    static String getEventDisabledMessage() {
+        return messages.get("event-disabled").toString();
     }
 
-     static String getReceiveOwShadowMessage() {
-        return messages.get("RECEIVE_OV_AND_SHADOW_MESSAGES").toString();
+    //Command Messages
+
+    static String getChannelRegisteredMessage() {
+        return messages.get("channel-registered").toString();
     }
 
-     static String getReceiveOverworldMessage() {
-        return messages.get("RECEIVE_OVERWORLD_MESSAGES").toString();
+    static String getChannelAlreadyRegisteredMessage() {
+        return messages.get("channel-already-registered").toString();
     }
 
-     static String getTimezoneSetToMessage() {
-        return messages.get("TIMEZONE_SET").toString();
+    static String getRoleNotFoundMessage() {
+        return messages.get("role-not-found").toString();
     }
 
-     static String getUnregisteredChannel() {
-        return messages.get("UNREGISTERED").toString();
+    static String getChannelNotRegisteredMessage() {
+        return messages.get("channel-not-registered").toString();
     }
 
-     static String getUnknownTimezoneMessage() {
-        return messages.get("UNKNOWN_TIMEZONE").toString();
+    static String getTimezoneChangedMessage() {
+        return messages.get("timezone-changed").toString();
     }
 
-     static String getUnknownStatusMessage() {
-        return messages.get("UNKNOWN_STATUS").toString();
+    static String getChannelUnregisteredMessage() {
+        return messages.get("channel-unregistered").toString();
     }
 
-     static String getIsSetMessage() {
-        return messages.get("IS_SET").toString();
+    static String getChannelNotFoundMessage() {
+        return messages.get("channel-not-found").toString();
     }
 
-     static String getRaidTheVaultMessage() {
-        return messages.get("RAID_VAULT").toString();
+    static String getUnknownTimezoneMessage() {
+        return messages.get("unknown-timezone").toString();
     }
 
-     static String getRaidTheVaultHeadUpMessage() {
-        return messages.get("RAID_VAULT_HEADUP").toString();
+    static String getRoleChangedMessage() {
+        return messages.get("role-changed").toString();
     }
 
-     static String getDefendTheVaultMessage() {
-        return messages.get("DEFEND_VAULT").toString();
+    static String getLanguageNotSupportedMessage() {
+        return messages.get("language-not-supported").toString();
     }
 
-     static String getDefendTheVaultHeadUpMessage() {
-        return messages.get("DEFEND_VAULT_HEADUP").toString();
+    static String getLanguageUpdatedMessage() {
+        return messages.get("language-updated").toString();
     }
 
-     static String getLanguageNotSupportedMessage() {
-        return messages.get("LANGUAGE_NOT_SUPPORTED").toString();
+    static String getLanguageMessage() {
+        return messages.get("language").toString();
     }
 
-     static String getLanguageUpdatedMessage() {
-        return messages.get("LANGUAGE_UPDATED").toString();
+    // Custom Message Messages
+
+    static String getCustomMessageCreatedMessage() {
+        return messages.get("custom-message-created").toString();
     }
 
-     static String getHeadUpValueSetToMessage() {
-        return messages.get("HEADUP_VALUE_SET_TO").toString();
+    static String getNoCustomMessagesMessage() {
+        return messages.get("no-custom-messages").toString();
     }
 
-     static String getLanguageMessage() {
-        return messages.get("LANGUAGE").toString();
+    static String getShowAllCustomMessages() {
+        return messages.get("show-all-custom-messages").toString();
     }
 
-     static String getEventEnabledMessage() {
-        return messages.get("EVENT_ENABLED").toString();
+    static String getCustomMessageWithIdDeleted() {
+        return messages.get("custom-message-with-id-deleted").toString();
     }
 
-     static String getEventDisabledMessage() {
-        return messages.get("EVENT_DISABLED").toString();
+
+    static String getEmbedSpawnAtMessage() {
+        return messages.get("embed-spawn-at").toString();
     }
 
-     static String getChannelNotFoundMessage() {
-        return messages.get("CHANNEL_NOT_FOUND").toString();
+    static String getEmbedCountdownMessage() {
+        return messages.get("embed-countdown").toString();
     }
 
-     static String getDoBotGotRightsMessage() {
-        return messages.get("DO_BOT_GOT_RIGHTS").toString();
-    }
-
-     static String getCustomMessageCreated() {
-        return messages.get("CUSTOM_MESSAGE_CREATED").toString();
-    }
-
-     static String getNoCustomMessagesMessage() {
-        return messages.get("NO_CUSTOM_MESSAGES").toString();
-    }
-
-     static String getYourCustomMessagesMessage() {
-        return messages.get("YOUR_CUSTOM_MESSAGES").toString();
-    }
-
-     static String getCustomMessageCreatedMessage() {
-        return messages.get("CUSTOM_MESSAGE_CREATED").toString();
-    }
-
-     static String getCustomMessageDeletedMessage() {
-        return messages.get("CUSTOM_MESSAGE_DELETED").toString();
-    }
-
-     static String getCustomMessageWithIdDeleted() {
-        return messages.get("CUSTOM_MESSAGE_WITH_ID_DELETED").toString();
-    }
-
-     static String getInvalidCommandMessage() {
-        return messages.get("INVALID_COMMAND").toString();
-    }
-
-     static String getAncientArenaEmbedMessage() {
-        return messages.get("ANCIENT_ARENA_EMBED").toString();
-    }
-
-     static String getLocationAncientArenaEmbedMessage1() {
-        return messages.get("LOCATION_ANCIENT_ARENA_EMBED_1").toString();
-    }
-
-     static String getLocationAncientArenaEmbedMessage2() {
-        return messages.get("LOCATION_ANCIENT_ARENA_EMBED_2").toString();
-    }
-
-     static String getAncientNightmareEmbedMessage() {
-        return messages.get("ANCIENT_NIGHTMARE_EMBED").toString();
-    }
-
-     static String getLocationAncientNightmareEmbedMessage1() {
-        return messages.get("LOCATION_ANCIENT_NIGHTMARE_EMBED_1").toString();
-    }
-
-     static String getLocationAncientNightmareEmbedMessage2() {
-        return messages.get("LOCATION_ANCIENT_NIGHTMARE_EMBED_2").toString();
-    }
-
-     static String getDemonGatesEmbedMessage() {
-        return messages.get("DEMON_GATES_EMBED").toString();
-    }
-
-     static String getLocationDemonGatesEmbedMessage1() {
-        return messages.get("LOCATION_DEMON_GATE_EMBED_1").toString();
-    }
-
-     static String getLocationDemonGatesEmbedMessage2() {
-        return messages.get("LOCATION_DEMON_GATE_EMBED_2").toString();
-    }
-
-     static String getHauntedCarriageEmbedMessage() {
-        return messages.get("DEMON_GATES_EMBED").toString();
-    }
-
-     static String getLocationHauntedCarriageEmbedMessage1() {
-        return messages.get("LOCATION_DEMON_GATE_EMBED_1").toString();
-    }
-
-     static String getLocationHauntedCarriageEmbedMessage2() {
-        return messages.get("LOCATION_DEMON_GATE_EMBED_2").toString();
-    }
-
-     static String getSpawnAtMessage() {
-        return messages.get("SPAWN_AT_EMBED").toString();
-    }
-
-     static String getCountdownEmbedMessage() {
-        return messages.get("COUNTDOWN_EMBED").toString();
-    }
-
-     static String getWorldEventEmbedMessage() {
-        return messages.get("WORLD_EVENT_EMBED").toString();
+    static String getEmbedWorldEventMessage() {
+        return messages.get("embed-world-event").toString();
     }
 
     static String getInvalidTimezoneMessage() {
-        return messages.get("INVALID_TIMEZONE").toString();
+        return messages.get("invalid-timezone").toString();
     }
 
-    static String getHeadUpEnabledMessage() {
-        return messages.get("HEADUP_ENABLED").toString();
+    static String getInvalidCommandMessage() {
+        return messages.get("invalid-command").toString();
     }
 
-    static String getHeadUpDisabledMessage() {
-        return messages.get("HEADUP_DISABLED").toString();
+    static String getCustomMessageWhatChannelMessage() {
+        return messages.get("custom-message-what-channel").toString();
     }
 
-    static String getCannotDisableEventMessage() {
-        return messages.get("CANNOT_DISABLE_EVENT").toString();
+
+    static String getCustomMessageWhatDayMessage() {
+        return messages.get("custom-message-what-day").toString();
     }
 
-    static String getEventDoesNotExistMessage() {
-        return messages.get("CANNOT_DISABLE_EVENT").toString();
+    static String getCustomMessageWhatTimeMessage() {
+        return messages.get("custom-message-what-time").toString();
     }
 
-    static String getAvailableEventsMessage() {
-        return messages.get("AVAILABLE_EVENTS").toString();
+    static String getCustomMessageWhatMessageMessage() {
+        return messages.get("custom-message-what-message").toString();
     }
 
-    static String getWhatTextChannelMessage() {
-        return messages.get("WHAT_TEXTCHANNEL").toString();
-    }
-
-    static String getThisMessage() {
-        return messages.get("THIS").toString();
-    }
-
-    static String getWhatDayMessage() {
-        return messages.get("WHAT_DAY").toString();
-    }
-
-    static String getWhatTimeMessage() {
-        return messages.get("WHAT_TIME").toString();
-    }
-
-    static String getWhatMessageMessage() {
-        return messages.get("WHAT_MESSAGE").toString();
-    }
-
-    static String getMessageFrequentlyMessage() {
-        return messages.get("MESSAGE_FREQUENTLY").toString();
+    static String getCustomMessageIsRepeatingMessage() {
+        return messages.get("custom-message-is-repeating").toString();
     }
 
     static String getYesOrNoMessage() {
-         return messages.get("YES_OR_NO").toString();
+        return messages.get("yes-or-no").toString();
     }
 
-    static String getInvalidDayMessage() {
-        return messages.get("INVALID_DAY").toString();
-    }
-
-    static String getRegistersChannelMessage() {
-        return messages.get("REGISTERS_CHANNEL").toString();
-    }
-
-    static String getUnregistersChannelMessage() {
-        return messages.get("UNREGISTERS_CHANNEL").toString();
-    }
-
-    static String getSetsChannelRoleMessage() {
-        return messages.get("SETS_CHANNEL_ROLE").toString();
-    }
-
-    static String getShowsChannelInfoMessage() {
-        return messages.get("SHOWS_CHANNEL_INFO").toString();
-    }
-
-    static String getCreateCustomMessageMessage() {
-        return messages.get("CREATE_CUSTOM_MESSAGE").toString();
-    }
-
-    static String getDeleteCustomMessageMessage() {
-        return messages.get("DELETE_CUSTOM_MESSAGE").toString();
-    }
-
-    static String getShowsAllCustomMessageMessage() {
-        return messages.get("SHOWS_ALL_CUSTOM_MESSAGE").toString();
-    }
-
-    static String getShowsCustomMessageInfoMessage() {
-        return messages.get("SHOWS_CUSTOM_MESSAGE_INFO").toString();
-    }
-
-    static String getHeadUpActivationMessage() {
-        return messages.get("HEADUP_ACTIVATION").toString();
-    }
-
-    static String getMessageActivationMessage() {
-        return messages.get("MESSAGE_ACTIVATION").toString();
-    }
-
-    static String getShowsServerConfigMessage() {
-        return messages.get("SHOWS_SERVER_CONFIG").toString();
-    }
-
-    static String getSetsServerLanguageMessage() {
-        return messages.get("SETS_SERVER_LANGUAGE").toString();
-    }
-
-    static String getSetsTimezoneLanguageMessage() {
-        return messages.get("SETS_TIMEZONE_LANGUAGE").toString();
+    static String getCustomMessageInvalidDayMessage() {
+        return messages.get("custom-message-invalid-day").toString();
     }
 
     static String getShowsBotInstallMessage() {
-        return messages.get("SHOWS_BOT_INSTALL").toString();
+        return messages.get("help-show-bot-install").toString();
     }
 
     static String getShowsThisMessageMessage() {
-        return messages.get("SHOWS_THIS_MESSAGE").toString();
+        return messages.get("help-show-help").toString();
     }
 
     static String getSupportDiscordMessage() {
-        return messages.get("SUPPORT_DISCORD").toString();
-    }
-
-    static String getCreatedByMessage() {
-        return messages.get("CREATED_BY").toString();
-    }
-
-    static String getAutoDeleteActivationMessage() {
-        return messages.get("AUTODELETE_ACTIVATION").toString();
-    }
-
-    static String getAutoDeleteValueMessage() {
-        return messages.get("AUTODELETE_VALUE").toString();
+        return messages.get("footer-support-on-discord").toString();
     }
 
     static String getShortHoursMessage() {
-        return messages.get("SHORT_HOURS").toString();
+        return messages.get("short-hours").toString();
     }
-
 
     static String getErrorOccurredMessage() {
-        return messages.get("ERROR_OCCURRED").toString();
+        return messages.get("error-occurred").toString();
     }
 
-    static String getReportToDevMessage() {
-        return messages.get("REPORT_TO_DEV").toString();
+    //Help Messages
+
+    static String getHelpRegistersChannelMessage() {
+        return messages.get("help-registers-channel").toString();
     }
 
-    static String getYesMessage() {
-        return messages.get("YES").toString();
+    static String getHelpUnregistersChannelMessage() {
+        return messages.get("help-unregister-channel").toString();
     }
 
-    static String getNoMessage() {
-        return messages.get("No").toString();
+    static String getHelpSetRoleMessage() {
+        return messages.get("help-set-role").toString();
     }
+
+    static String getHelpShowInfoMessage() {
+        return messages.get("help-show-info").toString();
+    }
+
+    static String getHelpCreateCustomMessageMessage() {
+        return messages.get("help-create-cm").toString();
+    }
+
+    static String getHelpDeleteCustomMessageMessage() {
+        return messages.get("help-delete-cm").toString();
+    }
+
+    static String getHelpShowAllCustomMessagesMessage() {
+        return messages.get("help-show-all-cm").toString();
+    }
+
+    static String getHelpShowCustomMessageInfoMessage() {
+        return messages.get("help-show-cm-info").toString();
+    }
+
+    static String getHelpServerHeadUpMessage() {
+        return messages.get("help-server-headup").toString();
+    }
+
+    static String getHelpServerMessagesMessage() {
+        return messages.get("help-server-messages").toString();
+    }
+
+    static String getHelpServerConfigMessage() {
+        return messages.get("help-server-config").toString();
+    }
+
+    static String getHelpServerLanguageMessage() {
+        return messages.get("help-server-language").toString();
+    }
+
+    static String getHelpServerTimezoneMessage() {
+        return messages.get("help-server-timezone").toString();
+    }
+
+    static String getHelpServerAutoDeleteSetMessage() {
+        return messages.get("help-server-autodelete-set").toString();
+    }
+
+    static String getHelpServerAutoDeleteValueMessage() {
+        return messages.get("help-server-autodelete-value").toString();
+    }
+
+    static String getAncientArenaEmbedMessage() {
+        return messages.get("event-ancient-arena-embed").toString();
+    }
+
+    static String getLocationAncientArenaEmbedMessage1() {
+        return messages.get("event-ancient-arena-location1").toString();
+    }
+
+    static String getLocationAncientArenaEmbedMessage2() {
+        return messages.get("event-ancient-arena-location2").toString();
+    }
+
+    static String getAncientNightmareEmbedMessage() {
+        return messages.get("event-ancient-nightmare-embed").toString();
+    }
+
+    static String getLocationAncientNightmareEmbedMessage1() {
+        return messages.get("event-ancient-nightmare-location1").toString();
+    }
+
+    static String getLocationAncientNightmareEmbedMessage2() {
+        return messages.get("event-ancient-nightmare-location2").toString();
+    }
+
+    static String getDemonGatesEmbedMessage() {
+        return messages.get("event-demon-gates-embed").toString();
+    }
+
+    static String getLocationDemonGatesEmbedMessage1() {
+        return messages.get("event-demon-gates-location1").toString();
+    }
+
+    static String getLocationDemonGatesEmbedMessage2() {
+        return messages.get("event-demon-gates-location2").toString();
+    }
+
+    static String getHauntedCarriageEmbedMessage() {
+        return messages.get("event-haunted-carriage-embed").toString();
+    }
+
+    static String getLocationHauntedCarriageEmbedMessage1() {
+        return messages.get("event-haunted-carriage-location1").toString();
+    }
+
+    static String getLocationHauntedCarriageEmbedMessage2() {
+        return messages.get("event-haunted-carriage-location2").toString();
+    }
+
+    static String getInstall1Message() {
+        return messages.get("install-first").toString();
+    }
+
+    static String getInstall2Message() {
+        return messages.get("install-second").toString();
+    }
+
+    static String getInstall3Message() {
+        return messages.get("install-third").toString();
+    }
+
+    static String getInstall4Message() {
+        return messages.get("install-fourth").toString();
+    }
+
+    static String getInstall5Message() {
+        return messages.get("install-fifth").toString();
+    }
+
+    static String getInstructionsMessage() {
+        return messages.get("install").toString();
+    }
+
+    static String getInfoTimezoneMessage() {
+        return messages.get("info-timezone").toString();
+    }
+
+    static String getInfoCurrentTimeMessage() {
+        return messages.get("info-current-time").toString();
+    }
+
+    static String getInfoTextChannelIDMessage() {
+        return messages.get("info-text-channel-id").toString();
+    }
+
+    static String getInfoMentionedRoleMessage() {
+        return messages.get("info-mentioned-role").toString();
+    }
+
+    static String getInfoYesMessage() {
+        return messages.get("info-yes").toString();
+    }
+
+    static String getInfoNoMessage() {
+        return messages.get("info-no").toString();
+    }
+
+    static String getInfoEventMessageMessage() {
+        return messages.get("info-event-message").toString();
+    }
+
+    static String getInfoHeadUpMessageMessage() {
+        return messages.get("info-headup-message").toString();
+    }
+
+    static String getInfoAncientNightmareMessage() {
+        return messages.get("info-ancient-nightmare").toString();
+    }
+
+    static String getInfoAncientArenaMessage() {
+        return messages.get("info-ancient-arena").toString();
+    }
+
+    static String getInfoAssemblyMessage() {
+        return messages.get("info-assembly").toString();
+    }
+
+    static String getInfoBattlegroundMessage() {
+        return messages.get("info-battlegrounds").toString();
+    }
+
+    static String getInfoDefendTheVaultMessage() {
+        return messages.get("info-defend-the-vault").toString();
+    }
+
+    static String getInfoRaidTheVaultMessage() {
+        return messages.get("info-raid-the-vault").toString();
+    }
+
+    static String getInfoDemonGatesMessage() {
+        return messages.get("info-demon-gates").toString();
+    }
+
+    static String getInfoShadowLotteryMessage() {
+        return messages.get("info-shadow-lottery").toString();
+    }
+
+    static String getInfoHauntedCarriageMessage() {
+        return messages.get("info-haunted-carriage").toString();
+    }
+
+    static String getInfoWrathborneInvasionMessage() {
+        return messages.get("info-wrathborne-invasion").toString();
+    }
+
+    static String getInfoHauntedCarriageEmbedMessage() {
+        return messages.get("info-haunted-carriage-embed").toString();
+    }
+
+    static String getInfoDemonGatesEmbedMessage() {
+        return messages.get("info-demon-gates-embed").toString();
+    }
+
+    static String getInfoAncientNightmareEmbedMessage() {
+        return messages.get("info-ancient-nightmare-embed").toString();
+    }
+
+    static String getInfoAncientArenaEmbedMessage() {
+        return messages.get("info-ancient-arena-embed").toString();
+    }
+
+    static String getErrorCannotDisableEventMessage() {
+        return messages.get("error-cannot-disable-event").toString();
+    }
+
+    static String getFooterCreatedByMessage() {
+        return messages.get("footer-created-by").toString();
+    }
+
+    static String getFooterReportToDevMessage() {
+        return messages.get("footer-report-to-dev").toString();
+    }
+
+    static String getAutoDeleteEnabledMessage() {
+        return messages.get("autodelete-enabled").toString();
+    }
+
+    static String getAutoDeleteDisabledMessage() {
+        return messages.get("autodelete-disabled").toString();
+    }
+
+    static String getAutoDeleteValueSetMessage() {
+        return messages.get("autodelete-value-set").toString();
+    }
+
+    static String getInfoLanguageMessage() {
+        return messages.get("info-language").toString();
+    }
+
+    static String getInfoGuildIdMessage() {
+        return messages.get("info-guild-id").toString();
+    }
+
+    static String getEventMessagesAlreadyOnMessage() {
+        return messages.get("event-messages-already-on").toString();
+    }
+
+    static String getEventMessagesAlreadyOffMessage() {
+        return messages.get("event-messages-already-off").toString();
+    }
+
+    static String getHeadUpMessagesAlreadyOnMessage() {
+        return messages.get("headup-messages-already-on").toString();
+    }
+
+    static String getHeadUpMessagesAlreadyOffMessages() {
+        return messages.get("headup-messages-already-off").toString();
+    }
+
+    static String getFooterTimesIn24HrsFormatMessage() {
+        return messages.get("footer-times-in-24h-format").toString();
+    }
+
+    static String getHelpEventListMessage() {
+        return messages.get("help-event-list").toString();
+    }
+
+    static String getHelpEventSetMessage() {
+        return messages.get("help-event-set").toString();
+    }
+
 }

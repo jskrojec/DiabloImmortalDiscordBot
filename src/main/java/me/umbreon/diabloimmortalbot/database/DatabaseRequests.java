@@ -310,7 +310,7 @@ public class DatabaseRequests {
 
     public void createNewNotifierChannel(NotifierChannel notifierChannel) {
         try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO channel_notification (textChannelID, guildID, roleID, message, headUp, ancientarena, ancientnightmare, assembly, battlegrounds, defendvault, raidvault, demongates, shadowlottery, hauntedcarriage, demongatesembed, ancientarenaembed, hauntedcarriageembed, ancientnightmareembed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO channel_notification (textChannelID, guildID, roleID, message, headUp, ancientarena, ancientnightmare, assembly, battlegrounds, defendvault, raidvault, demongates, shadowlottery, hauntedcarriage, demongatesembed, ancientarenaembed, hauntedcarriageembed, ancientnightmareembed, wrathborneinvasion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             try {
                 preparedStatement.setString(1, notifierChannel.getTextChannelID());
                 preparedStatement.setString(2, notifierChannel.getGuildID());
@@ -330,6 +330,7 @@ public class DatabaseRequests {
                 preparedStatement.setBoolean(16, notifierChannel.isAncientArenaMessageEmbedEnabled());
                 preparedStatement.setBoolean(17, notifierChannel.isHauntedCarriageMessageEmbedEnabled());
                 preparedStatement.setBoolean(18, notifierChannel.isAncientNightmareMessageEmbedEnabled());
+                preparedStatement.setBoolean(19, notifierChannel.isWrathborneInvasionEnabled());
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewSqlLogEntry(e);
@@ -367,11 +368,12 @@ public class DatabaseRequests {
                     boolean demongatesembed = (resultSet.getInt("demongatesembed") == 1);
                     boolean ancientnightmareembed = (resultSet.getInt("ancientnightmareembed") == 1);
                     boolean ancientarenaembed = (resultSet.getInt("ancientarenaembed") == 1);
+                    boolean wrathborneInvasionEnabled = (resultSet.getInt("wrathborneinvasion") == 1);
 
                     NotifierChannel notificationChannel = new NotifierChannel(roleID, guildID, textChannelID,
                             headup, message, assembly, raidvault, demongates, defendvault, ancientarena, shadowlottery,
                             battlegrounds, hauntedcarriage, ancientnightmare, demongatesembed, ancientarenaembed,
-                            hauntedcarriageembed, ancientnightmareembed);
+                            hauntedcarriageembed, ancientnightmareembed, wrathborneInvasionEnabled);
 
                     notifierChannelList.put(textChannelID, notificationChannel);
                 }

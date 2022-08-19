@@ -40,9 +40,11 @@ public class AncientArenaEmbed {
                     });
                     break;
             }
+        } else {
+            textChannel.sendMessageEmbeds(buildAncientArenaEmbed(timezone, language)).queue();
         }
 
-        textChannel.sendMessageEmbeds(buildAncientArenaEmbed(timezone, language)).queue();
+
     }
 
     private MessageEmbed buildAncientArenaEmbed(String timezone, String language) {
@@ -51,9 +53,9 @@ public class AncientArenaEmbed {
         long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
 
         String eventTitle = LanguageController.getAncientArenaEmbedMessage(language);
-        String worldEventMessage = LanguageController.getWorldEventEmbedMessage(language);
-        String spawnAtMessage = LanguageController.getSpawnAtMessage(language);
-        String countdownMessage = LanguageController.getCountdownEmbedMessage(language);
+        String worldEventMessage = LanguageController.getEmbedWorldEventMessage(language);
+        String spawnAtMessage = LanguageController.getEmbedSpawnAtMessage(language);
+        String countdownMessage = LanguageController.getEmbedCountdownMessage(language);
         String locationMessage1 = LanguageController.getLocationAncientArenaEmbedMessage1(language);
         String locationMessage2 = LanguageController.getLocationAncientArenaEmbedMessage2(language);
 

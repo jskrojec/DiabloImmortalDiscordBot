@@ -23,7 +23,6 @@ public class LanguagesCommand {
 
     private void buildLanguagesMessageEmbed() {
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        //todo: Add "Languages" to languagesConfig
         embedBuilder.setTitle("Languages:");
         embedBuilder.setColor(Color.ORANGE);
         embedBuilder.addField("GER (German)", LanguageController.getLanguageMessage("GER"), false);

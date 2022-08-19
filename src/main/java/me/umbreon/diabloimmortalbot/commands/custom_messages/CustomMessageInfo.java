@@ -9,10 +9,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
 
-/**
- * Command: >cm info ID
- * Alias: >cm i ID
- */
 public class CustomMessageInfo {
 
     private final ClientCache clientCache;

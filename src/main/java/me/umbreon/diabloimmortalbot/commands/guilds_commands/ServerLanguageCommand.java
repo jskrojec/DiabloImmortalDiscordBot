@@ -8,10 +8,8 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Command: >server language #LANGUAGE
- */
 public class ServerLanguageCommand {
 
     private final ClientCache clientCache;
@@ -29,18 +27,18 @@ public class ServerLanguageCommand {
         String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (!areArgumentsValid(args)) {
-            textChannel.sendMessage(LanguageController.getInvalidCommandMessage(guildLanguage)).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getInvalidCommandMessage(guildLanguage));
             return;
         }
 
         String language = args[2].toLowerCase();
         if (!isLanguageSupported(language)) {
-            textChannel.sendMessage(LanguageController.getLanguageNotSupportedMessage(guildLanguage)).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getLanguageNotSupportedMessage(guildLanguage));
             return;
         }
 
         setGuildLanguage(guildID, language);
-        textChannel.sendMessage(String.format(LanguageController.getLanguageUpdatedMessage(guildLanguage), language)).queue();
+        sendMessageToTextChannel(guildID, textChannel, String.format(LanguageController.getLanguageUpdatedMessage(guildLanguage), language));
     }
 
     private boolean isLanguageSupported(String lang) {
@@ -54,5 +52,13 @@ public class ServerLanguageCommand {
     private void setGuildLanguage(String guildID, String guildLanguage) {
         databaseRequests.setGuildLanguage(guildID, guildLanguage);
         clientCache.setGuildLanguage(guildID, guildLanguage);
+    }
+
+    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessage(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessage(message).queue();
     }
 }

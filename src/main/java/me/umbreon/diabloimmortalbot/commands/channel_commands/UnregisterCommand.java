@@ -1,18 +1,15 @@
 package me.umbreon.diabloimmortalbot.commands.channel_commands;
 
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.StringAssistant;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Command: >unregister
- * Command: >unregister #Channel
- * Alias: >unnotifier
- **/
+import java.util.concurrent.TimeUnit;
+
 public class UnregisterCommand {
 
     private final DatabaseRequests databaseRequests;
@@ -31,15 +28,15 @@ public class UnregisterCommand {
 
         String textChannelID = getTextChannelID(message, args);
         if (!isChannelRegistered(textChannelID)) {
-            textChannel.sendMessage(String.format(LanguageController.getNotRegisteredMessage(language), textChannel.getAsMention())).queue();
+            String notRegisteredMessage = String.format(LanguageController.getChannelNotRegisteredMessage(language), textChannel.getAsMention());
+            sendMessageToTextChannel(guildID, textChannel, notRegisteredMessage);
             return;
         }
 
         removeNotificationChannel(textChannelID);
-        textChannel.sendMessage(String.format(LanguageController.getUnregisteredChannel(language), textChannel.getAsMention())).queue();
+        String channelUnregisteredMessage = String.format(LanguageController.getChannelUnregisteredMessage(language), textChannel.getAsMention());
+        sendMessageToTextChannel(guildID, textChannel, channelUnregisteredMessage);
     }
-
-    // -
 
     @Nullable
     private String getTextChannelID(Message message, String[] args) {
@@ -61,5 +58,13 @@ public class UnregisterCommand {
 
     private boolean isChannelRegistered(String textChannelID) {
         return clientCache.doNotifierChannelExists(textChannelID);
+    }
+
+    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessage(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessage(message).queue();
     }
 }

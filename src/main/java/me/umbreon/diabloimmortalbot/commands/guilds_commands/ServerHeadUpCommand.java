@@ -7,6 +7,8 @@ import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Command: >server headup on/off
  */
@@ -27,31 +29,29 @@ public class ServerHeadUpCommand {
         String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (!areArgumentsValid(args)) {
-            textChannel.sendMessage(LanguageController.getInvalidCommandMessage(guildLanguage)).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getInvalidCommandMessage(guildLanguage));
             return;
         }
 
         if (clientCache.isHeadUpOnServerEnabled(guildID) && BooleanAssistant.isValueTrue(args[2])) {
-            textChannel.sendMessage("Head up messages are already enabled on your server.").queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getHeadUpMessagesAlreadyOnMessage(guildLanguage));
             return;
         }
 
         if (!clientCache.isHeadUpOnServerEnabled(guildID) && BooleanAssistant.isValueFalse(args[2])) {
-            textChannel.sendMessage("Head up messages are already disabled on your server.").queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getHeadUpMessagesAlreadyOffMessages(guildLanguage));
             return;
         }
 
         if (BooleanAssistant.isValueTrue(args[2])) {
-            databaseRequests.setEventHeadUpOnServerValue(true, guildID);
-            clientCache.setHeadUpOnServerValue(guildID, true);
-            textChannel.sendMessage(String.format(LanguageController.getEventEnabledMessage(guildLanguage), "Head up")).queue();
+            setEventHeadUpOnServerValue(guildID, false);
+            sendMessageToTextChannel(guildID, textChannel, String.format(LanguageController.getEventEnabledMessage(guildLanguage), "Head up"));
             return;
         }
 
         if (BooleanAssistant.isValueFalse(args[2])) {
-            databaseRequests.setEventHeadUpOnServerValue(false, guildID);
-            clientCache.setHeadUpOnServerValue(guildID, false);
-            textChannel.sendMessage(String.format(LanguageController.getEventDisabledMessage(guildLanguage), "Head up")).queue();
+            setEventHeadUpOnServerValue(guildID, false);
+            sendMessageToTextChannel(guildID, textChannel, String.format(LanguageController.getEventDisabledMessage(guildLanguage), "Head up"));
             return;
         }
 
@@ -60,5 +60,18 @@ public class ServerHeadUpCommand {
 
     private boolean areArgumentsValid(String[] args) {
         return args.length == 3;
+    }
+
+    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessage(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessage(message).queue();
+    }
+
+    private void setEventHeadUpOnServerValue(String guildID, boolean value) {
+        databaseRequests.setEventHeadUpOnServerValue(value, guildID);
+        clientCache.setHeadUpOnServerValue(guildID, value);
     }
 }

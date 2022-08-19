@@ -1,7 +1,5 @@
 package me.umbreon.diabloimmortalbot.data;
 
-import java.util.Objects;
-
 public class NotifierChannel {
 
     String roleID;
@@ -19,6 +17,7 @@ public class NotifierChannel {
     boolean battlegroundsMessageEnabled;
     boolean hauntedCarriageMessageEnabled;
     boolean ancientNightmareMessageEnabled;
+    boolean wrathborneInvasionEnabled;
 
     boolean demonGatesMessageEmbedEnabled;
     boolean ancientArenaMessageEmbedEnabled;
@@ -37,11 +36,12 @@ public class NotifierChannel {
         this.battlegroundsMessageEnabled = true;
         this.hauntedCarriageMessageEnabled = true;
         this.ancientNightmareMessageEnabled = true;
+        this.wrathborneInvasionEnabled = true;
 
-        this.demonGatesMessageEmbedEnabled = true;
-        this.ancientArenaMessageEmbedEnabled = true;
-        this.hauntedCarriageMessageEmbedEnabled = true;
-        this.ancientNightmareMessageEmbedEnabled = true;
+        this.demonGatesMessageEmbedEnabled = false;
+        this.ancientArenaMessageEmbedEnabled = false;
+        this.hauntedCarriageMessageEmbedEnabled = false;
+        this.ancientNightmareMessageEmbedEnabled = false;
 
         this.roleID = "EVERYONE";
         this.guildID = guildID;
@@ -55,7 +55,8 @@ public class NotifierChannel {
                            boolean shadowLotteryMessageEnabled, boolean battlegroundsMessageEnabled,
                            boolean hauntedCarriageMessageEnabled, boolean ancientNightmareMessageEnabled,
                            boolean demonGatesMessageEmbedEnabled, boolean ancientArenaMessageEmbedEnabled,
-                           boolean hauntedCarriageMessageEmbedEnabled, boolean ancientNightmareMessageEmbedEnabled) {
+                           boolean hauntedCarriageMessageEmbedEnabled, boolean ancientNightmareMessageEmbedEnabled,
+                           boolean wrathborneInvasionEnabled) {
         this.roleID = roleID;
         this.guildID = guildID;
         this.textChannelID = textChannelID;
@@ -74,6 +75,7 @@ public class NotifierChannel {
         this.ancientArenaMessageEmbedEnabled = ancientArenaMessageEmbedEnabled;
         this.hauntedCarriageMessageEmbedEnabled = hauntedCarriageMessageEmbedEnabled;
         this.ancientNightmareMessageEmbedEnabled = ancientNightmareMessageEmbedEnabled;
+        this.wrathborneInvasionEnabled = wrathborneInvasionEnabled;
     }
 
     public String getRoleID() {
@@ -218,5 +220,13 @@ public class NotifierChannel {
 
     public void setGuildID(String guildID) {
         this.guildID = guildID;
+    }
+
+    public boolean isWrathborneInvasionEnabled() {
+        return wrathborneInvasionEnabled;
+    }
+
+    public void setWrathborneInvasionEnabled(boolean wrathborneInvasionEnabled) {
+        this.wrathborneInvasionEnabled = wrathborneInvasionEnabled;
     }
 }

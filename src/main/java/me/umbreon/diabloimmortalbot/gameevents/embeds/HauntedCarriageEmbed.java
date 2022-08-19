@@ -40,18 +40,20 @@ public class HauntedCarriageEmbed {
                     });
                     break;
             }
+        } else {
+            textChannel.sendMessageEmbeds(buildHauntedCarriageEmbed(timezone, language)).queue();
         }
 
-        textChannel.sendMessageEmbeds(buildHauntedCarriageEmbed(timezone, language)).queue();
+
     }
 
     private MessageEmbed buildHauntedCarriageEmbed(String timezone, String language) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
         String eventTitle = LanguageController.getHauntedCarriageEmbedMessage(language);
-        String worldEventMessage = LanguageController.getWorldEventEmbedMessage(language);
-        String spawnAtMessage = LanguageController.getSpawnAtMessage(language);
-        String countdownMessage = LanguageController.getCountdownEmbedMessage(language);
+        String worldEventMessage = LanguageController.getEmbedWorldEventMessage(language);
+        String spawnAtMessage = LanguageController.getEmbedSpawnAtMessage(language);
+        String countdownMessage = LanguageController.getEmbedCountdownMessage(language);
         String locationMessage1 = LanguageController.getLocationHauntedCarriageEmbedMessage1(language);
         String locationMessage2 = LanguageController.getLocationHauntedCarriageEmbedMessage2(language);
 

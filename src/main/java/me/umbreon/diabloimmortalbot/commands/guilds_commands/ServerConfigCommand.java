@@ -7,9 +7,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 
 import java.util.List;
-/**
- * Command: >server config
- */
+import java.util.concurrent.TimeUnit;
+
 public class ServerConfigCommand {
 
     public ClientCache clientCache;
@@ -23,22 +22,26 @@ public class ServerConfigCommand {
         Member member = message.getMember();
         String guildID = member != null ? member.getGuild().getId() : null;
         boolean hasBotAdminRole = findBotRole(member) != null;
-        textChannel.sendMessageEmbeds(buildServerInfoEmbed(guildID, hasBotAdminRole)).queue();
+        sendMessageEmbedToTextChannel(guildID, textChannel, buildServerInfoEmbed(guildID, hasBotAdminRole));
     }
 
     public MessageEmbed buildServerInfoEmbed(String guildID, boolean hasBotAdminRole) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         embedBuilder.setTitle("Server Configurations:");
         GuildInformation guildInformation = clientCache.getGuildInformation(guildID);
-        embedBuilder.addField("Language:", guildInformation.getLanguage(), true);
-        embedBuilder.addField("Timezone:", guildInformation.getTimezone(), true);
-        embedBuilder.addField("GuildID:", guildInformation.getGuildID(), true);
+        embedBuilder.addField(LanguageController.getInfoLanguageMessage(guildLanguage), guildInformation.getLanguage(), true);
+        embedBuilder.addField(LanguageController.getInfoTimezoneMessage(guildLanguage), guildInformation.getTimezone(), true);
+        embedBuilder.addField(LanguageController.getInfoGuildIdMessage(guildLanguage), guildInformation.getGuildID(), true);
 
-        String eventMessageEnabled = guildInformation.isEventMessageEnabled() ? "Yes" : "No";
-        String headUpMessagesEnabled = guildInformation.isHeadUpEnabled() ? "Yes" : "No";
-        String doUserGotBotAdminRole = hasBotAdminRole ? "Yes" : "No";
-        String isAutoSaveEnabled = clientCache.isAutoDeleteEnabled(guildID) ? "Yes" : "No";
+        String yesMessage = LanguageController.getInfoYesMessage(guildLanguage);
+        String noMessage = LanguageController.getInfoNoMessage(guildLanguage);
+
+        String eventMessageEnabled = guildInformation.isEventMessageEnabled() ? yesMessage : noMessage;
+        String headUpMessagesEnabled = guildInformation.isHeadUpEnabled() ? yesMessage : noMessage;
+        String doUserGotBotAdminRole = hasBotAdminRole ? yesMessage : noMessage;
+        String isAutoSaveEnabled = clientCache.isAutoDeleteEnabled(guildID) ? yesMessage : noMessage;
 
         embedBuilder.addField("Event messages", eventMessageEnabled, true);
         embedBuilder.addField("Head up messages", headUpMessagesEnabled, true);
@@ -59,5 +62,13 @@ public class ServerConfigCommand {
                 .filter(role -> role.getName().equalsIgnoreCase("Bot Admin"))
                 .findFirst()
                 .orElse(null);
+    }
+
+    private void sendMessageEmbedToTextChannel(String guildID, TextChannel textChannel, MessageEmbed message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessageEmbeds(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessageEmbeds(message).queue();
     }
 }

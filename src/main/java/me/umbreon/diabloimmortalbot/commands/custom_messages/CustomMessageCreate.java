@@ -32,6 +32,14 @@ public class CustomMessageCreate {
                     @Override
                     public void run() {
                         if (clientCache.isUserInOperationMode(message.getTextChannel().getId(), message.getAuthor().getId())) {
+                            String textChannelID = message.getTextChannel().getId();
+                            clientCache.removeFromPreparingCustomMessagesList(textChannelID);
+                            clientCache.removeFromPreparingCustomMessageUserList(textChannelID);
+                            clientCache.removeFromWaitingForMessageList(textChannelID);
+                            clientCache.removeFromWaitingForTextChannelList(textChannelID);
+                            clientCache.removeFromWaitingForDayList(textChannelID);
+                            clientCache.removeFromWaitingForTimeList(textChannelID);
+                            clientCache.removeFromWaitingForRepeatingList(textChannelID);
                             clientCache.removeFromPreparingCustomMessageUserList(message.getTextChannel().getId());
                         }
                     }
@@ -39,7 +47,6 @@ public class CustomMessageCreate {
         );
     }
 
-    //cm create -> TextChannel Eingabe
     private void addUserToOperatingMode(Message message) {
         String userID = message.getAuthor().getId();
         String textChannelID = message.getTextChannel().getId();
@@ -48,7 +55,7 @@ public class CustomMessageCreate {
 
         clientCache.addToPreparingCustomMessageUserList(textChannelID, userID);
         clientCache.addToWaitingForTextChannelList(textChannelID, userID);
-        message.getTextChannel().sendMessage(LanguageController.getWhatTextChannelMessage(guildLanguage)).queue();
+        message.getTextChannel().sendMessage(LanguageController.getCustomMessageWhatChannelMessage(guildLanguage)).queue();
     }
 
     public void addTextChannelToPreparingCustomMessage(Message message) {
@@ -63,7 +70,7 @@ public class CustomMessageCreate {
             clientCache.removeFromWaitingForTextChannelList(textChannelID);
             clientCache.addToWaitingForDayList(textChannelID, userID);
             clientCache.addToPreparingCustomMessagesList(textChannelID, new CustomMessage(targetTextChannelID, guildID));
-            message.getTextChannel().sendMessage(LanguageController.getWhatDayMessage(guildLanguage)).queue();
+            message.getTextChannel().sendMessage(LanguageController.getCustomMessageWhatDayMessage(guildLanguage)).queue();
             return;
         }
 
@@ -72,7 +79,7 @@ public class CustomMessageCreate {
             clientCache.removeFromWaitingForTextChannelList(textChannelID);
             clientCache.addToWaitingForDayList(textChannelID, userID);
             clientCache.addToPreparingCustomMessagesList(textChannelID, new CustomMessage(targetTextChannelID, guildID));
-            message.getTextChannel().sendMessage(LanguageController.getWhatDayMessage(guildLanguage)).queue();
+            message.getTextChannel().sendMessage(LanguageController.getCustomMessageWhatDayMessage(guildLanguage)).queue();
             return;
         }
 
@@ -88,10 +95,10 @@ public class CustomMessageCreate {
             clientCache.removeFromWaitingForDayList(textChannelID);
             clientCache.getPreparingCustomMessage(textChannelID).setDay(message.getContentRaw());
             clientCache.addToWaitingForTimeList(textChannelID, message.getAuthor().getId());
-            message.getTextChannel().sendMessage(LanguageController.getWhatTimeMessage(guildLanguage)).queue();
+            message.getTextChannel().sendMessage(LanguageController.getCustomMessageWhatTimeMessage(guildLanguage)).queue();
         } else {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(LanguageController.getInvalidDayMessage(guildLanguage));
+            stringBuilder.append(LanguageController.getCustomMessageInvalidDayMessage(guildLanguage));
 
             for (int i = 0; i <= clientCache.getListOfAvailableEventDays().size(); i++) {
                 stringBuilder.append(clientCache.getListOfAvailableEventDays().get(i));
@@ -121,12 +128,12 @@ public class CustomMessageCreate {
             if (preparingCustomMessage.getDay().equalsIgnoreCase("everyday")) {
                 clientCache.addToWaitingForMessageList(textChannelID, message.getAuthor().getId());
                 preparingCustomMessage.setRepeating(true);
-                message.getTextChannel().sendMessage(LanguageController.getWhatMessageMessage(guildLanguage)).queue();
+                message.getTextChannel().sendMessage(LanguageController.getCustomMessageWhatMessageMessage(guildLanguage)).queue();
                 return;
             }
 
             clientCache.addToWaitingForRepeatingList(textChannelID, message.getAuthor().getId());
-            message.getTextChannel().sendMessage(LanguageController.getMessageFrequentlyMessage(guildLanguage)).queue();
+            message.getTextChannel().sendMessage(LanguageController.getCustomMessageIsRepeatingMessage(guildLanguage)).queue();
             ;
         }
     }
@@ -140,7 +147,7 @@ public class CustomMessageCreate {
             clientCache.getPreparingCustomMessage(textChannelID).setRepeating(true);
             clientCache.removeFromWaitingForRepeatingList(textChannelID);
             clientCache.addToWaitingForMessageList(textChannelID, message.getAuthor().getId());
-            message.getTextChannel().sendMessage(LanguageController.getWhatMessageMessage(guildLanguage)).queue();
+            message.getTextChannel().sendMessage(LanguageController.getCustomMessageWhatMessageMessage(guildLanguage)).queue();
             return;
         }
 
@@ -148,7 +155,7 @@ public class CustomMessageCreate {
             clientCache.getPreparingCustomMessage(textChannelID).setRepeating(false);
             clientCache.removeFromWaitingForRepeatingList(textChannelID);
             clientCache.addToWaitingForMessageList(textChannelID, message.getAuthor().getId());
-            message.getTextChannel().sendMessage(LanguageController.getWhatMessageMessage(guildLanguage)).queue();
+            message.getTextChannel().sendMessage(LanguageController.getCustomMessageWhatMessageMessage(guildLanguage)).queue();
             return;
         }
 
@@ -166,7 +173,7 @@ public class CustomMessageCreate {
         clientCache.removeFromPreparingCustomMessagesList(textChannelID);
         clientCache.removeFromPreparingCustomMessageUserList(textChannelID);
         clientCache.removeFromWaitingForMessageList(textChannelID);
-        message.getTextChannel().sendMessage(LanguageController.getCustomMessageCreated(guildLanguage)).queue();
+        message.getTextChannel().sendMessage(LanguageController.getCustomMessageCreatedMessage(guildLanguage)).queue();
     }
 
     private TextChannel findTextChannel(String textChannelID, Guild guild) {

@@ -10,57 +10,45 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Command: >cm delete ID
- */
 public class CustomMessageDelete {
 
     private final ClientCache clientCache;
-    private MessageEmbed invalidCommandUsageEmbed;
     private final DatabaseRequests databaseRequests;
 
     public CustomMessageDelete(ClientCache clientCache, DatabaseRequests databaseRequests){
         this.clientCache = clientCache;
-        buildInvalidCommandUsageEmbed();
         this.databaseRequests = databaseRequests;
     }
 
     public void runCustomMessageDelete(Message message) {
         String[] args = message.getContentRaw().split(" ");
         TextChannel textChannel = message.getTextChannel();
+        String guildID = textChannel.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (!areArgumentsValid(args)) {
-            textChannel.sendMessageEmbeds(invalidCommandUsageEmbed).queue();
+            sendMessageToTextChannel(guildID, textChannel, LanguageController.getInvalidCommandMessage(guildLanguage));
             return;
         }
 
         int customMessageID = Integer.parseInt(args[2]);
+        if (!isCustomMessageGuildIdCurrentGuildId(guildID, customMessageID)) return;
 
-        String s = clientCache.getCustomMessageByID(customMessageID).getGuildID();
-        String s1 = message.getGuild().getId();
-
-        if (!Objects.equals(s1, s)) return;
-
-        String guildID = textChannel.getGuild().getId();
-        String language = clientCache.getGuildLanguage(guildID);
-        clientCache.deleteCustomMessageByID(customMessageID);
-        databaseRequests.deleteCustomMessageEntry(customMessageID);
-        textChannel.sendMessage(String.format(LanguageController.getCustomMessageWithIdDeleted(language), customMessageID)).queue();
+        deleteCustomMessage(customMessageID);
+        String CmDeleted = String.format(LanguageController.getCustomMessageWithIdDeleted(guildLanguage), customMessageID);
+        sendMessageToTextChannel(guildID, textChannel, CmDeleted);
     }
 
-    private void buildInvalidCommandUsageEmbed() {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.RED);
-        embedBuilder.addField("Invalid command", "Command example: >cm create #YOUR_TEXTCHANNEL " +
-                "Tuesday 16:30 Yes Here's your custom message.", false);
-        this.invalidCommandUsageEmbed = embedBuilder.build();
+    private boolean isCustomMessageGuildIdCurrentGuildId(String guildID, int customMessageID) {
+        String targetGuildID = clientCache.getCustomMessageByID(customMessageID).getGuildID();
+        return Objects.equals(guildID, targetGuildID);
     }
+
 
     private boolean areArgumentsValid(String[] args) {
-        if (args.length < 2) {
-            return true;
-        }
+        if (args.length < 2) return true;
 
         try {
             Integer.parseInt(args[2]);
@@ -68,5 +56,18 @@ public class CustomMessageDelete {
         } catch (NumberFormatException ignored) {}
 
         return false;
+    }
+
+    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+        if (clientCache.isAutoDeleteEnabled(guildID)) {
+            textChannel.sendMessage(message).queue(sendMessage -> {
+                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
+            });
+        } else textChannel.sendMessage(message).queue();
+    }
+
+    private void deleteCustomMessage(int customMessageID) {
+        clientCache.deleteCustomMessageByID(customMessageID);
+        databaseRequests.deleteCustomMessageEntry(customMessageID);
     }
 }

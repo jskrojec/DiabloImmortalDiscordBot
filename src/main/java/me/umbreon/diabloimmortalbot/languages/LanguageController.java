@@ -322,45 +322,45 @@ public class LanguageController {
         }
     }
 
-    public static String getRegisteredMessage(String lang) {
+    public static String getChannelRegisteredMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getRegisteredMessage();
+                return LanguageGerman.getChannelRegisteredMessage();
             case "ESP":
-                return LanguageSpain.getRegisteredMessage();
+                return LanguageSpain.getChannelRegisteredMessage();
             case "POL":
-                return LanguagePolish.getRegisteredMessage();
+                return LanguagePolish.getChannelRegisteredMessage();
             case "FRA":
-                return LanguageFrench.getRegisteredMessage();
+                return LanguageFrench.getChannelRegisteredMessage();
             case "ITA":
-                return LanguageItalian.getRegisteredMessage();
+                return LanguageItalian.getChannelRegisteredMessage();
             case "RUS":
-                return LanguageRussian.getRegisteredMessage();
+                return LanguageRussian.getChannelRegisteredMessage();
             case "IND":
-                return LanguageIndonesia.getRegisteredMessage();
+                return LanguageIndonesia.getChannelRegisteredMessage();
             default:
-                return LanguageEnglish.getRegisteredMessage();
+                return LanguageEnglish.getChannelRegisteredMessage();
         }
     }
 
-    public static String getAlreadyRegisteredMessage(String lang) {
+    public static String getChannelAlreadyRegisteredMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getAlreadyRegisteredMessage();
+                return LanguageGerman.getChannelAlreadyRegisteredMessage();
             case "ESP":
-                return LanguageSpain.getAlreadyRegisteredMessage();
+                return LanguageSpain.getChannelAlreadyRegisteredMessage();
             case "POL":
-                return LanguagePolish.getAlreadyRegisteredMessage();
+                return LanguagePolish.getChannelAlreadyRegisteredMessage();
             case "FRA":
-                return LanguageFrench.getAlreadyRegisteredMessage();
+                return LanguageFrench.getChannelAlreadyRegisteredMessage();
             case "ITA":
-                return LanguageItalian.getAlreadyRegisteredMessage();
+                return LanguageItalian.getChannelAlreadyRegisteredMessage();
             case "RUS":
-                return LanguageRussian.getAlreadyRegisteredMessage();
+                return LanguageRussian.getChannelAlreadyRegisteredMessage();
             case "IND":
-                return LanguageIndonesia.getAlreadyRegisteredMessage();
+                return LanguageIndonesia.getChannelAlreadyRegisteredMessage();
             default:
-                return LanguageEnglish.getAlreadyRegisteredMessage();
+                return LanguageEnglish.getChannelAlreadyRegisteredMessage();
         }
     }
 
@@ -385,66 +385,66 @@ public class LanguageController {
         }
     }
 
-    public static String getNotRegisteredMessage(String lang) {
+    public static String getChannelNotRegisteredMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getNotRegisteredMessage();
+                return LanguageGerman.getChannelNotRegisteredMessage();
             case "ESP":
-                return LanguageSpain.getNotRegisteredMessage();
+                return LanguageSpain.getChannelNotRegisteredMessage();
             case "POL":
-                return LanguagePolish.getNotRegisteredMessage();
+                return LanguagePolish.getChannelNotRegisteredMessage();
             case "FRA":
-                return LanguageFrench.getNotRegisteredMessage();
+                return LanguageFrench.getChannelNotRegisteredMessage();
             case "ITA":
-                return LanguageItalian.getNotRegisteredMessage();
+                return LanguageItalian.getChannelNotRegisteredMessage();
             case "RUS":
-                return LanguageRussian.getNotRegisteredMessage();
+                return LanguageRussian.getChannelNotRegisteredMessage();
             case "IND":
-                return LanguageIndonesia.getNotRegisteredMessage();
+                return LanguageIndonesia.getChannelNotRegisteredMessage();
             default:
-                return LanguageEnglish.getNotRegisteredMessage();
+                return LanguageEnglish.getChannelNotRegisteredMessage();
         }
     }
 
-    public static String getTimezoneSetToMessage(String lang) {
+    public static String getTimezoneChangedMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getTimezoneSetToMessage();
+                return LanguageGerman.getTimezoneChangedMessage();
             case "ESP":
-                return LanguageSpain.getTimezoneSetToMessage();
+                return LanguageSpain.getTimezoneChangedMessage();
             case "POL":
-                return LanguagePolish.getTimezoneSetToMessage();
+                return LanguagePolish.getTimezoneChangedMessage();
             case "FRA":
-                return LanguageFrench.getTimezoneSetToMessage();
+                return LanguageFrench.getTimezoneChangedMessage();
             case "ITA":
-                return LanguageItalian.getTimezoneSetToMessage();
+                return LanguageItalian.getTimezoneChangedMessage();
             case "RUS":
-                return LanguageRussian.getTimezoneSetToMessage();
+                return LanguageRussian.getTimezoneChangedMessage();
             case "IND":
-                return LanguageIndonesia.getTimezoneSetToMessage();
+                return LanguageIndonesia.getTimezoneChangedMessage();
             default:
-                return LanguageEnglish.getTimezoneSetToMessage();
+                return LanguageEnglish.getTimezoneChangedMessage();
         }
     }
 
-    public static String getUnregisteredChannel(String lang) {
+    public static String getChannelUnregisteredMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getUnregisteredChannel();
+                return LanguageGerman.getChannelUnregisteredMessage();
             case "ESP":
-                return LanguageSpain.getUnregisteredChannel();
+                return LanguageSpain.getChannelUnregisteredMessage();
             case "POL":
-                return LanguagePolish.getUnregisteredChannel();
+                return LanguagePolish.getChannelUnregisteredMessage();
             case "FRA":
-                return LanguageFrench.getUnregisteredChannel();
+                return LanguageFrench.getChannelUnregisteredMessage();
             case "ITA":
-                return LanguageItalian.getUnregisteredChannel();
+                return LanguageItalian.getChannelUnregisteredMessage();
             case "RUS":
-                return LanguageRussian.getUnregisteredChannel();
+                return LanguageRussian.getChannelUnregisteredMessage();
             case "IND":
-                return LanguageIndonesia.getUnregisteredChannel();
+                return LanguageIndonesia.getChannelUnregisteredMessage();
             default:
-                return LanguageEnglish.getUnregisteredChannel();
+                return LanguageEnglish.getChannelUnregisteredMessage();
         }
     }
 
@@ -469,24 +469,24 @@ public class LanguageController {
         }
     }
 
-    public static String getIsSetMessage(String lang) {
+    public static String getRoleChangedMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getIsSetMessage();
+                return LanguageGerman.getRoleChangedMessage();
             case "ESP":
-                return LanguageSpain.getIsSetMessage();
+                return LanguageSpain.getRoleChangedMessage();
             case "POL":
-                return LanguagePolish.getIsSetMessage();
+                return LanguagePolish.getRoleChangedMessage();
             case "FRA":
-                return LanguageFrench.getIsSetMessage();
+                return LanguageFrench.getRoleChangedMessage();
             case "ITA":
-                return LanguageItalian.getIsSetMessage();
+                return LanguageItalian.getRoleChangedMessage();
             case "RUS":
-                return LanguageRussian.getIsSetMessage();
+                return LanguageRussian.getRoleChangedMessage();
             case "IND":
-                return LanguageIndonesia.getIsSetMessage();
+                return LanguageIndonesia.getRoleChangedMessage();
             default:
-                return LanguageEnglish.getIsSetMessage();
+                return LanguageEnglish.getRoleChangedMessage();
         }
     }
 
@@ -616,27 +616,6 @@ public class LanguageController {
         }
     }
 
-    public static String getHeadUpValueSetToMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getHeadUpValueSetToMessage();
-            case "ESP":
-                return LanguageSpain.getHeadUpValueSetToMessage();
-            case "POL":
-                return LanguagePolish.getHeadUpValueSetToMessage();
-            case "FRA":
-                return LanguageFrench.getHeadUpValueSetToMessage();
-            case "ITA":
-                return LanguageItalian.getHeadUpValueSetToMessage();
-            case "RUS":
-                return LanguageRussian.getHeadUpValueSetToMessage();
-            case "IND":
-                return LanguageIndonesia.getHeadUpValueSetToMessage();
-            default:
-                return LanguageEnglish.getHeadUpValueSetToMessage();
-        }
-    }
-
     public static String getLanguageMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
@@ -721,28 +700,8 @@ public class LanguageController {
         }
     }
 
-    public static String getDoBotGotRightsMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getDoBotGotRightsMessage();
-            case "ESP":
-                return LanguageSpain.getDoBotGotRightsMessage();
-            case "POL":
-                return LanguagePolish.getDoBotGotRightsMessage();
-            case "FRA":
-                return LanguageFrench.getDoBotGotRightsMessage();
-            case "ITA":
-                return LanguageItalian.getDoBotGotRightsMessage();
-            case "RUS":
-                return LanguageRussian.getDoBotGotRightsMessage();
-            case "IND":
-                return LanguageIndonesia.getDoBotGotRightsMessage();
-            default:
-                return LanguageEnglish.getDoBotGotRightsMessage();
-        }
-    }
 
-    public static String getCustomMessageCreated(String lang) {
+    public static String getCustomMessageCreatedMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getCustomMessageCreatedMessage();
@@ -784,45 +743,24 @@ public class LanguageController {
         }
     }
 
-    public static String getYourCustomMessagesMessage(String lang) {
+    public static String getShowAllCustomMessages(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getYourCustomMessagesMessage();
+                return LanguageGerman.getShowAllCustomMessages();
             case "ESP":
-                return LanguageSpain.getYourCustomMessagesMessage();
+                return LanguageSpain.getShowAllCustomMessages();
             case "POL":
-                return LanguagePolish.getYourCustomMessagesMessage();
+                return LanguagePolish.getShowAllCustomMessages();
             case "FRA":
-                return LanguageFrench.getYourCustomMessagesMessage();
+                return LanguageFrench.getShowAllCustomMessages();
             case "ITA":
-                return LanguageItalian.getYourCustomMessagesMessage();
+                return LanguageItalian.getShowAllCustomMessages();
             case "RUS":
-                return LanguageRussian.getYourCustomMessagesMessage();
+                return LanguageRussian.getShowAllCustomMessages();
             case "IND":
-                return LanguageIndonesia.getYourCustomMessagesMessage();
+                return LanguageIndonesia.getShowAllCustomMessages();
             default:
-                return LanguageEnglish.getYourCustomMessagesMessage();
-        }
-    }
-
-    public static String getCustomMessageDeletedMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getCustomMessageDeletedMessage();
-            case "ESP":
-                return LanguageSpain.getCustomMessageDeletedMessage();
-            case "POL":
-                return LanguagePolish.getCustomMessageDeletedMessage();
-            case "FRA":
-                return LanguageFrench.getCustomMessageDeletedMessage();
-            case "ITA":
-                return LanguageItalian.getCustomMessageDeletedMessage();
-            case "RUS":
-                return LanguageRussian.getCustomMessageDeletedMessage();
-            case "IND":
-                return LanguageIndonesia.getCustomMessageDeletedMessage();
-            default:
-                return LanguageEnglish.getCustomMessageDeletedMessage();
+                return LanguageEnglish.getShowAllCustomMessages();
         }
     }
 
@@ -1120,66 +1058,66 @@ public class LanguageController {
         }
     }
 
-    public static String getSpawnAtMessage(String lang) {
+    public static String getEmbedSpawnAtMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getSpawnAtMessage();
+                return LanguageGerman.getEmbedSpawnAtMessage();
             case "ESP":
-                return LanguageSpain.getSpawnAtMessage();
+                return LanguageSpain.getEmbedSpawnAtMessage();
             case "POL":
-                return LanguagePolish.getSpawnAtMessage();
+                return LanguagePolish.getEmbedSpawnAtMessage();
             case "FRA":
-                return LanguageFrench.getSpawnAtMessage();
+                return LanguageFrench.getEmbedSpawnAtMessage();
             case "ITA":
-                return LanguageItalian.getSpawnAtMessage();
+                return LanguageItalian.getEmbedSpawnAtMessage();
             case "RUS":
-                return LanguageRussian.getSpawnAtMessage();
+                return LanguageRussian.getEmbedSpawnAtMessage();
             case "IND":
-                return LanguageIndonesia.getSpawnAtMessage();
+                return LanguageIndonesia.getEmbedSpawnAtMessage();
             default:
-                return LanguageEnglish.getSpawnAtMessage();
+                return LanguageEnglish.getEmbedSpawnAtMessage();
         }
     }
 
-    public static String getCountdownEmbedMessage(String lang) {
+    public static String getEmbedCountdownMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getCountdownEmbedMessage();
+                return LanguageGerman.getEmbedCountdownMessage();
             case "ESP":
-                return LanguageSpain.getCountdownEmbedMessage();
+                return LanguageSpain.getEmbedCountdownMessage();
             case "POL":
-                return LanguagePolish.getCountdownEmbedMessage();
+                return LanguagePolish.getEmbedCountdownMessage();
             case "FRA":
-                return LanguageFrench.getCountdownEmbedMessage();
+                return LanguageFrench.getEmbedCountdownMessage();
             case "ITA":
-                return LanguageItalian.getCountdownEmbedMessage();
+                return LanguageItalian.getEmbedCountdownMessage();
             case "RUS":
-                return LanguageRussian.getCountdownEmbedMessage();
+                return LanguageRussian.getEmbedCountdownMessage();
             case "IND":
-                return LanguageIndonesia.getCountdownEmbedMessage();
+                return LanguageIndonesia.getEmbedCountdownMessage();
             default:
-                return LanguageEnglish.getCountdownEmbedMessage();
+                return LanguageEnglish.getEmbedCountdownMessage();
         }
     }
 
-    public static String getWorldEventEmbedMessage(String lang) {
+    public static String getEmbedWorldEventMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getWorldEventEmbedMessage();
+                return LanguageGerman.getEmbedWorldEventMessage();
             case "ESP":
-                return LanguageSpain.getWorldEventEmbedMessage();
+                return LanguageSpain.getEmbedWorldEventMessage();
             case "POL":
-                return LanguagePolish.getWorldEventEmbedMessage();
+                return LanguagePolish.getEmbedWorldEventMessage();
             case "FRA":
-                return LanguageFrench.getWorldEventEmbedMessage();
+                return LanguageFrench.getEmbedWorldEventMessage();
             case "ITA":
-                return LanguageItalian.getWorldEventEmbedMessage();
+                return LanguageItalian.getEmbedWorldEventMessage();
             case "RUS":
-                return LanguageRussian.getWorldEventEmbedMessage();
+                return LanguageRussian.getEmbedWorldEventMessage();
             case "IND":
-                return LanguageIndonesia.getWorldEventEmbedMessage();
+                return LanguageIndonesia.getEmbedWorldEventMessage();
             default:
-                return LanguageEnglish.getWorldEventEmbedMessage();
+                return LanguageEnglish.getEmbedWorldEventMessage();
         }
     }
 
@@ -1204,234 +1142,108 @@ public class LanguageController {
         }
     }
 
-    public static String getHeadUpEnabledMessage(String lang) {
+    public static String getCustomMessageWhatChannelMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getHeadUpEnabledMessage();
+                return LanguageGerman.getCustomMessageWhatChannelMessage();
             case "ESP":
-                return LanguageSpain.getHeadUpEnabledMessage();
+                return LanguageSpain.getCustomMessageWhatChannelMessage();
             case "POL":
-                return LanguagePolish.getHeadUpEnabledMessage();
+                return LanguagePolish.getCustomMessageWhatChannelMessage();
             case "FRA":
-                return LanguageFrench.getHeadUpEnabledMessage();
+                return LanguageFrench.getCustomMessageWhatChannelMessage();
             case "ITA":
-                return LanguageItalian.getHeadUpEnabledMessage();
+                return LanguageItalian.getCustomMessageWhatChannelMessage();
             case "RUS":
-                return LanguageRussian.getHeadUpEnabledMessage();
+                return LanguageRussian.getCustomMessageWhatChannelMessage();
             case "IND":
-                return LanguageIndonesia.getHeadUpEnabledMessage();
+                return LanguageIndonesia.getCustomMessageWhatChannelMessage();
             default:
-                return LanguageEnglish.getHeadUpEnabledMessage();
+                return LanguageEnglish.getCustomMessageWhatChannelMessage();
         }
     }
 
-    public static String getHeadUpDisabledMessage(String lang) {
+    public static String getCustomMessageWhatDayMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getHeadUpDisabledMessage();
+                return LanguageGerman.getCustomMessageWhatDayMessage();
             case "ESP":
-                return LanguageSpain.getHeadUpDisabledMessage();
+                return LanguageSpain.getCustomMessageWhatDayMessage();
             case "POL":
-                return LanguagePolish.getHeadUpDisabledMessage();
+                return LanguagePolish.getCustomMessageWhatDayMessage();
             case "FRA":
-                return LanguageFrench.getHeadUpDisabledMessage();
+                return LanguageFrench.getCustomMessageWhatDayMessage();
             case "ITA":
-                return LanguageItalian.getHeadUpDisabledMessage();
+                return LanguageItalian.getCustomMessageWhatDayMessage();
             case "RUS":
-                return LanguageRussian.getHeadUpDisabledMessage();
+                return LanguageRussian.getCustomMessageWhatDayMessage();
             case "IND":
-                return LanguageIndonesia.getHeadUpDisabledMessage();
+                return LanguageIndonesia.getCustomMessageWhatDayMessage();
             default:
-                return LanguageEnglish.getHeadUpDisabledMessage();
+                return LanguageEnglish.getCustomMessageWhatDayMessage();
         }
     }
 
-    public static String getCannotDisableEventMessage(String lang) {
+    public static String getCustomMessageWhatTimeMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getCannotDisableEventMessage();
+                return LanguageGerman.getCustomMessageWhatTimeMessage();
             case "ESP":
-                return LanguageSpain.getCannotDisableEventMessage();
+                return LanguageSpain.getCustomMessageWhatTimeMessage();
             case "POL":
-                return LanguagePolish.getCannotDisableEventMessage();
+                return LanguagePolish.getCustomMessageWhatTimeMessage();
             case "FRA":
-                return LanguageFrench.getCannotDisableEventMessage();
+                return LanguageFrench.getCustomMessageWhatTimeMessage();
             case "ITA":
-                return LanguageItalian.getCannotDisableEventMessage();
+                return LanguageItalian.getCustomMessageWhatTimeMessage();
             case "RUS":
-                return LanguageRussian.getCannotDisableEventMessage();
+                return LanguageRussian.getCustomMessageWhatTimeMessage();
             case "IND":
-                return LanguageIndonesia.getCannotDisableEventMessage();
+                return LanguageIndonesia.getCustomMessageWhatTimeMessage();
             default:
-                return LanguageEnglish.getCannotDisableEventMessage();
+                return LanguageEnglish.getCustomMessageWhatTimeMessage();
         }
     }
 
-    public static String getEventDoesNotExistMessage(String lang) {
+    public static String getCustomMessageWhatMessageMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getEventDoesNotExistMessage();
+                return LanguageGerman.getCustomMessageWhatMessageMessage();
             case "ESP":
-                return LanguageSpain.getEventDoesNotExistMessage();
+                return LanguageSpain.getCustomMessageWhatMessageMessage();
             case "POL":
-                return LanguagePolish.getEventDoesNotExistMessage();
+                return LanguagePolish.getCustomMessageWhatMessageMessage();
             case "FRA":
-                return LanguageFrench.getEventDoesNotExistMessage();
+                return LanguageFrench.getCustomMessageWhatMessageMessage();
             case "ITA":
-                return LanguageItalian.getEventDoesNotExistMessage();
+                return LanguageItalian.getCustomMessageWhatMessageMessage();
             case "RUS":
-                return LanguageRussian.getEventDoesNotExistMessage();
+                return LanguageRussian.getCustomMessageWhatMessageMessage();
             case "IND":
-                return LanguageIndonesia.getEventDoesNotExistMessage();
+                return LanguageIndonesia.getCustomMessageWhatMessageMessage();
             default:
-                return LanguageEnglish.getEventDoesNotExistMessage();
+                return LanguageEnglish.getCustomMessageWhatMessageMessage();
         }
     }
 
-    public static String getAvailableEventsMessage(String lang) {
+    public static String getCustomMessageIsRepeatingMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getAvailableEventsMessage();
+                return LanguageGerman.getCustomMessageIsRepeatingMessage();
             case "ESP":
-                return LanguageSpain.getAvailableEventsMessage();
+                return LanguageSpain.getCustomMessageIsRepeatingMessage();
             case "POL":
-                return LanguagePolish.getAvailableEventsMessage();
+                return LanguagePolish.getCustomMessageIsRepeatingMessage();
             case "FRA":
-                return LanguageFrench.getAvailableEventsMessage();
+                return LanguageFrench.getCustomMessageIsRepeatingMessage();
             case "ITA":
-                return LanguageItalian.getAvailableEventsMessage();
+                return LanguageItalian.getCustomMessageIsRepeatingMessage();
             case "RUS":
-                return LanguageRussian.getAvailableEventsMessage();
+                return LanguageRussian.getCustomMessageIsRepeatingMessage();
             case "IND":
-                return LanguageIndonesia.getAvailableEventsMessage();
+                return LanguageIndonesia.getCustomMessageIsRepeatingMessage();
             default:
-                return LanguageEnglish.getAvailableEventsMessage();
-        }
-    }
-
-    public static String getWhatTextChannelMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getWhatTextChannelMessage();
-            case "ESP":
-                return LanguageSpain.getWhatTextChannelMessage();
-            case "POL":
-                return LanguagePolish.getWhatTextChannelMessage();
-            case "FRA":
-                return LanguageFrench.getWhatTextChannelMessage();
-            case "ITA":
-                return LanguageItalian.getWhatTextChannelMessage();
-            case "RUS":
-                return LanguageRussian.getWhatTextChannelMessage();
-            case "IND":
-                return LanguageIndonesia.getWhatTextChannelMessage();
-            default:
-                return LanguageEnglish.getWhatTextChannelMessage();
-        }
-    }
-
-    public static String getThisMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getThisMessage();
-            case "ESP":
-                return LanguageSpain.getThisMessage();
-            case "POL":
-                return LanguagePolish.getThisMessage();
-            case "FRA":
-                return LanguageFrench.getThisMessage();
-            case "ITA":
-                return LanguageItalian.getThisMessage();
-            case "RUS":
-                return LanguageRussian.getThisMessage();
-            case "IND":
-                return LanguageIndonesia.getThisMessage();
-            default:
-                return LanguageEnglish.getThisMessage();
-        }
-    }
-
-    public static String getWhatDayMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getWhatDayMessage();
-            case "ESP":
-                return LanguageSpain.getWhatDayMessage();
-            case "POL":
-                return LanguagePolish.getWhatDayMessage();
-            case "FRA":
-                return LanguageFrench.getWhatDayMessage();
-            case "ITA":
-                return LanguageItalian.getWhatDayMessage();
-            case "RUS":
-                return LanguageRussian.getWhatDayMessage();
-            case "IND":
-                return LanguageIndonesia.getWhatDayMessage();
-            default:
-                return LanguageEnglish.getWhatDayMessage();
-        }
-    }
-
-    public static String getWhatTimeMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getWhatTimeMessage();
-            case "ESP":
-                return LanguageSpain.getWhatTimeMessage();
-            case "POL":
-                return LanguagePolish.getWhatTimeMessage();
-            case "FRA":
-                return LanguageFrench.getWhatTimeMessage();
-            case "ITA":
-                return LanguageItalian.getWhatTimeMessage();
-            case "RUS":
-                return LanguageRussian.getWhatTimeMessage();
-            case "IND":
-                return LanguageIndonesia.getWhatTimeMessage();
-            default:
-                return LanguageEnglish.getWhatTimeMessage();
-        }
-    }
-
-    public static String getWhatMessageMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getWhatMessageMessage();
-            case "ESP":
-                return LanguageSpain.getWhatMessageMessage();
-            case "POL":
-                return LanguagePolish.getWhatMessageMessage();
-            case "FRA":
-                return LanguageFrench.getWhatMessageMessage();
-            case "ITA":
-                return LanguageItalian.getWhatMessageMessage();
-            case "RUS":
-                return LanguageRussian.getWhatMessageMessage();
-            case "IND":
-                return LanguageIndonesia.getWhatMessageMessage();
-            default:
-                return LanguageEnglish.getWhatMessageMessage();
-        }
-    }
-
-    public static String getMessageFrequentlyMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getMessageFrequentlyMessage();
-            case "ESP":
-                return LanguageSpain.getMessageFrequentlyMessage();
-            case "POL":
-                return LanguagePolish.getMessageFrequentlyMessage();
-            case "FRA":
-                return LanguageFrench.getMessageFrequentlyMessage();
-            case "ITA":
-                return LanguageItalian.getMessageFrequentlyMessage();
-            case "RUS":
-                return LanguageRussian.getMessageFrequentlyMessage();
-            case "IND":
-                return LanguageIndonesia.getMessageFrequentlyMessage();
-            default:
-                return LanguageEnglish.getMessageFrequentlyMessage();
+                return LanguageEnglish.getCustomMessageIsRepeatingMessage();
         }
     }
 
@@ -1456,297 +1268,297 @@ public class LanguageController {
         }
     }
 
-    public static String getInvalidDayMessage(String lang) {
+    public static String getCustomMessageInvalidDayMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getInvalidDayMessage();
+                return LanguageGerman.getCustomMessageInvalidDayMessage();
             case "ESP":
-                return LanguageSpain.getInvalidDayMessage();
+                return LanguageSpain.getCustomMessageInvalidDayMessage();
             case "POL":
-                return LanguagePolish.getInvalidDayMessage();
+                return LanguagePolish.getCustomMessageInvalidDayMessage();
             case "FRA":
-                return LanguageFrench.getInvalidDayMessage();
+                return LanguageFrench.getCustomMessageInvalidDayMessage();
             case "ITA":
-                return LanguageItalian.getInvalidDayMessage();
+                return LanguageItalian.getCustomMessageInvalidDayMessage();
             case "RUS":
-                return LanguageRussian.getInvalidDayMessage();
+                return LanguageRussian.getCustomMessageInvalidDayMessage();
             case "IND":
-                return LanguageIndonesia.getInvalidDayMessage();
+                return LanguageIndonesia.getCustomMessageInvalidDayMessage();
             default:
-                return LanguageEnglish.getInvalidDayMessage();
+                return LanguageEnglish.getCustomMessageInvalidDayMessage();
         }
     }
 
-    public static String getRegistersChannelMessage(String lang) {
+    public static String getHelpRegistersChannelMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getRegistersChannelMessage();
+                return LanguageGerman.getHelpRegistersChannelMessage();
             case "ESP":
-                return LanguageSpain.getRegistersChannelMessage();
+                return LanguageSpain.getHelpRegistersChannelMessage();
             case "POL":
-                return LanguagePolish.getRegistersChannelMessage();
+                return LanguagePolish.getHelpRegistersChannelMessage();
             case "FRA":
-                return LanguageFrench.getRegistersChannelMessage();
+                return LanguageFrench.getHelpRegistersChannelMessage();
             case "ITA":
-                return LanguageItalian.getRegistersChannelMessage();
+                return LanguageItalian.getHelpRegistersChannelMessage();
             case "RUS":
-                return LanguageRussian.getRegistersChannelMessage();
+                return LanguageRussian.getHelpRegistersChannelMessage();
             case "IND":
-                return LanguageIndonesia.getRegistersChannelMessage();
+                return LanguageIndonesia.getHelpRegistersChannelMessage();
             default:
-                return LanguageEnglish.getRegistersChannelMessage();
+                return LanguageEnglish.getHelpRegistersChannelMessage();
         }
     }
 
-    public static String getUnregistersChannelMessage(String lang) {
+    public static String getHelpUnregistersChannelMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getUnregistersChannelMessage();
+                return LanguageGerman.getHelpUnregistersChannelMessage();
             case "ESP":
-                return LanguageSpain.getUnregistersChannelMessage();
+                return LanguageSpain.getHelpUnregistersChannelMessage();
             case "POL":
-                return LanguagePolish.getUnregistersChannelMessage();
+                return LanguagePolish.getHelpUnregistersChannelMessage();
             case "FRA":
-                return LanguageFrench.getUnregistersChannelMessage();
+                return LanguageFrench.getHelpUnregistersChannelMessage();
             case "ITA":
-                return LanguageItalian.getUnregistersChannelMessage();
+                return LanguageItalian.getHelpUnregistersChannelMessage();
             case "RUS":
-                return LanguageRussian.getUnregistersChannelMessage();
+                return LanguageRussian.getHelpUnregistersChannelMessage();
             case "IND":
-                return LanguageIndonesia.getUnregistersChannelMessage();
+                return LanguageIndonesia.getHelpUnregistersChannelMessage();
             default:
-                return LanguageEnglish.getUnregistersChannelMessage();
+                return LanguageEnglish.getHelpUnregistersChannelMessage();
         }
     }
 
-    public static String getSetsChannelRoleMessage(String lang) {
+    public static String getHelpSetRoleMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getSetsChannelRoleMessage();
+                return LanguageGerman.getHelpSetRoleMessage();
             case "ESP":
-                return LanguageSpain.getSetsChannelRoleMessage();
+                return LanguageSpain.getHelpSetRoleMessage();
             case "POL":
-                return LanguagePolish.getSetsChannelRoleMessage();
+                return LanguagePolish.getHelpSetRoleMessage();
             case "FRA":
-                return LanguageFrench.getSetsChannelRoleMessage();
+                return LanguageFrench.getHelpSetRoleMessage();
             case "ITA":
-                return LanguageItalian.getSetsChannelRoleMessage();
+                return LanguageItalian.getHelpSetRoleMessage();
             case "RUS":
-                return LanguageRussian.getSetsChannelRoleMessage();
+                return LanguageRussian.getHelpSetRoleMessage();
             case "IND":
-                return LanguageIndonesia.getSetsChannelRoleMessage();
+                return LanguageIndonesia.getHelpSetRoleMessage();
             default:
-                return LanguageEnglish.getSetsChannelRoleMessage();
+                return LanguageEnglish.getHelpSetRoleMessage();
         }
     }
 
-    public static String getShowsChannelInfoMessage(String lang) {
+    public static String getHelpShowInfoMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getShowsChannelInfoMessage();
+                return LanguageGerman.getHelpShowInfoMessage();
             case "ESP":
-                return LanguageSpain.getShowsChannelInfoMessage();
+                return LanguageSpain.getHelpShowInfoMessage();
             case "POL":
-                return LanguagePolish.getShowsChannelInfoMessage();
+                return LanguagePolish.getHelpShowInfoMessage();
             case "FRA":
-                return LanguageFrench.getShowsChannelInfoMessage();
+                return LanguageFrench.getHelpShowInfoMessage();
             case "ITA":
-                return LanguageItalian.getShowsChannelInfoMessage();
+                return LanguageItalian.getHelpShowInfoMessage();
             case "RUS":
-                return LanguageRussian.getShowsChannelInfoMessage();
+                return LanguageRussian.getHelpShowInfoMessage();
             case "IND":
-                return LanguageIndonesia.getShowsChannelInfoMessage();
+                return LanguageIndonesia.getHelpShowInfoMessage();
             default:
-                return LanguageEnglish.getShowsChannelInfoMessage();
+                return LanguageEnglish.getHelpShowInfoMessage();
         }
     }
 
-    public static String getCreateCustomMessageMessage(String lang) {
+    public static String getHelpCreateCustomMessageMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getCreateCustomMessageMessage();
+                return LanguageGerman.getHelpCreateCustomMessageMessage();
             case "ESP":
-                return LanguageSpain.getCreateCustomMessageMessage();
+                return LanguageSpain.getHelpCreateCustomMessageMessage();
             case "POL":
-                return LanguagePolish.getCreateCustomMessageMessage();
+                return LanguagePolish.getHelpCreateCustomMessageMessage();
             case "FRA":
-                return LanguageFrench.getCreateCustomMessageMessage();
+                return LanguageFrench.getHelpCreateCustomMessageMessage();
             case "ITA":
-                return LanguageItalian.getCreateCustomMessageMessage();
+                return LanguageItalian.getHelpCreateCustomMessageMessage();
             case "RUS":
-                return LanguageRussian.getCreateCustomMessageMessage();
+                return LanguageRussian.getHelpCreateCustomMessageMessage();
             case "IND":
-                return LanguageIndonesia.getCreateCustomMessageMessage();
+                return LanguageIndonesia.getHelpCreateCustomMessageMessage();
             default:
-                return LanguageEnglish.getCreateCustomMessageMessage();
+                return LanguageEnglish.getHelpCreateCustomMessageMessage();
         }
     }
 
-    public static String getDeleteCustomMessageMessage(String lang) {
+    public static String getHelpDeleteCustomMessageMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getDeleteCustomMessageMessage();
+                return LanguageGerman.getHelpDeleteCustomMessageMessage();
             case "ESP":
-                return LanguageSpain.getDeleteCustomMessageMessage();
+                return LanguageSpain.getHelpDeleteCustomMessageMessage();
             case "POL":
-                return LanguagePolish.getDeleteCustomMessageMessage();
+                return LanguagePolish.getHelpDeleteCustomMessageMessage();
             case "FRA":
-                return LanguageFrench.getDeleteCustomMessageMessage();
+                return LanguageFrench.getHelpDeleteCustomMessageMessage();
             case "ITA":
-                return LanguageItalian.getDeleteCustomMessageMessage();
+                return LanguageItalian.getHelpDeleteCustomMessageMessage();
             case "RUS":
-                return LanguageRussian.getDeleteCustomMessageMessage();
+                return LanguageRussian.getHelpDeleteCustomMessageMessage();
             case "IND":
-                return LanguageIndonesia.getDeleteCustomMessageMessage();
+                return LanguageIndonesia.getHelpDeleteCustomMessageMessage();
             default:
-                return LanguageEnglish.getDeleteCustomMessageMessage();
+                return LanguageEnglish.getHelpDeleteCustomMessageMessage();
         }
     }
 
-    public static String getShowsAllCustomMessageMessage(String lang) {
+    public static String getHelpShowAllCustomMessagesMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getShowsAllCustomMessageMessage();
+                return LanguageGerman.getHelpShowAllCustomMessagesMessage();
             case "ESP":
-                return LanguageSpain.getShowsAllCustomMessageMessage();
+                return LanguageSpain.getHelpShowAllCustomMessagesMessage();
             case "POL":
-                return LanguagePolish.getShowsAllCustomMessageMessage();
+                return LanguagePolish.getHelpShowAllCustomMessagesMessage();
             case "FRA":
-                return LanguageFrench.getShowsAllCustomMessageMessage();
+                return LanguageFrench.getHelpShowAllCustomMessagesMessage();
             case "ITA":
-                return LanguageItalian.getShowsAllCustomMessageMessage();
+                return LanguageItalian.getHelpShowAllCustomMessagesMessage();
             case "RUS":
-                return LanguageRussian.getShowsAllCustomMessageMessage();
+                return LanguageRussian.getHelpShowAllCustomMessagesMessage();
             case "IND":
-                return LanguageIndonesia.getShowsAllCustomMessageMessage();
+                return LanguageIndonesia.getHelpShowAllCustomMessagesMessage();
             default:
-                return LanguageEnglish.getShowsAllCustomMessageMessage();
+                return LanguageEnglish.getHelpShowAllCustomMessagesMessage();
         }
     }
 
-    public static String getShowsCustomMessageInfoMessage(String lang) {
+    public static String getHelpShowCustomMessageInfoMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getShowsCustomMessageInfoMessage();
+                return LanguageGerman.getHelpShowAllCustomMessagesMessage();
             case "ESP":
-                return LanguageSpain.getShowsCustomMessageInfoMessage();
+                return LanguageSpain.getHelpShowAllCustomMessagesMessage();
             case "POL":
-                return LanguagePolish.getShowsCustomMessageInfoMessage();
+                return LanguagePolish.getHelpShowAllCustomMessagesMessage();
             case "FRA":
-                return LanguageFrench.getShowsCustomMessageInfoMessage();
+                return LanguageFrench.getHelpShowAllCustomMessagesMessage();
             case "ITA":
-                return LanguageItalian.getShowsCustomMessageInfoMessage();
+                return LanguageItalian.getHelpShowAllCustomMessagesMessage();
             case "RUS":
-                return LanguageRussian.getShowsCustomMessageInfoMessage();
+                return LanguageRussian.getHelpShowAllCustomMessagesMessage();
             case "IND":
-                return LanguageIndonesia.getShowsCustomMessageInfoMessage();
+                return LanguageIndonesia.getHelpShowAllCustomMessagesMessage();
             default:
-                return LanguageEnglish.getShowsCustomMessageInfoMessage();
+                return LanguageEnglish.getHelpShowCustomMessageInfoMessage();
         }
     }
 
-    public static String getHeadUpActivationMessage(String lang) {
+    public static String getHelpServerHeadUpMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getHeadUpActivationMessage();
+                return LanguageGerman.getHelpServerHeadUpMessage();
             case "ESP":
-                return LanguageSpain.getHeadUpActivationMessage();
+                return LanguageSpain.getHelpServerHeadUpMessage();
             case "POL":
-                return LanguagePolish.getHeadUpActivationMessage();
+                return LanguagePolish.getHelpServerHeadUpMessage();
             case "FRA":
-                return LanguageFrench.getHeadUpActivationMessage();
+                return LanguageFrench.getHelpServerHeadUpMessage();
             case "ITA":
-                return LanguageItalian.getHeadUpActivationMessage();
+                return LanguageItalian.getHelpServerHeadUpMessage();
             case "RUS":
-                return LanguageRussian.getHeadUpActivationMessage();
+                return LanguageRussian.getHelpServerHeadUpMessage();
             case "IND":
-                return LanguageIndonesia.getHeadUpActivationMessage();
+                return LanguageIndonesia.getHelpServerHeadUpMessage();
             default:
-                return LanguageEnglish.getHeadUpActivationMessage();
+                return LanguageEnglish.getHelpServerHeadUpMessage();
         }
     }
 
-    public static String getMessageActivationMessage(String lang) {
+    public static String getHelpServerMessagesMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getMessageActivationMessage();
+                return LanguageGerman.getHelpServerMessagesMessage();
             case "ESP":
-                return LanguageSpain.getMessageActivationMessage();
+                return LanguageSpain.getHelpServerMessagesMessage();
             case "POL":
-                return LanguagePolish.getMessageActivationMessage();
+                return LanguagePolish.getHelpServerMessagesMessage();
             case "FRA":
-                return LanguageFrench.getMessageActivationMessage();
+                return LanguageFrench.getHelpServerMessagesMessage();
             case "ITA":
-                return LanguageItalian.getMessageActivationMessage();
+                return LanguageItalian.getHelpServerMessagesMessage();
             case "RUS":
-                return LanguageRussian.getMessageActivationMessage();
+                return LanguageRussian.getHelpServerMessagesMessage();
             case "IND":
-                return LanguageIndonesia.getMessageActivationMessage();
+                return LanguageIndonesia.getHelpServerMessagesMessage();
             default:
-                return LanguageEnglish.getMessageActivationMessage();
+                return LanguageEnglish.getHelpServerMessagesMessage();
         }
     }
 
-    public static String getShowsServerConfigMessage(String lang) {
+    public static String getHelpServerConfigMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getShowsServerConfigMessage();
+                return LanguageGerman.getHelpServerConfigMessage();
             case "ESP":
-                return LanguageSpain.getShowsServerConfigMessage();
+                return LanguageSpain.getHelpServerConfigMessage();
             case "POL":
-                return LanguagePolish.getShowsServerConfigMessage();
+                return LanguagePolish.getHelpServerConfigMessage();
             case "FRA":
-                return LanguageFrench.getShowsServerConfigMessage();
+                return LanguageFrench.getHelpServerConfigMessage();
             case "ITA":
-                return LanguageItalian.getShowsServerConfigMessage();
+                return LanguageItalian.getHelpServerConfigMessage();
             case "RUS":
-                return LanguageRussian.getShowsServerConfigMessage();
+                return LanguageRussian.getHelpServerConfigMessage();
             case "IND":
-                return LanguageIndonesia.getShowsServerConfigMessage();
+                return LanguageIndonesia.getHelpServerConfigMessage();
             default:
-                return LanguageEnglish.getShowsServerConfigMessage();
+                return LanguageEnglish.getHelpServerConfigMessage();
         }
     }
 
-    public static String getSetsServerLanguageMessage(String lang) {
+    public static String getHelpServerLanguageMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getSetsServerLanguageMessage();
+                return LanguageGerman.getHelpServerLanguageMessage();
             case "ESP":
-                return LanguageSpain.getSetsServerLanguageMessage();
+                return LanguageSpain.getHelpServerLanguageMessage();
             case "POL":
-                return LanguagePolish.getSetsServerLanguageMessage();
+                return LanguagePolish.getHelpServerLanguageMessage();
             case "FRA":
-                return LanguageFrench.getSetsServerLanguageMessage();
+                return LanguageFrench.getHelpServerLanguageMessage();
             case "ITA":
-                return LanguageItalian.getSetsServerLanguageMessage();
+                return LanguageItalian.getHelpServerLanguageMessage();
             case "RUS":
-                return LanguageRussian.getSetsServerLanguageMessage();
+                return LanguageRussian.getHelpServerLanguageMessage();
             case "IND":
-                return LanguageIndonesia.getSetsServerLanguageMessage();
+                return LanguageIndonesia.getHelpServerLanguageMessage();
             default:
-                return LanguageEnglish.getSetsServerLanguageMessage();
+                return LanguageEnglish.getHelpServerLanguageMessage();
         }
     }
 
-    public static String getSetsTimezoneLanguageMessage(String lang) {
+    public static String getHelpServerTimezoneMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getSetsTimezoneLanguageMessage();
+                return LanguageGerman.getHelpServerTimezoneMessage();
             case "ESP":
-                return LanguageSpain.getSetsTimezoneLanguageMessage();
+                return LanguageSpain.getHelpServerTimezoneMessage();
             case "POL":
-                return LanguagePolish.getSetsTimezoneLanguageMessage();
+                return LanguagePolish.getHelpServerTimezoneMessage();
             case "FRA":
-                return LanguageFrench.getSetsTimezoneLanguageMessage();
+                return LanguageFrench.getHelpServerTimezoneMessage();
             case "ITA":
-                return LanguageItalian.getSetsTimezoneLanguageMessage();
+                return LanguageItalian.getHelpServerTimezoneMessage();
             case "RUS":
-                return LanguageRussian.getSetsTimezoneLanguageMessage();
+                return LanguageRussian.getHelpServerTimezoneMessage();
             case "IND":
-                return LanguageIndonesia.getSetsTimezoneLanguageMessage();
+                return LanguageIndonesia.getHelpServerTimezoneMessage();
             default:
-                return LanguageEnglish.getSetsTimezoneLanguageMessage();
+                return LanguageEnglish.getHelpServerTimezoneMessage();
         }
     }
 
@@ -1813,66 +1625,45 @@ public class LanguageController {
         }
     }
 
-    public static String getCreatedByMessage(String lang) {
+    public static String getHelpServerAutoDeleteSetMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getCreatedByMessage();
+                return LanguageGerman.getHelpServerAutoDeleteSetMessage();
             case "ESP":
-                return LanguageSpain.getCreatedByMessage();
+                return LanguageSpain.getHelpServerAutoDeleteSetMessage();
             case "POL":
-                return LanguagePolish.getCreatedByMessage();
+                return LanguagePolish.getHelpServerAutoDeleteSetMessage();
             case "FRA":
-                return LanguageFrench.getCreatedByMessage();
+                return LanguageFrench.getHelpServerAutoDeleteSetMessage();
             case "ITA":
-                return LanguageItalian.getCreatedByMessage();
+                return LanguageItalian.getHelpServerAutoDeleteSetMessage();
             case "RUS":
-                return LanguageRussian.getCreatedByMessage();
+                return LanguageRussian.getHelpServerAutoDeleteSetMessage();
             case "IND":
-                return LanguageIndonesia.getCreatedByMessage();
+                return LanguageIndonesia.getHelpServerAutoDeleteSetMessage();
             default:
-                return LanguageEnglish.getCreatedByMessage();
+                return LanguageEnglish.getHelpServerAutoDeleteSetMessage();
         }
     }
 
-    public static String getAutoDeleteActivationMessage(String lang) {
+    public static String getHelpServerAutoDeleteValueMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getAutoDeleteActivationMessage();
+                return LanguageGerman.getHelpServerAutoDeleteValueMessage();
             case "ESP":
-                return LanguageSpain.getAutoDeleteActivationMessage();
+                return LanguageSpain.getHelpServerAutoDeleteValueMessage();
             case "POL":
-                return LanguagePolish.getAutoDeleteActivationMessage();
+                return LanguagePolish.getHelpServerAutoDeleteValueMessage();
             case "FRA":
-                return LanguageFrench.getAutoDeleteActivationMessage();
+                return LanguageFrench.getHelpServerAutoDeleteValueMessage();
             case "ITA":
-                return LanguageItalian.getAutoDeleteActivationMessage();
+                return LanguageItalian.getHelpServerAutoDeleteValueMessage();
             case "RUS":
-                return LanguageRussian.getAutoDeleteActivationMessage();
+                return LanguageRussian.getHelpServerAutoDeleteValueMessage();
             case "IND":
-                return LanguageIndonesia.getAutoDeleteActivationMessage();
+                return LanguageIndonesia.getHelpServerAutoDeleteValueMessage();
             default:
-                return LanguageEnglish.getAutoDeleteActivationMessage();
-        }
-    }
-
-    public static String getAutoDeleteValueMessage(String lang) {
-        switch (lang.toUpperCase()) {
-            case "GER":
-                return LanguageGerman.getAutoDeleteValueMessage();
-            case "ESP":
-                return LanguageSpain.getAutoDeleteValueMessage();
-            case "POL":
-                return LanguagePolish.getAutoDeleteValueMessage();
-            case "FRA":
-                return LanguageFrench.getAutoDeleteValueMessage();
-            case "ITA":
-                return LanguageItalian.getAutoDeleteValueMessage();
-            case "RUS":
-                return LanguageRussian.getAutoDeleteValueMessage();
-            case "IND":
-                return LanguageIndonesia.getAutoDeleteValueMessage();
-            default:
-                return LanguageEnglish.getAutoDeleteValueMessage();
+                return LanguageEnglish.getHelpServerAutoDeleteValueMessage();
         }
     }
 
@@ -1919,68 +1710,949 @@ public class LanguageController {
         }
     }
 
-    public static String getReportToDevMessage(String lang) {
+    public static String getFooterReportToDevMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getReportToDevMessage();
+                return LanguageGerman.getFooterReportToDevMessage();
             case "ESP":
-                return LanguageSpain.getReportToDevMessage();
+                return LanguageSpain.getFooterReportToDevMessage();
             case "POL":
-                return LanguagePolish.getReportToDevMessage();
+                return LanguagePolish.getFooterReportToDevMessage();
             case "FRA":
-                return LanguageFrench.getReportToDevMessage();
+                return LanguageFrench.getFooterReportToDevMessage();
             case "ITA":
-                return LanguageItalian.getReportToDevMessage();
+                return LanguageItalian.getFooterReportToDevMessage();
             case "RUS":
-                return LanguageRussian.getReportToDevMessage();
+                return LanguageRussian.getFooterReportToDevMessage();
             case "IND":
-                return LanguageIndonesia.getReportToDevMessage();
+                return LanguageIndonesia.getFooterReportToDevMessage();
             default:
-                return LanguageEnglish.getReportToDevMessage();
+                return LanguageEnglish.getFooterReportToDevMessage();
         }
     }
 
-    public static String getYesMessage(String lang) {
+    public static String getWrathborneInvasionMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getYesMessage();
+                return LanguageGerman.getWrathborneInvasionMessage();
             case "ESP":
-                return LanguageSpain.getYesMessage();
+                return LanguageSpain.getWrathborneInvasionMessage();
             case "POL":
-                return LanguagePolish.getYesMessage();
+                return LanguagePolish.getWrathborneInvasionMessage();
             case "FRA":
-                return LanguageFrench.getYesMessage();
+                return LanguageFrench.getWrathborneInvasionMessage();
             case "ITA":
-                return LanguageItalian.getYesMessage();
+                return LanguageItalian.getWrathborneInvasionMessage();
             case "RUS":
-                return LanguageRussian.getYesMessage();
+                return LanguageRussian.getWrathborneInvasionMessage();
             case "IND":
-                return LanguageIndonesia.getYesMessage();
+                return LanguageIndonesia.getWrathborneInvasionMessage();
             default:
-                return LanguageEnglish.getYesMessage();
+                return LanguageEnglish.getWrathborneInvasionMessage();
         }
     }
 
-    public static String getNoMessage(String lang) {
+    public static String getWrathborneInvasionHeadUpMessage(String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
-                return LanguageGerman.getNoMessage();
+                return LanguageGerman.getWrathborneInvasionHeadUpMessage();
             case "ESP":
-                return LanguageSpain.getNoMessage();
+                return LanguageSpain.getWrathborneInvasionHeadUpMessage();
             case "POL":
-                return LanguagePolish.getNoMessage();
+                return LanguagePolish.getWrathborneInvasionHeadUpMessage();
             case "FRA":
-                return LanguageFrench.getNoMessage();
+                return LanguageFrench.getWrathborneInvasionHeadUpMessage();
             case "ITA":
-                return LanguageItalian.getNoMessage();
+                return LanguageItalian.getWrathborneInvasionHeadUpMessage();
             case "RUS":
-                return LanguageRussian.getNoMessage();
+                return LanguageRussian.getWrathborneInvasionHeadUpMessage();
             case "IND":
-                return LanguageIndonesia.getNoMessage();
+                return LanguageIndonesia.getWrathborneInvasionHeadUpMessage();
             default:
-                return LanguageEnglish.getNoMessage();
+                return LanguageEnglish.getWrathborneInvasionHeadUpMessage();
         }
     }
 
+    public static String getInstall1Message(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInstall1Message();
+            case "ESP":
+                return LanguageSpain.getInstall1Message();
+            case "POL":
+                return LanguagePolish.getInstall1Message();
+            case "FRA":
+                return LanguageFrench.getInstall1Message();
+            case "ITA":
+                return LanguageItalian.getInstall1Message();
+            case "RUS":
+                return LanguageRussian.getInstall1Message();
+            case "IND":
+                return LanguageIndonesia.getInstall1Message();
+            default:
+                return LanguageEnglish.getInstall1Message();
+        }
+    }
+
+    public static String getInstall2Message(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInstall2Message();
+            case "ESP":
+                return LanguageSpain.getInstall2Message();
+            case "POL":
+                return LanguagePolish.getInstall2Message();
+            case "FRA":
+                return LanguageFrench.getInstall2Message();
+            case "ITA":
+                return LanguageItalian.getInstall2Message();
+            case "RUS":
+                return LanguageRussian.getInstall2Message();
+            case "IND":
+                return LanguageIndonesia.getInstall2Message();
+            default:
+                return LanguageEnglish.getInstall2Message();
+        }
+    }
+
+    public static String getInstall3Message(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInstall3Message();
+            case "ESP":
+                return LanguageSpain.getInstall3Message();
+            case "POL":
+                return LanguagePolish.getInstall3Message();
+            case "FRA":
+                return LanguageFrench.getInstall3Message();
+            case "ITA":
+                return LanguageItalian.getInstall3Message();
+            case "RUS":
+                return LanguageRussian.getInstall3Message();
+            case "IND":
+                return LanguageIndonesia.getInstall3Message();
+            default:
+                return LanguageEnglish.getInstall3Message();
+        }
+    }
+
+    public static String getInstall4Message(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInstall4Message();
+            case "ESP":
+                return LanguageSpain.getInstall4Message();
+            case "POL":
+                return LanguagePolish.getInstall4Message();
+            case "FRA":
+                return LanguageFrench.getInstall4Message();
+            case "ITA":
+                return LanguageItalian.getInstall4Message();
+            case "RUS":
+                return LanguageRussian.getInstall4Message();
+            case "IND":
+                return LanguageIndonesia.getInstall4Message();
+            default:
+                return LanguageEnglish.getInstall4Message();
+        }
+    }
+
+    public static String getInstall5Message(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInstall5Message();
+            case "ESP":
+                return LanguageSpain.getInstall5Message();
+            case "POL":
+                return LanguagePolish.getInstall5Message();
+            case "FRA":
+                return LanguageFrench.getInstall5Message();
+            case "ITA":
+                return LanguageItalian.getInstall5Message();
+            case "RUS":
+                return LanguageRussian.getInstall5Message();
+            case "IND":
+                return LanguageIndonesia.getInstall5Message();
+            default:
+                return LanguageEnglish.getInstall5Message();
+        }
+    }
+
+    public static String getInstructionsMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInstructionsMessage();
+            case "ESP":
+                return LanguageSpain.getInstructionsMessage();
+            case "POL":
+                return LanguagePolish.getInstructionsMessage();
+            case "FRA":
+                return LanguageFrench.getInstructionsMessage();
+            case "ITA":
+                return LanguageItalian.getInstructionsMessage();
+            case "RUS":
+                return LanguageRussian.getInstructionsMessage();
+            case "IND":
+                return LanguageIndonesia.getInstructionsMessage();
+            default:
+                return LanguageEnglish.getInstructionsMessage();
+        }
+    }
+
+    public static String getInfoTimezoneMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoTimezoneMessage();
+            case "ESP":
+                return LanguageSpain.getInfoTimezoneMessage();
+            case "POL":
+                return LanguagePolish.getInfoTimezoneMessage();
+            case "FRA":
+                return LanguageFrench.getInfoTimezoneMessage();
+            case "ITA":
+                return LanguageItalian.getInfoTimezoneMessage();
+            case "RUS":
+                return LanguageRussian.getInfoTimezoneMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoTimezoneMessage();
+            default:
+                return LanguageEnglish.getInfoTimezoneMessage();
+        }
+    }
+
+    public static String getInfoCurrentTimeMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoCurrentTimeMessage();
+            case "ESP":
+                return LanguageSpain.getInfoCurrentTimeMessage();
+            case "POL":
+                return LanguagePolish.getInfoCurrentTimeMessage();
+            case "FRA":
+                return LanguageFrench.getInfoCurrentTimeMessage();
+            case "ITA":
+                return LanguageItalian.getInfoCurrentTimeMessage();
+            case "RUS":
+                return LanguageRussian.getInfoCurrentTimeMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoCurrentTimeMessage();
+            default:
+                return LanguageEnglish.getInfoCurrentTimeMessage();
+        }
+    }
+
+    public static String getInfoTextChannelIDMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoTextChannelIDMessage();
+            case "ESP":
+                return LanguageSpain.getInfoTextChannelIDMessage();
+            case "POL":
+                return LanguagePolish.getInfoTextChannelIDMessage();
+            case "FRA":
+                return LanguageFrench.getInfoTextChannelIDMessage();
+            case "ITA":
+                return LanguageItalian.getInfoTextChannelIDMessage();
+            case "RUS":
+                return LanguageRussian.getInfoTextChannelIDMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoTextChannelIDMessage();
+            default:
+                return LanguageEnglish.getInfoTextChannelIDMessage();
+        }
+    }
+
+    public static String getInfoMentionedRoleMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoMentionedRoleMessage();
+            case "ESP":
+                return LanguageSpain.getInfoMentionedRoleMessage();
+            case "POL":
+                return LanguagePolish.getInfoMentionedRoleMessage();
+            case "FRA":
+                return LanguageFrench.getInfoMentionedRoleMessage();
+            case "ITA":
+                return LanguageItalian.getInfoMentionedRoleMessage();
+            case "RUS":
+                return LanguageRussian.getInfoMentionedRoleMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoMentionedRoleMessage();
+            default:
+                return LanguageEnglish.getInfoMentionedRoleMessage();
+        }
+    }
+
+    public static String getInfoYesMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoYesMessage();
+            case "ESP":
+                return LanguageSpain.getInfoYesMessage();
+            case "POL":
+                return LanguagePolish.getInfoYesMessage();
+            case "FRA":
+                return LanguageFrench.getInfoYesMessage();
+            case "ITA":
+                return LanguageItalian.getInfoYesMessage();
+            case "RUS":
+                return LanguageRussian.getInfoYesMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoYesMessage();
+            default:
+                return LanguageEnglish.getInfoYesMessage();
+        }
+    }
+
+    public static String getInfoNoMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoNoMessage();
+            case "ESP":
+                return LanguageSpain.getInfoNoMessage();
+            case "POL":
+                return LanguagePolish.getInfoNoMessage();
+            case "FRA":
+                return LanguageFrench.getInfoNoMessage();
+            case "ITA":
+                return LanguageItalian.getInfoNoMessage();
+            case "RUS":
+                return LanguageRussian.getInfoNoMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoNoMessage();
+            default:
+                return LanguageEnglish.getInfoNoMessage();
+        }
+    }
+
+    public static String getInfoEventMessageMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoEventMessageMessage();
+            case "ESP":
+                return LanguageSpain.getInfoEventMessageMessage();
+            case "POL":
+                return LanguagePolish.getInfoEventMessageMessage();
+            case "FRA":
+                return LanguageFrench.getInfoEventMessageMessage();
+            case "ITA":
+                return LanguageItalian.getInfoEventMessageMessage();
+            case "RUS":
+                return LanguageRussian.getInfoEventMessageMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoEventMessageMessage();
+            default:
+                return LanguageEnglish.getInfoEventMessageMessage();
+        }
+    }
+
+    public static String getInfoHeadUpMessageMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoHeadUpMessageMessage();
+            case "ESP":
+                return LanguageSpain.getInfoHeadUpMessageMessage();
+            case "POL":
+                return LanguagePolish.getInfoHeadUpMessageMessage();
+            case "FRA":
+                return LanguageFrench.getInfoHeadUpMessageMessage();
+            case "ITA":
+                return LanguageItalian.getInfoHeadUpMessageMessage();
+            case "RUS":
+                return LanguageRussian.getInfoHeadUpMessageMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoHeadUpMessageMessage();
+            default:
+                return LanguageEnglish.getInfoHeadUpMessageMessage();
+        }
+    }
+
+    public static String getInfoAncientNightmareMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoAncientNightmareMessage();
+            case "ESP":
+                return LanguageSpain.getInfoAncientNightmareMessage();
+            case "POL":
+                return LanguagePolish.getInfoAncientNightmareMessage();
+            case "FRA":
+                return LanguageFrench.getInfoAncientNightmareMessage();
+            case "ITA":
+                return LanguageItalian.getInfoAncientNightmareMessage();
+            case "RUS":
+                return LanguageRussian.getInfoAncientNightmareMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoAncientNightmareMessage();
+            default:
+                return LanguageEnglish.getInfoAncientNightmareMessage();
+        }
+    }
+
+    public static String getInfoAncientArenaMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoAncientArenaMessage();
+            case "ESP":
+                return LanguageSpain.getInfoAncientArenaMessage();
+            case "POL":
+                return LanguagePolish.getInfoAncientArenaMessage();
+            case "FRA":
+                return LanguageFrench.getInfoAncientArenaMessage();
+            case "ITA":
+                return LanguageItalian.getInfoAncientArenaMessage();
+            case "RUS":
+                return LanguageRussian.getInfoAncientArenaMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoAncientArenaMessage();
+            default:
+                return LanguageEnglish.getInfoAncientArenaMessage();
+        }
+    }
+
+    public static String getInfoAssemblyMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoAssemblyMessage();
+            case "ESP":
+                return LanguageSpain.getInfoAssemblyMessage();
+            case "POL":
+                return LanguagePolish.getInfoAssemblyMessage();
+            case "FRA":
+                return LanguageFrench.getInfoAssemblyMessage();
+            case "ITA":
+                return LanguageItalian.getInfoAssemblyMessage();
+            case "RUS":
+                return LanguageRussian.getInfoAssemblyMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoAssemblyMessage();
+            default:
+                return LanguageEnglish.getInfoAssemblyMessage();
+        }
+    }
+
+    public static String getInfoBattlegroundMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoBattlegroundMessage();
+            case "ESP":
+                return LanguageSpain.getInfoBattlegroundMessage();
+            case "POL":
+                return LanguagePolish.getInfoBattlegroundMessage();
+            case "FRA":
+                return LanguageFrench.getInfoBattlegroundMessage();
+            case "ITA":
+                return LanguageItalian.getInfoBattlegroundMessage();
+            case "RUS":
+                return LanguageRussian.getInfoBattlegroundMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoBattlegroundMessage();
+            default:
+                return LanguageEnglish.getInfoBattlegroundMessage();
+        }
+    }
+
+    public static String getInfoDefendTheVaultMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoDefendTheVaultMessage();
+            case "ESP":
+                return LanguageSpain.getInfoDefendTheVaultMessage();
+            case "POL":
+                return LanguagePolish.getInfoDefendTheVaultMessage();
+            case "FRA":
+                return LanguageFrench.getInfoDefendTheVaultMessage();
+            case "ITA":
+                return LanguageItalian.getInfoDefendTheVaultMessage();
+            case "RUS":
+                return LanguageRussian.getInfoDefendTheVaultMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoDefendTheVaultMessage();
+            default:
+                return LanguageEnglish.getInfoDefendTheVaultMessage();
+        }
+    }
+
+    public static String getInfoRaidTheVaultMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoRaidTheVaultMessage();
+            case "ESP":
+                return LanguageSpain.getInfoRaidTheVaultMessage();
+            case "POL":
+                return LanguagePolish.getInfoRaidTheVaultMessage();
+            case "FRA":
+                return LanguageFrench.getInfoRaidTheVaultMessage();
+            case "ITA":
+                return LanguageItalian.getInfoRaidTheVaultMessage();
+            case "RUS":
+                return LanguageRussian.getInfoRaidTheVaultMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoRaidTheVaultMessage();
+            default:
+                return LanguageEnglish.getInfoRaidTheVaultMessage();
+        }
+    }
+
+    public static String getInfoDemonGatesMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoDemonGatesMessage();
+            case "ESP":
+                return LanguageSpain.getInfoDemonGatesMessage();
+            case "POL":
+                return LanguagePolish.getInfoDemonGatesMessage();
+            case "FRA":
+                return LanguageFrench.getInfoDemonGatesMessage();
+            case "ITA":
+                return LanguageItalian.getInfoDemonGatesMessage();
+            case "RUS":
+                return LanguageRussian.getInfoDemonGatesMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoDemonGatesMessage();
+            default:
+                return LanguageEnglish.getInfoDemonGatesMessage();
+        }
+    }
+
+    public static String getInfoShadowLotteryMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoShadowLotteryMessage();
+            case "ESP":
+                return LanguageSpain.getInfoShadowLotteryMessage();
+            case "POL":
+                return LanguagePolish.getInfoShadowLotteryMessage();
+            case "FRA":
+                return LanguageFrench.getInfoShadowLotteryMessage();
+            case "ITA":
+                return LanguageItalian.getInfoShadowLotteryMessage();
+            case "RUS":
+                return LanguageRussian.getInfoShadowLotteryMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoShadowLotteryMessage();
+            default:
+                return LanguageEnglish.getInfoShadowLotteryMessage();
+        }
+    }
+
+    public static String getInfoHauntedCarriageMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoHauntedCarriageMessage();
+            case "ESP":
+                return LanguageSpain.getInfoHauntedCarriageMessage();
+            case "POL":
+                return LanguagePolish.getInfoHauntedCarriageMessage();
+            case "FRA":
+                return LanguageFrench.getInfoHauntedCarriageMessage();
+            case "ITA":
+                return LanguageItalian.getInfoHauntedCarriageMessage();
+            case "RUS":
+                return LanguageRussian.getInfoHauntedCarriageMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoHauntedCarriageMessage();
+            default:
+                return LanguageEnglish.getInfoHauntedCarriageMessage();
+        }
+    }
+
+    public static String getInfoWrathborneInvasionMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoWrathborneInvasionMessage();
+            case "ESP":
+                return LanguageSpain.getInfoWrathborneInvasionMessage();
+            case "POL":
+                return LanguagePolish.getInfoWrathborneInvasionMessage();
+            case "FRA":
+                return LanguageFrench.getInfoWrathborneInvasionMessage();
+            case "ITA":
+                return LanguageItalian.getInfoWrathborneInvasionMessage();
+            case "RUS":
+                return LanguageRussian.getInfoWrathborneInvasionMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoWrathborneInvasionMessage();
+            default:
+                return LanguageEnglish.getInfoWrathborneInvasionMessage();
+        }
+    }
+
+    public static String getInfoHauntedCarriageEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoHauntedCarriageEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getInfoHauntedCarriageEmbedMessage();
+            case "POL":
+                return LanguagePolish.getInfoHauntedCarriageEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getInfoHauntedCarriageEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getInfoHauntedCarriageEmbedMessage();
+            case "RUS":
+                return LanguageRussian.getInfoHauntedCarriageEmbedMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoHauntedCarriageEmbedMessage();
+            default:
+                return LanguageEnglish.getInfoHauntedCarriageEmbedMessage();
+        }
+    }
+
+    public static String getInfoDemonGatesEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoDemonGatesEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getInfoDemonGatesEmbedMessage();
+            case "POL":
+                return LanguagePolish.getInfoDemonGatesEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getInfoDemonGatesEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getInfoDemonGatesEmbedMessage();
+            case "RUS":
+                return LanguageRussian.getInfoDemonGatesEmbedMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoDemonGatesEmbedMessage();
+            default:
+                return LanguageEnglish.getInfoDemonGatesEmbedMessage();
+        }
+    }
+
+    public static String getInfoAncientNightmareEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoAncientNightmareEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getInfoAncientNightmareEmbedMessage();
+            case "POL":
+                return LanguagePolish.getInfoAncientNightmareEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getInfoAncientNightmareEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getInfoAncientNightmareEmbedMessage();
+            case "RUS":
+                return LanguageRussian.getInfoAncientNightmareEmbedMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoAncientNightmareEmbedMessage();
+            default:
+                return LanguageEnglish.getInfoAncientNightmareEmbedMessage();
+        }
+    }
+
+    public static String getInfoAncientArenaEmbedMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoAncientArenaEmbedMessage();
+            case "ESP":
+                return LanguageSpain.getInfoAncientArenaEmbedMessage();
+            case "POL":
+                return LanguagePolish.getInfoAncientArenaEmbedMessage();
+            case "FRA":
+                return LanguageFrench.getInfoAncientArenaEmbedMessage();
+            case "ITA":
+                return LanguageItalian.getInfoAncientArenaEmbedMessage();
+            case "RUS":
+                return LanguageRussian.getInfoAncientArenaEmbedMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoAncientArenaEmbedMessage();
+            default:
+                return LanguageEnglish.getInfoAncientArenaEmbedMessage();
+        }
+    }
+
+    public static String getErrorCannotDisableEventMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getErrorCannotDisableEventMessage();
+            case "ESP":
+                return LanguageSpain.getErrorCannotDisableEventMessage();
+            case "POL":
+                return LanguagePolish.getErrorCannotDisableEventMessage();
+            case "FRA":
+                return LanguageFrench.getErrorCannotDisableEventMessage();
+            case "ITA":
+                return LanguageItalian.getErrorCannotDisableEventMessage();
+            case "RUS":
+                return LanguageRussian.getErrorCannotDisableEventMessage();
+            case "IND":
+                return LanguageIndonesia.getErrorCannotDisableEventMessage();
+            default:
+                return LanguageEnglish.getErrorCannotDisableEventMessage();
+        }
+    }
+
+    public static String getFooterCreatedByMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getFooterCreatedByMessage();
+            case "ESP":
+                return LanguageSpain.getFooterCreatedByMessage();
+            case "POL":
+                return LanguagePolish.getFooterCreatedByMessage();
+            case "FRA":
+                return LanguageFrench.getFooterCreatedByMessage();
+            case "ITA":
+                return LanguageItalian.getFooterCreatedByMessage();
+            case "RUS":
+                return LanguageRussian.getFooterCreatedByMessage();
+            case "IND":
+                return LanguageIndonesia.getFooterCreatedByMessage();
+            default:
+                return LanguageEnglish.getFooterCreatedByMessage();
+        }
+    }
+
+    public static String getAutoDeleteEnabledMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getAutoDeleteEnabledMessage();
+            case "ESP":
+                return LanguageSpain.getAutoDeleteEnabledMessage();
+            case "POL":
+                return LanguagePolish.getAutoDeleteEnabledMessage();
+            case "FRA":
+                return LanguageFrench.getAutoDeleteEnabledMessage();
+            case "ITA":
+                return LanguageItalian.getAutoDeleteEnabledMessage();
+            case "RUS":
+                return LanguageRussian.getAutoDeleteEnabledMessage();
+            case "IND":
+                return LanguageIndonesia.getAutoDeleteEnabledMessage();
+            default:
+                return LanguageEnglish.getAutoDeleteEnabledMessage();
+        }
+    }
+
+    public static String getAutoDeleteDisabledMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getAutoDeleteDisabledMessage();
+            case "ESP":
+                return LanguageSpain.getAutoDeleteDisabledMessage();
+            case "POL":
+                return LanguagePolish.getAutoDeleteDisabledMessage();
+            case "FRA":
+                return LanguageFrench.getAutoDeleteDisabledMessage();
+            case "ITA":
+                return LanguageItalian.getAutoDeleteDisabledMessage();
+            case "RUS":
+                return LanguageRussian.getAutoDeleteDisabledMessage();
+            case "IND":
+                return LanguageIndonesia.getAutoDeleteDisabledMessage();
+            default:
+                return LanguageEnglish.getAutoDeleteDisabledMessage();
+        }
+    }
+
+    public static String getAutoDeleteValueSetMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getAutoDeleteValueSetMessage();
+            case "ESP":
+                return LanguageSpain.getAutoDeleteValueSetMessage();
+            case "POL":
+                return LanguagePolish.getAutoDeleteValueSetMessage();
+            case "FRA":
+                return LanguageFrench.getAutoDeleteValueSetMessage();
+            case "ITA":
+                return LanguageItalian.getAutoDeleteValueSetMessage();
+            case "RUS":
+                return LanguageRussian.getAutoDeleteValueSetMessage();
+            case "IND":
+                return LanguageIndonesia.getAutoDeleteValueSetMessage();
+            default:
+                return LanguageEnglish.getAutoDeleteValueSetMessage();
+        }
+    }
+
+    public static String getInfoLanguageMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoLanguageMessage();
+            case "ESP":
+                return LanguageSpain.getInfoLanguageMessage();
+            case "POL":
+                return LanguagePolish.getInfoLanguageMessage();
+            case "FRA":
+                return LanguageFrench.getInfoLanguageMessage();
+            case "ITA":
+                return LanguageItalian.getInfoLanguageMessage();
+            case "RUS":
+                return LanguageRussian.getInfoLanguageMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoLanguageMessage();
+            default:
+                return LanguageEnglish.getInfoLanguageMessage();
+        }
+    }
+
+    public static String getInfoGuildIdMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getInfoGuildIdMessage();
+            case "ESP":
+                return LanguageSpain.getInfoGuildIdMessage();
+            case "POL":
+                return LanguagePolish.getInfoGuildIdMessage();
+            case "FRA":
+                return LanguageFrench.getInfoGuildIdMessage();
+            case "ITA":
+                return LanguageItalian.getInfoGuildIdMessage();
+            case "RUS":
+                return LanguageRussian.getInfoGuildIdMessage();
+            case "IND":
+                return LanguageIndonesia.getInfoGuildIdMessage();
+            default:
+                return LanguageEnglish.getInfoGuildIdMessage();
+        }
+    }
+
+    public static String getEventMessagesAlreadyOnMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getEventMessagesAlreadyOnMessage();
+            case "ESP":
+                return LanguageSpain.getEventMessagesAlreadyOnMessage();
+            case "POL":
+                return LanguagePolish.getEventMessagesAlreadyOnMessage();
+            case "FRA":
+                return LanguageFrench.getEventMessagesAlreadyOnMessage();
+            case "ITA":
+                return LanguageItalian.getEventMessagesAlreadyOnMessage();
+            case "RUS":
+                return LanguageRussian.getEventMessagesAlreadyOnMessage();
+            case "IND":
+                return LanguageIndonesia.getEventMessagesAlreadyOnMessage();
+            default:
+                return LanguageEnglish.getEventMessagesAlreadyOnMessage();
+        }
+    }
+
+    public static String getEventMessagesAlreadyOffMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getEventMessagesAlreadyOffMessage();
+            case "ESP":
+                return LanguageSpain.getEventMessagesAlreadyOffMessage();
+            case "POL":
+                return LanguagePolish.getEventMessagesAlreadyOffMessage();
+            case "FRA":
+                return LanguageFrench.getEventMessagesAlreadyOffMessage();
+            case "ITA":
+                return LanguageItalian.getEventMessagesAlreadyOffMessage();
+            case "RUS":
+                return LanguageRussian.getEventMessagesAlreadyOffMessage();
+            case "IND":
+                return LanguageIndonesia.getEventMessagesAlreadyOffMessage();
+            default:
+                return LanguageEnglish.getEventMessagesAlreadyOffMessage();
+        }
+    }
+
+    public static String getHeadUpMessagesAlreadyOnMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getHeadUpMessagesAlreadyOnMessage();
+            case "ESP":
+                return LanguageSpain.getHeadUpMessagesAlreadyOnMessage();
+            case "POL":
+                return LanguagePolish.getHeadUpMessagesAlreadyOnMessage();
+            case "FRA":
+                return LanguageFrench.getHeadUpMessagesAlreadyOnMessage();
+            case "ITA":
+                return LanguageItalian.getHeadUpMessagesAlreadyOnMessage();
+            case "RUS":
+                return LanguageRussian.getHeadUpMessagesAlreadyOnMessage();
+            case "IND":
+                return LanguageIndonesia.getHeadUpMessagesAlreadyOnMessage();
+            default:
+                return LanguageEnglish.getHeadUpMessagesAlreadyOnMessage();
+        }
+    }
+
+    public static String getHeadUpMessagesAlreadyOffMessages(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getHeadUpMessagesAlreadyOffMessages();
+            case "ESP":
+                return LanguageSpain.getHeadUpMessagesAlreadyOffMessages();
+            case "POL":
+                return LanguagePolish.getHeadUpMessagesAlreadyOffMessages();
+            case "FRA":
+                return LanguageFrench.getHeadUpMessagesAlreadyOffMessages();
+            case "ITA":
+                return LanguageItalian.getHeadUpMessagesAlreadyOffMessages();
+            case "RUS":
+                return LanguageRussian.getHeadUpMessagesAlreadyOffMessages();
+            case "IND":
+                return LanguageIndonesia.getHeadUpMessagesAlreadyOffMessages();
+            default:
+                return LanguageEnglish.getHeadUpMessagesAlreadyOffMessages();
+        }
+    }
+
+    public static String getFooterTimesIn24HrsFormatMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getFooterTimesIn24HrsFormatMessage();
+            case "ESP":
+                return LanguageSpain.getFooterTimesIn24HrsFormatMessage();
+            case "POL":
+                return LanguagePolish.getFooterTimesIn24HrsFormatMessage();
+            case "FRA":
+                return LanguageFrench.getFooterTimesIn24HrsFormatMessage();
+            case "ITA":
+                return LanguageItalian.getFooterTimesIn24HrsFormatMessage();
+            case "RUS":
+                return LanguageRussian.getFooterTimesIn24HrsFormatMessage();
+            case "IND":
+                return LanguageIndonesia.getFooterTimesIn24HrsFormatMessage();
+            default:
+                return LanguageEnglish.getFooterTimesIn24HrsFormatMessage();
+        }
+    }
+
+    public static String getHelpEventListMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getHelpEventListMessage();
+            case "ESP":
+                return LanguageSpain.getHelpEventListMessage();
+            case "POL":
+                return LanguagePolish.getHelpEventListMessage();
+            case "FRA":
+                return LanguageFrench.getHelpEventListMessage();
+            case "ITA":
+                return LanguageItalian.getHelpEventListMessage();
+            case "RUS":
+                return LanguageRussian.getHelpEventListMessage();
+            case "IND":
+                return LanguageIndonesia.getHelpEventListMessage();
+            default:
+                return LanguageEnglish.getHelpEventListMessage();
+        }
+    }
+
+    public static String getHelpEventSetMessage(String lang) {
+        switch (lang.toUpperCase()) {
+            case "GER":
+                return LanguageGerman.getHelpEventSetMessage();
+            case "ESP":
+                return LanguageSpain.getHelpEventSetMessage();
+            case "POL":
+                return LanguagePolish.getHelpEventSetMessage();
+            case "FRA":
+                return LanguageFrench.getHelpEventSetMessage();
+            case "ITA":
+                return LanguageItalian.getHelpEventSetMessage();
+            case "RUS":
+                return LanguageRussian.getHelpEventSetMessage();
+            case "IND":
+                return LanguageIndonesia.getHelpEventSetMessage();
+            default:
+                return LanguageEnglish.getHelpEventSetMessage();
+        }
+    }
 
 }

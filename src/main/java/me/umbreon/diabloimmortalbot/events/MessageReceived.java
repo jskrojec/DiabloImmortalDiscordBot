@@ -1,11 +1,10 @@
 package me.umbreon.diabloimmortalbot.events;
 
-import me.umbreon.diabloimmortalbot.commands.channel_commands.InfoCommand;
-import me.umbreon.diabloimmortalbot.commands.channel_commands.RegisterCommand;
-import me.umbreon.diabloimmortalbot.commands.channel_commands.RoleCommand;
-import me.umbreon.diabloimmortalbot.commands.channel_commands.UnregisterCommand;
+import me.umbreon.diabloimmortalbot.commands.channel_commands.*;
 import me.umbreon.diabloimmortalbot.commands.custom_messages.CustomMessageCommand;
-import me.umbreon.diabloimmortalbot.commands.channel_commands.NotificationsCommand;
+import me.umbreon.diabloimmortalbot.commands.event_commands.EventCommand;
+import me.umbreon.diabloimmortalbot.commands.event_commands.EventListCommand;
+import me.umbreon.diabloimmortalbot.commands.event_commands.EventSetCommand;
 import me.umbreon.diabloimmortalbot.commands.guilds_commands.ServerCommand;
 import me.umbreon.diabloimmortalbot.commands.guilds_commands.ServerLanguageCommand;
 import me.umbreon.diabloimmortalbot.commands.guilds_commands.ServerTimezoneCommand;
@@ -20,6 +19,7 @@ import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.List;
@@ -35,10 +35,10 @@ public class MessageReceived extends ListenerAdapter {
     private final ServerLanguageCommand serverLanguageCommand;
     private final InstructionCommand instructionCommand;
     private final LanguagesCommand languagesCommand;
-    private final NotificationsCommand notificationsCommand;
     private final CustomMessageCommand customMessageCommand;
     private final InfoCommand infoCommand;
     private final ServerCommand serverCommand;
+    private final EventCommand eventCommand;
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
@@ -52,13 +52,13 @@ public class MessageReceived extends ListenerAdapter {
         this.roleCommand = new RoleCommand(databaseRequests, clientCache);
         this.unregisterCommand = new UnregisterCommand(databaseRequests, clientCache);
         this.helpCommand = new HelpCommand(clientCache);
-        this.timezonesCommand = new TimezonesCommand();
+        this.timezonesCommand = new TimezonesCommand(clientCache);
         this.serverLanguageCommand = new ServerLanguageCommand(clientCache, databaseRequests);
-        this.instructionCommand = new InstructionCommand();
+        this.instructionCommand = new InstructionCommand(clientCache);
         this.languagesCommand = new LanguagesCommand();
-        this.notificationsCommand = new NotificationsCommand(clientCache, databaseRequests);
         this.customMessageCommand = new CustomMessageCommand(clientCache, databaseRequests);
         this.infoCommand = new InfoCommand(clientCache);
+        this.eventCommand = new EventCommand(clientCache, databaseRequests);
         this.serverCommand = new ServerCommand(clientCache, databaseRequests);
     }
 
@@ -74,17 +74,30 @@ public class MessageReceived extends ListenerAdapter {
         String guildID = event.getGuild().getId();
         registerGuildIfDoNotExist(guildID);
         Member member = event.getMember();
-        String effectiveName = member.getEffectiveName();
+        String effectiveName = null;
+        if (member != null) {
+            effectiveName = member.getEffectiveName();
+        }
         Message eventMessage = event.getMessage();
 
         try {
-            if (!isUserPermitted(member) && hasUserMessageManagePermission(member)) {
+
+            if (member != null && member.isOwner()) {
+                checkForCommandsWithPermissions(eventMessage, effectiveName, args[0].toLowerCase());
+                return;
+            }
+
+            if (member != null && !isUserPermitted(member) && hasUserMessageManagePermission(member)) {
                 checkForCommandsWithNoPermissions(eventMessage, effectiveName, args[0].toLowerCase());
                 return;
             }
 
-            checkForCommandsWithPermissions(eventMessage, effectiveName, args[0].toLowerCase());
+            if (member != null && isUserPermitted(member)) {
+                checkForCommandsWithPermissions(eventMessage, effectiveName, args[0].toLowerCase());
+            }
+
         } catch (Exception e) {
+            System.out.println("ERROR:" + e.getMessage());
             e.printStackTrace();
             ClientLogger.createNewErrorLogEntry(e);
         }
@@ -99,60 +112,74 @@ public class MessageReceived extends ListenerAdapter {
         switch (command) {
             case ">notifier":
             case ">register":
+                deleteCommandMessageIfEnabled(message);
                 registerCommand.runRegisterCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">unnotifier":
             case ">unregister":
+                deleteCommandMessageIfEnabled(message);
                 unregisterCommand.runUnregisterCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">timezone":
+                deleteCommandMessageIfEnabled(message);
                 serverTimezoneCommand.runTimezoneCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">role":
+                deleteCommandMessageIfEnabled(message);
                 roleCommand.runRoleCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">help":
+                deleteCommandMessageIfEnabled(message);
                 helpCommand.runHelpCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">timezones":
+                deleteCommandMessageIfEnabled(message);
                 timezonesCommand.runTimezonesCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">language":
+                deleteCommandMessageIfEnabled(message);
                 serverLanguageCommand.runLanguageCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">instructions":
             case ">instruction":
             case ">install":
+                deleteCommandMessageIfEnabled(message);
                 instructionCommand.runInstructionCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">languages":
+                deleteCommandMessageIfEnabled(message);
                 languagesCommand.runLanguagesCommand(message);
-                logCommandExecution(effectiveName, message);
-                break;
-            case ">notifications":
-            case ">notification":
-                notificationsCommand.runNotificationsCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">cm":
             case ">customessage":
+                deleteCommandMessageIfEnabled(message);
                 customMessageCommand.runCustomMessageCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">info":
+                deleteCommandMessageIfEnabled(message);
                 infoCommand.runInfoCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
             case ">server":
+                deleteCommandMessageIfEnabled(message);
                 serverCommand.runCustomMessageCommand(message);
+                logCommandExecution(effectiveName, message);
+                break;
+            case ">event":
+            case ">notifications":
+            case ">notification":
+                deleteCommandMessageIfEnabled(message);
+                eventCommand.runEventCommand(message);
                 logCommandExecution(effectiveName, message);
                 break;
         }
@@ -165,10 +192,12 @@ public class MessageReceived extends ListenerAdapter {
             case ">install":
                 instructionCommand.runInstructionCommand(message);
                 logCommandExecution(effectiveName, message);
+                deleteCommandMessageIfEnabled(message);
                 break;
             case ">help":
                 helpCommand.runHelpCommand(message);
                 logCommandExecution(effectiveName, message);
+                deleteCommandMessageIfEnabled(message);
                 break;
         }
     }
@@ -225,6 +254,18 @@ public class MessageReceived extends ListenerAdapter {
             if (clientCache.isOperatingUserForMessage(textChannel.getId(), event.getAuthor().getId())) {
                 customMessageCommand.getCustomMessageCreate().addMessageToCustomMessage(event.getMessage());
             }
+        }
+    }
+
+    private void deleteCommandMessageIfEnabled(Message message) {
+        try {
+            String guildID = message.getGuild().getId();
+            if (clientCache.isAutoDeleteEnabled(guildID)) message.delete().queue();
+        } catch (ErrorResponseException e) {
+            System.out.println("X "+ e.getCause().getMessage());
+            message.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
+                privateChannel.sendMessage("I am not able to delete messages cause of: " + e.getCause()).queue();
+            });
         }
     }
 }
