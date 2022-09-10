@@ -23,12 +23,12 @@ public class Client {
 
     public static void main(final String[] args) {
 
-        final ClientCache clientCache = new ClientCache();
-        final ClientConfig clientConfig = new ClientConfig();
+        ClientCache clientCache = new ClientCache();
+        ClientConfig clientConfig = new ClientConfig();
         BasicConfigurator.configure();
         try {
             clientConfig.loadConfig();
-        } catch (final Exception e) {
+        } catch (Exception e) {
             System.out.println("config.properties is null! Shutting down...");
             return;
         }
@@ -37,8 +37,8 @@ public class Client {
 
         LanguageController.loadConfigurations();
 
-        final MySQLDatabaseConnection mySQLDatabaseConnection = new MySQLDatabaseConnection(clientConfig);
-        final DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
+        MySQLDatabaseConnection mySQLDatabaseConnection = new MySQLDatabaseConnection(clientConfig);
+        DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
 
         clientCache.fillListWithEvents();
         clientCache.fillListWithAvailableEventDays();
@@ -65,20 +65,20 @@ public class Client {
         final JDA jda;
         try {
             jda = JDABuilder.createDefault(clientConfig.getToken())
-                    //.addEventListeners(new MessageReceived(databaseRequests, clientCache))
                     .addEventListeners(new ChannelDelete(clientCache, databaseRequests))
                     .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests))
                     .addEventListeners(new GuildJoin())
                     .addEventListeners(new GuildReady())
                     .build()
                     .awaitReady();
-        } catch (final LoginException | InterruptedException e) {
+        } catch (LoginException | InterruptedException e) {
             ClientLogger.createNewErrorLogEntry(e);
+            e.printStackTrace();
             return;
         }
 
-        final Notifier notifier = new Notifier(clientCache);
-        final CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests);
+        Notifier notifier = new Notifier(clientCache);
+        CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests);
         BasicConfigurator.configure();
 
         notifier.runScheduler(jda);
@@ -88,7 +88,7 @@ public class Client {
     }
 
     private static void checkAllStrings(final List<String> e) {
-        for (final String lang : e) {
+        for (String lang : e) {
             System.out.println(lang);
             System.out.println(LanguageController.getHauntedCarriageMessage(lang));
             System.out.println(LanguageController.getHauntedCarriageHeadUpMessage(lang));

@@ -32,9 +32,9 @@ public class ClientLogger {
             createServerLogFile(guildID, textChannelID);
         }
 
-        final File serverLogFile = new File(path + guildID + "/" + textChannelID);
+        File serverLogFile = new File(path + guildID + "/" + textChannelID + ".log");
 
-        try (final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(serverLogFile, true))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(serverLogFile, true))) {
             bufferedWriter.append("\n[")
                     .append(TimeAssistant.getCurrentDate())
                     .append(" ")
@@ -42,7 +42,7 @@ public class ClientLogger {
                     .append("] ")
                     .append(message)
                     .append("\n");
-        } catch (final IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -58,13 +58,13 @@ public class ClientLogger {
     }
 
     private static boolean doServerLogFileExists(final String guildID, final String textChannelID) {
-        final File serverLogFile = new File(path + guildID + "/" + textChannelID);
+        final File serverLogFile = new File(path + guildID + "/" + textChannelID + ".log");
         return serverLogFile.exists();
     }
 
     private static void createServerLogFile(final String guildID, final String textChannelID) {
         try {
-            Files.createFile(Path.of(path + guildID + "/" + textChannelID));
+            Files.createFile(Path.of(path + guildID + "/" + textChannelID + ".log"));
         } catch (final IOException e) {
             e.printStackTrace();
         }
@@ -77,21 +77,21 @@ public class ClientLogger {
             createNewLogFile("sql-log");
         }
 
-        final BufferedWriter bufferedWriter;
+        BufferedWriter bufferedWriter;
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.append("\n[")
+            bufferedWriter.append("[")
                     .append(TimeAssistant.getCurrentDate())
                     .append(" ")
                     .append(TimeAssistant.getCurrentTime())
                     .append("] ")
                     .append(logMessage.getMessage())
                     .append("\n");
-            for (final StackTraceElement e : logMessage.getStackTrace()) {
+            for (StackTraceElement e : logMessage.getStackTrace()) {
                 bufferedWriter.append(String.valueOf(e)).append("\n");
             }
             bufferedWriter.close();
-        } catch (final IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -116,28 +116,6 @@ public class ClientLogger {
             for (final StackTraceElement e : logMessage.getStackTrace()) {
                 bufferedWriter.append(String.valueOf(e)).append("\n");
             }
-            bufferedWriter.close();
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void createNewClientLogEntry(final String logMessage) {
-        logFile = new File(path + "client-log.log");
-
-        if (!doesLogFileExist()) {
-            createNewLogFile("client-log");
-        }
-
-        final BufferedWriter bufferedWriter;
-        try {
-            bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.append("\n[")
-                    .append(TimeAssistant.getCurrentDate())
-                    .append(" ")
-                    .append(TimeAssistant.getCurrentTime())
-                    .append("] ")
-                    .append(logMessage);
             bufferedWriter.close();
         } catch (final IOException e) {
             e.printStackTrace();

@@ -37,7 +37,7 @@ public class Notifier {
     private final DemonGatesEmbed demonGatesEmbed;
     private final HauntedCarriageEmbed hauntedCarriageEmbed;
 
-    private final Logger logger = LogManager.getLogger("x");
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
     public Notifier(final ClientCache clientCache) {
         this.clientCache = clientCache;
@@ -64,15 +64,14 @@ public class Notifier {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                logger.info("Checked: " + TimeAssistant.getTime("GMT+2"));
-                System.out.println("Checked: " + TimeAssistant.getTime("GMT+2"));
+                LOGGER.info(TimeAssistant.getTime("GMT+2"));
                 try {
                     if (isChannelNotificationListEmpty()) {
                         return;
                     }
 
                     clientCache.getListWithNotifierChannels().forEach((textChannelID, notifierChannel) -> {
-                        final TextChannel textChannel;
+                        TextChannel textChannel;
 
                         if (textChannelID != null) {
                             textChannel = jda.getTextChannelById(textChannelID);
@@ -151,7 +150,7 @@ public class Notifier {
                             textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
                         }
                     });
-                } catch (final Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -167,8 +166,8 @@ public class Notifier {
     }
 
     private void addMentionToMessage(final StringBuilder stringBuilder, final TextChannel textChannel) {
-        final String mention;
-        final String textChannelID = textChannel.getId();
+        String mention;
+        String textChannelID = textChannel.getId();
         switch (clientCache.getRoleID(textChannelID).toLowerCase()) {
             case "everyone":
                 mention = "@everyone";
