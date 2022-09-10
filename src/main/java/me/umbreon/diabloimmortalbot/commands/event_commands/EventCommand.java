@@ -1,30 +1,27 @@
 package me.umbreon.diabloimmortalbot.commands.event_commands;
 
+import me.umbreon.diabloimmortalbot.commands.ChangeEventValueCommand;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class EventCommand {
 
     private final EventListCommand eventListCommand;
-    private final EventSetCommand eventSetCommand;
+    private final ChangeEventValueCommand changeEventValueCommand;
 
-    public EventCommand(ClientCache clientCache, DatabaseRequests databaseRequests) {
+    public EventCommand(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
         this.eventListCommand = new EventListCommand(clientCache);
-        this.eventSetCommand = new EventSetCommand(clientCache, databaseRequests);
+        this.changeEventValueCommand = new ChangeEventValueCommand(clientCache, databaseRequests);
     }
 
-    public void runEventCommand(Message message) {
-        String[] args = message.getContentRaw().split(" ");
-
+    public String runEventCommand(final String[] args, final TextChannel textChannel) {
         switch (args[1].toLowerCase()) {
             case "list":
             case "l":
-                eventListCommand.runEventListCommand(message);
-                break;
+                return eventListCommand.runEventListCommand(textChannel, textChannel.getGuild().getId());
             default:
-                eventSetCommand.runNotificationsCommand(message);
-                break;
+                return changeEventValueCommand.runChangeEventValueCommand(args, textChannel);
         }
     }
 }

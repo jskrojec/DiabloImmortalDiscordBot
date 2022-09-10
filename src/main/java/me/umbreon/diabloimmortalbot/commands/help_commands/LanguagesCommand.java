@@ -2,7 +2,6 @@ package me.umbreon.diabloimmortalbot.commands.help_commands;
 
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -16,13 +15,12 @@ public class LanguagesCommand {
         buildLanguagesMessageEmbed();
     }
 
-    public void runLanguagesCommand(Message message) {
-        TextChannel textChannel = message.getTextChannel();
+    public void runLanguagesCommand(final TextChannel textChannel) {
         textChannel.sendMessageEmbeds(languagesMessageEmbed).queue();
     }
 
     private void buildLanguagesMessageEmbed() {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+        final EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Languages:");
         embedBuilder.setColor(Color.ORANGE);
         embedBuilder.addField("GER (German)", LanguageController.getLanguageMessage("GER"), false);

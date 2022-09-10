@@ -10,8 +10,8 @@ public class LanguageItalian {
     static Map<String, Object> messages;
 
     void loadLanguageConfiguration() {
-        Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("italian.yaml");
+        final Yaml yaml = new Yaml();
+        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("italian.yaml");
         messages = yaml.load(inputStream);
     }
 

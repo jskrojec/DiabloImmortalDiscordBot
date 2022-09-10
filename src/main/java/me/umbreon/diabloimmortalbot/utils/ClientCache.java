@@ -16,73 +16,73 @@ public class ClientCache {
 
     public Map<String, GuildInformation> listWithGuildInformation;
 
-    public boolean isAutoDeleteEnabled(String guildID) {
+    public boolean isAutoDeleteEnabled(final String guildID) {
         return listWithGuildInformation.get(guildID).isAutoDeleteEnabled();
     }
 
-    public void setAutoDeleteBoolValue(String guildID, boolean bool) {
+    public void setAutoDeleteBoolValue(final String guildID, final boolean bool) {
         listWithGuildInformation.get(guildID).setAutoDeleteEnabled(bool);
     }
 
-    public int getAutoDeleteValue(String guildID) {
+    public int getAutoDeleteValue(final String guildID) {
         return listWithGuildInformation.get(guildID).getAutoDeleteValue();
     }
 
-    public void setAutoDeleteIntValue(String guildID, int i) {
+    public void setAutoDeleteIntValue(final String guildID, final int i) {
         listWithGuildInformation.get(guildID).setAutoDeleteValue(i);
     }
 
-    public void setListWithGuildInformation(Map<String, GuildInformation> listWithGuildInformation) {
+    public void setListWithGuildInformation(final Map<String, GuildInformation> listWithGuildInformation) {
         this.listWithGuildInformation = listWithGuildInformation;
     }
 
-    public String getGuildLanguage(String guildID) {
+    public String getGuildLanguage(final String guildID) {
         String language;
         try {
             language = listWithGuildInformation.get(guildID).getLanguage();
-        } catch (NullPointerException e) {
+        } catch (final NullPointerException e) {
             language = "ENG";
         }
         return language;
     }
 
-    public void setGuildTimeZone(String guildID, String guildTimeZone) {
+    public void setGuildTimeZone(final String guildID, final String guildTimeZone) {
         listWithGuildInformation.get(guildID).setTimezone(guildTimeZone);
     }
 
-    public GuildInformation getGuildInformation(String guildID) {
+    public GuildInformation getGuildInformation(final String guildID) {
         return listWithGuildInformation.get(guildID);
     }
 
-    public String getGuildTimeZone(String guildID) {
+    public String getGuildTimeZone(final String guildID) {
         return listWithGuildInformation.get(guildID).getTimezone();
     }
 
-    public void setGuildLanguage(String guildID, String language) {
+    public void setGuildLanguage(final String guildID, final String language) {
         listWithGuildInformation.get(guildID).setLanguage(language);
     }
 
-    public boolean doGuildExists(String guildID) {
+    public boolean doGuildExists(final String guildID) {
         return listWithGuildInformation.containsKey(guildID);
     }
 
-    public void addGuildInformation(GuildInformation guildInformation) {
+    public void addGuildInformation(final GuildInformation guildInformation) {
         this.listWithGuildInformation.put(guildInformation.getGuildID(), guildInformation);
     }
 
-    public boolean isHeadUpOnServerEnabled(String guildID) {
+    public boolean isHeadUpOnServerEnabled(final String guildID) {
         return listWithGuildInformation.get(guildID).isHeadUpEnabled();
     }
 
-    public void setHeadUpOnServerValue(String guildID, boolean value) {
+    public void setHeadUpOnServerValue(final String guildID, final boolean value) {
         listWithGuildInformation.get(guildID).setHeadUpEnabled(value);
     }
 
-    public boolean isEventMessageOnServerEnabled(String guildID) {
+    public boolean isEventMessageOnServerEnabled(final String guildID) {
         return listWithGuildInformation.get(guildID).isEventMessageEnabled();
     }
 
-    public void setEventMessageOnServerValue(String guildID, boolean value) {
+    public void setEventMessageOnServerValue(final String guildID, final boolean value) {
         listWithGuildInformation.get(guildID).setEventMessageEnabled(value);
     }
 
@@ -91,11 +91,11 @@ public class ClientCache {
 
     private Map<Integer, CustomMessage> customMessagesList;
 
-    public void setCustomMessagesList(Map<Integer, CustomMessage> customMessagesList) {
+    public void setCustomMessagesList(final Map<Integer, CustomMessage> customMessagesList) {
         this.customMessagesList = customMessagesList;
     }
 
-    public void deleteCustomMessageByID(int customMessageID) {
+    public void deleteCustomMessageByID(final int customMessageID) {
         customMessagesList.forEach((key, customMessage) -> {
             if (customMessage.getCustomMessageID() == customMessageID) {
                 customMessagesList.remove(key);
@@ -103,8 +103,8 @@ public class ClientCache {
         });
     }
 
-    public List<CustomMessage> getAllCustomMessagesByGuildID(String guildID) {
-        List<CustomMessage> guildCustomMessagesList = new ArrayList<>();
+    public List<CustomMessage> getAllCustomMessagesByGuildID(final String guildID) {
+        final List<CustomMessage> guildCustomMessagesList = new ArrayList<>();
         this.customMessagesList.forEach((key, customMessage) -> {
             if (customMessage.getGuildID().equalsIgnoreCase(guildID)) {
                 guildCustomMessagesList.add(customMessage);
@@ -118,11 +118,11 @@ public class ClientCache {
         return this.customMessagesList;
     }
 
-    public CustomMessage getCustomMessageByID(int customMessageID) {
+    public CustomMessage getCustomMessageByID(final int customMessageID) {
         return customMessagesList.get(customMessageID);
     }
 
-    public void addCustomMessageToList(CustomMessage customMessage) {
+    public void addCustomMessageToList(final CustomMessage customMessage) {
         this.customMessagesList.put(customMessage.getCustomMessageID(), customMessage);
     }
 
@@ -130,75 +130,75 @@ public class ClientCache {
 
     public Map<String, NotifierChannel> notifierChannelsList;
 
-    public void setNotifierChannelsList(Map<String, NotifierChannel> notifierChannelsList) {
+    public void setNotifierChannelsList(final Map<String, NotifierChannel> notifierChannelsList) {
         this.notifierChannelsList = notifierChannelsList;
     }
 
-    public boolean isHeadUpMessageOnChannelEnabled(String textchannelID) {
+    public boolean isHeadUpMessageOnChannelEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isEventHeadUpEnabled();
     }
 
-    public boolean isEventMessageOnChannelEnabled(String textchannelID) {
+    public boolean isEventMessageOnChannelEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isEventMessageEnabled();
     }
 
-    public boolean isAssemblyMessageEnabled(String textchannelID) {
+    public boolean isAssemblyMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isAssemblyMessageEnabled();
     }
 
-    public boolean isRaidVaultMessageEnabled(String textchannelID) {
+    public boolean isRaidVaultMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isRaidVaultMessageEnabled();
     }
 
-    public boolean isDemonGatesMessageEnabled(String textchannelID) {
+    public boolean isDemonGatesMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isDemonGatesMessageEnabled();
     }
 
-    public boolean isDefendVaultMessageEnabled(String textchannelID) {
+    public boolean isDefendVaultMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isDefendVaultMessageEnabled();
     }
 
-    public boolean isAncientArenaMessageEnabled(String textchannelID) {
+    public boolean isAncientArenaMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isAncientArenaMessageEnabled();
     }
 
-    public boolean isShadowLotteryMessageEnabled(String textchannelID) {
+    public boolean isShadowLotteryMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isShadowLotteryMessageEnabled();
     }
 
-    public boolean isBattlegroundMessageEnabled(String textchannelID) {
+    public boolean isBattlegroundMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isBattlegroundsMessageEnabled();
     }
 
-    public boolean isHauntedCarriageMessageEnabled(String textchannelID) {
+    public boolean isHauntedCarriageMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isHauntedCarriageMessageEnabled();
     }
 
-    public boolean isAncientNightmareMessageEnabled(String textchannelID) {
+    public boolean isAncientNightmareMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isAncientNightmareMessageEnabled();
     }
 
-    public boolean isWrathborneInvasionEnabled(String textChannelID) {
+    public boolean isWrathborneInvasionEnabled(final String textChannelID) {
         return notifierChannelsList.get(textChannelID).isWrathborneInvasionEnabled();
     }
 
-    public boolean isDemonGatesEmbedMessageEnabled(String textchannelID) {
+    public boolean isDemonGatesEmbedMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isDemonGatesMessageEmbedEnabled();
     }
 
-    public boolean isAncientArenaEmbedMessageEnabled(String textchannelID) {
+    public boolean isAncientArenaEmbedMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isAncientArenaMessageEmbedEnabled();
     }
 
-    public boolean isHauntedCarriageEmbedMessageEnabled(String textchannelID) {
+    public boolean isHauntedCarriageEmbedMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isHauntedCarriageMessageEmbedEnabled();
     }
 
-    public boolean isAncientNightmareEmbedMessageEnabled(String textchannelID) {
+    public boolean isAncientNightmareEmbedMessageEnabled(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).isAncientNightmareMessageEmbedEnabled();
     }
 
-    public String getRoleID(String textchannelID) {
+    public String getRoleID(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).getRoleID();
     }
 
@@ -206,23 +206,23 @@ public class ClientCache {
         return notifierChannelsList;
     }
 
-    public String getGuildIdByChannelID(String textchannelID) {
+    public String getGuildIdByChannelID(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).getGuildID();
     }
 
-    public void addNotifierChannelToList(NotifierChannel notifierChannel) {
+    public void addNotifierChannelToList(final NotifierChannel notifierChannel) {
         notifierChannelsList.put(notifierChannel.getTextChannelID(), notifierChannel);
     }
 
-    public void setRoleID(String textChannelID, String roleID) {
+    public void setRoleID(final String textChannelID, final String roleID) {
         notifierChannelsList.get(textChannelID).setRoleID(roleID);
     }
 
-    public void removeNotifierChannelFromList(String textChannelID) {
+    public void removeNotifierChannelFromList(final String textChannelID) {
         notifierChannelsList.remove(textChannelID);
     }
 
-    public void setNotificationsValue(String event, boolean value, String textChannelID) {
+    public void setNotificationsValue(final String event, final boolean value, final String textChannelID) {
         switch (event) {
             case "message":
                 notifierChannelsList.get(textChannelID).setEventMessageEnabled(value);
@@ -257,6 +257,7 @@ public class ClientCache {
             case "hauntedcarriage":
                 notifierChannelsList.get(textChannelID).setHauntedCarriageMessageEnabled(value);
                 break;
+            case "":
             case "hauntedcarriageembed":
                 notifierChannelsList.get(textChannelID).setHauntedCarriageMessageEmbedEnabled(value);
                 break;
@@ -274,7 +275,7 @@ public class ClientCache {
         }
     }
 
-    public boolean doNotifierChannelExists(String textChannelID) {
+    public boolean doNotifierChannelExists(final String textChannelID) {
         return notifierChannelsList.containsKey(textChannelID);
     }
 
@@ -283,15 +284,15 @@ public class ClientCache {
     //         textChannelID, userID - Waiting for text Channel
     private final Map<String, String> waitingForTextChannel = new ConcurrentHashMap<>();
 
-    public void addToWaitingForTextChannelList(String textChannelID, String userID) {
+    public void addToWaitingForTextChannelList(final String textChannelID, final String userID) {
         waitingForTextChannel.put(textChannelID, userID);
     }
 
-    public void removeFromWaitingForTextChannelList(String textChannelID) {
+    public void removeFromWaitingForTextChannelList(final String textChannelID) {
         waitingForTextChannel.remove(textChannelID);
     }
 
-    public boolean isOperatingUserForChannel(String textChannelID, String userID) {
+    public boolean isOperatingUserForChannel(final String textChannelID, final String userID) {
         if (waitingForTextChannel.get(textChannelID) == null) return false;
         return waitingForTextChannel.get(textChannelID).equals(userID);
     }
@@ -299,15 +300,15 @@ public class ClientCache {
     //         textChannelID, userID - Waiting for day
     private final Map<String, String> waitingForDay = new ConcurrentHashMap<>();
 
-    public void addToWaitingForDayList(String textChannelID, String userID) {
+    public void addToWaitingForDayList(final String textChannelID, final String userID) {
         waitingForDay.put(textChannelID, userID);
     }
 
-    public void removeFromWaitingForDayList(String textChannelID) {
+    public void removeFromWaitingForDayList(final String textChannelID) {
         waitingForDay.remove(textChannelID);
     }
 
-    public boolean isOperatingUserForDay(String textChannelID, String userID) {
+    public boolean isOperatingUserForDay(final String textChannelID, final String userID) {
         if (waitingForDay.get(textChannelID) == null) return false;
         return waitingForDay.get(textChannelID).equals(userID);
     }
@@ -315,15 +316,15 @@ public class ClientCache {
     //         textChannelID, userID - Waiting for time
     private final Map<String, String> waitingForTime = new ConcurrentHashMap<>();
 
-    public void addToWaitingForTimeList(String textChannelID, String userID) {
+    public void addToWaitingForTimeList(final String textChannelID, final String userID) {
         waitingForTime.put(textChannelID, userID);
     }
 
-    public void removeFromWaitingForTimeList(String textChannelID) {
+    public void removeFromWaitingForTimeList(final String textChannelID) {
         waitingForTime.remove(textChannelID);
     }
 
-    public boolean isOperatingUserForTime(String textChannelID, String userID) {
+    public boolean isOperatingUserForTime(final String textChannelID, final String userID) {
         if (waitingForTime.get(textChannelID) == null) return false;
         return waitingForTime.get(textChannelID).equals(userID);
     }
@@ -331,15 +332,15 @@ public class ClientCache {
     //         textChannelID, userID - Waiting for repeating
     private final Map<String, String> waitingForRepeating = new ConcurrentHashMap<>();
 
-    public void addToWaitingForRepeatingList(String textChannelID, String userID) {
+    public void addToWaitingForRepeatingList(final String textChannelID, final String userID) {
         waitingForRepeating.put(textChannelID, userID);
     }
 
-    public void removeFromWaitingForRepeatingList(String textChannelID) {
+    public void removeFromWaitingForRepeatingList(final String textChannelID) {
         waitingForRepeating.remove(textChannelID);
     }
 
-    public boolean isOperatingUserForRepeating(String textChannelID, String userID) {
+    public boolean isOperatingUserForRepeating(final String textChannelID, final String userID) {
         if (waitingForRepeating.get(textChannelID) == null) return false;
         return waitingForRepeating.get(textChannelID).equals(userID);
     }
@@ -347,15 +348,15 @@ public class ClientCache {
     //         textChannelID, userID - Waiting for message
     private final Map<String, String> waitingForMessage = new ConcurrentHashMap<>();
 
-    public void addToWaitingForMessageList(String textChannelID, String userID) {
+    public void addToWaitingForMessageList(final String textChannelID, final String userID) {
         waitingForMessage.put(textChannelID, userID);
     }
 
-    public void removeFromWaitingForMessageList(String textChannelID) {
+    public void removeFromWaitingForMessageList(final String textChannelID) {
         waitingForMessage.remove(textChannelID);
     }
 
-    public boolean isOperatingUserForMessage(String textChannelID, String userID) {
+    public boolean isOperatingUserForMessage(final String textChannelID, final String userID) {
         if (waitingForMessage.get(textChannelID) == null) return false;
         return waitingForMessage.get(textChannelID).equals(userID);
     }
@@ -366,28 +367,28 @@ public class ClientCache {
     //         textChannelId, userID
     private final Map<String, String> preparingUsersList = new ConcurrentHashMap<>();
 
-    public void addToPreparingCustomMessagesList(String textChannelID, CustomMessage customMessage) {
+    public void addToPreparingCustomMessagesList(final String textChannelID, final CustomMessage customMessage) {
         preparingCustomMessagesList.put(textChannelID, customMessage);
     }
 
-    public void addToPreparingCustomMessageUserList(String textChannelID, String userID) {
+    public void addToPreparingCustomMessageUserList(final String textChannelID, final String userID) {
         preparingUsersList.put(textChannelID, userID);
     }
 
-    public void removeFromPreparingCustomMessageUserList(String textChannelID) {
+    public void removeFromPreparingCustomMessageUserList(final String textChannelID) {
         preparingUsersList.remove(textChannelID);
     }
 
-    public boolean isUserInOperationMode(String textChannelID, String userID) {
+    public boolean isUserInOperationMode(final String textChannelID, final String userID) {
         if (preparingUsersList.get(textChannelID) == null) return false;
         return preparingUsersList.get(textChannelID).equals(userID);
     }
 
-    public CustomMessage getPreparingCustomMessage(String textChannelID) {
+    public CustomMessage getPreparingCustomMessage(final String textChannelID) {
         return preparingCustomMessagesList.get(textChannelID);
     }
 
-    public void removeFromPreparingCustomMessagesList(String textChannelID) {
+    public void removeFromPreparingCustomMessagesList(final String textChannelID) {
         waitingForMessage.remove(textChannelID);
     }
 
@@ -395,7 +396,7 @@ public class ClientCache {
 
     private Map<String, Boolean> listWithShadowLotteryTimes;
 
-    public void setListWithShadowLotteryTimes(Map<String, Boolean> listWithShadowLotteryTimes) {
+    public void setListWithShadowLotteryTimes(final Map<String, Boolean> listWithShadowLotteryTimes) {
         this.listWithShadowLotteryTimes = listWithShadowLotteryTimes;
     }
 
@@ -411,7 +412,7 @@ public class ClientCache {
         return listWithVaultTimes;
     }
 
-    public void setListWithVaultTimes(Map<String, Boolean> listWithRaidTheVautTimes) {
+    public void setListWithVaultTimes(final Map<String, Boolean> listWithRaidTheVautTimes) {
         this.listWithVaultTimes = listWithRaidTheVautTimes;
     }
 
@@ -423,7 +424,7 @@ public class ClientCache {
         return listWithHauntedCarriageTimes;
     }
 
-    public void setListWithHauntedCarriageTimes(Map<String, Boolean> listWithHauntedCarriageTimes) {
+    public void setListWithHauntedCarriageTimes(final Map<String, Boolean> listWithHauntedCarriageTimes) {
         this.listWithHauntedCarriageTimes = listWithHauntedCarriageTimes;
     }
 
@@ -435,7 +436,7 @@ public class ClientCache {
         return listWithDemonGatesTimes;
     }
 
-    public void setListWithDemonGatesTimes(Map<String, Boolean> listWithDemonGatesTimes) {
+    public void setListWithDemonGatesTimes(final Map<String, Boolean> listWithDemonGatesTimes) {
         this.listWithDemonGatesTimes = listWithDemonGatesTimes;
     }
 
@@ -447,7 +448,7 @@ public class ClientCache {
         return listWithBattlegroundTimes;
     }
 
-    public void setListWithBattlegroundTimes(Map<String, Boolean> listWithBattlegroundTimes) {
+    public void setListWithBattlegroundTimes(final Map<String, Boolean> listWithBattlegroundTimes) {
         this.listWithBattlegroundTimes = listWithBattlegroundTimes;
     }
 
@@ -459,7 +460,7 @@ public class ClientCache {
         return listWithAssemblyTimes;
     }
 
-    public void setListWithAssemblyTimes(Map<String, Boolean> listWithAssemblyTimes) {
+    public void setListWithAssemblyTimes(final Map<String, Boolean> listWithAssemblyTimes) {
         this.listWithAssemblyTimes = listWithAssemblyTimes;
     }
 
@@ -471,7 +472,7 @@ public class ClientCache {
         return listWithAncientNightmareTimes;
     }
 
-    public void setListWithAncientNightmareTimes(Map<String, Boolean> listWithAncientNightmareTimes) {
+    public void setListWithAncientNightmareTimes(final Map<String, Boolean> listWithAncientNightmareTimes) {
         this.listWithAncientNightmareTimes = listWithAncientNightmareTimes;
     }
 
@@ -483,7 +484,7 @@ public class ClientCache {
         return listWithAncientAreaTimes;
     }
 
-    public void setListWithAncientAreaTimes(Map<String, Boolean> listWithAncientAreaTimes) {
+    public void setListWithAncientAreaTimes(final Map<String, Boolean> listWithAncientAreaTimes) {
         this.listWithAncientAreaTimes = listWithAncientAreaTimes;
     }
 
@@ -495,7 +496,7 @@ public class ClientCache {
         return listWithWrathborneInvasionTimes;
     }
 
-    public void setListWithWrathborneInvasionTimes(Map<String, Boolean> listWithAncientAreaTimes) {
+    public void setListWithWrathborneInvasionTimes(final Map<String, Boolean> listWithAncientAreaTimes) {
         this.listWithWrathborneInvasionTimes = listWithAncientAreaTimes;
     }
 
@@ -507,7 +508,7 @@ public class ClientCache {
         return listWithDemonGateEmbedTimes;
     }
 
-    public void setListWithDemonGateEmbedTimes(ArrayList<String> listWithDemonGateEmbedTimes) {
+    public void setListWithDemonGateEmbedTimes(final ArrayList<String> listWithDemonGateEmbedTimes) {
         this.listWithDemonGateEmbedTimes = listWithDemonGateEmbedTimes;
     }
 
@@ -519,7 +520,7 @@ public class ClientCache {
         return listWithHauntedCarriageEmbedTimes;
     }
 
-    public void setListWithHauntedCarriageEmbedTimes(ArrayList<String> listWithHauntedCarriageEmbedTimes) {
+    public void setListWithHauntedCarriageEmbedTimes(final ArrayList<String> listWithHauntedCarriageEmbedTimes) {
         this.listWithHauntedCarriageEmbedTimes = listWithHauntedCarriageEmbedTimes;
     }
 
@@ -531,7 +532,7 @@ public class ClientCache {
         return listWithAncientNightmareEmbedTimes;
     }
 
-    public void setListWithAncientNightmareEmbedTimes(ArrayList<String> listWithAncientNightmareEmbedTimes) {
+    public void setListWithAncientNightmareEmbedTimes(final ArrayList<String> listWithAncientNightmareEmbedTimes) {
         this.listWithAncientNightmareEmbedTimes = listWithAncientNightmareEmbedTimes;
     }
 
@@ -543,7 +544,7 @@ public class ClientCache {
         return listWithAncientArenaEmbedTimes;
     }
 
-    public void setListWithAncientArenaEmbedTimes(ArrayList<String> listWithAncientArenaEmbedTimes) {
+    public void setListWithAncientArenaEmbedTimes(final ArrayList<String> listWithAncientArenaEmbedTimes) {
         this.listWithAncientArenaEmbedTimes = listWithAncientArenaEmbedTimes;
     }
 
@@ -565,7 +566,6 @@ public class ClientCache {
         listWithAvailableNotifications.add("shadowlottery");
         listWithAvailableNotifications.add("hauntedcarriage");
         listWithAvailableNotifications.add("wrathborneinvasion");
-        //Todo: add new event
 
         listWithAvailableNotifications.add("hauntedcarriageembed");
         listWithAvailableNotifications.add("demongatesembed");

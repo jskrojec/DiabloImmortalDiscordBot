@@ -10,8 +10,8 @@ public class LanguagePolish {
     static Map<String, Object> messages;
 
     void loadLanguageConfiguration() {
-        Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("polish.yaml");
+        final Yaml yaml = new Yaml();
+        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("polish.yaml");
         messages = yaml.load(inputStream);
     }
 

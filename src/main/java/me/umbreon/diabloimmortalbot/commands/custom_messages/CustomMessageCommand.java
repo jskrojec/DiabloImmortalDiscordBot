@@ -2,9 +2,7 @@ package me.umbreon.diabloimmortalbot.commands.custom_messages;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class CustomMessageCommand {
 
@@ -13,34 +11,29 @@ public class CustomMessageCommand {
     private final CustomMessageList customMessageList;
     private final CustomMessageInfo customMessageInfo;
 
-    public CustomMessageCommand(ClientCache clientCache, DatabaseRequests databaseRequests) {
+    public CustomMessageCommand(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
         customMessageCreate = new CustomMessageCreate(clientCache, databaseRequests);
         customMessageDelete = new CustomMessageDelete(clientCache, databaseRequests);
         customMessageList = new CustomMessageList(clientCache);
         customMessageInfo = new CustomMessageInfo(clientCache);
     }
 
-    public void runCustomMessageCommand(Message message) {
-        String[] args = message.getContentRaw().split(" ");
-
+    public String runCustomMessageCommand(final String[] args, final TextChannel textChannel) {
         switch (args[1].toLowerCase()) {
-            case "create":
-            case "c":
-                customMessageCreate.runCustomMessageCreateCommand(message);
-                break;
             case "delete":
             case "d":
             case "del":
-                customMessageDelete.runCustomMessageDelete(message);
-                break;
+                return customMessageDelete.runCustomMessageDelete(args, textChannel);
             case "list":
             case "l":
-                customMessageList.runCustomMessageList(message);
-                break;
+                customMessageList.runCustomMessageList(textChannel);
+                return null;
             case "info":
             case "i":
-                customMessageInfo.runCustomMessageInfoCommand(message);
-                break;
+                customMessageInfo.runCustomMessageInfoCommand(args, textChannel);
+                return null;
+            default:
+                return null;
         }
     }
 

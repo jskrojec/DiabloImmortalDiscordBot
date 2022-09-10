@@ -14,23 +14,23 @@ public class AncientNightmareEmbed {
 
     private final ClientCache clientCache;
 
-    public AncientNightmareEmbed(ClientCache clientCache) {
+    public AncientNightmareEmbed(final ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public void checkAncientNightmareFormatted(TextChannel textChannel, String timezone, String language) {
-        String time = TimeAssistant.getTimeWithWeekday(timezone);
-        String textChannelID = textChannel.getId();
+    public void checkAncientNightmareFormatted(final TextChannel textChannel, final String timezone, final String language) {
+        final String time = TimeAssistant.getTimeWithWeekday(timezone);
+        final String textChannelID = textChannel.getId();
 
         if (!clientCache.getListWithAncientNightmareEmbedTimes().contains(time) || !clientCache.isAncientNightmareEmbedMessageEnabled(textChannelID)) {
             return;
         }
 
-        String guildID = textChannel.getGuild().getId();
+        final String guildID = textChannel.getGuild().getId();
 
         if (clientCache.isAutoDeleteEnabled(guildID)) {
 
-            int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
+            final int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
             switch (autoDeleteValue) {
                 case 24:
                 case 48:
@@ -47,17 +47,17 @@ public class AncientNightmareEmbed {
 
     }
 
-    private MessageEmbed buildAncientNightmareEmbed(String timezone, String language) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+    private MessageEmbed buildAncientNightmareEmbed(final String timezone, final String language) {
+        final EmbedBuilder embedBuilder = new EmbedBuilder();
 
-        String eventTitle = LanguageController.getAncientNightmareEmbedMessage(language);
-        String worldEventMessage = LanguageController.getEmbedWorldEventMessage(language);
-        String spawnAtMessage = LanguageController.getEmbedSpawnAtMessage(language);
-        String countdownMessage = LanguageController.getEmbedCountdownMessage(language);
-        String locationMessage1 = LanguageController.getLocationAncientNightmareEmbedMessage1(language);
-        String locationMessage2 = LanguageController.getLocationAncientNightmareEmbedMessage2(language);
+        final String eventTitle = LanguageController.getAncientNightmareEmbedMessage(language);
+        final String worldEventMessage = LanguageController.getEmbedWorldEventMessage(language);
+        final String spawnAtMessage = LanguageController.getEmbedSpawnAtMessage(language);
+        final String countdownMessage = LanguageController.getEmbedCountdownMessage(language);
+        final String locationMessage1 = LanguageController.getLocationAncientNightmareEmbedMessage1(language);
+        final String locationMessage2 = LanguageController.getLocationAncientNightmareEmbedMessage2(language);
 
-        long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
+        final long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
 
         embedBuilder.setTitle(eventTitle + " | " + worldEventMessage);
         embedBuilder.setImage(ImageAssistant.getDiabloAncientNightmareImage());

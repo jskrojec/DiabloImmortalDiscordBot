@@ -14,23 +14,23 @@ public class DemonGatesEmbed {
 
     private final ClientCache clientCache;
 
-    public DemonGatesEmbed(ClientCache clientCache) {
+    public DemonGatesEmbed(final ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public void checkDemonGatesFormatted(TextChannel textChannel, String timezone, String language) {
-        String time = TimeAssistant.getTimeWithWeekday(timezone);
-        String textChannelID = textChannel.getId();
+    public void checkDemonGatesFormatted(final TextChannel textChannel, final String timezone, final String language) {
+        final String time = TimeAssistant.getTimeWithWeekday(timezone);
+        final String textChannelID = textChannel.getId();
 
         if (!clientCache.getListWithDemonGateEmbedTimes().contains(time) || !clientCache.isDemonGatesEmbedMessageEnabled(textChannelID)) {
             return;
         }
 
-        String guildID = textChannel.getGuild().getId();
+        final String guildID = textChannel.getGuild().getId();
 
         if (clientCache.isAutoDeleteEnabled(guildID)) {
 
-            int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
+            final int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
             switch (autoDeleteValue) {
                 case 24:
                 case 48:
@@ -47,17 +47,17 @@ public class DemonGatesEmbed {
 
     }
 
-    private MessageEmbed buildDemonGatesEmbed(String timezone, String language) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+    private MessageEmbed buildDemonGatesEmbed(final String timezone, final String language) {
+        final EmbedBuilder embedBuilder = new EmbedBuilder();
 
-        long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
+        final long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
 
-        String eventTitle = LanguageController.getDemonGatesEmbedMessage(language);
-        String worldEventMessage = LanguageController.getEmbedWorldEventMessage(language);
-        String spawnAtMessage = LanguageController.getEmbedSpawnAtMessage(language);
-        String countdownMessage = LanguageController.getEmbedCountdownMessage(language);
-        String locationMessage1 = LanguageController.getLocationDemonGatesEmbedMessage1(language);
-        String locationMessage2 = LanguageController.getLocationDemonGatesEmbedMessage2(language);
+        final String eventTitle = LanguageController.getDemonGatesEmbedMessage(language);
+        final String worldEventMessage = LanguageController.getEmbedWorldEventMessage(language);
+        final String spawnAtMessage = LanguageController.getEmbedSpawnAtMessage(language);
+        final String countdownMessage = LanguageController.getEmbedCountdownMessage(language);
+        final String locationMessage1 = LanguageController.getLocationDemonGatesEmbedMessage1(language);
+        final String locationMessage2 = LanguageController.getLocationDemonGatesEmbedMessage2(language);
 
         embedBuilder.setTitle(eventTitle + " | " + worldEventMessage);
         embedBuilder.setImage(ImageAssistant.getDiabloDemonGatesImage());

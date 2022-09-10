@@ -24,7 +24,7 @@ public class NotifierChannel {
     boolean hauntedCarriageMessageEmbedEnabled;
     boolean ancientNightmareMessageEmbedEnabled;
 
-    public NotifierChannel(String textChannelID, String guildID) {
+    public NotifierChannel(final String textChannelID, final String guildID) {
         this.eventHeadUpEnabled = true;
         this.eventMessageEnabled = true;
         this.assemblyMessageEnabled = true;
@@ -48,15 +48,15 @@ public class NotifierChannel {
         this.textChannelID = textChannelID;
     }
 
-    public NotifierChannel(String roleID, String guildID, String textChannelID,
-                           boolean eventHeadUpEnabled, boolean eventMessageEnabled, boolean assemblyMessageEnabled,
-                           boolean raidVaultMessageEnabled, boolean demonGatesMessageEnabled,
-                           boolean defendVaultMessageEnabled, boolean ancientArenaMessageEnabled,
-                           boolean shadowLotteryMessageEnabled, boolean battlegroundsMessageEnabled,
-                           boolean hauntedCarriageMessageEnabled, boolean ancientNightmareMessageEnabled,
-                           boolean demonGatesMessageEmbedEnabled, boolean ancientArenaMessageEmbedEnabled,
-                           boolean hauntedCarriageMessageEmbedEnabled, boolean ancientNightmareMessageEmbedEnabled,
-                           boolean wrathborneInvasionEnabled) {
+    public NotifierChannel(final String roleID, final String guildID, final String textChannelID,
+                           final boolean eventHeadUpEnabled, final boolean eventMessageEnabled, final boolean assemblyMessageEnabled,
+                           final boolean raidVaultMessageEnabled, final boolean demonGatesMessageEnabled,
+                           final boolean defendVaultMessageEnabled, final boolean ancientArenaMessageEnabled,
+                           final boolean shadowLotteryMessageEnabled, final boolean battlegroundsMessageEnabled,
+                           final boolean hauntedCarriageMessageEnabled, final boolean ancientNightmareMessageEnabled,
+                           final boolean demonGatesMessageEmbedEnabled, final boolean ancientArenaMessageEmbedEnabled,
+                           final boolean hauntedCarriageMessageEmbedEnabled, final boolean ancientNightmareMessageEmbedEnabled,
+                           final boolean wrathborneInvasionEnabled) {
         this.roleID = roleID;
         this.guildID = guildID;
         this.textChannelID = textChannelID;
@@ -82,7 +82,7 @@ public class NotifierChannel {
         return roleID;
     }
 
-    public void setRoleID(String roleID) {
+    public void setRoleID(final String roleID) {
         this.roleID = roleID;
     }
 
@@ -90,7 +90,7 @@ public class NotifierChannel {
         return textChannelID;
     }
 
-    public void setTextChannelID(String textChannelID) {
+    public void setTextChannelID(final String textChannelID) {
         this.textChannelID = textChannelID;
     }
 
@@ -98,7 +98,7 @@ public class NotifierChannel {
         return eventHeadUpEnabled;
     }
 
-    public void setEventHeadUpEnabled(boolean eventHeadUpEnabled) {
+    public void setEventHeadUpEnabled(final boolean eventHeadUpEnabled) {
         this.eventHeadUpEnabled = eventHeadUpEnabled;
     }
 
@@ -106,7 +106,7 @@ public class NotifierChannel {
         return eventMessageEnabled;
     }
 
-    public void setEventMessageEnabled(boolean eventMessageEnabled) {
+    public void setEventMessageEnabled(final boolean eventMessageEnabled) {
         this.eventMessageEnabled = eventMessageEnabled;
     }
 
@@ -114,7 +114,7 @@ public class NotifierChannel {
         return assemblyMessageEnabled;
     }
 
-    public void setAssemblyMessageEnabled(boolean assemblyMessageEnabled) {
+    public void setAssemblyMessageEnabled(final boolean assemblyMessageEnabled) {
         this.assemblyMessageEnabled = assemblyMessageEnabled;
     }
 
@@ -122,7 +122,7 @@ public class NotifierChannel {
         return raidVaultMessageEnabled;
     }
 
-    public void setRaidVaultMessageEnabled(boolean raidVaultMessageEnabled) {
+    public void setRaidVaultMessageEnabled(final boolean raidVaultMessageEnabled) {
         this.raidVaultMessageEnabled = raidVaultMessageEnabled;
     }
 
@@ -130,7 +130,7 @@ public class NotifierChannel {
         return demonGatesMessageEnabled;
     }
 
-    public void setDemonGatesMessageEnabled(boolean demonGatesMessageEnabled) {
+    public void setDemonGatesMessageEnabled(final boolean demonGatesMessageEnabled) {
         this.demonGatesMessageEnabled = demonGatesMessageEnabled;
     }
 
@@ -138,7 +138,7 @@ public class NotifierChannel {
         return defendVaultMessageEnabled;
     }
 
-    public void setDefendVaultMessageEnabled(boolean defendVaultMessageEnabled) {
+    public void setDefendVaultMessageEnabled(final boolean defendVaultMessageEnabled) {
         this.defendVaultMessageEnabled = defendVaultMessageEnabled;
     }
 
@@ -146,7 +146,7 @@ public class NotifierChannel {
         return ancientArenaMessageEnabled;
     }
 
-    public void setAncientArenaMessageEnabled(boolean ancientArenaMessageEnabled) {
+    public void setAncientArenaMessageEnabled(final boolean ancientArenaMessageEnabled) {
         this.ancientArenaMessageEnabled = ancientArenaMessageEnabled;
     }
 
@@ -154,7 +154,7 @@ public class NotifierChannel {
         return shadowLotteryMessageEnabled;
     }
 
-    public void setShadowLotteryMessageEnabled(boolean shadowLotteryMessageEnabled) {
+    public void setShadowLotteryMessageEnabled(final boolean shadowLotteryMessageEnabled) {
         this.shadowLotteryMessageEnabled = shadowLotteryMessageEnabled;
     }
 
@@ -162,7 +162,7 @@ public class NotifierChannel {
         return battlegroundsMessageEnabled;
     }
 
-    public void setBattlegroundsMessageEnabled(boolean battlegroundsMessageEnabled) {
+    public void setBattlegroundsMessageEnabled(final boolean battlegroundsMessageEnabled) {
         this.battlegroundsMessageEnabled = battlegroundsMessageEnabled;
     }
 
@@ -170,7 +170,7 @@ public class NotifierChannel {
         return hauntedCarriageMessageEnabled;
     }
 
-    public void setHauntedCarriageMessageEnabled(boolean hauntedCarriageMessageEnabled) {
+    public void setHauntedCarriageMessageEnabled(final boolean hauntedCarriageMessageEnabled) {
         this.hauntedCarriageMessageEnabled = hauntedCarriageMessageEnabled;
     }
 
@@ -178,7 +178,7 @@ public class NotifierChannel {
         return ancientNightmareMessageEnabled;
     }
 
-    public void setAncientNightmareMessageEnabled(boolean ancientNightmareMessageEnabled) {
+    public void setAncientNightmareMessageEnabled(final boolean ancientNightmareMessageEnabled) {
         this.ancientNightmareMessageEnabled = ancientNightmareMessageEnabled;
     }
 
@@ -186,7 +186,7 @@ public class NotifierChannel {
         return demonGatesMessageEmbedEnabled;
     }
 
-    public void setDemonGatesMessageEmbedEnabled(boolean demonGatesMessageEmbedEnabled) {
+    public void setDemonGatesMessageEmbedEnabled(final boolean demonGatesMessageEmbedEnabled) {
         this.demonGatesMessageEmbedEnabled = demonGatesMessageEmbedEnabled;
     }
 
@@ -194,7 +194,7 @@ public class NotifierChannel {
         return ancientArenaMessageEmbedEnabled;
     }
 
-    public void setAncientArenaMessageEmbedEnabled(boolean ancientArenaMessageEmbedEnabled) {
+    public void setAncientArenaMessageEmbedEnabled(final boolean ancientArenaMessageEmbedEnabled) {
         this.ancientArenaMessageEmbedEnabled = ancientArenaMessageEmbedEnabled;
     }
 
@@ -202,7 +202,7 @@ public class NotifierChannel {
         return hauntedCarriageMessageEmbedEnabled;
     }
 
-    public void setHauntedCarriageMessageEmbedEnabled(boolean hauntedCarriageMessageEmbedEnabled) {
+    public void setHauntedCarriageMessageEmbedEnabled(final boolean hauntedCarriageMessageEmbedEnabled) {
         this.hauntedCarriageMessageEmbedEnabled = hauntedCarriageMessageEmbedEnabled;
     }
 
@@ -210,7 +210,7 @@ public class NotifierChannel {
         return ancientNightmareMessageEmbedEnabled;
     }
 
-    public void setAncientNightmareMessageEmbedEnabled(boolean ancientNightmareMessageEmbedEnabled) {
+    public void setAncientNightmareMessageEmbedEnabled(final boolean ancientNightmareMessageEmbedEnabled) {
         this.ancientNightmareMessageEmbedEnabled = ancientNightmareMessageEmbedEnabled;
     }
 
@@ -218,7 +218,7 @@ public class NotifierChannel {
         return guildID;
     }
 
-    public void setGuildID(String guildID) {
+    public void setGuildID(final String guildID) {
         this.guildID = guildID;
     }
 
@@ -226,7 +226,7 @@ public class NotifierChannel {
         return wrathborneInvasionEnabled;
     }
 
-    public void setWrathborneInvasionEnabled(boolean wrathborneInvasionEnabled) {
+    public void setWrathborneInvasionEnabled(final boolean wrathborneInvasionEnabled) {
         this.wrathborneInvasionEnabled = wrathborneInvasionEnabled;
     }
 }

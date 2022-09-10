@@ -4,8 +4,6 @@ import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
@@ -15,29 +13,27 @@ public class TimezonesCommand {
 
     private final ClientCache clientCache;
 
-    public TimezonesCommand(ClientCache clientCache) {
+    public TimezonesCommand(final ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public void runTimezonesCommand(Message message) {
-        TextChannel textChannel = message.getTextChannel();
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+    public void runTimezonesCommand(final String[] args, final TextChannel textChannel) {
+        final EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Timezones");
         embedBuilder.setColor(Color.RED);
-        String[] args = message.getContentRaw().split(" ");
 
-        String timezone;
+        final String timezone;
         if (args.length == 1) {
             timezone = "GMT";
         } else {
             timezone = args[1];
         }
 
-        String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        final String guildID = textChannel.getGuild().getId();
+        final String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         for (int i = 12; i > -12; i--) {
-            String timezoneMessage;
+            final String timezoneMessage;
             if (i > 0) {
                 timezoneMessage = timezone + "+" + i;
             } else if (i == 0) {
@@ -46,7 +42,7 @@ public class TimezonesCommand {
                 timezoneMessage = timezone + i;
             }
 
-            String time = TimeAssistant.getTimeWithWeekday(timezoneMessage);
+            final String time = TimeAssistant.getTimeWithWeekday(timezoneMessage);
 
             if (time.equalsIgnoreCase("INVALID_TIMEZONE")) {
                 sendMessageToTextChannel(guildID, textChannel, LanguageController.getUnknownTimezoneMessage(guildLanguage));
@@ -59,7 +55,7 @@ public class TimezonesCommand {
         textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
     }
 
-    private void sendMessageToTextChannel(final String guildID, TextChannel textChannel, String message) {
+    private void sendMessageToTextChannel(final String guildID, final TextChannel textChannel, final String message) {
         if (clientCache.isAutoDeleteEnabled(guildID)) {
             textChannel.sendMessage(message).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);

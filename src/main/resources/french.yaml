@@ -51,7 +51,7 @@ help-show-bot-install: "Affiche les instructions du robot."
 help-show-help: "Affiche le message d'aide."
 
 install: "Instructions"
-install-first: "Ajoutez le Bot à votre serveur Discord en utilisant : https://discord.com/oauth2/authorize?client_id=527511535309029407&scope=bot&permissions=8"
+install-first: "Ajoutez le Bot à votre serveur Discord en utilisant : https://discord.com/api/oauth2/authorize?client_id=527511535309029407&permissions=2147739712&scope=applications.commands%20bot"
 install-second: "(Vous pouvez sauter cette étape en tant que propriétaire du serveur) Créez un rôle sur votre serveur Discord appelé 'Bot Admin'. Les personnes ayant ce rôle peuvent contrôler le robot."
 install-third: "(Vous pouvez sauter cette étape en tant que propriétaire du serveur) Attribuez le rôle créé (Bot Admin) à vous-même ! Pas au bot !"
 install-fourth: "Créez un canal texte que vous aimez pour recevoir les notifications."

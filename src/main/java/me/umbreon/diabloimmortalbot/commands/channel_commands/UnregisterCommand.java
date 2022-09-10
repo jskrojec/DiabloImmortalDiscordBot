@@ -4,67 +4,45 @@ import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.StringAssistant;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.concurrent.TimeUnit;
 
 public class UnregisterCommand {
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
 
-    public UnregisterCommand(DatabaseRequests databaseRequests, ClientCache clientCache) {
+    public UnregisterCommand(final DatabaseRequests databaseRequests, final ClientCache clientCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
 
-    public void runUnregisterCommand(Message message) {
-        TextChannel textChannel = message.getTextChannel();
-        String[] args = message.getContentRaw().split(" ");
-        String guildID = message.getGuild().getId();
-        String language = clientCache.getGuildLanguage(guildID);
+    public String runUnregisterCommand(final String[] args, final TextChannel textChannel, final Guild guild) {
+        final String guildID = guild.getId();
+        final String language = clientCache.getGuildLanguage(guildID);
 
-        String textChannelID = getTextChannelID(message, args);
-        if (!isChannelRegistered(textChannelID)) {
-            String notRegisteredMessage = String.format(LanguageController.getChannelNotRegisteredMessage(language), textChannel.getAsMention());
-            sendMessageToTextChannel(guildID, textChannel, notRegisteredMessage);
-            return;
-        }
+        final String textChannelID = getTextChannelID(textChannel, args);
+        if (!isChannelRegistered(textChannelID))
+            return String.format(LanguageController.getChannelNotRegisteredMessage(language), textChannel.getAsMention());
 
         removeNotificationChannel(textChannelID);
-        String channelUnregisteredMessage = String.format(LanguageController.getChannelUnregisteredMessage(language), textChannel.getAsMention());
-        sendMessageToTextChannel(guildID, textChannel, channelUnregisteredMessage);
+        return String.format(LanguageController.getChannelUnregisteredMessage(language), textChannel.getAsMention());
     }
 
     @Nullable
-    private String getTextChannelID(Message message, String[] args) {
-        String textChannelID;
-        if (args.length == 2) {
-            textChannelID = StringAssistant.removeAllNonNumbers(args[1]);
-        } else if (args.length == 1) {
-            textChannelID = message.getTextChannel().getId();
-        } else {
-            return null;
-        }
-        return textChannelID;
+    private String getTextChannelID(final TextChannel textChannel, final String[] args) {
+        if (args.length == 2) return StringAssistant.removeAllNonNumbers(args[1]);
+        else if (args.length == 1) return textChannel.getId();
+        return null;
     }
 
-    private void removeNotificationChannel(String textChannelID) {
+    private void removeNotificationChannel(final String textChannelID) {
         databaseRequests.deleteNotifierChannelEntry(textChannelID);
         clientCache.removeNotifierChannelFromList(textChannelID);
     }
 
-    private boolean isChannelRegistered(String textChannelID) {
+    private boolean isChannelRegistered(final String textChannelID) {
         return clientCache.doNotifierChannelExists(textChannelID);
-    }
-
-    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
-        if (clientCache.isAutoDeleteEnabled(guildID)) {
-            textChannel.sendMessage(message).queue(sendMessage -> {
-                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
-            });
-        } else textChannel.sendMessage(message).queue();
     }
 }

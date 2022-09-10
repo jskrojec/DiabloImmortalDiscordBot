@@ -20,19 +20,19 @@ public class CustomMessageCreate {
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
 
-    public CustomMessageCreate(ClientCache clientCache, DatabaseRequests databaseRequests) {
+    public CustomMessageCreate(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
 
-    public void runCustomMessageCreateCommand(Message message) {
+    public void runCustomMessageCreateCommand(final Message message) {
         addUserToOperatingMode(message);
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
                         if (clientCache.isUserInOperationMode(message.getTextChannel().getId(), message.getAuthor().getId())) {
-                            String textChannelID = message.getTextChannel().getId();
+                            final String textChannelID = message.getTextChannel().getId();
                             clientCache.removeFromPreparingCustomMessagesList(textChannelID);
                             clientCache.removeFromPreparingCustomMessageUserList(textChannelID);
                             clientCache.removeFromWaitingForMessageList(textChannelID);
@@ -47,23 +47,23 @@ public class CustomMessageCreate {
         );
     }
 
-    private void addUserToOperatingMode(Message message) {
-        String userID = message.getAuthor().getId();
-        String textChannelID = message.getTextChannel().getId();
-        String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+    private void addUserToOperatingMode(final Message message) {
+        final String userID = message.getAuthor().getId();
+        final String textChannelID = message.getTextChannel().getId();
+        final String guildID = message.getGuild().getId();
+        final String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         clientCache.addToPreparingCustomMessageUserList(textChannelID, userID);
         clientCache.addToWaitingForTextChannelList(textChannelID, userID);
         message.getTextChannel().sendMessage(LanguageController.getCustomMessageWhatChannelMessage(guildLanguage)).queue();
     }
 
-    public void addTextChannelToPreparingCustomMessage(Message message) {
-        String targetTextChannelID;
-        String textChannelID = message.getTextChannel().getId();
-        String userID = message.getAuthor().getId();
-        String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+    public void addTextChannelToPreparingCustomMessage(final Message message) {
+        final String targetTextChannelID;
+        final String textChannelID = message.getTextChannel().getId();
+        final String userID = message.getAuthor().getId();
+        final String guildID = message.getGuild().getId();
+        final String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (message.getContentRaw().equalsIgnoreCase("this")) {
             targetTextChannelID = message.getTextChannel().getId();
@@ -86,18 +86,18 @@ public class CustomMessageCreate {
         message.getTextChannel().sendMessage(LanguageController.getChannelNotFoundMessage(guildLanguage)).queue();
     }
 
-    public void addDayToPreparingCustomMessage(Message message) {
-        String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+    public void addDayToPreparingCustomMessage(final Message message) {
+        final String guildID = message.getGuild().getId();
+        final String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (clientCache.getListOfAvailableEventDays().contains(message.getContentRaw().toLowerCase())) {
-            String textChannelID = message.getTextChannel().getId();
+            final String textChannelID = message.getTextChannel().getId();
             clientCache.removeFromWaitingForDayList(textChannelID);
             clientCache.getPreparingCustomMessage(textChannelID).setDay(message.getContentRaw());
             clientCache.addToWaitingForTimeList(textChannelID, message.getAuthor().getId());
             message.getTextChannel().sendMessage(LanguageController.getCustomMessageWhatTimeMessage(guildLanguage)).queue();
         } else {
-            StringBuilder stringBuilder = new StringBuilder();
+            final StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(LanguageController.getCustomMessageInvalidDayMessage(guildLanguage));
 
             for (int i = 0; i <= clientCache.getListOfAvailableEventDays().size(); i++) {
@@ -116,13 +116,13 @@ public class CustomMessageCreate {
         }
     }
 
-    public void addTimeToPreparingCustomMessage(Message message) {
+    public void addTimeToPreparingCustomMessage(final Message message) {
         if (StringAssistant.isStringInTimePattern(message.getContentRaw())) {
-            String textChannelID = message.getTextChannel().getId();
-            String guildID = message.getGuild().getId();
-            String guildLanguage = clientCache.getGuildLanguage(guildID);
+            final String textChannelID = message.getTextChannel().getId();
+            final String guildID = message.getGuild().getId();
+            final String guildLanguage = clientCache.getGuildLanguage(guildID);
             clientCache.removeFromWaitingForTimeList(textChannelID);
-            CustomMessage preparingCustomMessage = clientCache.getPreparingCustomMessage(textChannelID);
+            final CustomMessage preparingCustomMessage = clientCache.getPreparingCustomMessage(textChannelID);
             preparingCustomMessage.setTime(message.getContentRaw());
 
             if (preparingCustomMessage.getDay().equalsIgnoreCase("everyday")) {
@@ -134,14 +134,13 @@ public class CustomMessageCreate {
 
             clientCache.addToWaitingForRepeatingList(textChannelID, message.getAuthor().getId());
             message.getTextChannel().sendMessage(LanguageController.getCustomMessageIsRepeatingMessage(guildLanguage)).queue();
-            ;
         }
     }
 
-    public void addRepeatingValueToCustomMessage(Message message) {
-        String textChannelID = message.getTextChannel().getId();
-        String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+    public void addRepeatingValueToCustomMessage(final Message message) {
+        final String textChannelID = message.getTextChannel().getId();
+        final String guildID = message.getGuild().getId();
+        final String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (BooleanAssistant.isValueTrue(message.getContentRaw().toLowerCase())) {
             clientCache.getPreparingCustomMessage(textChannelID).setRepeating(true);
@@ -162,12 +161,12 @@ public class CustomMessageCreate {
         message.getTextChannel().sendMessage(LanguageController.getYesOrNoMessage(guildLanguage)).queue();
     }
 
-    public void addMessageToCustomMessage(Message message) {
-        String textChannelID = message.getTextChannel().getId();
-        CustomMessage preparingCustomMessage = clientCache.getPreparingCustomMessage(textChannelID);
+    public void addMessageToCustomMessage(final Message message) {
+        final String textChannelID = message.getTextChannel().getId();
+        final CustomMessage preparingCustomMessage = clientCache.getPreparingCustomMessage(textChannelID);
         preparingCustomMessage.setMessage(message.getContentRaw());
-        String guildID = message.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        final String guildID = message.getGuild().getId();
+        final String guildLanguage = clientCache.getGuildLanguage(guildID);
         databaseRequests.createNewCustomMessageEntry(preparingCustomMessage);
         clientCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());
         clientCache.removeFromPreparingCustomMessagesList(textChannelID);
@@ -176,8 +175,8 @@ public class CustomMessageCreate {
         message.getTextChannel().sendMessage(LanguageController.getCustomMessageCreatedMessage(guildLanguage)).queue();
     }
 
-    private TextChannel findTextChannel(String textChannelID, Guild guild) {
-        List<TextChannel> textChannels = guild.getTextChannels();
+    private TextChannel findTextChannel(final String textChannelID, final Guild guild) {
+        final List<TextChannel> textChannels = guild.getTextChannels();
         return textChannels.stream()
                 .filter(textChannel -> textChannel.getId().equalsIgnoreCase(textChannelID))
                 .findFirst()

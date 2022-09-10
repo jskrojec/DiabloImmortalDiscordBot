@@ -3,32 +3,32 @@ package me.umbreon.diabloimmortalbot.languages;
 public class LanguageController {
 
     public static void loadConfigurations() {
-        LanguageEnglish languageEnglish = new LanguageEnglish();
+        final LanguageEnglish languageEnglish = new LanguageEnglish();
         languageEnglish.loadLanguageConfiguration();
 
-        LanguageGerman languageGerman = new LanguageGerman();
+        final LanguageGerman languageGerman = new LanguageGerman();
         languageGerman.loadLanguageConfiguration();
 
-        LanguageSpain languageSpain = new LanguageSpain();
+        final LanguageSpain languageSpain = new LanguageSpain();
         languageSpain.loadLanguageConfiguration();
 
-        LanguagePolish languagePolish = new LanguagePolish();
+        final LanguagePolish languagePolish = new LanguagePolish();
         languagePolish.loadLanguageConfiguration();
 
-        LanguageFrench languageFrench = new LanguageFrench();
+        final LanguageFrench languageFrench = new LanguageFrench();
         languageFrench.loadLanguageConfiguration();
 
-        LanguageItalian languageItalian = new LanguageItalian();
+        final LanguageItalian languageItalian = new LanguageItalian();
         languageItalian.loadLanguageConfiguration();
 
-        LanguageRussian languageRussian = new LanguageRussian();
+        final LanguageRussian languageRussian = new LanguageRussian();
         languageRussian.loadLanguageConfiguration();
 
-        LanguageIndonesia languageIndonesia = new LanguageIndonesia();
+        final LanguageIndonesia languageIndonesia = new LanguageIndonesia();
         languageIndonesia.loadLanguageConfiguration();
     }
 
-    public static String getHauntedCarriageMessage(String lang) {
+    public static String getHauntedCarriageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHauntedCarriageMessage();
@@ -49,7 +49,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHauntedCarriageHeadUpMessage(String lang) {
+    public static String getHauntedCarriageHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHauntedCarriageHeadUpMessage();
@@ -70,7 +70,7 @@ public class LanguageController {
         }
     }
 
-    public static String getDemonGatesMessage(String lang) {
+    public static String getDemonGatesMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getDemonGatesMessage();
@@ -91,7 +91,7 @@ public class LanguageController {
         }
     }
 
-    public static String getDemonGatesHeadUpMessage(String lang) {
+    public static String getDemonGatesHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getDemonGatesHeadUpMessage();
@@ -112,7 +112,7 @@ public class LanguageController {
         }
     }
 
-    public static String getBattlegroundMessage(String lang) {
+    public static String getBattlegroundMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getBattlegroundMessage();
@@ -133,7 +133,7 @@ public class LanguageController {
         }
     }
 
-    public static String getBattlegroundHeadUpMessage(String lang) {
+    public static String getBattlegroundHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getBattlegroundHeadUpMessage();
@@ -154,7 +154,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAncientNightmareMessage(String lang) {
+    public static String getAncientNightmareMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientNightmareMessage();
@@ -175,7 +175,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAncientNightmareHeadUpMessage(String lang) {
+    public static String getAncientNightmareHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientNightmareHeadUpMessage();
@@ -196,7 +196,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAncientArenaMessage(String lang) {
+    public static String getAncientArenaMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientArenaMessage();
@@ -217,7 +217,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAncientArenaHeadUpMessage(String lang) {
+    public static String getAncientArenaHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientArenaHeadUpMessage();
@@ -238,7 +238,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAssemblyMessage(String lang) {
+    public static String getAssemblyMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAssemblyMessage();
@@ -259,7 +259,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAssemblyHeadUpMessage(String lang) {
+    public static String getAssemblyHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAssemblyHeadUpMessage();
@@ -280,7 +280,7 @@ public class LanguageController {
         }
     }
 
-    public static String getShadowLotteryMessage(String lang) {
+    public static String getShadowLotteryMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getShadowLotteryMessage();
@@ -301,7 +301,7 @@ public class LanguageController {
         }
     }
 
-    public static String getShadowLotteryHeadUpMessage(String lang) {
+    public static String getShadowLotteryHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getShadowLotteryHeadUpMessage();
@@ -322,7 +322,7 @@ public class LanguageController {
         }
     }
 
-    public static String getChannelRegisteredMessage(String lang) {
+    public static String getChannelRegisteredMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getChannelRegisteredMessage();
@@ -343,7 +343,7 @@ public class LanguageController {
         }
     }
 
-    public static String getChannelAlreadyRegisteredMessage(String lang) {
+    public static String getChannelAlreadyRegisteredMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getChannelAlreadyRegisteredMessage();
@@ -364,7 +364,7 @@ public class LanguageController {
         }
     }
 
-    public static String getRoleNotFoundMessage(String lang) {
+    public static String getRoleNotFoundMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getRoleNotFoundMessage();
@@ -385,7 +385,7 @@ public class LanguageController {
         }
     }
 
-    public static String getChannelNotRegisteredMessage(String lang) {
+    public static String getChannelNotRegisteredMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getChannelNotRegisteredMessage();
@@ -406,7 +406,7 @@ public class LanguageController {
         }
     }
 
-    public static String getTimezoneChangedMessage(String lang) {
+    public static String getTimezoneChangedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getTimezoneChangedMessage();
@@ -427,7 +427,7 @@ public class LanguageController {
         }
     }
 
-    public static String getChannelUnregisteredMessage(String lang) {
+    public static String getChannelUnregisteredMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getChannelUnregisteredMessage();
@@ -448,7 +448,7 @@ public class LanguageController {
         }
     }
 
-    public static String getUnknownTimezoneMessage(String lang) {
+    public static String getUnknownTimezoneMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getUnknownTimezoneMessage();
@@ -469,7 +469,7 @@ public class LanguageController {
         }
     }
 
-    public static String getRoleChangedMessage(String lang) {
+    public static String getRoleChangedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getRoleChangedMessage();
@@ -490,7 +490,7 @@ public class LanguageController {
         }
     }
 
-    public static String getRaidTheVaultMessage(String lang) {
+    public static String getRaidTheVaultMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getRaidTheVaultMessage();
@@ -511,7 +511,7 @@ public class LanguageController {
         }
     }
 
-    public static String getRaidTheVaultHeadUpMessage(String lang) {
+    public static String getRaidTheVaultHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getRaidTheVaultHeadUpMessage();
@@ -532,7 +532,7 @@ public class LanguageController {
         }
     }
 
-    public static String getDefendTheVaultMessage(String lang) {
+    public static String getDefendTheVaultMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getDefendTheVaultMessage();
@@ -553,7 +553,7 @@ public class LanguageController {
         }
     }
 
-    public static String getDefendTheVaultHeadUpMessage(String lang) {
+    public static String getDefendTheVaultHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getDefendTheVaultHeadUpMessage();
@@ -574,7 +574,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLanguageNotSupportedMessage(String lang) {
+    public static String getLanguageNotSupportedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLanguageNotSupportedMessage();
@@ -595,7 +595,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLanguageUpdatedMessage(String lang) {
+    public static String getLanguageUpdatedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLanguageUpdatedMessage();
@@ -616,7 +616,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLanguageMessage(String lang) {
+    public static String getLanguageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLanguageMessage();
@@ -637,7 +637,7 @@ public class LanguageController {
         }
     }
 
-    public static String getEventEnabledMessage(String lang) {
+    public static String getEventEnabledMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getEventEnabledMessage();
@@ -658,7 +658,7 @@ public class LanguageController {
         }
     }
 
-    public static String getEventDisabledMessage(String lang) {
+    public static String getEventDisabledMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getEventDisabledMessage();
@@ -679,7 +679,7 @@ public class LanguageController {
         }
     }
 
-    public static String getChannelNotFoundMessage(String lang) {
+    public static String getChannelNotFoundMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getChannelNotFoundMessage();
@@ -701,7 +701,7 @@ public class LanguageController {
     }
 
 
-    public static String getCustomMessageCreatedMessage(String lang) {
+    public static String getCustomMessageCreatedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getCustomMessageCreatedMessage();
@@ -722,7 +722,7 @@ public class LanguageController {
         }
     }
 
-    public static String getNoCustomMessagesMessage(String lang) {
+    public static String getNoCustomMessagesMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getNoCustomMessagesMessage();
@@ -743,7 +743,7 @@ public class LanguageController {
         }
     }
 
-    public static String getShowAllCustomMessages(String lang) {
+    public static String getShowAllCustomMessages(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getShowAllCustomMessages();
@@ -764,7 +764,7 @@ public class LanguageController {
         }
     }
 
-    public static String getCustomMessageWithIdDeleted(String lang) {
+    public static String getCustomMessageWithIdDeleted(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getCustomMessageWithIdDeleted();
@@ -785,7 +785,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInvalidCommandMessage(String lang) {
+    public static String getInvalidCommandMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInvalidCommandMessage();
@@ -806,7 +806,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAncientArenaEmbedMessage(String lang) {
+    public static String getAncientArenaEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientArenaEmbedMessage();
@@ -827,7 +827,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLocationAncientArenaEmbedMessage1(String lang) {
+    public static String getLocationAncientArenaEmbedMessage1(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLocationAncientArenaEmbedMessage1();
@@ -848,7 +848,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLocationAncientArenaEmbedMessage2(String lang) {
+    public static String getLocationAncientArenaEmbedMessage2(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLocationAncientArenaEmbedMessage2();
@@ -869,7 +869,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAncientNightmareEmbedMessage(String lang) {
+    public static String getAncientNightmareEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAncientNightmareEmbedMessage();
@@ -890,7 +890,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLocationAncientNightmareEmbedMessage1(String lang) {
+    public static String getLocationAncientNightmareEmbedMessage1(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLocationAncientNightmareEmbedMessage1();
@@ -911,7 +911,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLocationAncientNightmareEmbedMessage2(String lang) {
+    public static String getLocationAncientNightmareEmbedMessage2(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLocationAncientNightmareEmbedMessage2();
@@ -932,7 +932,7 @@ public class LanguageController {
         }
     }
 
-    public static String getDemonGatesEmbedMessage(String lang) {
+    public static String getDemonGatesEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getDemonGatesEmbedMessage();
@@ -953,7 +953,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLocationDemonGatesEmbedMessage1(String lang) {
+    public static String getLocationDemonGatesEmbedMessage1(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLocationDemonGatesEmbedMessage1();
@@ -974,7 +974,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLocationDemonGatesEmbedMessage2(String lang) {
+    public static String getLocationDemonGatesEmbedMessage2(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLocationDemonGatesEmbedMessage2();
@@ -995,7 +995,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHauntedCarriageEmbedMessage(String lang) {
+    public static String getHauntedCarriageEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHauntedCarriageEmbedMessage();
@@ -1016,7 +1016,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLocationHauntedCarriageEmbedMessage1(String lang) {
+    public static String getLocationHauntedCarriageEmbedMessage1(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLocationHauntedCarriageEmbedMessage1();
@@ -1037,7 +1037,7 @@ public class LanguageController {
         }
     }
 
-    public static String getLocationHauntedCarriageEmbedMessage2(String lang) {
+    public static String getLocationHauntedCarriageEmbedMessage2(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getLocationHauntedCarriageEmbedMessage2();
@@ -1058,7 +1058,7 @@ public class LanguageController {
         }
     }
 
-    public static String getEmbedSpawnAtMessage(String lang) {
+    public static String getEmbedSpawnAtMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getEmbedSpawnAtMessage();
@@ -1079,7 +1079,7 @@ public class LanguageController {
         }
     }
 
-    public static String getEmbedCountdownMessage(String lang) {
+    public static String getEmbedCountdownMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getEmbedCountdownMessage();
@@ -1100,7 +1100,7 @@ public class LanguageController {
         }
     }
 
-    public static String getEmbedWorldEventMessage(String lang) {
+    public static String getEmbedWorldEventMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getEmbedWorldEventMessage();
@@ -1121,7 +1121,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInvalidTimezoneMessage(String lang) {
+    public static String getInvalidTimezoneMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInvalidTimezoneMessage();
@@ -1142,7 +1142,7 @@ public class LanguageController {
         }
     }
 
-    public static String getCustomMessageWhatChannelMessage(String lang) {
+    public static String getCustomMessageWhatChannelMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getCustomMessageWhatChannelMessage();
@@ -1163,7 +1163,7 @@ public class LanguageController {
         }
     }
 
-    public static String getCustomMessageWhatDayMessage(String lang) {
+    public static String getCustomMessageWhatDayMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getCustomMessageWhatDayMessage();
@@ -1184,7 +1184,7 @@ public class LanguageController {
         }
     }
 
-    public static String getCustomMessageWhatTimeMessage(String lang) {
+    public static String getCustomMessageWhatTimeMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getCustomMessageWhatTimeMessage();
@@ -1205,7 +1205,7 @@ public class LanguageController {
         }
     }
 
-    public static String getCustomMessageWhatMessageMessage(String lang) {
+    public static String getCustomMessageWhatMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getCustomMessageWhatMessageMessage();
@@ -1226,7 +1226,7 @@ public class LanguageController {
         }
     }
 
-    public static String getCustomMessageIsRepeatingMessage(String lang) {
+    public static String getCustomMessageIsRepeatingMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getCustomMessageIsRepeatingMessage();
@@ -1247,7 +1247,7 @@ public class LanguageController {
         }
     }
 
-    public static String getYesOrNoMessage(String lang) {
+    public static String getYesOrNoMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getYesOrNoMessage();
@@ -1268,7 +1268,7 @@ public class LanguageController {
         }
     }
 
-    public static String getCustomMessageInvalidDayMessage(String lang) {
+    public static String getCustomMessageInvalidDayMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getCustomMessageInvalidDayMessage();
@@ -1289,7 +1289,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpRegistersChannelMessage(String lang) {
+    public static String getHelpRegistersChannelMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpRegistersChannelMessage();
@@ -1310,7 +1310,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpUnregistersChannelMessage(String lang) {
+    public static String getHelpUnregistersChannelMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpUnregistersChannelMessage();
@@ -1331,7 +1331,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpSetRoleMessage(String lang) {
+    public static String getHelpSetRoleMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpSetRoleMessage();
@@ -1352,7 +1352,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpShowInfoMessage(String lang) {
+    public static String getHelpShowInfoMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpShowInfoMessage();
@@ -1373,7 +1373,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpCreateCustomMessageMessage(String lang) {
+    public static String getHelpCreateCustomMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpCreateCustomMessageMessage();
@@ -1394,7 +1394,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpDeleteCustomMessageMessage(String lang) {
+    public static String getHelpDeleteCustomMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpDeleteCustomMessageMessage();
@@ -1415,7 +1415,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpShowAllCustomMessagesMessage(String lang) {
+    public static String getHelpShowAllCustomMessagesMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpShowAllCustomMessagesMessage();
@@ -1436,7 +1436,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpShowCustomMessageInfoMessage(String lang) {
+    public static String getHelpShowCustomMessageInfoMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpShowAllCustomMessagesMessage();
@@ -1457,7 +1457,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpServerHeadUpMessage(String lang) {
+    public static String getHelpServerHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpServerHeadUpMessage();
@@ -1478,7 +1478,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpServerMessagesMessage(String lang) {
+    public static String getHelpServerMessagesMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpServerMessagesMessage();
@@ -1499,7 +1499,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpServerConfigMessage(String lang) {
+    public static String getHelpServerConfigMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpServerConfigMessage();
@@ -1520,7 +1520,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpServerLanguageMessage(String lang) {
+    public static String getHelpServerLanguageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpServerLanguageMessage();
@@ -1541,7 +1541,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpServerTimezoneMessage(String lang) {
+    public static String getHelpServerTimezoneMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpServerTimezoneMessage();
@@ -1562,7 +1562,7 @@ public class LanguageController {
         }
     }
 
-    public static String getShowsBotInstallMessage(String lang) {
+    public static String getShowsBotInstallMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getShowsBotInstallMessage();
@@ -1583,7 +1583,7 @@ public class LanguageController {
         }
     }
 
-    public static String getShowsThisMessageMessage(String lang) {
+    public static String getShowsThisMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getShowsThisMessageMessage();
@@ -1604,7 +1604,7 @@ public class LanguageController {
         }
     }
 
-    public static String getSupportDiscordMessage(String lang) {
+    public static String getSupportDiscordMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getSupportDiscordMessage();
@@ -1625,7 +1625,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpServerAutoDeleteSetMessage(String lang) {
+    public static String getHelpServerAutoDeleteSetMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpServerAutoDeleteSetMessage();
@@ -1646,7 +1646,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpServerAutoDeleteValueMessage(String lang) {
+    public static String getHelpServerAutoDeleteValueMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpServerAutoDeleteValueMessage();
@@ -1667,7 +1667,7 @@ public class LanguageController {
         }
     }
 
-    public static String getShortHoursMessage(String lang) {
+    public static String getShortHoursMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getShortHoursMessage();
@@ -1689,7 +1689,7 @@ public class LanguageController {
     }
 
 
-    public static String getErrorOccurredMessage(String lang) {
+    public static String getErrorOccurredMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getErrorOccurredMessage();
@@ -1710,7 +1710,7 @@ public class LanguageController {
         }
     }
 
-    public static String getFooterReportToDevMessage(String lang) {
+    public static String getFooterReportToDevMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getFooterReportToDevMessage();
@@ -1731,7 +1731,7 @@ public class LanguageController {
         }
     }
 
-    public static String getWrathborneInvasionMessage(String lang) {
+    public static String getWrathborneInvasionMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getWrathborneInvasionMessage();
@@ -1752,7 +1752,7 @@ public class LanguageController {
         }
     }
 
-    public static String getWrathborneInvasionHeadUpMessage(String lang) {
+    public static String getWrathborneInvasionHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getWrathborneInvasionHeadUpMessage();
@@ -1773,7 +1773,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInstall1Message(String lang) {
+    public static String getInstall1Message(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInstall1Message();
@@ -1794,7 +1794,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInstall2Message(String lang) {
+    public static String getInstall2Message(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInstall2Message();
@@ -1815,7 +1815,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInstall3Message(String lang) {
+    public static String getInstall3Message(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInstall3Message();
@@ -1836,7 +1836,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInstall4Message(String lang) {
+    public static String getInstall4Message(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInstall4Message();
@@ -1857,7 +1857,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInstall5Message(String lang) {
+    public static String getInstall5Message(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInstall5Message();
@@ -1878,7 +1878,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInstructionsMessage(String lang) {
+    public static String getInstructionsMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInstructionsMessage();
@@ -1899,7 +1899,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoTimezoneMessage(String lang) {
+    public static String getInfoTimezoneMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoTimezoneMessage();
@@ -1920,7 +1920,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoCurrentTimeMessage(String lang) {
+    public static String getInfoCurrentTimeMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoCurrentTimeMessage();
@@ -1941,7 +1941,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoTextChannelIDMessage(String lang) {
+    public static String getInfoTextChannelIDMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoTextChannelIDMessage();
@@ -1962,7 +1962,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoMentionedRoleMessage(String lang) {
+    public static String getInfoMentionedRoleMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoMentionedRoleMessage();
@@ -1983,7 +1983,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoYesMessage(String lang) {
+    public static String getInfoYesMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoYesMessage();
@@ -2004,7 +2004,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoNoMessage(String lang) {
+    public static String getInfoNoMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoNoMessage();
@@ -2025,7 +2025,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoEventMessageMessage(String lang) {
+    public static String getInfoEventMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoEventMessageMessage();
@@ -2046,7 +2046,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoHeadUpMessageMessage(String lang) {
+    public static String getInfoHeadUpMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoHeadUpMessageMessage();
@@ -2067,7 +2067,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoAncientNightmareMessage(String lang) {
+    public static String getInfoAncientNightmareMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoAncientNightmareMessage();
@@ -2088,7 +2088,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoAncientArenaMessage(String lang) {
+    public static String getInfoAncientArenaMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoAncientArenaMessage();
@@ -2109,7 +2109,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoAssemblyMessage(String lang) {
+    public static String getInfoAssemblyMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoAssemblyMessage();
@@ -2130,7 +2130,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoBattlegroundMessage(String lang) {
+    public static String getInfoBattlegroundMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoBattlegroundMessage();
@@ -2151,7 +2151,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoDefendTheVaultMessage(String lang) {
+    public static String getInfoDefendTheVaultMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoDefendTheVaultMessage();
@@ -2172,7 +2172,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoRaidTheVaultMessage(String lang) {
+    public static String getInfoRaidTheVaultMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoRaidTheVaultMessage();
@@ -2193,7 +2193,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoDemonGatesMessage(String lang) {
+    public static String getInfoDemonGatesMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoDemonGatesMessage();
@@ -2214,7 +2214,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoShadowLotteryMessage(String lang) {
+    public static String getInfoShadowLotteryMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoShadowLotteryMessage();
@@ -2235,7 +2235,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoHauntedCarriageMessage(String lang) {
+    public static String getInfoHauntedCarriageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoHauntedCarriageMessage();
@@ -2256,7 +2256,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoWrathborneInvasionMessage(String lang) {
+    public static String getInfoWrathborneInvasionMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoWrathborneInvasionMessage();
@@ -2277,7 +2277,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoHauntedCarriageEmbedMessage(String lang) {
+    public static String getInfoHauntedCarriageEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoHauntedCarriageEmbedMessage();
@@ -2298,7 +2298,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoDemonGatesEmbedMessage(String lang) {
+    public static String getInfoDemonGatesEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoDemonGatesEmbedMessage();
@@ -2319,7 +2319,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoAncientNightmareEmbedMessage(String lang) {
+    public static String getInfoAncientNightmareEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoAncientNightmareEmbedMessage();
@@ -2340,7 +2340,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoAncientArenaEmbedMessage(String lang) {
+    public static String getInfoAncientArenaEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoAncientArenaEmbedMessage();
@@ -2361,7 +2361,7 @@ public class LanguageController {
         }
     }
 
-    public static String getErrorCannotDisableEventMessage(String lang) {
+    public static String getErrorCannotDisableEventMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getErrorCannotDisableEventMessage();
@@ -2382,7 +2382,7 @@ public class LanguageController {
         }
     }
 
-    public static String getFooterCreatedByMessage(String lang) {
+    public static String getFooterCreatedByMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getFooterCreatedByMessage();
@@ -2403,7 +2403,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAutoDeleteEnabledMessage(String lang) {
+    public static String getAutoDeleteEnabledMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAutoDeleteEnabledMessage();
@@ -2424,7 +2424,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAutoDeleteDisabledMessage(String lang) {
+    public static String getAutoDeleteDisabledMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAutoDeleteDisabledMessage();
@@ -2445,7 +2445,7 @@ public class LanguageController {
         }
     }
 
-    public static String getAutoDeleteValueSetMessage(String lang) {
+    public static String getAutoDeleteValueSetMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getAutoDeleteValueSetMessage();
@@ -2466,7 +2466,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoLanguageMessage(String lang) {
+    public static String getInfoLanguageMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoLanguageMessage();
@@ -2487,7 +2487,7 @@ public class LanguageController {
         }
     }
 
-    public static String getInfoGuildIdMessage(String lang) {
+    public static String getInfoGuildIdMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getInfoGuildIdMessage();
@@ -2508,7 +2508,7 @@ public class LanguageController {
         }
     }
 
-    public static String getEventMessagesAlreadyOnMessage(String lang) {
+    public static String getEventMessagesAlreadyOnMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getEventMessagesAlreadyOnMessage();
@@ -2529,7 +2529,7 @@ public class LanguageController {
         }
     }
 
-    public static String getEventMessagesAlreadyOffMessage(String lang) {
+    public static String getEventMessagesAlreadyOffMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getEventMessagesAlreadyOffMessage();
@@ -2550,7 +2550,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHeadUpMessagesAlreadyOnMessage(String lang) {
+    public static String getHeadUpMessagesAlreadyOnMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHeadUpMessagesAlreadyOnMessage();
@@ -2571,7 +2571,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHeadUpMessagesAlreadyOffMessages(String lang) {
+    public static String getHeadUpMessagesAlreadyOffMessages(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHeadUpMessagesAlreadyOffMessages();
@@ -2592,7 +2592,7 @@ public class LanguageController {
         }
     }
 
-    public static String getFooterTimesIn24HrsFormatMessage(String lang) {
+    public static String getFooterTimesIn24HrsFormatMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getFooterTimesIn24HrsFormatMessage();
@@ -2613,7 +2613,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpEventListMessage(String lang) {
+    public static String getHelpEventListMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpEventListMessage();
@@ -2634,7 +2634,7 @@ public class LanguageController {
         }
     }
 
-    public static String getHelpEventSetMessage(String lang) {
+    public static String getHelpEventSetMessage(final String lang) {
         switch (lang.toUpperCase()) {
             case "GER":
                 return LanguageGerman.getHelpEventSetMessage();

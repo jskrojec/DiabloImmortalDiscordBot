@@ -10,7 +10,7 @@ public class GuildInformation {
     private boolean autoDeleteEnabled;
     private int autoDeleteValue;
 
-    public GuildInformation(String guildID) {
+    public GuildInformation(final String guildID) {
         this.guildID = guildID;
         this.language = "ENG";
         this.timezone = "GMT";
@@ -20,7 +20,7 @@ public class GuildInformation {
         this.autoDeleteValue = 24;
     }
 
-    public GuildInformation(String guildID, String language, String timezone, boolean isHeadUpEnabled, boolean eventMessageEnabled, boolean autoDeleteEnabled, int autoDeleteValue) {
+    public GuildInformation(final String guildID, final String language, final String timezone, final boolean isHeadUpEnabled, final boolean eventMessageEnabled, final boolean autoDeleteEnabled, final int autoDeleteValue) {
         this.guildID = guildID;
         this.language = language;
         this.timezone = timezone;
@@ -34,7 +34,7 @@ public class GuildInformation {
         return guildID;
     }
 
-    public void setGuildID(String guildID) {
+    public void setGuildID(final String guildID) {
         this.guildID = guildID;
     }
 
@@ -42,7 +42,7 @@ public class GuildInformation {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(final String language) {
         this.language = language;
     }
 
@@ -50,7 +50,7 @@ public class GuildInformation {
         return isHeadUpEnabled;
     }
 
-    public void setHeadUpEnabled(boolean headUpEnabled) {
+    public void setHeadUpEnabled(final boolean headUpEnabled) {
         isHeadUpEnabled = headUpEnabled;
     }
 
@@ -58,7 +58,7 @@ public class GuildInformation {
         return eventMessageEnabled;
     }
 
-    public void setEventMessageEnabled(boolean eventMessageEnabled) {
+    public void setEventMessageEnabled(final boolean eventMessageEnabled) {
         this.eventMessageEnabled = eventMessageEnabled;
     }
 
@@ -66,7 +66,7 @@ public class GuildInformation {
         return timezone;
     }
 
-    public void setTimezone(String timezone) {
+    public void setTimezone(final String timezone) {
         this.timezone = timezone;
     }
 
@@ -74,7 +74,7 @@ public class GuildInformation {
         return autoDeleteEnabled;
     }
 
-    public void setAutoDeleteEnabled(boolean autoDeleteEnabled) {
+    public void setAutoDeleteEnabled(final boolean autoDeleteEnabled) {
         this.autoDeleteEnabled = autoDeleteEnabled;
     }
 
@@ -82,7 +82,7 @@ public class GuildInformation {
         return autoDeleteValue;
     }
 
-    public void setAutoDeleteValue(int autoDeleteValue) {
+    public void setAutoDeleteValue(final int autoDeleteValue) {
         this.autoDeleteValue = autoDeleteValue;
     }
 }

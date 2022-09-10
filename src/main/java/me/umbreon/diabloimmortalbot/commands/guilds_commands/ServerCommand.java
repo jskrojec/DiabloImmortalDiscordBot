@@ -1,8 +1,10 @@
 package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
+import me.umbreon.diabloimmortalbot.commands.TimezoneCommand;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class ServerCommand {
 
@@ -10,45 +12,40 @@ public class ServerCommand {
     private final ServerEventMessageCommand serverEventMessageCommand;
     private final ServerHeadUpCommand serverHeadUpCommand;
     private final ServerLanguageCommand serverLanguageCommand;
-    private final ServerTimezoneCommand serverTimezoneCommand;
+    private final TimezoneCommand timezoneCommand;
     private final ServerAutoDeleteCommand serverAutoDeleteCommand;
 
-    public ServerCommand(ClientCache clientCache, DatabaseRequests databaseRequests) {
+    public ServerCommand(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
         this.serverConfigCommand = new ServerConfigCommand(clientCache);
         this.serverEventMessageCommand = new ServerEventMessageCommand(clientCache, databaseRequests);
         this.serverHeadUpCommand = new ServerHeadUpCommand(clientCache, databaseRequests);
         this.serverLanguageCommand = new ServerLanguageCommand(clientCache, databaseRequests);
-        this.serverTimezoneCommand = new ServerTimezoneCommand(databaseRequests, clientCache);
+        this.timezoneCommand = new TimezoneCommand(databaseRequests, clientCache);
         this.serverAutoDeleteCommand = new ServerAutoDeleteCommand(clientCache, databaseRequests);
     }
 
-    public void runCustomMessageCommand(Message message) {
-        String[] args = message.getContentRaw().split(" ");
-
+    public String runServerCommand(final String[] args, final TextChannel textChannel, final Member member) {
         switch (args[1].toLowerCase()) {
             case "config":
             case "cfg":
-                serverConfigCommand.runServerConfigCommand(message);
-                break;
+                serverConfigCommand.runServerConfigCommand(member, textChannel);
+                return "Messages sent!";
             case "message":
             case "msg":
-                serverEventMessageCommand.runServerEventMessageCommand(message);
-                break;
+                return serverEventMessageCommand.runServerEventMessageCommand(args, textChannel);
             case "headup":
-                serverHeadUpCommand.runServerHeadUpCommand(message);
-                break;
+                return serverHeadUpCommand.runServerHeadUpCommand(args, textChannel);
             case "language":
             case "lang":
-                serverLanguageCommand.runLanguageCommand(message);
-                break;
+                return serverLanguageCommand.runLanguageCommand(args, textChannel);
             case "timezone":
             case "tz":
-                serverTimezoneCommand.runTimezoneCommand(message);
-                break;
+                return timezoneCommand.runTimezoneCommand(args, textChannel);
             case "autodelete":
             case "ad":
-                serverAutoDeleteCommand.runServerAutoDeleteCommand(message);
-                break;
+                return serverAutoDeleteCommand.runServerAutoDeleteCommand(args, textChannel);
+            default:
+                return null;
         }
     }
 }

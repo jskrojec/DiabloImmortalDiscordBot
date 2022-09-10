@@ -10,10 +10,11 @@ public class LanguageEnglish {
     static Map<String, Object> messages;
 
     void loadLanguageConfiguration() {
-        Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("english.yaml");
+        final Yaml yaml = new Yaml();
+        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("english.yaml");
         messages = yaml.load(inputStream);
     }
+
 
     // Event messages
     static String getHauntedCarriageMessage() {

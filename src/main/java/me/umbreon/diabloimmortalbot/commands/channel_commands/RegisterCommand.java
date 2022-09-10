@@ -5,75 +5,59 @@ import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.StringAssistant;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.concurrent.TimeUnit;
 
 public class RegisterCommand {
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
 
-    public RegisterCommand(DatabaseRequests databaseRequests, ClientCache clientCache) {
+    public RegisterCommand(final DatabaseRequests databaseRequests, final ClientCache clientCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
 
-    public void runRegisterCommand(Message message) {
-        String[] args = message.getContentRaw().split(" ");
-        TextChannel textChannel = message.getTextChannel();
-        String guildID = message.getGuild().getId();
-        String language = clientCache.getGuildLanguage(guildID);
+    public String runRegisterCommand(final String[] args, final TextChannel textChannel, final Guild guild) {
+        final String guildID = guild.getId();
+        final String language = clientCache.getGuildLanguage(guildID);
 
-        String textChannelID = getTextChannelID(message, args);
-        if (textChannelID == null) {
-            sendMessageToTextChannel(guildID, textChannel, LanguageController.getChannelNotFoundMessage(language));
-            return;
-        }
+        final String textChannelID = getTextChannelID(textChannel, args);
+        if (textChannelID == null)
+            return LanguageController.getChannelNotFoundMessage(language);
 
-        if (isChannelRegistered(textChannelID)) {
-            String alreadyRegisteredMessage = String.format(LanguageController.getChannelAlreadyRegisteredMessage(language), textChannel.getAsMention());
-            sendMessageToTextChannel(guildID, textChannel, alreadyRegisteredMessage);
-            return;
-        }
+        if (isChannelRegistered(textChannelID))
+            return String.format(LanguageController.getChannelAlreadyRegisteredMessage(language), textChannel.getAsMention());
 
-        TextChannel targetTextChannel = message.getGuild().getTextChannelById(textChannelID);
-        if (targetTextChannel == null) return;
-        NotifierChannel notifierChannel = new NotifierChannel(textChannelID, guildID);
+        final TextChannel targetTextChannel = guild.getTextChannelById(textChannelID);
+        if (targetTextChannel == null)
+            return null;
+        
+        final NotifierChannel notifierChannel = new NotifierChannel(textChannelID, guildID);
         createNotifierChannel(notifierChannel);
-        String formattedChannelRegisteredMessage = String.format(LanguageController.getChannelRegisteredMessage(language), targetTextChannel.getAsMention());
-        sendMessageToTextChannel(guildID, textChannel, formattedChannelRegisteredMessage);
+        return String.format(LanguageController.getChannelRegisteredMessage(language), targetTextChannel.getAsMention());
     }
 
     @Nullable
-    private String getTextChannelID(Message message, String[] args) {
-        String textChannelID;
+    private String getTextChannelID(final TextChannel textChannel, final String[] args) {
+        final String textChannelID;
         if (args.length == 2) {
             textChannelID = StringAssistant.removeAllNonNumbers(args[1]);
         } else if (args.length == 1) {
-            textChannelID = message.getTextChannel().getId();
+            textChannelID = textChannel.getId();
         } else {
             return null;
         }
         return textChannelID;
     }
 
-    private boolean isChannelRegistered(String textChannelID) {
+    private boolean isChannelRegistered(final String textChannelID) {
         return clientCache.doNotifierChannelExists(textChannelID);
     }
 
-    public void createNotifierChannel(NotifierChannel notifierChannel) {
+    public void createNotifierChannel(final NotifierChannel notifierChannel) {
         databaseRequests.createNewNotifierChannel(notifierChannel);
         clientCache.addNotifierChannelToList(notifierChannel);
-    }
-
-    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
-        if (clientCache.isAutoDeleteEnabled(guildID)) {
-            textChannel.sendMessage(message).queue(sendMessage -> {
-                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
-            });
-        } else textChannel.sendMessage(message).queue();
     }
 }

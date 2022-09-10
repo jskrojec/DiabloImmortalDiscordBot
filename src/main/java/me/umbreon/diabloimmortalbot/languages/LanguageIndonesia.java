@@ -10,8 +10,8 @@ public class LanguageIndonesia {
     static Map<String, Object> messages;
 
     void loadLanguageConfiguration() {
-        Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("indonesia.yaml");
+        final Yaml yaml = new Yaml();
+        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("indonesia.yaml");
         messages = yaml.load(inputStream);
     }
 

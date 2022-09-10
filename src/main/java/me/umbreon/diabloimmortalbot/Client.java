@@ -2,8 +2,10 @@ package me.umbreon.diabloimmortalbot;
 
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
-import me.umbreon.diabloimmortalbot.events.MessageReceived;
-import me.umbreon.diabloimmortalbot.events.TextChannelDelete;
+import me.umbreon.diabloimmortalbot.events.ChannelDelete;
+import me.umbreon.diabloimmortalbot.events.GuildJoin;
+import me.umbreon.diabloimmortalbot.events.GuildReady;
+import me.umbreon.diabloimmortalbot.events.SlashCommandInteraction;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
 import me.umbreon.diabloimmortalbot.notifier.Notifier;
@@ -19,14 +21,14 @@ import java.util.List;
 
 public class Client {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
-        ClientCache clientCache = new ClientCache();
-        ClientConfig clientConfig = new ClientConfig();
-
+        final ClientCache clientCache = new ClientCache();
+        final ClientConfig clientConfig = new ClientConfig();
+        BasicConfigurator.configure();
         try {
             clientConfig.loadConfig();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println("config.properties is null! Shutting down...");
             return;
         }
@@ -35,8 +37,8 @@ public class Client {
 
         LanguageController.loadConfigurations();
 
-        MySQLDatabaseConnection mySQLDatabaseConnection = new MySQLDatabaseConnection(clientConfig);
-        DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
+        final MySQLDatabaseConnection mySQLDatabaseConnection = new MySQLDatabaseConnection(clientConfig);
+        final DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
 
         clientCache.fillListWithEvents();
         clientCache.fillListWithAvailableEventDays();
@@ -60,32 +62,33 @@ public class Client {
         clientCache.setListWithAncientNightmareEmbedTimes(databaseRequests.getOverworldEventTimes("overworld_ancient_nightmare"));
         clientCache.setListWithDemonGateEmbedTimes(databaseRequests.getOverworldEventTimes("overworld_demon_gates"));
 
-        JDA jda;
+        final JDA jda;
         try {
             jda = JDABuilder.createDefault(clientConfig.getToken())
-                    .addEventListeners(new MessageReceived(databaseRequests, clientCache))
-                    .addEventListeners(new TextChannelDelete(clientCache, databaseRequests))
+                    //.addEventListeners(new MessageReceived(databaseRequests, clientCache))
+                    .addEventListeners(new ChannelDelete(clientCache, databaseRequests))
+                    .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests))
+                    .addEventListeners(new GuildJoin())
+                    .addEventListeners(new GuildReady())
                     .build()
                     .awaitReady();
-        } catch (LoginException | InterruptedException e) {
+        } catch (final LoginException | InterruptedException e) {
             ClientLogger.createNewErrorLogEntry(e);
             return;
         }
 
-        Notifier notifier = new Notifier(clientCache);
-        CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests);
+        final Notifier notifier = new Notifier(clientCache);
+        final CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests);
         BasicConfigurator.configure();
 
         notifier.runScheduler(jda);
         customMessagesNotifier.runCustomMessagesNotifierScheduler(jda);
 
-        checkAllStrings(clientCache.getListWithSupportedLanguage());
-
+        //checkAllStrings(clientCache.getListWithSupportedLanguage());
     }
 
-    private static void checkAllStrings(List<String> e) {
-
-        for (String lang : e) {
+    private static void checkAllStrings(final List<String> e) {
+        for (final String lang : e) {
             System.out.println(lang);
             System.out.println(LanguageController.getHauntedCarriageMessage(lang));
             System.out.println(LanguageController.getHauntedCarriageHeadUpMessage(lang));

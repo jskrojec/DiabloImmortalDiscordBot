@@ -6,21 +6,20 @@ import me.umbreon.diabloimmortalbot.gameevents.embeds.AncientNightmareEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.DemonGatesEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.HauntedCarriageEmbed;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ClientLogger;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 
 public class Notifier {
 
     private final ClientCache clientCache;
 
+    //Normal Notifications
     private final AncientArena ancientArena;
     private final AncientNightMare ancientNightMare;
     private final Battleground battleground;
@@ -38,7 +37,9 @@ public class Notifier {
     private final DemonGatesEmbed demonGatesEmbed;
     private final HauntedCarriageEmbed hauntedCarriageEmbed;
 
-    public Notifier(ClientCache clientCache) {
+    private final Logger logger = LogManager.getLogger("x");
+
+    public Notifier(final ClientCache clientCache) {
         this.clientCache = clientCache;
 
         this.assembly = new Assembly(clientCache);
@@ -58,16 +59,20 @@ public class Notifier {
         this.hauntedCarriageEmbed = new HauntedCarriageEmbed(clientCache);
     }
 
-    public void runScheduler(JDA jda) {
-        Date date = Calendar.getInstance().getTime();
-        date.setMinutes(date.getMinutes() + 1);
-        date.setSeconds(0);
+    public void runScheduler(final JDA jda) {
+        final Date nextFullMinuteTime = getNextFullMinuteTime();
         new Timer().schedule(new TimerTask() {
+            @Override
             public void run() {
+                logger.info("Checked: " + TimeAssistant.getTime("GMT+2"));
+                System.out.println("Checked: " + TimeAssistant.getTime("GMT+2"));
                 try {
-                    if (clientCache.getListWithNotifierChannels().size() == 0) return;
+                    if (isChannelNotificationListEmpty()) {
+                        return;
+                    }
+
                     clientCache.getListWithNotifierChannels().forEach((textChannelID, notifierChannel) -> {
-                        TextChannel textChannel;
+                        final TextChannel textChannel;
 
                         if (textChannelID != null) {
                             textChannel = jda.getTextChannelById(textChannelID);
@@ -75,52 +80,53 @@ public class Notifier {
                             return;
                         }
 
-                        if (textChannel == null) return;
+                        if (textChannel == null) {
+                            return;
+                        }
 
                         String guildID = clientCache.getGuildIdByChannelID(textChannelID);
                         String timeZone = clientCache.getGuildTimeZone(guildID);
                         String guildLanguage = clientCache.getGuildLanguage(guildID);
-
                         StringBuilder notificationMessageBuilder = new StringBuilder();
 
                         if (clientCache.isRaidVaultMessageEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(raidVault.checkVault(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(raidVault.checkOnRaidTheVaultEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         if (clientCache.isBattlegroundMessageEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(battleground.checkBattleground(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(battleground.checkOnBattlegroundEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         if (clientCache.isAncientNightmareMessageEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(ancientNightMare.checkAncientNightMare(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(ancientNightMare.checkOnAncientNightMareEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         if (clientCache.isDemonGatesMessageEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(demonGates.checkDemonGates(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(demonGates.checkOnDemonGatesEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         if (clientCache.isHauntedCarriageMessageEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(hauntedCarriage.checkHauntedCarriage(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(hauntedCarriage.checkOnHauntedCarriageEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         if (clientCache.isAncientArenaMessageEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(ancientArena.checkAncientArea(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(ancientArena.checkOnAncientAreaEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         if (clientCache.isAssemblyMessageEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(assembly.checkAssembly(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(assembly.checkOnAssemblyEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         if (clientCache.isShadowLotteryMessageEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(shadowLottery.checkShadowLottery(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(shadowLottery.checkOnShadowLotteryEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         if (clientCache.isDefendVaultMessageEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(defendVault.checkDefendVault(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(defendVault.checkOnDefendVaultEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         if (clientCache.isWrathborneInvasionEnabled(textChannelID)) {
-                            notificationMessageBuilder.append(wrathborneInvasion.checkWrathborneInvasion(timeZone, guildLanguage, guildID, textChannelID));
+                            notificationMessageBuilder.append(wrathborneInvasion.checkOnWrathborneInvasionEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
                         //Embeds
@@ -142,61 +148,45 @@ public class Notifier {
 
                         if (notificationMessageBuilder.length() > 0) {
                             addMentionToMessage(notificationMessageBuilder, textChannel);
-
-                            if (clientCache.isAutoDeleteEnabled(guildID)) {
-                                int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
-                                switch (autoDeleteValue) {
-                                    case 24: case 48: case 72:
-                                        textChannel.sendMessage(notificationMessageBuilder.toString()).queue(message -> {
-                                            message.delete().queueAfter(autoDeleteValue, TimeUnit.HOURS);
-                                        });
-                                }
-                            } else {
-                                textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
-                            }
+                            textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
                         }
-
                     });
-                    setActivity(jda);
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     e.printStackTrace();
                 }
             }
-        }, date, 60 * 1000);
+        }, nextFullMinuteTime, 60 * 1000);
     }
 
-    private void addMentionToMessage(StringBuilder stringBuilder, TextChannel textChannel) {
-        String mention;
-        String textChannelID = textChannel.getId();
-        switch (clientCache.getRoleID(textChannelID)) {
-            case "EVERYONE":
+    @NotNull
+    private Date getNextFullMinuteTime() {
+        final Date date = Calendar.getInstance().getTime();
+        date.setMinutes(date.getMinutes() + 1);
+        date.setSeconds(0);
+        return date;
+    }
+
+    private void addMentionToMessage(final StringBuilder stringBuilder, final TextChannel textChannel) {
+        final String mention;
+        final String textChannelID = textChannel.getId();
+        switch (clientCache.getRoleID(textChannelID).toLowerCase()) {
+            case "everyone":
                 mention = "@everyone";
                 break;
-            case "HERE":
+            case "here":
                 mention = "@here";
                 break;
             default:
-                mention = textChannel.getJDA().getRoleById(clientCache.getRoleID(textChannelID)).getAsMention();
+                mention = Objects.requireNonNull(textChannel.getJDA().getRoleById(clientCache.getRoleID(textChannelID)))
+                        .getAsMention();
                 break;
         }
 
         stringBuilder.append(mention);
     }
 
-    int x = 1;
-
-    private void setActivity(JDA jda) {
-        int counter = jda.getGuilds().size();
-
-        if (x == 1) {
-            jda.getPresence().setActivity(Activity.playing("Diablo Immortal [" + counter + "]"));
-            x--;
-        } else if (x == 0) {
-            jda.getPresence().setActivity(Activity.playing("Diablo Immortal (" + counter + ")"));
-            x++;
-        } else {
-            jda.getPresence().setActivity(Activity.playing("Diablo Immortal >" + counter + ">"));
-        }
+    private boolean isChannelNotificationListEmpty() {
+        return clientCache.getListWithNotifierChannels().size() == 0;
     }
 
 }

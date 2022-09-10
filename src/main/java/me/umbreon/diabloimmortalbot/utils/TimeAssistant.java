@@ -21,32 +21,32 @@ public class TimeAssistant {
     private TimeAssistant() {
     }
 
-    public static String getTimeWithWeekday(String timezone) {
+    public static String getTimeWithWeekday(final String timezone) {
         try {
-            Instant timeStamp = Instant.now();
-            ZonedDateTime timestampAtGMTPlus1 = timeStamp.atZone(ZoneId.of(timezone, ZoneId.SHORT_IDS));
+            final Instant timeStamp = Instant.now();
+            final ZonedDateTime timestampAtGMTPlus1 = timeStamp.atZone(ZoneId.of(timezone, ZoneId.SHORT_IDS));
             return timestampAtGMTPlus1.format(formatter);
-        } catch (ZoneRulesException e) {
+        } catch (final ZoneRulesException e) {
             return "INVALID_TIMEZONE";
         }
     }
 
-    public static String getTime(String timezone) {
+    public static String getTime(final String timezone) {
         try {
-            Instant timeStamp = Instant.now();
-            ZonedDateTime timestampAtGMTPlus1 = timeStamp.atZone(ZoneId.of(timezone, ZoneId.SHORT_IDS));
+            final Instant timeStamp = Instant.now();
+            final ZonedDateTime timestampAtGMTPlus1 = timeStamp.atZone(ZoneId.of(timezone, ZoneId.SHORT_IDS));
             return timestampAtGMTPlus1.format(formatter2);
-        } catch (ZoneRulesException e) {
+        } catch (final ZoneRulesException e) {
             return "INVALID_TIMEZONE";
         }
     }
 
-    public static long getTimeInUnix(String timezone) {
+    public static long getTimeInUnix(final String timezone) {
         try {
-            Instant timeStamp = Instant.now();
-            ZonedDateTime timestampAtGMTPlus1 = timeStamp.atZone(ZoneId.of(timezone, ZoneId.SHORT_IDS));
+            final Instant timeStamp = Instant.now();
+            final ZonedDateTime timestampAtGMTPlus1 = timeStamp.atZone(ZoneId.of(timezone, ZoneId.SHORT_IDS));
             return timestampAtGMTPlus1.toEpochSecond();
-        } catch (ZoneRulesException e) {
+        } catch (final ZoneRulesException e) {
             ClientLogger.createNewErrorLogEntry(e);
             return 0;
         }

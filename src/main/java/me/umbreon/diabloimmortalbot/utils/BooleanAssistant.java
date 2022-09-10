@@ -2,7 +2,7 @@ package me.umbreon.diabloimmortalbot.utils;
 
 public class BooleanAssistant {
 
-    public static boolean isValueTrue(String value) {
+    public static boolean isValueTrue(final String value) {
         switch (value.toLowerCase()) {
             case "true":
             case "yes":
@@ -15,7 +15,7 @@ public class BooleanAssistant {
         }
     }
 
-    public static boolean isValueFalse(String value) {
+    public static boolean isValueFalse(final String value) {
         switch (value.toLowerCase()) {
             case "false":
             case "no":

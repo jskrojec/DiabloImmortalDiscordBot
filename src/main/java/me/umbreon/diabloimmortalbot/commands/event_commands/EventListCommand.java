@@ -1,7 +1,6 @@
 package me.umbreon.diabloimmortalbot.commands.event_commands;
 
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,19 +10,18 @@ public class EventListCommand {
 
     private final ClientCache clientCache;
 
-    public EventListCommand(ClientCache clientCache) {
+    public EventListCommand(final ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public void runEventListCommand(Message message) {
-        TextChannel textChannel = message.getTextChannel();
-        String guildID = message.getGuild().getId();
-        sendMessageToTextChannel(guildID, textChannel, createListWithAvailableEvents());
+    public String runEventListCommand(final TextChannel textChannel, final String guildID) {
+        return createListWithAvailableEvents();
+        //sendMessageToTextChannel(guildID, textChannel, createListWithAvailableEvents());
     }
 
     @NotNull
     private String createListWithAvailableEvents() {
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < clientCache.getListWithAvailableNotifications().size(); i++) {
             if (i == clientCache.getListWithAvailableNotifications().size() - 2) {
                 stringBuilder.append(clientCache.getListWithAvailableNotifications().get(i)).append(" & ");
@@ -36,7 +34,7 @@ public class EventListCommand {
         return stringBuilder.toString();
     }
 
-    private void sendMessageToTextChannel(String guildID, TextChannel textChannel, String message) {
+    private void sendMessageToTextChannel(final String guildID, final TextChannel textChannel, final String message) {
         if (clientCache.isAutoDeleteEnabled(guildID)) {
             textChannel.sendMessage(message).queue(sendMessage -> {
                 sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);

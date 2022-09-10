@@ -21,11 +21,11 @@ public class ClientConfig {
 
     public void loadConfig() {
         try {
-            String configFilePath = "/home/discord/config.properties";
-            FileInputStream propsInput = new FileInputStream(configFilePath);
+            final String configFilePath = "/home/discord/config.properties";
+            final FileInputStream propsInput = new FileInputStream(configFilePath);
             properties = new Properties();
             properties.load(propsInput);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
 

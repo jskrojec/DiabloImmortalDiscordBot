@@ -12,17 +12,18 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
     private MysqlDataSource dataSource;
     private final ClientConfig clientConfig;
 
-    public MySQLDatabaseConnection(ClientConfig clientConfig) {
+    public MySQLDatabaseConnection(final ClientConfig clientConfig) {
         this.clientConfig = clientConfig;
         createConnection();
     }
 
+    @Override
     public boolean createConnection() {
-        String host = clientConfig.getHost();
-        String database = clientConfig.getDatabase();
-        String username = clientConfig.getUsername();
-        String password = clientConfig.getPassword();
-        int port = Integer.parseInt(clientConfig.getPort());
+        final String host = clientConfig.getHost();
+        final String database = clientConfig.getDatabase();
+        final String username = clientConfig.getUsername();
+        final String password = clientConfig.getPassword();
+        final int port = Integer.parseInt(clientConfig.getPort());
 
         dataSource = new MysqlDataSource();
         dataSource.setServerName(host);
@@ -32,16 +33,16 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
         dataSource.setPassword(password);
         dataSource.setUrl("jdbc:mysql://" + host + ":" + port + "/" + database + "?verifyServerCertificate=false&useSSL=true");
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (final Connection connection = dataSource.getConnection()) {
 
-            String guilds = "CREATE TABLE IF NOT EXISTS guilds (" +
+            final String guilds = "CREATE TABLE IF NOT EXISTS guilds (" +
                     "guildID VARCHAR(20) PRIMARY KEY NOT NULL," +
                     "language VARCHAR(5) DEFAULT 'ENG'," +
                     "timezone VARCHAR(10) DEFAULT 'GMT'," +
                     "event_headup TINYINT(1) DEFAULT 1 NOT NULL," +
                     "event_message TINYINT(1) DEFAULT 1 NOT NULL" + ")";
 
-            String custom_messages = "CREATE TABLE IF NOT EXISTS custom_messages (" +
+            final String custom_messages = "CREATE TABLE IF NOT EXISTS custom_messages (" +
                     "guildID VARCHAR(50) NOT NULL," +
                     "channelID VARCHAR(50) NOT NULL," +
                     "message VARCHAR(2000) NOT NULL," +
@@ -52,7 +53,7 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
                     "autodelete TINYINT(2) DEFAULT 24 NOT NULL," +
                     "autodelete_value TINYINT(1) DEFAULT 0 NOT NULL" + ")";
 
-            String channel_notification = "CREATE TABLE IF NOT EXISTS channel_notification (" +
+            final String channel_notification = "CREATE TABLE IF NOT EXISTS channel_notification (" +
                     "textChannelID VARCHAR(20) NOT NULL PRIMARY KEY," +
                     "guildID VARCHAR(20) NOT NULL," +
                     "roleID VARCHAR(20) NOT NULL DEFAULT 'EVERYONE'," +
@@ -76,27 +77,29 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
             connection.createStatement().execute(guilds);
             connection.createStatement().execute(custom_messages);
 
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             ClientLogger.createNewErrorLogEntry(e);
             e.printStackTrace();
         }
         return true;
     }
 
+    @Override
     public void closeConnection() {
         if (dataSource != null) {
             try {
                 dataSource.getConnection().close();
-            } catch (SQLException e) {
+            } catch (final SQLException e) {
                 ClientLogger.createNewErrorLogEntry(e);
             }
         }
     }
 
+    @Override
     public Connection getConnection() {
         try {
             return dataSource.getConnection();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             ClientLogger.createNewErrorLogEntry(e);
             return null;
         }

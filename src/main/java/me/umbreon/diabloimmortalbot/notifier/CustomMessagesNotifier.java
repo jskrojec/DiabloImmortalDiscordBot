@@ -17,29 +17,30 @@ public class CustomMessagesNotifier {
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
 
-    public CustomMessagesNotifier(ClientCache clientCache, DatabaseRequests databaseRequests) {
+    public CustomMessagesNotifier(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
 
-    public void runCustomMessagesNotifierScheduler(JDA jda) {
-        Date date = Calendar.getInstance().getTime();
+    public void runCustomMessagesNotifierScheduler(final JDA jda) {
+        final Date date = Calendar.getInstance().getTime();
         date.setMinutes(date.getMinutes() + 1);
         date.setSeconds(0);
         new Timer().schedule(new TimerTask() {
+            @Override
             public void run() {
                 clientCache.getAllCustomMessages().forEach((integer, customMessage) -> {
-                    String channel = customMessage.getChannelID();
+                    final String channel = customMessage.getChannelID();
 
                     if (!clientCache.doNotifierChannelExists(channel)) {
                         return; //Needs to be registered to send messages.
                     }
 
-                    String guildID = customMessage.getGuildID();
-                    String timezone = clientCache.getGuildTimeZone(guildID);
-                    String day = customMessage.getDay();
-                    String time = customMessage.getTime();
-                    String fullTime = day + " " + time;
+                    final String guildID = customMessage.getGuildID();
+                    final String timezone = clientCache.getGuildTimeZone(guildID);
+                    final String day = customMessage.getDay();
+                    final String time = customMessage.getTime();
+                    final String fullTime = day + " " + time;
 
                     if (day.equalsIgnoreCase("everyday")) {
                         if (!isTimeValid(timezone, time)) return; //Invalid time message
@@ -47,19 +48,19 @@ public class CustomMessagesNotifier {
                         if (!isFulltimeValid(timezone, fullTime)) return; //Invalid time message
                     }
 
-                    TextChannel textChannel;
+                    final TextChannel textChannel;
 
                     try {
                         textChannel = jda.getTextChannelById(channel);
-                    } catch (NullPointerException e) {
+                    } catch (final NullPointerException e) {
                         return;
                     }
 
-                    String message = customMessage.getMessage();
+                    final String message = customMessage.getMessage();
 
                     if (clientCache.isAutoDeleteEnabled(guildID)) {
 
-                        int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
+                        final int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
                         switch (autoDeleteValue) {
                             case 24:
                             case 48:
@@ -85,13 +86,13 @@ public class CustomMessagesNotifier {
         }, date, 60 * 1000);
     }
 
-    private boolean isFulltimeValid(String timezone, String fullTime) {
-        String time = TimeAssistant.getTimeWithWeekday(timezone);
+    private boolean isFulltimeValid(final String timezone, final String fullTime) {
+        final String time = TimeAssistant.getTimeWithWeekday(timezone);
         return time.equals(fullTime);
     }
 
-    private boolean isTimeValid(String timezone, String time) {
-        String timeOnly = TimeAssistant.getTime(timezone);
+    private boolean isTimeValid(final String timezone, final String time) {
+        final String timeOnly = TimeAssistant.getTime(timezone);
         return time.equals(timeOnly);
     }
 }

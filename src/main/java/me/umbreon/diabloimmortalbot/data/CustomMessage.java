@@ -10,7 +10,7 @@ public class CustomMessage {
     private int customMessageID;
     private boolean repeat;
 
-    public CustomMessage(String textChannelID, String guildID) {
+    public CustomMessage(final String textChannelID, final String guildID) {
         this.channelID = textChannelID;
         this.guildID = guildID;
         this.message = null;
@@ -19,7 +19,7 @@ public class CustomMessage {
         this.repeat = false;
     }
 
-    public CustomMessage(String channelID, String guildID, String message, String day, String time, int customMessageID, boolean repeat) {
+    public CustomMessage(final String channelID, final String guildID, final String message, final String day, final String time, final int customMessageID, final boolean repeat) {
         this.channelID = channelID;
         this.guildID = guildID;
         this.message = message;
@@ -29,7 +29,7 @@ public class CustomMessage {
         this.repeat = repeat;
     }
 
-    public CustomMessage(String channelID, String guildID, String message, String day, String time, boolean repeat) {
+    public CustomMessage(final String channelID, final String guildID, final String message, final String day, final String time, final boolean repeat) {
         this.channelID = channelID;
         this.guildID = guildID;
         this.message = message;
@@ -42,7 +42,7 @@ public class CustomMessage {
         return channelID;
     }
 
-    public void setChannelID(String channelID) {
+    public void setChannelID(final String channelID) {
         this.channelID = channelID;
     }
 
@@ -50,7 +50,7 @@ public class CustomMessage {
         return guildID;
     }
 
-    public void setGuildID(String guildID) {
+    public void setGuildID(final String guildID) {
         this.guildID = guildID;
     }
 
@@ -58,7 +58,7 @@ public class CustomMessage {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 
@@ -66,7 +66,7 @@ public class CustomMessage {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(final String day) {
         this.day = day;
     }
 
@@ -74,7 +74,7 @@ public class CustomMessage {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(final String time) {
         this.time = time;
     }
 
@@ -86,7 +86,7 @@ public class CustomMessage {
         return repeat;
     }
 
-    public void setRepeating(boolean repeat) {
+    public void setRepeating(final boolean repeat) {
         this.repeat = repeat;
     }
 }

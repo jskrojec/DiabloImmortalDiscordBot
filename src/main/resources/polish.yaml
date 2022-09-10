@@ -51,7 +51,7 @@ help-show-bot-install: "Pokazuje instrukcję obsługi bota"
 help-show-help: "Pokazuje komunikat pomocy."
 
 install: "Instructions"
-install-first: "Dodaj Bota do swojego serwera Discord za pomocą: https://discord.com/oauth2/authorize?client_id=527511535309029407&scope=bot&permissions=8"
+install-first: "Dodaj Bota do swojego serwera Discord za pomocą: https://discord.com/api/oauth2/authorize?client_id=527511535309029407&permissions=2147739712&scope=applications.commands%20bot"
 install-second: "(Możesz pominąć ten krok jako właściciel serwera) Utwórz rolę na swoim serwerze discord o nazwie 'Bot Admin'. Osoby z tą rolą mogą kontrolować bota."
 install-third: "(Możesz pominąć ten krok jako właściciel serwera) Przydziel stworzoną rolę (Bot Admin) sobie! Nie do bota!"
 install-fourth: "Stwórz textchannel, który lubisz, aby otrzymywać powiadomienia w nim."
