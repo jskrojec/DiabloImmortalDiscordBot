@@ -28,14 +28,14 @@ public class TimezoneCommand {
     }
 
     public String runTimezoneCommand(final String[] args, final TextChannel textChannel) {
-        final String guildID = textChannel.getGuild().getId();
-        final String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildID = textChannel.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (!areArgumentsValid(args)) {
             return LanguageController.getInvalidCommandMessage(guildLanguage);
         }
 
-        final String timezone = args[1].toUpperCase();
+        String timezone = args[1].toUpperCase();
         if (!isTimeZoneValid(timezone)) {
             return LanguageController.getInvalidTimezoneMessage(guildLanguage);
         }
@@ -54,8 +54,8 @@ public class TimezoneCommand {
         }
 
         try {
-            final Instant timeStamp = Instant.now();
-            final ZonedDateTime dateTime = timeStamp.atZone(ZoneId.of(timezone));
+            Instant timeStamp = Instant.now();
+            ZonedDateTime dateTime = timeStamp.atZone(ZoneId.of(timezone));
             return true;
         } catch (final ZoneRulesException e) {
             return false;

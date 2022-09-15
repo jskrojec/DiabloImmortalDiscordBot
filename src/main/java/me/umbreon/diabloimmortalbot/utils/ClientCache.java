@@ -2,7 +2,7 @@ package me.umbreon.diabloimmortalbot.utils;
 
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
-import me.umbreon.diabloimmortalbot.data.NotifierChannel;
+import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -128,9 +128,23 @@ public class ClientCache {
 
     // NOTIFIER CHANNELS
 
-    public Map<String, NotifierChannel> notifierChannelsList;
+    private List<String> listWithDebugChannels = new ArrayList<>();
 
-    public void setNotifierChannelsList(final Map<String, NotifierChannel> notifierChannelsList) {
+    public boolean isDebugEnabled(String textChannelID) {
+        return listWithDebugChannels.contains(textChannelID);
+    }
+
+    public void addDebugChannel(final String textChannelID) {
+        listWithDebugChannels.add(textChannelID);
+    }
+
+    public void removeDebugChannel(final String textChannelID) {
+        listWithDebugChannels.remove(textChannelID);
+    }
+
+    public Map<String, NotificationChannel> notifierChannelsList;
+
+    public void setNotifierChannelsList(final Map<String, NotificationChannel> notifierChannelsList) {
         this.notifierChannelsList = notifierChannelsList;
     }
 
@@ -202,7 +216,7 @@ public class ClientCache {
         return notifierChannelsList.get(textchannelID).getRoleID();
     }
 
-    public Map<String, NotifierChannel> getListWithNotifierChannels() {
+    public Map<String, NotificationChannel> getListWithNotifierChannels() {
         return notifierChannelsList;
     }
 
@@ -210,8 +224,8 @@ public class ClientCache {
         return notifierChannelsList.get(textchannelID).getGuildID();
     }
 
-    public void addNotifierChannelToList(final NotifierChannel notifierChannel) {
-        notifierChannelsList.put(notifierChannel.getTextChannelID(), notifierChannel);
+    public void addNotifierChannelToList(final NotificationChannel notificationChannel) {
+        notifierChannelsList.put(notificationChannel.getTextChannelID(), notificationChannel);
     }
 
     public void setRoleID(final String textChannelID, final String roleID) {
@@ -257,7 +271,6 @@ public class ClientCache {
             case "hauntedcarriage":
                 notifierChannelsList.get(textChannelID).setHauntedCarriageMessageEnabled(value);
                 break;
-            case "":
             case "hauntedcarriageembed":
                 notifierChannelsList.get(textChannelID).setHauntedCarriageMessageEmbedEnabled(value);
                 break;
@@ -278,121 +291,6 @@ public class ClientCache {
     public boolean doNotifierChannelExists(final String textChannelID) {
         return notifierChannelsList.containsKey(textChannelID);
     }
-
-    // Custom messages create
-
-    //         textChannelID, userID - Waiting for text Channel
-    private final Map<String, String> waitingForTextChannel = new ConcurrentHashMap<>();
-
-    public void addToWaitingForTextChannelList(final String textChannelID, final String userID) {
-        waitingForTextChannel.put(textChannelID, userID);
-    }
-
-    public void removeFromWaitingForTextChannelList(final String textChannelID) {
-        waitingForTextChannel.remove(textChannelID);
-    }
-
-    public boolean isOperatingUserForChannel(final String textChannelID, final String userID) {
-        if (waitingForTextChannel.get(textChannelID) == null) return false;
-        return waitingForTextChannel.get(textChannelID).equals(userID);
-    }
-
-    //         textChannelID, userID - Waiting for day
-    private final Map<String, String> waitingForDay = new ConcurrentHashMap<>();
-
-    public void addToWaitingForDayList(final String textChannelID, final String userID) {
-        waitingForDay.put(textChannelID, userID);
-    }
-
-    public void removeFromWaitingForDayList(final String textChannelID) {
-        waitingForDay.remove(textChannelID);
-    }
-
-    public boolean isOperatingUserForDay(final String textChannelID, final String userID) {
-        if (waitingForDay.get(textChannelID) == null) return false;
-        return waitingForDay.get(textChannelID).equals(userID);
-    }
-
-    //         textChannelID, userID - Waiting for time
-    private final Map<String, String> waitingForTime = new ConcurrentHashMap<>();
-
-    public void addToWaitingForTimeList(final String textChannelID, final String userID) {
-        waitingForTime.put(textChannelID, userID);
-    }
-
-    public void removeFromWaitingForTimeList(final String textChannelID) {
-        waitingForTime.remove(textChannelID);
-    }
-
-    public boolean isOperatingUserForTime(final String textChannelID, final String userID) {
-        if (waitingForTime.get(textChannelID) == null) return false;
-        return waitingForTime.get(textChannelID).equals(userID);
-    }
-
-    //         textChannelID, userID - Waiting for repeating
-    private final Map<String, String> waitingForRepeating = new ConcurrentHashMap<>();
-
-    public void addToWaitingForRepeatingList(final String textChannelID, final String userID) {
-        waitingForRepeating.put(textChannelID, userID);
-    }
-
-    public void removeFromWaitingForRepeatingList(final String textChannelID) {
-        waitingForRepeating.remove(textChannelID);
-    }
-
-    public boolean isOperatingUserForRepeating(final String textChannelID, final String userID) {
-        if (waitingForRepeating.get(textChannelID) == null) return false;
-        return waitingForRepeating.get(textChannelID).equals(userID);
-    }
-
-    //         textChannelID, userID - Waiting for message
-    private final Map<String, String> waitingForMessage = new ConcurrentHashMap<>();
-
-    public void addToWaitingForMessageList(final String textChannelID, final String userID) {
-        waitingForMessage.put(textChannelID, userID);
-    }
-
-    public void removeFromWaitingForMessageList(final String textChannelID) {
-        waitingForMessage.remove(textChannelID);
-    }
-
-    public boolean isOperatingUserForMessage(final String textChannelID, final String userID) {
-        if (waitingForMessage.get(textChannelID) == null) return false;
-        return waitingForMessage.get(textChannelID).equals(userID);
-    }
-
-
-    //         textChannelID, cm
-    private final Map<String, CustomMessage> preparingCustomMessagesList = new ConcurrentHashMap<>();
-    //         textChannelId, userID
-    private final Map<String, String> preparingUsersList = new ConcurrentHashMap<>();
-
-    public void addToPreparingCustomMessagesList(final String textChannelID, final CustomMessage customMessage) {
-        preparingCustomMessagesList.put(textChannelID, customMessage);
-    }
-
-    public void addToPreparingCustomMessageUserList(final String textChannelID, final String userID) {
-        preparingUsersList.put(textChannelID, userID);
-    }
-
-    public void removeFromPreparingCustomMessageUserList(final String textChannelID) {
-        preparingUsersList.remove(textChannelID);
-    }
-
-    public boolean isUserInOperationMode(final String textChannelID, final String userID) {
-        if (preparingUsersList.get(textChannelID) == null) return false;
-        return preparingUsersList.get(textChannelID).equals(userID);
-    }
-
-    public CustomMessage getPreparingCustomMessage(final String textChannelID) {
-        return preparingCustomMessagesList.get(textChannelID);
-    }
-
-    public void removeFromPreparingCustomMessagesList(final String textChannelID) {
-        waitingForMessage.remove(textChannelID);
-    }
-
-    // -
 
     private Map<String, Boolean> listWithShadowLotteryTimes;
 
@@ -603,4 +501,6 @@ public class ClientCache {
     public List<String> getListWithSupportedLanguage() {
         return listWithSupportedLanguage;
     }
+
+
 }

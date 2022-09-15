@@ -1,19 +1,27 @@
 package me.umbreon.diabloimmortalbot.commands.channel_commands;
 
-import me.umbreon.diabloimmortalbot.data.NotifierChannel;
+import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import me.umbreon.diabloimmortalbot.utils.StringAssistant;
 import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Umbreon Majora
+ *
+ * Command: /info <CHANNEL>
+ * Description: Show's all information about that channel.
+ */
 public class InfoCommand {
 
     public ClientCache clientCache;
@@ -22,41 +30,45 @@ public class InfoCommand {
         this.clientCache = clientCache;
     }
 
-    public void runInfoCommand(final String[] args, final TextChannel textChannel, final Guild guild) {
-        final String guildID = guild.getId();
-        final String guildLanguage = clientCache.getGuildLanguage(guildID);
+    public void runInfoCommand(final String[] args, final TextChannel textChannel,
+                               final SlashCommandInteraction event) {
+        String guildID = textChannel.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String textChannelID = getTextChannelID(textChannel, args);
+        Guild guild = textChannel.getGuild();
 
-        final String textChannelID = getTextChannelID(textChannel, args);
         if (textChannelID == null) {
-            sendMessageToTextChannel(guildID, textChannel, LanguageController.getChannelNotFoundMessage(guildLanguage));
+            ClientLogger.createNewServerLogEntry(guildID, "global", "Failed to run info command. TextChannelID was null.");
+            event.reply(LanguageController.getChannelNotFoundMessage(guildLanguage)).queue();
             return;
         }
 
         if (!isChannelRegistered(textChannelID)) {
-            sendMessageToTextChannel(guildID, textChannel, String.format(LanguageController.getChannelNotRegisteredMessage(guildLanguage), textChannel.getAsMention()));
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, "Failed to run info command. Given channel was not registered.");
+            event.reply(String.format(LanguageController.getChannelNotRegisteredMessage(guildLanguage), textChannel.getAsMention())).queue();
             return;
         }
 
-        final String roleName;
-        final String textChannelName;
+        String roleName;
+        String textChannelName;
 
         try {
             roleName = getRoleName(textChannelID, guild);
             textChannelName = guild.getTextChannelById(textChannelID).getName();
-        } catch (final NullPointerException e) {
-            final String errorMessage = LanguageController.getErrorOccurredMessage(guildLanguage) +
-                    " " + LanguageController.getFooterReportToDevMessage(guildLanguage);
-            sendMessageToTextChannel(guildID, textChannel, errorMessage);
+        } catch (NullPointerException e) {
+            event.reply(LanguageController.getErrorOccurredMessage(guildLanguage) +
+                    " " + LanguageController.getFooterReportToDevMessage(guildLanguage)).queue();
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, "Failed to run info command. Role name or channel name was null.");
             return;
         }
 
-        sendEmbedMessageToTextChannel(guildID, textChannel, buildInfoEmbed(textChannelID, textChannelName, roleName, guildID));
+        event.replyEmbeds(buildInfoEmbed(textChannelID, textChannelName, roleName, guildID)).queue();
     }
 
     @NotNull
     private String getRoleName(final String textChannelID, final Guild guild) {
-        final String roleName;
-        final String tmpRole = clientCache.getRoleID(textChannelID);
+        String roleName;
+        String tmpRole = clientCache.getRoleID(textChannelID);
 
         if (tmpRole.equalsIgnoreCase("everyone")) {
             roleName = "EVERYONE";
@@ -70,7 +82,7 @@ public class InfoCommand {
 
     @Nullable
     private String getTextChannelID(final TextChannel textChannel, final String[] args) {
-        final String textChannelID;
+        String textChannelID;
         if (args.length == 2) {
             textChannelID = StringAssistant.removeAllNonNumbers(args[1]);
         } else if (args.length == 1) {
@@ -85,84 +97,68 @@ public class InfoCommand {
         return clientCache.doNotifierChannelExists(textChannelID);
     }
 
-    private void sendMessageToTextChannel(final String guildID, final TextChannel textChannel, final String message) {
-        if (clientCache.isAutoDeleteEnabled(guildID)) {
-            textChannel.sendMessage(message).queue(sendMessage -> {
-                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
-            });
-        } else textChannel.sendMessage(message).queue();
-    }
-
-    private void sendEmbedMessageToTextChannel(final String guildID, final TextChannel textChannel, final MessageEmbed message) {
-        if (clientCache.isAutoDeleteEnabled(guildID)) {
-            textChannel.sendMessageEmbeds(message).queue(sendMessage -> {
-                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
-            });
-        } else textChannel.sendMessageEmbeds(message).queue();
-    }
-
     private MessageEmbed buildInfoEmbed(final String textChannelID, final String textChannelName, final String mentionedRoleName, final String guildID) {
-        final EmbedBuilder embedBuilder = new EmbedBuilder();
-        final NotifierChannel notifierChannel = clientCache.getListWithNotifierChannels().get(textChannelID);
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        NotificationChannel notificationChannel = clientCache.getListWithNotifierChannels().get(textChannelID);
         embedBuilder.setTitle(textChannelName);
 
-        final String timezone = clientCache.getGuildTimeZone(notifierChannel.getGuildID());
-        final String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String timezone = clientCache.getGuildTimeZone(notificationChannel.getGuildID());
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         embedBuilder.addField(LanguageController.getInfoTimezoneMessage(guildLanguage), timezone, true);
         embedBuilder.addField(LanguageController.getInfoCurrentTimeMessage(guildLanguage), TimeAssistant.getTimeWithWeekday(timezone), true);
-        embedBuilder.addField(LanguageController.getInfoTextChannelIDMessage(guildLanguage), notifierChannel.getTextChannelID(), false);
+        embedBuilder.addField(LanguageController.getInfoTextChannelIDMessage(guildLanguage), notificationChannel.getTextChannelID(), false);
         embedBuilder.addField(LanguageController.getInfoMentionedRoleMessage(guildLanguage), mentionedRoleName, false);
 
-        final String yes = LanguageController.getInfoYesMessage(guildLanguage);
-        final String no = LanguageController.getInfoNoMessage(guildLanguage);
+        String yes = LanguageController.getInfoYesMessage(guildLanguage);
+        String no = LanguageController.getInfoNoMessage(guildLanguage);
 
-        final String eventMessageEnabled = notifierChannel.isEventMessageEnabled() ? yes : no;
+        String eventMessageEnabled = notificationChannel.isEventMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoEventMessageMessage(guildLanguage), eventMessageEnabled, true);
 
-        final String eventHeadUpEnabled = notifierChannel.isEventHeadUpEnabled() ? yes : no;
+        String eventHeadUpEnabled = notificationChannel.isEventHeadUpEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoHeadUpMessageMessage(guildLanguage), eventHeadUpEnabled, true);
 
-        final String eventAncientNightmareEnabled = notifierChannel.isAncientNightmareMessageEnabled() ? yes : no;
+        String eventAncientNightmareEnabled = notificationChannel.isAncientNightmareMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoAncientNightmareMessage(guildLanguage), eventAncientNightmareEnabled, true);
 
-        final String eventAssemblyEnabled = notifierChannel.isAssemblyMessageEnabled() ? yes : no;
+        String eventAssemblyEnabled = notificationChannel.isAssemblyMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoAssemblyMessage(guildLanguage), eventAssemblyEnabled, true);
 
-        final String eventBattlegroundsEnabled = notifierChannel.isBattlegroundsMessageEnabled() ? yes : no;
+        String eventBattlegroundsEnabled = notificationChannel.isBattlegroundsMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoBattlegroundMessage(guildLanguage), eventBattlegroundsEnabled, true);
 
-        final String eventDefendVaultEnabled = notifierChannel.isDefendVaultMessageEnabled() ? yes : no;
+        String eventDefendVaultEnabled = notificationChannel.isDefendVaultMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoDefendTheVaultMessage(guildLanguage), eventDefendVaultEnabled, true);
 
-        final String eventRaidVaultEnabled = notifierChannel.isRaidVaultMessageEnabled() ? yes : no;
+        String eventRaidVaultEnabled = notificationChannel.isRaidVaultMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoRaidTheVaultMessage(guildLanguage), eventRaidVaultEnabled, true);
 
-        final String eventDemonGatesEnabled = notifierChannel.isDemonGatesMessageEnabled() ? yes : no;
+        String eventDemonGatesEnabled = notificationChannel.isDemonGatesMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoDemonGatesMessage(guildLanguage), eventDemonGatesEnabled, true);
 
-        final String eventShadowLotteryEnabled = notifierChannel.isShadowLotteryMessageEnabled() ? yes : no;
+        String eventShadowLotteryEnabled = notificationChannel.isShadowLotteryMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoShadowLotteryMessage(guildLanguage), eventShadowLotteryEnabled, true);
 
-        final String eventHauntedCarriageEnabled = notifierChannel.isHauntedCarriageMessageEnabled() ? yes : no;
+        String eventHauntedCarriageEnabled = notificationChannel.isHauntedCarriageMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoHauntedCarriageMessage(guildLanguage), eventHauntedCarriageEnabled, true);
 
-        final String eventWrathborneInvasionEnabled = notifierChannel.isWrathborneInvasionEnabled() ? yes : no;
+        String eventWrathborneInvasionEnabled = notificationChannel.isWrathborneInvasionEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoWrathborneInvasionMessage(guildLanguage), eventWrathborneInvasionEnabled, true);
 
-        final String eventAncientArenaEnabled = notifierChannel.isAncientArenaMessageEnabled() ? yes : no;
+        String eventAncientArenaEnabled = notificationChannel.isAncientArenaMessageEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoAncientArenaMessage(guildLanguage), eventAncientArenaEnabled, true);
 
-        final String eventHauntedCarriageEmbedEnabled = notifierChannel.isHauntedCarriageMessageEmbedEnabled() ? yes : no;
+        String eventHauntedCarriageEmbedEnabled = notificationChannel.isHauntedCarriageMessageEmbedEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoHauntedCarriageEmbedMessage(guildLanguage), eventHauntedCarriageEmbedEnabled, true);
 
-        final String eventDemonGatesEmbedEnabled = notifierChannel.isDemonGatesMessageEmbedEnabled() ? yes : no;
+        String eventDemonGatesEmbedEnabled = notificationChannel.isDemonGatesMessageEmbedEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoDemonGatesEmbedMessage(guildLanguage), eventDemonGatesEmbedEnabled, true);
 
-        final String eventAncientNightmareEmbedEnabled = notifierChannel.isAncientNightmareMessageEmbedEnabled() ? yes : no;
+        String eventAncientNightmareEmbedEnabled = notificationChannel.isAncientNightmareMessageEmbedEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoAncientNightmareEmbedMessage(guildLanguage), eventAncientNightmareEmbedEnabled, true);
 
-        final String eventAncientArenaEmbedEnabled = notifierChannel.isAncientArenaMessageEmbedEnabled() ? yes : no;
+        String eventAncientArenaEmbedEnabled = notificationChannel.isAncientArenaMessageEmbedEnabled() ? yes : no;
         embedBuilder.addField(LanguageController.getInfoAncientArenaEmbedMessage(guildLanguage), eventAncientArenaEmbedEnabled, true);
 
         return embedBuilder.build();

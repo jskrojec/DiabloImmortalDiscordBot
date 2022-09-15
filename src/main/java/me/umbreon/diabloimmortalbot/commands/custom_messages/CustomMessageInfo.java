@@ -4,35 +4,24 @@ import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
 
+/**
+ * @author Umbreon Majora
+ * <p>
+ * Command: /custommessageinfo <ID>
+ */
 public class CustomMessageInfo {
 
     private final ClientCache clientCache;
-    private MessageEmbed invalidCommandUsageEmbed;
 
-    public CustomMessageInfo(final ClientCache clientCache) {
+    public CustomMessageInfo(ClientCache clientCache) {
         this.clientCache = clientCache;
-        buildInvalidCommandUsageEmbed();
     }
 
-    public void runCustomMessageInfoCommand(final String[] args, final TextChannel textChannel) {
-        if (!areArgumentsValid(args)) {
-            textChannel.sendMessageEmbeds(invalidCommandUsageEmbed).queue();
-            return;
-        }
-
-        final int customMessageID;
-        try {
-            customMessageID = Integer.parseInt(args[2]);
-        } catch (final NumberFormatException e) {
-            textChannel.sendMessage("Invalid ID. Use >cm list to see all your custom messages.").queue();
-            return;
-        }
-
-        textChannel.sendMessageEmbeds(buildCustomMessageInfoEmbed(customMessageID)).queue();
+    public MessageEmbed runCustomMessageInfoCommand(final String[] args) {
+        return buildCustomMessageInfoEmbed(Integer.parseInt(args[1]));
     }
 
     private MessageEmbed buildCustomMessageInfoEmbed(final int customMessageID) {
@@ -48,14 +37,4 @@ public class CustomMessageInfo {
         return embedBuilder.build();
     }
 
-    private boolean areArgumentsValid(final String[] args) {
-        return args[1].equalsIgnoreCase("info") && args.length == 3;
-    }
-
-    private void buildInvalidCommandUsageEmbed() {
-        final EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.RED);
-        embedBuilder.addField("Invalid command", "Command example: >cm info ID.", false);
-        this.invalidCommandUsageEmbed = embedBuilder.build();
-    }
 }

@@ -1,6 +1,6 @@
 package me.umbreon.diabloimmortalbot.data;
 
-public class NotifierChannel {
+public class NotificationChannel {
 
     String roleID;
     String guildID;
@@ -24,7 +24,7 @@ public class NotifierChannel {
     boolean hauntedCarriageMessageEmbedEnabled;
     boolean ancientNightmareMessageEmbedEnabled;
 
-    public NotifierChannel(final String textChannelID, final String guildID) {
+    public NotificationChannel(final String textChannelID, final String guildID) {
         this.eventHeadUpEnabled = true;
         this.eventMessageEnabled = true;
         this.assemblyMessageEnabled = true;
@@ -48,15 +48,15 @@ public class NotifierChannel {
         this.textChannelID = textChannelID;
     }
 
-    public NotifierChannel(final String roleID, final String guildID, final String textChannelID,
-                           final boolean eventHeadUpEnabled, final boolean eventMessageEnabled, final boolean assemblyMessageEnabled,
-                           final boolean raidVaultMessageEnabled, final boolean demonGatesMessageEnabled,
-                           final boolean defendVaultMessageEnabled, final boolean ancientArenaMessageEnabled,
-                           final boolean shadowLotteryMessageEnabled, final boolean battlegroundsMessageEnabled,
-                           final boolean hauntedCarriageMessageEnabled, final boolean ancientNightmareMessageEnabled,
-                           final boolean demonGatesMessageEmbedEnabled, final boolean ancientArenaMessageEmbedEnabled,
-                           final boolean hauntedCarriageMessageEmbedEnabled, final boolean ancientNightmareMessageEmbedEnabled,
-                           final boolean wrathborneInvasionEnabled) {
+    public NotificationChannel(final String roleID, final String guildID, final String textChannelID,
+                               final boolean eventHeadUpEnabled, final boolean eventMessageEnabled, final boolean assemblyMessageEnabled,
+                               final boolean raidVaultMessageEnabled, final boolean demonGatesMessageEnabled,
+                               final boolean defendVaultMessageEnabled, final boolean ancientArenaMessageEnabled,
+                               final boolean shadowLotteryMessageEnabled, final boolean battlegroundsMessageEnabled,
+                               final boolean hauntedCarriageMessageEnabled, final boolean ancientNightmareMessageEnabled,
+                               final boolean demonGatesMessageEmbedEnabled, final boolean ancientArenaMessageEmbedEnabled,
+                               final boolean hauntedCarriageMessageEmbedEnabled, final boolean ancientNightmareMessageEmbedEnabled,
+                               final boolean wrathborneInvasionEnabled) {
         this.roleID = roleID;
         this.guildID = guildID;
         this.textChannelID = textChannelID;

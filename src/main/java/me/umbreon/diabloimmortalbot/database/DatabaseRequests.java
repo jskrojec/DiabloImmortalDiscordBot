@@ -2,7 +2,7 @@ package me.umbreon.diabloimmortalbot.database;
 
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
-import me.umbreon.diabloimmortalbot.data.NotifierChannel;
+import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 
 import java.sql.Connection;
@@ -308,29 +308,29 @@ public class DatabaseRequests {
         }
     }
 
-    public void createNewNotifierChannel(final NotifierChannel notifierChannel) {
+    public void createNewNotifierChannel(final NotificationChannel notificationChannel) {
         try (final Connection connection = databaseConnection.getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO channel_notification (textChannelID, guildID, roleID, message, headUp, ancientarena, ancientnightmare, assembly, battlegrounds, defendvault, raidvault, demongates, shadowlottery, hauntedcarriage, demongatesembed, ancientarenaembed, hauntedcarriageembed, ancientnightmareembed, wrathborneinvasion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             try {
-                preparedStatement.setString(1, notifierChannel.getTextChannelID());
-                preparedStatement.setString(2, notifierChannel.getGuildID());
-                preparedStatement.setString(3, notifierChannel.getRoleID());
-                preparedStatement.setBoolean(4, notifierChannel.isEventMessageEnabled());
-                preparedStatement.setBoolean(5, notifierChannel.isEventHeadUpEnabled());
-                preparedStatement.setBoolean(6, notifierChannel.isAncientArenaMessageEnabled());
-                preparedStatement.setBoolean(7, notifierChannel.isAncientNightmareMessageEnabled());
-                preparedStatement.setBoolean(8, notifierChannel.isAssemblyMessageEnabled());
-                preparedStatement.setBoolean(9, notifierChannel.isBattlegroundsMessageEnabled());
-                preparedStatement.setBoolean(10, notifierChannel.isDefendVaultMessageEnabled());
-                preparedStatement.setBoolean(11, notifierChannel.isRaidVaultMessageEnabled());
-                preparedStatement.setBoolean(12, notifierChannel.isDemonGatesMessageEnabled());
-                preparedStatement.setBoolean(13, notifierChannel.isShadowLotteryMessageEnabled());
-                preparedStatement.setBoolean(14, notifierChannel.isHauntedCarriageMessageEnabled());
-                preparedStatement.setBoolean(15, notifierChannel.isDemonGatesMessageEmbedEnabled());
-                preparedStatement.setBoolean(16, notifierChannel.isAncientArenaMessageEmbedEnabled());
-                preparedStatement.setBoolean(17, notifierChannel.isHauntedCarriageMessageEmbedEnabled());
-                preparedStatement.setBoolean(18, notifierChannel.isAncientNightmareMessageEmbedEnabled());
-                preparedStatement.setBoolean(19, notifierChannel.isWrathborneInvasionEnabled());
+                preparedStatement.setString(1, notificationChannel.getTextChannelID());
+                preparedStatement.setString(2, notificationChannel.getGuildID());
+                preparedStatement.setString(3, notificationChannel.getRoleID());
+                preparedStatement.setBoolean(4, notificationChannel.isEventMessageEnabled());
+                preparedStatement.setBoolean(5, notificationChannel.isEventHeadUpEnabled());
+                preparedStatement.setBoolean(6, notificationChannel.isAncientArenaMessageEnabled());
+                preparedStatement.setBoolean(7, notificationChannel.isAncientNightmareMessageEnabled());
+                preparedStatement.setBoolean(8, notificationChannel.isAssemblyMessageEnabled());
+                preparedStatement.setBoolean(9, notificationChannel.isBattlegroundsMessageEnabled());
+                preparedStatement.setBoolean(10, notificationChannel.isDefendVaultMessageEnabled());
+                preparedStatement.setBoolean(11, notificationChannel.isRaidVaultMessageEnabled());
+                preparedStatement.setBoolean(12, notificationChannel.isDemonGatesMessageEnabled());
+                preparedStatement.setBoolean(13, notificationChannel.isShadowLotteryMessageEnabled());
+                preparedStatement.setBoolean(14, notificationChannel.isHauntedCarriageMessageEnabled());
+                preparedStatement.setBoolean(15, notificationChannel.isDemonGatesMessageEmbedEnabled());
+                preparedStatement.setBoolean(16, notificationChannel.isAncientArenaMessageEmbedEnabled());
+                preparedStatement.setBoolean(17, notificationChannel.isHauntedCarriageMessageEmbedEnabled());
+                preparedStatement.setBoolean(18, notificationChannel.isAncientNightmareMessageEmbedEnabled());
+                preparedStatement.setBoolean(19, notificationChannel.isWrathborneInvasionEnabled());
                 preparedStatement.executeUpdate();
             } catch (final Exception e) {
                 ClientLogger.createNewSqlLogEntry(e);
@@ -342,8 +342,8 @@ public class DatabaseRequests {
         }
     }
 
-    public Map<String, NotifierChannel> getAllNotifierChannels() {
-        final Map<String, NotifierChannel> notifierChannelList = new ConcurrentHashMap<>();
+    public Map<String, NotificationChannel> getAllNotifierChannels() {
+        final Map<String, NotificationChannel> notifierChannelList = new ConcurrentHashMap<>();
         try (final Connection connection = databaseConnection.getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM channel_notification")) {
             try (final ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -370,7 +370,7 @@ public class DatabaseRequests {
                     final boolean ancientarenaembed = (resultSet.getInt("ancientarenaembed") == 1);
                     final boolean wrathborneInvasionEnabled = (resultSet.getInt("wrathborneinvasion") == 1);
 
-                    final NotifierChannel notificationChannel = new NotifierChannel(roleID, guildID, textChannelID,
+                    final NotificationChannel notificationChannel = new NotificationChannel(roleID, guildID, textChannelID,
                             headup, message, assembly, raidvault, demongates, defendvault, ancientarena, shadowlottery,
                             battlegrounds, hauntedcarriage, ancientnightmare, demongatesembed, ancientarenaembed,
                             hauntedcarriageembed, ancientnightmareembed, wrathborneInvasionEnabled);

@@ -8,6 +8,11 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author Umbreon Majora
+ *
+ * Command: /unregiser
+ */
 public class UnregisterCommand {
 
     private final DatabaseRequests databaseRequests;
@@ -19,12 +24,13 @@ public class UnregisterCommand {
     }
 
     public String runUnregisterCommand(final String[] args, final TextChannel textChannel, final Guild guild) {
-        final String guildID = guild.getId();
-        final String language = clientCache.getGuildLanguage(guildID);
+        String guildID = guild.getId();
+        String language = clientCache.getGuildLanguage(guildID);
 
-        final String textChannelID = getTextChannelID(textChannel, args);
-        if (!isChannelRegistered(textChannelID))
+        String textChannelID = getTextChannelID(textChannel, args);
+        if (!isChannelRegistered(textChannelID)) {
             return String.format(LanguageController.getChannelNotRegisteredMessage(language), textChannel.getAsMention());
+        }
 
         removeNotificationChannel(textChannelID);
         return String.format(LanguageController.getChannelUnregisteredMessage(language), textChannel.getAsMention());

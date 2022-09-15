@@ -3,12 +3,19 @@ package me.umbreon.diabloimmortalbot.commands.channel_commands;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Objects;
 
+/**
+ * @author Umbreon Majora
+ *
+ * Command: /role <ROLE>
+ * Description: Set's the role that should get mentioned in that channel.
+ */
 public class RoleCommand {
 
     private final DatabaseRequests databaseRequests;
@@ -20,15 +27,16 @@ public class RoleCommand {
     }
 
     public String runRoleCommand(final String[] args, final TextChannel textChannel, final Guild guild) {
-        final String guildID = guild.getId();
-        final String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildID = guild.getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
 
         if (!isCommandValid(args)) {
             return LanguageController.getInvalidCommandMessage(guildLanguage);
         }
 
-        final String textChannelID = textChannel.getId();
+        String textChannelID = textChannel.getId();
         if (!isChannelRegistered(textChannelID)) {
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, "Failed to run role command. Given channel is not registered.");
             return String.format(LanguageController.getChannelNotRegisteredMessage(guildLanguage), textChannel.getAsMention());
         }
 
@@ -37,12 +45,13 @@ public class RoleCommand {
             return String.format(LanguageController.getRoleChangedMessage(guildLanguage), args[1]);
         }
 
-        final Role mentionedRole = getRoleFromMessage(args, textChannel);
+        Role mentionedRole = getRoleFromMessage(args, textChannel);
         if (mentionedRole == null) {
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, "Failed to run role command. ");
             return LanguageController.getRoleNotFoundMessage(guildLanguage);
         }
 
-        final String roleID = mentionedRole.getId();
+        String roleID = mentionedRole.getId();
         setRole(textChannelID, roleID);
         return String.format(LanguageController.getRoleChangedMessage(guildLanguage), mentionedRole.getAsMention());
     }

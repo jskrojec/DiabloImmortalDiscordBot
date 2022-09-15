@@ -7,51 +7,63 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Objects;
 
-public class CustomMessageDelete {
+/**
+ * @author Umbreon Majora
+ * <p>
+ * Command: /deletecustommessage <ID>
+ */
+public class DeleteCustomMessage {
 
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
 
-    public CustomMessageDelete(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
+    public DeleteCustomMessage(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
 
-    public String runCustomMessageDelete(final String[] args, final TextChannel textChannel) {
-        final String guildID = textChannel.getGuild().getId();
-        final String guildLanguage = clientCache.getGuildLanguage(guildID);
+    public String runDeleteCustomMessage(final String[] args, final TextChannel textChannel) {
+        String guildID = textChannel.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
 
-        if (!areArgumentsValid(args))
+        if (!isCommandValid(args)) {
             return LanguageController.getInvalidCommandMessage(guildLanguage);
+        }
 
-        final int customMessageID = Integer.parseInt(args[2]);
-        if (!isCustomMessageGuildIdCurrentGuildId(guildID, customMessageID))
-            return null;
+        int customMessageID = Integer.parseInt(args[1]);
+        if (!isCustomMessageGuildIdCurrentGuildId(guildID, customMessageID)) {
+            return LanguageController.getInvalidCommandMessage(guildLanguage);
+        }
 
         deleteCustomMessage(customMessageID);
         return String.format(LanguageController.getCustomMessageWithIdDeleted(guildLanguage), customMessageID);
     }
 
     private boolean isCustomMessageGuildIdCurrentGuildId(final String guildID, final int customMessageID) {
-        final String targetGuildID = clientCache.getCustomMessageByID(customMessageID).getGuildID();
+        //Todo: Add a sperate error message, like "Custom Message with ID <ID> does not exists.
+        if (clientCache.getCustomMessageByID(customMessageID) == null) {
+            return false;
+        }
+        String targetGuildID = clientCache.getCustomMessageByID(customMessageID).getGuildID();
         return Objects.equals(guildID, targetGuildID);
     }
 
-
-    private boolean areArgumentsValid(final String[] args) {
-        if (args.length < 2) return true;
-
-        try {
-            Integer.parseInt(args[2]);
-            return true;
-        } catch (final NumberFormatException ignored) {
+    private boolean isCommandValid(final String[] args) {
+        if (args.length != 2) {
+            return false;
         }
 
-        return false;
+        try {
+            Integer.parseInt(args[1]);
+            return true;
+        } catch (final NumberFormatException ignored) {
+            return false;
+        }
     }
 
     private void deleteCustomMessage(final int customMessageID) {
         clientCache.deleteCustomMessageByID(customMessageID);
         databaseRequests.deleteCustomMessageEntry(customMessageID);
     }
+
 }

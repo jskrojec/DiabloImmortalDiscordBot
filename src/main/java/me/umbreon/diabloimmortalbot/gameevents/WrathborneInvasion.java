@@ -53,12 +53,12 @@ public class WrathborneInvasion {
 
     private boolean isTimeValid(final String timezone) {
         final String time = TimeAssistant.getTime(timezone);
-        return clientCache.getListWithShadowLotteryTimes().get(time) != null;
+        return clientCache.getListWithWrathborneInvasionTimes().get(time) != null;
     }
 
     private boolean isHeadUpTime(final String timezone) {
         final String time = TimeAssistant.getTime(timezone);
-        return clientCache.getListWithShadowLotteryTimes().get(time);
+        return clientCache.getListWithWrathborneInvasionTimes().get(time);
     }
 
 }

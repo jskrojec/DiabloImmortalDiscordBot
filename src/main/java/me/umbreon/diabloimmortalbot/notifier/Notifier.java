@@ -6,14 +6,21 @@ import me.umbreon.diabloimmortalbot.gameevents.embeds.AncientNightmareEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.DemonGatesEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.HauntedCarriageEmbed;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Notifier {
 
@@ -66,6 +73,7 @@ public class Notifier {
             public void run() {
                 LOGGER.info(TimeAssistant.getTime("GMT+2"));
                 try {
+
                     if (isChannelNotificationListEmpty()) {
                         return;
                     }
@@ -128,6 +136,10 @@ public class Notifier {
                             notificationMessageBuilder.append(wrathborneInvasion.checkOnWrathborneInvasionEvent(timeZone, guildLanguage, guildID, textChannelID));
                         }
 
+                        if (clientCache.isDebugEnabled(textChannelID)) {
+                            notificationMessageBuilder.append("Debug");
+                        }
+
                         //Embeds
                         if (clientCache.isAncientArenaEmbedMessageEnabled(textChannelID)) {
                             ancientArenaEmbed.checkAncientArenaFormatted(textChannel, timeZone, guildLanguage);
@@ -150,6 +162,8 @@ public class Notifier {
                             textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
                         }
                     });
+                } catch (InsufficientPermissionException ignored) {
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -166,9 +180,11 @@ public class Notifier {
     }
 
     private void addMentionToMessage(final StringBuilder stringBuilder, final TextChannel textChannel) {
-        String mention;
+        String mention = null;
         String textChannelID = textChannel.getId();
-        switch (clientCache.getRoleID(textChannelID).toLowerCase()) {
+        String roleID = clientCache.getRoleID(textChannelID);
+        Guild guild = textChannel.getGuild();
+        switch (roleID.toLowerCase()) {
             case "everyone":
                 mention = "@everyone";
                 break;
@@ -176,16 +192,30 @@ public class Notifier {
                 mention = "@here";
                 break;
             default:
-                mention = Objects.requireNonNull(textChannel.getJDA().getRoleById(clientCache.getRoleID(textChannelID)))
-                        .getAsMention();
+                Role mentionRole = findRoleInGuildUsingID(textChannel.getGuild(), roleID);
+                if (mentionRole != null) {
+                    mention = mentionRole.getAsMention();
+                } else {
+                    ClientLogger.createNewServerLogEntry(guild.getId(), textChannelID, "Tried to add mention " +
+                            "role, but role couldn't be found.");
+                }
                 break;
         }
 
-        stringBuilder.append(mention);
+        if (mention != null) {
+            stringBuilder.append(mention);
+        }
     }
 
     private boolean isChannelNotificationListEmpty() {
         return clientCache.getListWithNotifierChannels().size() == 0;
+    }
+
+    private Role findRoleInGuildUsingID(Guild guild, String roleID) {
+        return guild.getRoles().stream()
+                .filter(role -> role.getId().equals(roleID))
+                .findFirst()
+                .orElse(null);
     }
 
 }
