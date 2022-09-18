@@ -3,10 +3,16 @@ package me.umbreon.diabloimmortalbot.commands.help_commands;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.*;
 
+/**
+ * @author Umbreon Majora
+ * <p>
+ * Command: /languages
+ * Description: Show's the user a list with all supported languages.
+ */
 public class LanguagesCommand {
 
     private MessageEmbed languagesMessageEmbed;
@@ -15,8 +21,8 @@ public class LanguagesCommand {
         buildLanguagesMessageEmbed();
     }
 
-    public void runLanguagesCommand(final TextChannel textChannel) {
-        textChannel.sendMessageEmbeds(languagesMessageEmbed).queue();
+    public void runLanguagesCommand(final SlashCommandInteractionEvent event) {
+        event.replyEmbeds(languagesMessageEmbed).setEphemeral(true).queue();
     }
 
     private void buildLanguagesMessageEmbed() {

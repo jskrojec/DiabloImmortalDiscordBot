@@ -4,8 +4,7 @@ import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.*;
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.List;
  * @author Umbreon Majora
  * <p>
  * Command: /listcustommessaages
+ * Description: List's all custom messages of the guild.
  */
 public class ListCustomMessagesCommand {
 
@@ -23,8 +23,8 @@ public class ListCustomMessagesCommand {
         this.clientCache = clientCache;
     }
 
-    public MessageEmbed runListCustomMessages(final TextChannel textChannel) {
-        String guildID = textChannel.getGuild().getId();
+    public void runListCustomMessages(final SlashCommandInteractionEvent event) {
+        String guildID = event.getGuild().getId();
         String language = clientCache.getGuildLanguage(guildID);
 
         List<CustomMessage> customMessageList = clientCache.getAllCustomMessagesByGuildID(guildID);
@@ -36,17 +36,18 @@ public class ListCustomMessagesCommand {
 
         if (customMessageList.size() == 0) {
             embedBuilder.addField(LanguageController.getNoCustomMessagesMessage(language), "", true);
-            return embedBuilder.build();
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
+            return;
         }
 
         customMessageList.forEach(customMessage -> {
-                String customMessageID = "ID: " + customMessage.getCustomMessageID();
+            String customMessageID = "ID: " + customMessage.getCustomMessageID();
             String s = "Channel: <#" + customMessage.getChannelID() + ">\n" +
                     "Message: " + customMessage.getMessage() + "\n" +
                     "Time: " + customMessage.getDay() + " " + customMessage.getTime() + "\n";
             embedBuilder.addField(customMessageID, s, true);
         });
 
-        return embedBuilder.build();
+        event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
     }
 }

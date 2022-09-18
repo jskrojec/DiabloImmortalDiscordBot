@@ -7,7 +7,6 @@ import me.umbreon.diabloimmortalbot.gameevents.embeds.DemonGatesEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.HauntedCarriageEmbed;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
@@ -66,19 +65,17 @@ public class Notifier {
         this.hauntedCarriageEmbed = new HauntedCarriageEmbed(clientCache);
     }
 
-    public void runScheduler(final JDA jda) {
-        final Date nextFullMinuteTime = getNextFullMinuteTime();
+    public void runNotificationScheduler(final JDA jda) {
+        Date nextFullMinuteTime = getNextFullMinuteTime();
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                LOGGER.info(TimeAssistant.getTime("GMT+2"));
-                try {
+                if (isChannelNotificationListEmpty()) {
+                    return;
+                }
 
-                    if (isChannelNotificationListEmpty()) {
-                        return;
-                    }
-
-                    clientCache.getListWithNotifierChannels().forEach((textChannelID, notifierChannel) -> {
+                clientCache.getListWithNotifierChannels().forEach((textChannelID, notifierChannel) -> {
+                    try {
                         TextChannel textChannel;
 
                         if (textChannelID != null) {
@@ -161,12 +158,13 @@ public class Notifier {
                             addMentionToMessage(notificationMessageBuilder, textChannel);
                             textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
                         }
-                    });
-                } catch (InsufficientPermissionException ignored) {
+                    } catch (InsufficientPermissionException e) {
+                        ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "global", "Failed to send notification message cause of insufficient permissions. " + e.getMessage());
+                    } catch (Exception e) {
+                        ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "global", "Failed to send notification message.");
+                    }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                });
             }
         }, nextFullMinuteTime, 60 * 1000);
     }

@@ -3,10 +3,13 @@ package me.umbreon.diabloimmortalbot.commands.custom_messages;
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.BooleanAssistant;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import me.umbreon.diabloimmortalbot.utils.StringAssistant;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,24 +23,85 @@ public class CreateCustomMessageCommand {
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
 
+    private final Logger LOGGER = LogManager.getLogger(getClass());
+
     public CreateCustomMessageCommand(ClientCache clientCache, DatabaseRequests databaseRequests) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
 
-    public String runCreateCustomMessageCommand(final String[] args, final TextChannel textChannel) {
-        String guildID = textChannel.getGuild().getId();
+    public void runCreateCustomMessageCommand(final SlashCommandInteractionEvent event) {
+        String guildID = event.getGuild().getId();
+        String textChannelID = event.getTextChannel().getId();
         String guildLanguage = clientCache.getGuildLanguage(guildID);
 
-        if (!isCommandValid(args)) {
-            return LanguageController.getInvalidCommandMessage(guildLanguage);
+        OptionMapping weekdayOption = event.getOption("custommessageweekday");
+        String weekday;
+        if (weekdayOption != null) {
+            weekday = weekdayOption.getAsString();
+        } else {
+            String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because weekday was null.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
+            return;
         }
 
-        String textChannelID = textChannel.getId();
-        String weekday = args[1].toLowerCase();
-        String time = args[2];
-        boolean repeating = Boolean.parseBoolean(args[3]);
-        String message = getGivenMessage(args);
+        if (!isGivenWeekdayValid(weekday)) {
+            String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because weekday was invalid.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
+            return;
+        }
+
+        weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
+
+        OptionMapping timeOption = event.getOption("custommessagetime");
+        String time;
+
+        if (timeOption != null) {
+            time = timeOption.getAsString();
+        } else {
+            String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because time was null.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
+            return;
+        }
+
+        if (!StringAssistant.isStringInTimePattern(time)) {
+            String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because time was invalid.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
+            return;
+        }
+
+        OptionMapping repeatingOption = event.getOption("custommessagerepeating");
+        boolean repeating;
+        if (repeatingOption != null) {
+            repeating = repeatingOption.getAsBoolean();
+        } else {
+            String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because repeating was null.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
+            return;
+        }
+
+        OptionMapping messageOption = event.getOption("custommessagemessage");
+        String message;
+
+        if (messageOption != null) {
+            message = messageOption.getAsString();
+        } else {
+            String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because message was null.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
+            return;
+        }
 
         CustomMessage customMessage = new CustomMessage(textChannelID, guildID, message, weekday, time, repeating);
         databaseRequests.createNewCustomMessageEntry(customMessage);
@@ -49,45 +113,11 @@ public class CreateCustomMessageCommand {
             throw new RuntimeException(e);
         }
         //Todo: Need to reload all custom message because of the id's the db is giving the cm, find a fix
-        return LanguageController.getCustomMessageCreatedMessage(guildLanguage);
-    }
-
-    private String getGivenMessage(String[] args) {
-        StringBuilder message = new StringBuilder();
-        for (int i = 4; args.length - 1 >= i; i++) {
-            message.append(args[i]).append(" ");
-        }
-        return message.toString();
+        event.reply(LanguageController.getCustomMessageCreatedMessage(guildLanguage)).setEphemeral(true).queue();
     }
 
     private boolean isGivenWeekdayValid(String givenWeekday) {
-        return clientCache.getListOfAvailableEventDays().contains(givenWeekday);
-    }
-
-    private boolean isCommandValid(String[] args) {
-        if (args.length < 4) {
-            return false;
-        }
-
-        String givenWeekday = args[1].toLowerCase();
-        //Todo: Add Error message: Invalid weekday
-        if (!isGivenWeekdayValid(givenWeekday)) {
-            return false;
-        }
-
-        String givenTime = args[2];
-        if (!StringAssistant.isStringInTimePattern(givenTime)) {
-            //Todo: add error message: invalid time
-            return false;
-        }
-
-        String isRepeat = args[3];
-        if (!BooleanAssistant.isValueTrue(isRepeat) && !BooleanAssistant.isValueFalse(isRepeat)) {
-            //todo: add error message: invalid value / yes no?
-            return false;
-        }
-
-        return true;
+        return clientCache.getListOfAvailableEventDays().contains(givenWeekday.toLowerCase());
     }
 
 }

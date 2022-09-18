@@ -3,7 +3,11 @@ package me.umbreon.diabloimmortalbot.commands.custom_messages;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import net.dv8tion.jda.api.entities.TextChannel;
+import me.umbreon.diabloimmortalbot.utils.ClientLogger;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.Objects;
 
@@ -17,26 +21,40 @@ public class DeleteCustomMessage {
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
 
+    private final Logger LOGGER = LogManager.getLogger(getClass());
+
     public DeleteCustomMessage(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
 
-    public String runDeleteCustomMessage(final String[] args, final TextChannel textChannel) {
-        String guildID = textChannel.getGuild().getId();
+    public void runDeleteCustomMessage(final SlashCommandInteractionEvent event) {
+        OptionMapping customMessageIdOption = event.getOption("custommessageid");
+
+        String guildID = event.getGuild().getId();
+        String textChannelID = event.getTextChannel().getId();
         String guildLanguage = clientCache.getGuildLanguage(guildID);
 
-        if (!isCommandValid(args)) {
-            return LanguageController.getInvalidCommandMessage(guildLanguage);
+        int customMessageID;
+        if (customMessageIdOption != null) {
+            customMessageID = customMessageIdOption.getAsInt();
+        } else {
+            String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to get custom message information but it failed because ID was null.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
+            return;
         }
 
-        int customMessageID = Integer.parseInt(args[1]);
         if (!isCustomMessageGuildIdCurrentGuildId(guildID, customMessageID)) {
-            return LanguageController.getInvalidCommandMessage(guildLanguage);
+            String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to get custom message information but it failed because guildID did not match!";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
         }
 
         deleteCustomMessage(customMessageID);
-        return String.format(LanguageController.getCustomMessageWithIdDeleted(guildLanguage), customMessageID);
+        event.reply(String.format(LanguageController.getCustomMessageWithIdDeleted(guildLanguage), customMessageID)).setEphemeral(true).queue();
     }
 
     private boolean isCustomMessageGuildIdCurrentGuildId(final String guildID, final int customMessageID) {
@@ -46,19 +64,6 @@ public class DeleteCustomMessage {
         }
         String targetGuildID = clientCache.getCustomMessageByID(customMessageID).getGuildID();
         return Objects.equals(guildID, targetGuildID);
-    }
-
-    private boolean isCommandValid(final String[] args) {
-        if (args.length != 2) {
-            return false;
-        }
-
-        try {
-            Integer.parseInt(args[1]);
-            return true;
-        } catch (final NumberFormatException ignored) {
-            return false;
-        }
     }
 
     private void deleteCustomMessage(final int customMessageID) {

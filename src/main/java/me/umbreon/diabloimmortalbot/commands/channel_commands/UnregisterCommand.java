@@ -3,44 +3,74 @@ package me.umbreon.diabloimmortalbot.commands.channel_commands;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.StringAssistant;
+import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.jetbrains.annotations.Nullable;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * @author Umbreon Majora
- *
- * Command: /unregiser
+ * <p>
+ * Command: /unregister <CHANNEL>
+ * Description: Removes given channel as notifier-channel from the system.
  */
 public class UnregisterCommand {
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
 
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
+
     public UnregisterCommand(final DatabaseRequests databaseRequests, final ClientCache clientCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
     }
 
-    public String runUnregisterCommand(final String[] args, final TextChannel textChannel, final Guild guild) {
-        String guildID = guild.getId();
-        String language = clientCache.getGuildLanguage(guildID);
+    public void runUnregisterCommand(final SlashCommandInteractionEvent event) {
+        OptionMapping optionMapping = event.getOption("targetchannel");
 
-        String textChannelID = getTextChannelID(textChannel, args);
-        if (!isChannelRegistered(textChannelID)) {
-            return String.format(LanguageController.getChannelNotRegisteredMessage(language), textChannel.getAsMention());
+        TextChannel textChannel;
+        if (optionMapping != null) {
+            textChannel = optionMapping.getAsTextChannel();
+        } else {
+            textChannel = event.getTextChannel();
         }
 
-        removeNotificationChannel(textChannelID);
-        return String.format(LanguageController.getChannelUnregisteredMessage(language), textChannel.getAsMention());
-    }
+        String guildID = textChannel.getGuild().getId();
+        String language = clientCache.getGuildLanguage(guildID);
+        if (!isChannelTypeTextChannel(textChannel)) {
+            String log = event.getUser().getName() + " tried to unregister " + textChannel.getName() + " but failed because that wasn't a text channel.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, event.getTextChannel().getId(), log);
+            //todo: Add new error message: Given channel is not a text channel.
+            event.reply(LanguageController.getInvalidCommandMessage(language)).setEphemeral(true).queue();
+            return;
+        }
 
-    @Nullable
-    private String getTextChannelID(final TextChannel textChannel, final String[] args) {
-        if (args.length == 2) return StringAssistant.removeAllNonNumbers(args[1]);
-        else if (args.length == 1) return textChannel.getId();
-        return null;
+        String targetTextChannelId = textChannel.getId();
+        if (!isChannelRegistered(targetTextChannelId)) {
+            String log = event.getUser().getName() + " tried to unregister " + textChannel.getName() + " but failed because that text channel was not registered.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, event.getTextChannel().getId(), log);
+            event.reply(String.format(LanguageController.getChannelNotRegisteredMessage(language), textChannel.getAsMention())).setEphemeral(true).queue();
+            return;
+        }
+
+        Guild guild = textChannel.getGuild();
+        TextChannel targetTextChannel = guild.getTextChannelById(targetTextChannelId);
+        if (targetTextChannel == null) {
+            String log = event.getUser().getName() + " tried to unregister " + textChannel.getName() + " but failed because that text channel couldn't be found.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, event.getTextChannel().getId(), log);
+            event.reply(LanguageController.getInvalidCommandMessage(language)).setEphemeral(true).queue();
+            return;
+        }
+
+        removeNotificationChannel(targetTextChannelId);
+        event.reply(String.format(LanguageController.getChannelUnregisteredMessage(language), textChannel.getAsMention())).setEphemeral(true).queue();
     }
 
     private void removeNotificationChannel(final String textChannelID) {
@@ -50,5 +80,9 @@ public class UnregisterCommand {
 
     private boolean isChannelRegistered(final String textChannelID) {
         return clientCache.doNotifierChannelExists(textChannelID);
+    }
+
+    private boolean isChannelTypeTextChannel(TextChannel textChannel) {
+        return textChannel.getType().isMessage();
     }
 }

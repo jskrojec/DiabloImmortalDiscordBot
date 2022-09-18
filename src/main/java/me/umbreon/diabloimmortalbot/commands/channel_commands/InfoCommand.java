@@ -10,7 +10,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,73 +27,53 @@ import java.util.concurrent.TimeUnit;
  */
 public class InfoCommand {
 
-    public ClientCache clientCache;
+    private final ClientCache clientCache;
+
+    private final Logger LOGGER = LogManager.getLogger(getClass());
 
     public InfoCommand(final ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public void runInfoCommand(final String[] args, final TextChannel textChannel,
-                               final SlashCommandInteraction event) {
-        String guildID = textChannel.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
-        String textChannelID = getTextChannelID(textChannel, args);
-        Guild guild = textChannel.getGuild();
+    public void runInfoCommand(final SlashCommandInteraction event) {
+        OptionMapping channelOption = event.getOption("targetchannel");
 
-        if (textChannelID == null) {
-            ClientLogger.createNewServerLogEntry(guildID, "global", "Failed to run info command. TextChannelID was null.");
-            event.reply(LanguageController.getChannelNotFoundMessage(guildLanguage)).queue();
+        TextChannel textChannel;
+        if (channelOption != null) {
+            textChannel = channelOption.getAsTextChannel();
+        } else {
+            textChannel = event.getTextChannel();
+        }
+
+        String guildID = event.getGuild().getId();
+        String language = clientCache.getGuildLanguage(guildID);
+        if (!isChannelTypeTextChannel(textChannel)) {
+            String log = event.getUser().getName() + " tried to get info about " + textChannel.getName() + " but failed because that wasn't a text channel.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannel.getId(), log);
+            //todo: Add new error message: Given channel is not a text channel.
+            event.reply(LanguageController.getInvalidCommandMessage(language)).setEphemeral(true).queue();
             return;
         }
 
+        String textChannelID = textChannel.getId();
         if (!isChannelRegistered(textChannelID)) {
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, "Failed to run info command. Given channel was not registered.");
-            event.reply(String.format(LanguageController.getChannelNotRegisteredMessage(guildLanguage), textChannel.getAsMention())).queue();
+            String log = event.getUser().getName() + " tried to get info about " + textChannel.getName() + " but failed because that text channel is not registered.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            event.reply(String.format(LanguageController.getChannelAlreadyRegisteredMessage(language), textChannel.getAsMention())).setEphemeral(true).queue();
             return;
         }
 
-        String roleName;
-        String textChannelName;
-
-        try {
-            roleName = getRoleName(textChannelID, guild);
-            textChannelName = guild.getTextChannelById(textChannelID).getName();
-        } catch (NullPointerException e) {
-            event.reply(LanguageController.getErrorOccurredMessage(guildLanguage) +
-                    " " + LanguageController.getFooterReportToDevMessage(guildLanguage)).queue();
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, "Failed to run info command. Role name or channel name was null.");
+        Guild guild = textChannel.getGuild();
+        TextChannel targetTextChannel = guild.getTextChannelById(textChannelID);
+        if (targetTextChannel == null) {
+            ClientLogger.createNewServerLogEntry(guildID, "global", "Failed to run info command. TextChannelID was null.");
+            event.reply(LanguageController.getChannelNotFoundMessage(language)).queue();
             return;
         }
 
-        event.replyEmbeds(buildInfoEmbed(textChannelID, textChannelName, roleName, guildID)).queue();
-    }
-
-    @NotNull
-    private String getRoleName(final String textChannelID, final Guild guild) {
-        String roleName;
-        String tmpRole = clientCache.getRoleID(textChannelID);
-
-        if (tmpRole.equalsIgnoreCase("everyone")) {
-            roleName = "EVERYONE";
-        } else if (tmpRole.equalsIgnoreCase("here")) {
-            roleName = "HERE";
-        } else {
-            roleName = guild.getRoleById(tmpRole).getAsMention();
-        }
-        return roleName;
-    }
-
-    @Nullable
-    private String getTextChannelID(final TextChannel textChannel, final String[] args) {
-        String textChannelID;
-        if (args.length == 2) {
-            textChannelID = StringAssistant.removeAllNonNumbers(args[1]);
-        } else if (args.length == 1) {
-            textChannelID = textChannel.getId();
-        } else {
-            return null;
-        }
-        return textChannelID;
+        event.replyEmbeds(buildInfoEmbed(textChannelID, textChannel.getName(), clientCache.getRoleID(targetTextChannel.getId()), guildID)).queue();
     }
 
     private boolean isChannelRegistered(final String textChannelID) {
@@ -162,6 +145,10 @@ public class InfoCommand {
         embedBuilder.addField(LanguageController.getInfoAncientArenaEmbedMessage(guildLanguage), eventAncientArenaEmbedEnabled, true);
 
         return embedBuilder.build();
+    }
+
+    private boolean isChannelTypeTextChannel(TextChannel textChannel) {
+        return textChannel.getType().isMessage();
     }
 
 }

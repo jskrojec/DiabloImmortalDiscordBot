@@ -58,7 +58,7 @@ public class Client {
         CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests);
         InfoNotifier infoNotifier = new InfoNotifier();
 
-        notifier.runScheduler(jda);
+        notifier.runNotificationScheduler(jda);
         customMessagesNotifier.runCustomMessagesNotifierScheduler(jda);
         infoNotifier.runScheduler(jda);
     }

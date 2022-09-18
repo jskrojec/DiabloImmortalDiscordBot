@@ -5,11 +5,16 @@ import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Umbreon Majora
+ * <p>
+ * Command: /install
+ * Description: Show's the user a step by step instruction on how to install the bot.
+ */
 public class InstructionCommand {
 
     private final ClientCache clientCache;
@@ -18,11 +23,10 @@ public class InstructionCommand {
         this.clientCache = clientCache;
     }
 
-    public void runInstructionCommand(final TextChannel textChannel) {
-        final String guildID = textChannel.getGuild().getId();
-        final String guildLanguage = clientCache.getGuildLanguage(guildID);
-
-        sendMessage(guildID, guildLanguage, textChannel);
+    public void runInstructionCommand(final SlashCommandInteractionEvent event) {
+        String guildID = event.getGuild().getId();
+        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        event.replyEmbeds(buildHelpMessage(guildLanguage)).setEphemeral(true).queue();
     }
 
     private MessageEmbed buildHelpMessage(final String guildLanguage) {
@@ -37,13 +41,5 @@ public class InstructionCommand {
         embedBuilder.addField("5.", LanguageController.getInstall5Message(guildLanguage), false);
         embedBuilder.setFooter(String.format(LanguageController.getFooterCreatedByMessage(guildLanguage), "Diablo Immortal Notifier - ", "Umbreon"));
         return embedBuilder.build();
-    }
-
-    private void sendMessage(final String guildID, final String guildLanguage, final TextChannel textChannel) {
-        if (clientCache.isAutoDeleteEnabled(guildID)) {
-            textChannel.sendMessageEmbeds(buildHelpMessage(guildLanguage)).queue(message1 -> {
-                message1.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
-            });
-        } else textChannel.sendMessageEmbeds(buildHelpMessage(guildLanguage)).queue();
     }
 }

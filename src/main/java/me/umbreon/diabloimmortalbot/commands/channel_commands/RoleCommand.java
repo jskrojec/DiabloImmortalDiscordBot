@@ -7,13 +7,15 @@ import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
-
-import java.util.Objects;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * @author Umbreon Majora
- *
- * Command: /role <ROLE>
+ * <p>
+ * Command: /mentionrole <ROLE> <CHANNEL>
  * Description: Set's the role that should get mentioned in that channel.
  */
 public class RoleCommand {
@@ -21,78 +23,77 @@ public class RoleCommand {
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
 
+    private final Logger LOGGER = LogManager.getLogger(getClass());
+
     public RoleCommand(final DatabaseRequests databaseRequests, final ClientCache clientCache) {
         this.databaseRequests = databaseRequests;
         this.clientCache = clientCache;
     }
 
-    public String runRoleCommand(final String[] args, final TextChannel textChannel, final Guild guild) {
-        String guildID = guild.getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+    public void runMentionRoleCommand(final SlashCommandInteractionEvent event) {
+        OptionMapping roleOption = event.getOption("mentionrole");
+        OptionMapping channelOption = event.getOption("targetchannel");
 
-        if (!isCommandValid(args)) {
-            return LanguageController.getInvalidCommandMessage(guildLanguage);
+        Role role;
+        if (roleOption != null) {
+            role = roleOption.getAsRole();
+        } else {
+            //todo: is this error thrown? add error message?
+            return;
         }
 
-        String textChannelID = textChannel.getId();
-        if (!isChannelRegistered(textChannelID)) {
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, "Failed to run role command. Given channel is not registered.");
-            return String.format(LanguageController.getChannelNotRegisteredMessage(guildLanguage), textChannel.getAsMention());
+        TextChannel textChannel;
+        if (channelOption != null) {
+            textChannel = channelOption.getAsTextChannel();
+        } else {
+            textChannel = event.getTextChannel();
         }
 
-        if (args[1].equalsIgnoreCase("@here") || args[1].equalsIgnoreCase("here")) {
-            setRole(textChannelID, args[1]);
-            return String.format(LanguageController.getRoleChangedMessage(guildLanguage), args[1]);
+        String guildID = textChannel.getGuild().getId();
+        String language = clientCache.getGuildLanguage(guildID);
+        if (!isChannelTypeTextChannel(textChannel)) {
+            String log = event.getUser().getName() + " tried to change mention role for " + textChannel.getName() + " but failed because that wasn't a text channel.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, event.getTextChannel().getId(), log);
+            //todo: Add new error message: Given channel is not a text channel.
+            event.reply(LanguageController.getInvalidCommandMessage(language)).setEphemeral(true).queue();
+            return;
         }
 
-        Role mentionedRole = getRoleFromMessage(args, textChannel);
-        if (mentionedRole == null) {
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, "Failed to run role command. ");
-            return LanguageController.getRoleNotFoundMessage(guildLanguage);
+        String targetTextChannelId = textChannel.getId();
+        if (!isChannelRegistered(targetTextChannelId)) {
+            String log = event.getUser().getName() + " tried to change mention role for " + textChannel.getName() + " but failed because that text channel was not registered.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, targetTextChannelId, log);
+            event.reply(String.format(LanguageController.getChannelNotRegisteredMessage(language), textChannel.getAsMention())).setEphemeral(true).queue();
+            return;
         }
 
-        String roleID = mentionedRole.getId();
-        setRole(textChannelID, roleID);
-        return String.format(LanguageController.getRoleChangedMessage(guildLanguage), mentionedRole.getAsMention());
-    }
-
-    private Role getRoleFromMessage(final String[] args, final TextChannel textChannel) {
-        final String rawRoleName = args[1];
-        final char firstCharFromRoleName = rawRoleName.charAt(0);
-        final Guild guild = textChannel.getGuild();
-
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 1; i < args.length; i++) {
-            stringBuilder.append(args[i]);
-            if (i != args.length - 1) {
-                stringBuilder.append(" ");
-            }
+        Guild guild = textChannel.getGuild();
+        TextChannel targetTextChannel = guild.getTextChannelById(targetTextChannelId);
+        if (targetTextChannel == null) {
+            LOGGER.info(event.getUser().getName() + " tried to register " + textChannel.getName() + " but failed because that text channel couldn't be found.");
+            ClientLogger.createNewServerLogEntry(guildID, targetTextChannelId, event.getUser().getName() + " tried to register " + textChannel.getName() + " but failed because that text channel couldn't be found.");
+            event.reply(LanguageController.getInvalidCommandMessage(language)).setEphemeral(true).queue();
+            return;
         }
 
-        final String roleName = stringBuilder.toString();
-        if (String.valueOf(firstCharFromRoleName).equalsIgnoreCase("@")) {
-            return getRoleByName(guild, roleName.substring(1));
-        }
-
-        return null;
-    }
-
-    private boolean isCommandValid(final String[] args) {
-        return args.length > 1;
+        String roleID = role.getId();
+        setRole(targetTextChannel.getId(), roleID);
+        event.reply(String.format(LanguageController.getRoleChangedMessage(language), role.getAsMention())).setEphemeral(true).queue();
+        //todo: add new message ROLE is now set as mention role for TEXTCHANNEL
     }
 
     private boolean isChannelRegistered(final String textChannelID) {
         return clientCache.doNotifierChannelExists(textChannelID);
     }
 
-    private Role getRoleByName(final Guild guild, final String roleName) {
-        return guild.getRoles().stream().filter(role -> Objects.equals(role.getName(), roleName))
-                .findFirst()
-                .orElse(null);
-    }
-
     private void setRole(final String textChannelID, final String roleID) {
         clientCache.setRoleID(textChannelID, roleID);
         databaseRequests.updateNotifierChannelRole(textChannelID, roleID);
+    }
+
+    private boolean isChannelTypeTextChannel(TextChannel textChannel) {
+        return textChannel.getType().isMessage();
     }
 }

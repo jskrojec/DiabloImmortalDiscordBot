@@ -10,7 +10,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class CustomMessagesNotifier {
 
@@ -30,17 +29,17 @@ public class CustomMessagesNotifier {
             @Override
             public void run() {
                 clientCache.getAllCustomMessages().forEach((integer, customMessage) -> {
-                    final String channel = customMessage.getChannelID();
+                    String channel = customMessage.getChannelID();
 
                     if (!clientCache.doNotifierChannelExists(channel)) {
                         return; //Needs to be registered to send messages.
                     }
 
-                    final String guildID = customMessage.getGuildID();
-                    final String timezone = clientCache.getGuildTimeZone(guildID);
-                    final String day = customMessage.getDay();
-                    final String time = customMessage.getTime();
-                    final String fullTime = day + " " + time;
+                    String guildID = customMessage.getGuildID();
+                    String timezone = clientCache.getGuildTimeZone(guildID);
+                    String day = customMessage.getDay();
+                    String time = customMessage.getTime();
+                    String fullTime = day + " " + time;
 
                     if (day.equalsIgnoreCase("everyday")) {
                         if (!isTimeValid(timezone, time)) return; //Invalid time message
@@ -48,7 +47,7 @@ public class CustomMessagesNotifier {
                         if (!isFulltimeValid(timezone, fullTime)) return; //Invalid time message
                     }
 
-                    final TextChannel textChannel;
+                    TextChannel textChannel;
 
                     try {
                         textChannel = jda.getTextChannelById(channel);
@@ -58,23 +57,9 @@ public class CustomMessagesNotifier {
 
                     final String message = customMessage.getMessage();
 
-                    if (clientCache.isAutoDeleteEnabled(guildID)) {
 
-                        final int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
-                        switch (autoDeleteValue) {
-                            case 24:
-                            case 48:
-                            case 72:
-                                if (textChannel != null)
-                                    textChannel.sendMessage(message).queue(sendMessage -> {
-                                        sendMessage.delete().queueAfter(autoDeleteValue, TimeUnit.HOURS);
-                                    });
-                                break;
-                        }
+                    if (textChannel != null) textChannel.sendMessage(message).queue();
 
-                    } else {
-                        if (textChannel != null) textChannel.sendMessage(message).queue();
-                    }
 
                     if (!customMessage.isRepeat()) {
                         clientCache.deleteCustomMessageByID(customMessage.getCustomMessageID());
@@ -88,11 +73,11 @@ public class CustomMessagesNotifier {
 
     private boolean isFulltimeValid(final String timezone, final String fullTime) {
         final String time = TimeAssistant.getTimeWithWeekday(timezone);
-        return time.equals(fullTime);
+        return time.equalsIgnoreCase(fullTime);
     }
 
     private boolean isTimeValid(final String timezone, final String time) {
         final String timeOnly = TimeAssistant.getTime(timezone);
-        return time.equals(timeOnly);
+        return time.equalsIgnoreCase(timeOnly);
     }
 }

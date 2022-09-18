@@ -3,28 +3,28 @@ package me.umbreon.diabloimmortalbot.languages;
 public class LanguageController {
 
     public static void loadConfigurations() {
-        final LanguageEnglish languageEnglish = new LanguageEnglish();
+        LanguageEnglish languageEnglish = new LanguageEnglish();
         languageEnglish.loadLanguageConfiguration();
 
-        final LanguageGerman languageGerman = new LanguageGerman();
+        LanguageGerman languageGerman = new LanguageGerman();
         languageGerman.loadLanguageConfiguration();
 
-        final LanguageSpain languageSpain = new LanguageSpain();
+        LanguageSpain languageSpain = new LanguageSpain();
         languageSpain.loadLanguageConfiguration();
 
-        final LanguagePolish languagePolish = new LanguagePolish();
+        LanguagePolish languagePolish = new LanguagePolish();
         languagePolish.loadLanguageConfiguration();
 
-        final LanguageFrench languageFrench = new LanguageFrench();
+        LanguageFrench languageFrench = new LanguageFrench();
         languageFrench.loadLanguageConfiguration();
 
-        final LanguageItalian languageItalian = new LanguageItalian();
+        LanguageItalian languageItalian = new LanguageItalian();
         languageItalian.loadLanguageConfiguration();
 
-        final LanguageRussian languageRussian = new LanguageRussian();
+        LanguageRussian languageRussian = new LanguageRussian();
         languageRussian.loadLanguageConfiguration();
 
-        final LanguageIndonesia languageIndonesia = new LanguageIndonesia();
+        LanguageIndonesia languageIndonesia = new LanguageIndonesia();
         languageIndonesia.loadLanguageConfiguration();
     }
 

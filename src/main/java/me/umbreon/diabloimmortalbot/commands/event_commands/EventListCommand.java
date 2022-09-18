@@ -1,27 +1,30 @@
 package me.umbreon.diabloimmortalbot.commands.event_commands;
 
 import me.umbreon.diabloimmortalbot.utils.ClientCache;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.TimeUnit;
-
+/**
+ * @author Umbreon Majora
+ * <p>
+ * Command: /listevents
+ * Description: List's all aviable events.
+ */
 public class EventListCommand {
 
     private final ClientCache clientCache;
 
-    public EventListCommand(final ClientCache clientCache) {
+    public EventListCommand(ClientCache clientCache) {
         this.clientCache = clientCache;
     }
 
-    public String runEventListCommand(final TextChannel textChannel, final String guildID) {
-        return createListWithAvailableEvents();
-        //sendMessageToTextChannel(guildID, textChannel, createListWithAvailableEvents());
+    public void runEventListCommand(final SlashCommandInteractionEvent event) {
+        event.reply(createListWithAvailableEvents()).setEphemeral(true).queue();
     }
 
     @NotNull
     private String createListWithAvailableEvents() {
-        final StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < clientCache.getListWithAvailableNotifications().size(); i++) {
             if (i == clientCache.getListWithAvailableNotifications().size() - 2) {
                 stringBuilder.append(clientCache.getListWithAvailableNotifications().get(i)).append(" & ");
@@ -32,13 +35,5 @@ public class EventListCommand {
             }
         }
         return stringBuilder.toString();
-    }
-
-    private void sendMessageToTextChannel(final String guildID, final TextChannel textChannel, final String message) {
-        if (clientCache.isAutoDeleteEnabled(guildID)) {
-            textChannel.sendMessage(message).queue(sendMessage -> {
-                sendMessage.delete().queueAfter(clientCache.getAutoDeleteValue(guildID), TimeUnit.HOURS);
-            });
-        } else textChannel.sendMessage(message).queue();
     }
 }
