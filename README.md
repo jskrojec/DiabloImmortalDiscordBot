@@ -11,12 +11,11 @@ You can skip step 2 and 3 if you're the server owner.
 2. Create a role on your discord server called "Bot Admin". People with that role can control the bot.
 3. Assign the created role (Bot Admin) to yourself! The bot checks on that role.
 4. Create a textchannel you like to get the notifications in.
-5. Use /server timezone <timezone> to set your timezone. You can see what GMT timezone matches your time using
-   /timezones.
+5. Use /timezone [timezone] to set your timezone. You can see what GMT timezone matches your time using /timezones.
 6. Register your created channel as notifier-channel using /register. On Default all messages are enabled.
-7. You can enable or disable an event using /event <event> on/off. See all events using /event list.
+7. You can enable or disable an event using /event [game_event] on/off. See all events using /listevents.
 8. See what events are enabled using /info.
-9. On default the bot will mention @everyone, change that using /role <Role>.
+9. On default the bot will mention @everyone, change that using /mentionrole [role].
 10. That's it. use /help to see all commands. And to unregister a channel use /unregister.
 
 ## Commands:
