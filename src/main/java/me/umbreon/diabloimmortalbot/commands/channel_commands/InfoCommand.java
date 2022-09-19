@@ -68,7 +68,9 @@ public class InfoCommand {
         Guild guild = textChannel.getGuild();
         TextChannel targetTextChannel = guild.getTextChannelById(textChannelID);
         if (targetTextChannel == null) {
-            ClientLogger.createNewServerLogEntry(guildID, "global", "Failed to run info command. TextChannelID was null.");
+            String log = "Failed to run info command. TextChannelID was null.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             event.reply(LanguageController.getChannelNotFoundMessage(language)).queue();
             return;
         }

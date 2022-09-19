@@ -73,9 +73,16 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
                     "ancientnightmareembed TINYINT(1) DEFAULT 0 NOT NULL," +
                     "ancientarenaembed TINYINT(1) DEFAULT 0 NOT NULL" + ")";
 
+            String reaction_role = "CREATE TABLE IF NOT EXISTS reaction_role (" +
+                    "messageID VARCHAR(20) NOT NULL," +
+                    "guildID VARCHAR(20) NOT NULL," +
+                    "roleID VARCHAR(20) NOT NULL," +
+                    "emojiID VARCHAR(20) NOT NULL" + ")";
+
             connection.createStatement().execute(channel_notification);
             connection.createStatement().execute(guilds);
             connection.createStatement().execute(custom_messages);
+            connection.createStatement().execute(reaction_role);
 
         } catch (final SQLException e) {
             ClientLogger.createNewErrorLogEntry(e);

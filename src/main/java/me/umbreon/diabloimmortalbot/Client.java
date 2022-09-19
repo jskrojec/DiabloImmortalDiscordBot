@@ -1,11 +1,9 @@
 package me.umbreon.diabloimmortalbot;
 
+import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
-import me.umbreon.diabloimmortalbot.events.ChannelDelete;
-import me.umbreon.diabloimmortalbot.events.GuildJoin;
-import me.umbreon.diabloimmortalbot.events.GuildReady;
-import me.umbreon.diabloimmortalbot.events.SlashCommandInteraction;
+import me.umbreon.diabloimmortalbot.events.*;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
 import me.umbreon.diabloimmortalbot.notifier.InfoNotifier;
@@ -37,7 +35,8 @@ public class Client {
         MySQLDatabaseConnection mySQLDatabaseConnection = new MySQLDatabaseConnection(clientConfig);
         DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
 
-        loadClientCache(clientCache, databaseRequests);
+        ReactionRolesCache reactionRolesCache = new ReactionRolesCache();
+        loadClientCache(clientCache, databaseRequests, reactionRolesCache);
 
         JDA jda;
         try {
@@ -46,6 +45,9 @@ public class Client {
                     .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests))
                     .addEventListeners(new GuildJoin())
                     .addEventListeners(new GuildReady())
+                    .addEventListeners(new MessageReactionAdd(reactionRolesCache))
+                    .addEventListeners(new MessageReactionRemove(reactionRolesCache))
+                    .addEventListeners(new MessageDelete(reactionRolesCache, databaseRequests))
                     .build()
                     .awaitReady();
         } catch (LoginException | InterruptedException e) {
@@ -63,13 +65,14 @@ public class Client {
         infoNotifier.runScheduler(jda);
     }
 
-    private static void loadClientCache(ClientCache clientCache, DatabaseRequests databaseRequests) {
+    private static void loadClientCache(ClientCache clientCache, DatabaseRequests databaseRequests, ReactionRolesCache reactionRolesCache) {
         clientCache.fillListWithEvents();
         clientCache.fillListWithAvailableEventDays();
 
         clientCache.setNotifierChannelsList(databaseRequests.getAllNotifierChannels());
         clientCache.setListWithGuildInformation(databaseRequests.getAllGuilds());
         clientCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());
+        reactionRolesCache.setReactionRolesCache(databaseRequests.getAllReactionRolesData());
 
         clientCache.setListWithShadowLotteryTimes(databaseRequests.getEventTimes("event_shadow_lottery", true));
         clientCache.setListWithVaultTimes(databaseRequests.getEventTimes("event_vault", true));

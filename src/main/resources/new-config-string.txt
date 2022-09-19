@@ -1,0 +1,1 @@
+give-channel-not-textchannel: "This channel is not a text channel."

@@ -18,8 +18,17 @@ public class CommandsUtil {
         prepareEventCommands(commandDataList);
         prepareHelpCommands(commandDataList);
         prepareServerCommands(commandDataList);
+        prepareReactionRolesCommand(commandDataList);
 
         return commandDataList;
+    }
+
+    private static void prepareReactionRolesCommand(List<CommandData> commandDataList) {
+        OptionData messageIdOption = new OptionData(OptionType.STRING, "messageid", "Enter here your message ID.", true);
+        OptionData roleIdOption = new OptionData(OptionType.ROLE, "role", "Enter here your role", true);
+        OptionData emojiOption = new OptionData(OptionType.STRING, "emote", "Enter here your emote", true);
+
+        commandDataList.add(Commands.slash("createreactionrole", "Create your custom reaction role.").addOptions(messageIdOption, roleIdOption, emojiOption));
     }
 
     private static void prepareChannelCommands(List<CommandData> commandDataList) {

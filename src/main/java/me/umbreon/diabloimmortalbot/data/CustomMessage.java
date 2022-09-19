@@ -10,15 +10,6 @@ public class CustomMessage {
     private int customMessageID;
     private boolean repeat;
 
-    public CustomMessage(final String textChannelID, final String guildID) {
-        this.channelID = textChannelID;
-        this.guildID = guildID;
-        this.message = null;
-        this.day = null;
-        this.time = null;
-        this.repeat = false;
-    }
-
     public CustomMessage(final String channelID, final String guildID, final String message, final String day, final String time, final int customMessageID, final boolean repeat) {
         this.channelID = channelID;
         this.guildID = guildID;

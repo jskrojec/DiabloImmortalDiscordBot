@@ -3,6 +3,7 @@ package me.umbreon.diabloimmortalbot.database;
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
+import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -388,45 +390,54 @@ public class DatabaseRequests {
         return notifierChannelList;
     }
 
-    public void setAutoDeleteEnabled(final String guildID, final boolean autoDeleteValue) {
-        try (final Connection connection = databaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET autodelete = ? WHERE guildID = ?")) {
-            preparedStatement.setBoolean(1, autoDeleteValue);
-            preparedStatement.setString(2, guildID);
-            preparedStatement.executeUpdate();
-        } catch (final SQLException e) {
+    public void createNewReactionRole(final ReactionRole reactionRole) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO reaction_role (messageID, guildID, emojiID, roleID) VALUES (?, ?, ?, ?)")) {
+            try {
+                preparedStatement.setString(1, reactionRole.getMessageID());
+                preparedStatement.setString(2, reactionRole.getGuildID());
+                preparedStatement.setString(3, reactionRole.getEmojiID());
+                preparedStatement.setString(4, reactionRole.getRoleID());
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                ClientLogger.createNewSqlLogEntry(e);
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
             ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
 
-    public void setAutoDeleteValue(final String guildID, final int autoDeleteValue) {
-        try (final Connection connection = databaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE guilds SET autodelete_value = ? WHERE guildID = ?")) {
-            preparedStatement.setInt(1, autoDeleteValue);
-            preparedStatement.setString(2, guildID);
+    public void deleteReactionRole(final String messageID) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM reaction_role WHERE messageID = ?")) {
+            preparedStatement.setString(1, messageID);
             preparedStatement.executeUpdate();
-        } catch (final SQLException e) {
+        } catch (SQLException e) {
             ClientLogger.createNewSqlLogEntry(e);
             e.printStackTrace();
         }
     }
 
-    public void deleteEverythingFromDatabase(final String guildID) {
-        try (final Connection connection = databaseConnection.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM guilds WHERE guildID = ?");
-            preparedStatement.setString(1, guildID);
-            preparedStatement.executeUpdate();
-            preparedStatement = connection.prepareStatement("DELETE FROM channel_notification WHERE guildID = ?");
-            preparedStatement.setString(1, guildID);
-            preparedStatement.executeUpdate();
-            preparedStatement = connection.prepareStatement("DELETE FROM custom_messages WHERE guildID = ?");
-            preparedStatement.setString(1, guildID);
-            preparedStatement.executeUpdate();
-        } catch (final SQLException e) {
-            ClientLogger.createNewSqlLogEntry(e);
-            e.printStackTrace();
+    public Map<String, ReactionRole> getAllReactionRolesData() {
+        Map<String, ReactionRole> reactionRolesMap = new HashMap<>();
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM reaction_role")) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()) {
+                    String messageID = resultSet.getString("messageID");
+                    String guildID = resultSet.getString("guildID");
+                    String roleID = resultSet.getString("roleID");
+                    String emojiID = resultSet.getString("emojiID");
+                    ReactionRole reactionRole = new ReactionRole(messageID, guildID, emojiID, roleID);
+                    reactionRolesMap.put(messageID, reactionRole);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+        return reactionRolesMap;
     }
 
 }
