@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -409,7 +410,7 @@ public class DatabaseRequests {
         }
     }
 
-    public void deleteReactionRole(final String messageID) {
+    public void deleteReactionRoleMessage(final String messageID) {
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM reaction_role WHERE messageID = ?")) {
             preparedStatement.setString(1, messageID);
@@ -420,8 +421,20 @@ public class DatabaseRequests {
         }
     }
 
-    public Map<String, ReactionRole> getAllReactionRolesData() {
-        Map<String, ReactionRole> reactionRolesMap = new HashMap<>();
+    public void deleteReactionRole(final String messageID, final String codifiedEmote) {
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM reaction_role WHERE messageID = ? AND emojiID = ?")) {
+            preparedStatement.setString(1, messageID);
+            preparedStatement.setString(2, codifiedEmote);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            ClientLogger.createNewSqlLogEntry(e);
+            e.printStackTrace();
+        }
+    }
+
+    public List<ReactionRole> getAllReactionRolesData() {
+        List<ReactionRole> reactionRolesMap = new ArrayList<>();
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM reaction_role")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()){
@@ -431,7 +444,7 @@ public class DatabaseRequests {
                     String roleID = resultSet.getString("roleID");
                     String emojiID = resultSet.getString("emojiID");
                     ReactionRole reactionRole = new ReactionRole(messageID, guildID, emojiID, roleID);
-                    reactionRolesMap.put(messageID, reactionRole);
+                    reactionRolesMap.add(reactionRole);
                 }
             }
         } catch (SQLException e) {

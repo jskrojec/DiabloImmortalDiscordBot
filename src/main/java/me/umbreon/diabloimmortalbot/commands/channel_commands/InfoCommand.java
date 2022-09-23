@@ -1,10 +1,11 @@
 package me.umbreon.diabloimmortalbot.commands.channel_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import me.umbreon.diabloimmortalbot.utils.StringAssistant;
 import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -14,10 +15,6 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Umbreon Majora
@@ -27,12 +24,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class InfoCommand {
 
-    private final ClientCache clientCache;
+    private final GuildsCache guildsCache;
+    private final NotificationChannelsCache notificationChannelsCache;
 
     private final Logger LOGGER = LogManager.getLogger(getClass());
 
-    public InfoCommand(final ClientCache clientCache) {
-        this.clientCache = clientCache;
+    public InfoCommand(GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
+        this.guildsCache = guildsCache;
+        this.notificationChannelsCache = notificationChannelsCache;
     }
 
     public void runInfoCommand(final SlashCommandInteraction event) {
@@ -46,7 +45,7 @@ public class InfoCommand {
         }
 
         String guildID = event.getGuild().getId();
-        String language = clientCache.getGuildLanguage(guildID);
+        String language = guildsCache.getGuildLanguage(guildID);
         if (!isChannelTypeTextChannel(textChannel)) {
             String log = event.getUser().getName() + " tried to get info about " + textChannel.getName() + " but failed because that wasn't a text channel.";
             LOGGER.info(log);
@@ -75,20 +74,20 @@ public class InfoCommand {
             return;
         }
 
-        event.replyEmbeds(buildInfoEmbed(textChannelID, textChannel.getName(), clientCache.getRoleID(targetTextChannel.getId()), guildID)).queue();
+        event.replyEmbeds(buildInfoEmbed(textChannelID, textChannel.getName(), notificationChannelsCache.getRoleID(targetTextChannel.getId()), guildID)).queue();
     }
 
     private boolean isChannelRegistered(final String textChannelID) {
-        return clientCache.doNotifierChannelExists(textChannelID);
+        return notificationChannelsCache.doNotifierChannelExists(textChannelID);
     }
 
     private MessageEmbed buildInfoEmbed(final String textChannelID, final String textChannelName, final String mentionedRoleName, final String guildID) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        NotificationChannel notificationChannel = clientCache.getListWithNotifierChannels().get(textChannelID);
+        NotificationChannel notificationChannel = notificationChannelsCache.getListWithNotifierChannels().get(textChannelID);
         embedBuilder.setTitle(textChannelName);
 
-        String timezone = clientCache.getGuildTimeZone(notificationChannel.getGuildID());
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String timezone = guildsCache.getGuildTimeZone(notificationChannel.getGuildID());
+        String guildLanguage = guildsCache.getGuildLanguage(guildID);
 
         embedBuilder.addField(LanguageController.getInfoTimezoneMessage(guildLanguage), timezone, true);
         embedBuilder.addField(LanguageController.getInfoCurrentTimeMessage(guildLanguage), TimeAssistant.getTimeWithWeekday(timezone), true);

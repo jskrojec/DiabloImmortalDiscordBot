@@ -1,8 +1,9 @@
 package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -20,9 +21,11 @@ import java.util.List;
 public class ConfigCommand {
 
     public ClientCache clientCache;
+    private final GuildsCache guildsCache;
 
-    public ConfigCommand(final ClientCache clientCache) {
+    public ConfigCommand(final ClientCache clientCache, GuildsCache guildsCache) {
         this.clientCache = clientCache;
+        this.guildsCache = guildsCache;
     }
 
     public void runConfigCommand(final SlashCommandInteractionEvent event) {
@@ -34,10 +37,10 @@ public class ConfigCommand {
 
     private MessageEmbed buildServerInfoEmbed(final String guildID, final boolean hasBotAdminRole) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildLanguage = guildsCache.getGuildLanguage(guildID);
 
         embedBuilder.setTitle("Server Configurations:");
-        GuildInformation guildInformation = clientCache.getGuildInformation(guildID);
+        GuildInformation guildInformation = guildsCache.getGuildInformation(guildID);
         embedBuilder.addField(LanguageController.getInfoLanguageMessage(guildLanguage), guildInformation.getLanguage(), true);
         embedBuilder.addField(LanguageController.getInfoTimezoneMessage(guildLanguage), guildInformation.getTimezone(), true);
         embedBuilder.addField(LanguageController.getInfoGuildIdMessage(guildLanguage), guildInformation.getGuildID(), true);
@@ -48,7 +51,6 @@ public class ConfigCommand {
         String eventMessageEnabled = guildInformation.isEventMessageEnabled() ? yesMessage : noMessage;
         String headUpMessagesEnabled = guildInformation.isHeadUpEnabled() ? yesMessage : noMessage;
         String doUserGotBotAdminRole = hasBotAdminRole ? yesMessage : noMessage;
-        String isAutoSaveEnabled = clientCache.isAutoDeleteEnabled(guildID) ? yesMessage : noMessage;
 
         embedBuilder.addField("Event messages", eventMessageEnabled, true);
         embedBuilder.addField("Head up messages", headUpMessagesEnabled, true);

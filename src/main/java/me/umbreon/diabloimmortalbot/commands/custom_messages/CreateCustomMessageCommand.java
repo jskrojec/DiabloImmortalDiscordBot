@@ -1,9 +1,11 @@
 package me.umbreon.diabloimmortalbot.commands.custom_messages;
 
+import me.umbreon.diabloimmortalbot.cache.CustomMessagesCache;
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import me.umbreon.diabloimmortalbot.utils.StringAssistant;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -22,18 +24,23 @@ public class CreateCustomMessageCommand {
 
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
+    private final CustomMessagesCache customMessagesCache;
+
+    private final GuildsCache guildsCache;
 
     private final Logger LOGGER = LogManager.getLogger(getClass());
 
-    public CreateCustomMessageCommand(ClientCache clientCache, DatabaseRequests databaseRequests) {
+    public CreateCustomMessageCommand(ClientCache clientCache, DatabaseRequests databaseRequests, CustomMessagesCache customMessagesCache, GuildsCache guildsCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
+        this.customMessagesCache = customMessagesCache;
+        this.guildsCache = guildsCache;
     }
 
     public void runCreateCustomMessageCommand(final SlashCommandInteractionEvent event) {
         String guildID = event.getGuild().getId();
         String textChannelID = event.getTextChannel().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildLanguage = guildsCache.getGuildLanguage(guildID);
 
         OptionMapping weekdayOption = event.getOption("custommessageweekday");
         String weekday;
@@ -108,7 +115,7 @@ public class CreateCustomMessageCommand {
         try {
             //Todo: have to wait to get the id from the db, or the id will be 0.
             TimeUnit.SECONDS.sleep(1);
-            clientCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());
+            customMessagesCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

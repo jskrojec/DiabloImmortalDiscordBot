@@ -1,7 +1,8 @@
 package me.umbreon.diabloimmortalbot.events;
 
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.channel.ChannelDeleteEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -15,10 +16,12 @@ public class ChannelDelete extends ListenerAdapter {
 
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
+    private final NotificationChannelsCache notificationChannelsCache;
 
-    public ChannelDelete(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
+    public ChannelDelete(final ClientCache clientCache, final DatabaseRequests databaseRequests, final NotificationChannelsCache notificationChannelsCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
+        this.notificationChannelsCache = notificationChannelsCache;
     }
 
     @Override
@@ -29,8 +32,8 @@ public class ChannelDelete extends ListenerAdapter {
 
         String channelID = event.getChannel().getId();
 
-        if (clientCache.doNotifierChannelExists(channelID)) {
-            clientCache.removeNotifierChannelFromList(channelID);
+        if (notificationChannelsCache.doNotifierChannelExists(channelID)) {
+            notificationChannelsCache.removeNotifierChannelFromList(channelID);
             databaseRequests.deleteNotifierChannelEntry(channelID);
         }
     }

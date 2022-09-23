@@ -1,6 +1,6 @@
 package me.umbreon.diabloimmortalbot.commands.event_commands;
 
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 

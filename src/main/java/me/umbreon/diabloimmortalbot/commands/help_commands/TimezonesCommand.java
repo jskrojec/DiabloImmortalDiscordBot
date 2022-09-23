@@ -1,7 +1,8 @@
 package me.umbreon.diabloimmortalbot.commands.help_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -17,9 +18,11 @@ import java.awt.*;
 public class TimezonesCommand {
 
     private final ClientCache clientCache;
+    private final GuildsCache guildsCache;
 
-    public TimezonesCommand(final ClientCache clientCache) {
+    public TimezonesCommand(final ClientCache clientCache, GuildsCache guildsCache) {
         this.clientCache = clientCache;
+        this.guildsCache = guildsCache;
     }
 
     public void runTimezonesCommand(final SlashCommandInteractionEvent event) {
@@ -29,7 +32,7 @@ public class TimezonesCommand {
 
         String timezone = "GMT";
         String guildID = event.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildLanguage = guildsCache.getGuildLanguage(guildID);
 
         for (int i = 12; i > -12; i--) {
             final String timezoneMessage;

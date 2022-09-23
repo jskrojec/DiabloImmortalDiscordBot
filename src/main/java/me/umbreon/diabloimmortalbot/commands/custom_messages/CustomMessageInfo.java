@@ -1,7 +1,8 @@
 package me.umbreon.diabloimmortalbot.commands.custom_messages;
 
+import me.umbreon.diabloimmortalbot.cache.CustomMessagesCache;
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -20,11 +21,13 @@ import java.awt.*;
 public class CustomMessageInfo {
 
     private final ClientCache clientCache;
+    private final CustomMessagesCache customMessagesCache;
 
     private final Logger LOGGER = LogManager.getLogger(getClass());
 
-    public CustomMessageInfo(ClientCache clientCache) {
+    public CustomMessageInfo(ClientCache clientCache, CustomMessagesCache customMessagesCache) {
         this.clientCache = clientCache;
+        this.customMessagesCache = customMessagesCache;
     }
 
     public void runCustomMessageInfoCommand(final SlashCommandInteractionEvent event) {
@@ -47,7 +50,7 @@ public class CustomMessageInfo {
     }
 
     private MessageEmbed buildCustomMessageInfoEmbed(final int customMessageID) {
-        CustomMessage customMessage = clientCache.getCustomMessageByID(customMessageID);
+        CustomMessage customMessage = customMessagesCache.getCustomMessageByID(customMessageID);
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.ORANGE);
         String textChannelMention = "<#" + customMessage.getChannelID() + ">";

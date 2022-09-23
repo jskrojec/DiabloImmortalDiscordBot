@@ -1,8 +1,10 @@
 package me.umbreon.diabloimmortalbot.commands.event_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -20,11 +22,16 @@ public class ChangeEventValueCommand {
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
 
+    private final GuildsCache guildsCache;
+    private final NotificationChannelsCache notificationChannelsCache;
+
     private final Logger LOGGER = LogManager.getLogger(getClass());
 
-    public ChangeEventValueCommand(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
+    public ChangeEventValueCommand(final ClientCache clientCache, final DatabaseRequests databaseRequests, GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
+        this.guildsCache = guildsCache;
+        this.notificationChannelsCache = notificationChannelsCache;
     }
 
     public void runChangeEventValueCommand(final SlashCommandInteractionEvent event) {
@@ -32,8 +39,13 @@ public class ChangeEventValueCommand {
         OptionMapping activationOption = event.getOption("eventvalue");
 
         String guildID = event.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildLanguage = guildsCache.getGuildLanguage(guildID);
         String textChannelID = event.getTextChannel().getId();
+
+        if (!notificationChannelsCache.isChannelRegistered(textChannelID)) {
+            event.reply("This channel is not registered. Use /register to register this channel.").setEphemeral(true).queue();
+            return;
+        }
 
         String eventName;
         if (eventOption != null) {
@@ -80,7 +92,7 @@ public class ChangeEventValueCommand {
 
     private void setEventValue(final boolean value, final String event, final String textChannelID) {
         databaseRequests.updateNotifierChannelEventMessage(event, textChannelID, value);
-        clientCache.setNotificationsValue(event, value, textChannelID);
+        notificationChannelsCache.setNotificationsValue(event, value, textChannelID);
     }
 
 }

@@ -26,7 +26,7 @@ public class MessageDelete extends ListenerAdapter {
         String messageID = event.getMessageId();
 
         if (reactionRolesCache.doReactionRoleMessageExists(messageID)) {
-            databaseRequests.deleteReactionRole(messageID);
+            databaseRequests.deleteReactionRoleMessage(messageID);
         }
     }
 }

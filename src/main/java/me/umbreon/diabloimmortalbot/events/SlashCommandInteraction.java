@@ -1,5 +1,6 @@
 package me.umbreon.diabloimmortalbot.events;
 
+import me.umbreon.diabloimmortalbot.cache.*;
 import me.umbreon.diabloimmortalbot.commands.channel_commands.InfoCommand;
 import me.umbreon.diabloimmortalbot.commands.channel_commands.RegisterCommand;
 import me.umbreon.diabloimmortalbot.commands.channel_commands.RoleCommand;
@@ -15,11 +16,12 @@ import me.umbreon.diabloimmortalbot.commands.help_commands.HelpCommand;
 import me.umbreon.diabloimmortalbot.commands.help_commands.InstructionCommand;
 import me.umbreon.diabloimmortalbot.commands.help_commands.LanguagesCommand;
 import me.umbreon.diabloimmortalbot.commands.help_commands.TimezonesCommand;
+import me.umbreon.diabloimmortalbot.commands.reaction_commands.CreateReactionMessageCommand;
+import me.umbreon.diabloimmortalbot.commands.reaction_commands.RemoveReactionCommand;
 import me.umbreon.diabloimmortalbot.commands.server_commands.LanguageCommand;
 import me.umbreon.diabloimmortalbot.commands.server_commands.TimezoneCommand;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -37,7 +39,10 @@ import java.util.List;
 public class SlashCommandInteraction extends ListenerAdapter {
 
     private final ClientCache clientCache;
+    private final ReactionRolesCache reactionRolesCache;
     private final DatabaseRequests databaseRequests;
+    private final GuildsCache guildsCache;
+    private final NotificationChannelsCache notificationChannelsCache;
 
     // channel commands
     private final RegisterCommand registerCommand;
@@ -66,38 +71,55 @@ public class SlashCommandInteraction extends ListenerAdapter {
     private final TimezoneCommand timezoneCommand;
     private final LanguageCommand languageCommand;
 
+    // reaction roles commands
+    private final CreateReactionMessageCommand createReactionMessageCommand;
+    private final RemoveReactionCommand removeReactionCommand;
+
     private final Logger LOGGER = Logger.getLogger(this.getClass());
 
-    public SlashCommandInteraction(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
+    public SlashCommandInteraction(final ClientCache clientCache,
+                                   final DatabaseRequests databaseRequests,
+                                   final ReactionRolesCache reactionRolesCache,
+                                   final GuildsCache guildsCache,
+                                   final NotificationChannelsCache notificationChannelsCache,
+                                   final CustomMessagesCache customMessagesCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
+        this.reactionRolesCache = reactionRolesCache;
+        this.guildsCache = guildsCache;
+        this.notificationChannelsCache = notificationChannelsCache;
+
 
         // channel commands
-        this.registerCommand = new RegisterCommand(databaseRequests, clientCache);
-        this.unregisterCommand = new UnregisterCommand(databaseRequests, clientCache);
-        this.roleCommand = new RoleCommand(databaseRequests, clientCache);
-        this.infoCommand = new InfoCommand(clientCache);
+        this.registerCommand = new RegisterCommand(databaseRequests, guildsCache, notificationChannelsCache);
+        this.unregisterCommand = new UnregisterCommand(databaseRequests, clientCache, guildsCache, notificationChannelsCache);
+        this.roleCommand = new RoleCommand(databaseRequests, clientCache, guildsCache, notificationChannelsCache);
+        this.infoCommand = new InfoCommand(guildsCache, notificationChannelsCache);
 
         // help commands
-        this.helpCommand = new HelpCommand(clientCache);
-        this.instructionCommand = new InstructionCommand(clientCache);
-        this.timezonesCommand = new TimezonesCommand(clientCache);
+        this.helpCommand = new HelpCommand(clientCache, guildsCache);
+        this.instructionCommand = new InstructionCommand(clientCache, guildsCache);
+        this.timezonesCommand = new TimezonesCommand(clientCache, guildsCache);
         this.languagesCommand = new LanguagesCommand();
 
         // custom messages commands
-        this.customMessageInfo = new CustomMessageInfo(clientCache);
-        this.deleteCustomMessage = new DeleteCustomMessage(clientCache, databaseRequests);
-        this.listCustomMessagesCommand = new ListCustomMessagesCommand(clientCache);
-        this.createCustomMessageCommand = new CreateCustomMessageCommand(clientCache, databaseRequests);
+        this.customMessageInfo = new CustomMessageInfo(clientCache, customMessagesCache);
+        this.deleteCustomMessage = new DeleteCustomMessage(clientCache, databaseRequests, guildsCache, customMessagesCache);
+        this.listCustomMessagesCommand = new ListCustomMessagesCommand(clientCache, guildsCache, customMessagesCache);
+        this.createCustomMessageCommand = new CreateCustomMessageCommand(clientCache, databaseRequests, customMessagesCache, guildsCache);
 
         // event commands
         this.eventListCommand = new EventListCommand(clientCache);
-        this.changeEventValueCommand = new ChangeEventValueCommand(clientCache, databaseRequests);
+        this.changeEventValueCommand = new ChangeEventValueCommand(clientCache, databaseRequests, guildsCache, notificationChannelsCache);
 
         // server commands
-        this.configCommand = new ConfigCommand(clientCache);
-        this.timezoneCommand = new TimezoneCommand(databaseRequests, clientCache);
-        this.languageCommand = new LanguageCommand(clientCache, databaseRequests);
+        this.configCommand = new ConfigCommand(clientCache, guildsCache);
+        this.timezoneCommand = new TimezoneCommand(databaseRequests, clientCache, guildsCache);
+        this.languageCommand = new LanguageCommand(clientCache, databaseRequests, guildsCache);
+
+        // reaction roles commands
+        this.createReactionMessageCommand = new CreateReactionMessageCommand(reactionRolesCache, databaseRequests);
+        this.removeReactionCommand = new RemoveReactionCommand(reactionRolesCache, databaseRequests);
     }
 
     @Override
@@ -162,7 +184,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
                     case "listevents":
                         eventListCommand.runEventListCommand(event);
                         break;
-                    //Server Commands
+                    // server commands
                     case "timezone":
                         timezoneCommand.runTimezoneCommand(event);
                         break;
@@ -171,6 +193,13 @@ public class SlashCommandInteraction extends ListenerAdapter {
                         break;
                     case "config":
                         configCommand.runConfigCommand(event);
+                        break;
+                    // reaction roles commands
+                    case "createreactionrole":
+                        createReactionMessageCommand.runCreateReactionMessageCommand(event);
+                        break;
+                    case "removereactionrole":
+                        removeReactionCommand.runRemoveReactionCommand(event);
                         break;
                 }
             }
@@ -187,9 +216,9 @@ public class SlashCommandInteraction extends ListenerAdapter {
     }
 
     private void registerGuildIfDoNotExist(final String guildID) {
-        if (!clientCache.doGuildExists(guildID)) {
-            final GuildInformation guildInformation = new GuildInformation(guildID);
-            clientCache.addGuildInformation(guildInformation);
+        if (!guildsCache.doGuildExists(guildID)) {
+            GuildInformation guildInformation = new GuildInformation(guildID);
+            guildsCache.addGuildInformation(guildInformation);
             databaseRequests.createNewGuildEntry(guildInformation);
         }
     }

@@ -1,48 +1,34 @@
 package me.umbreon.diabloimmortalbot.gameevents.embeds;
 
+import me.umbreon.diabloimmortalbot.cache.GameEventsCache;
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
 import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.util.concurrent.TimeUnit;
-
 public class HauntedCarriageEmbed {
 
-    private final ClientCache clientCache;
+    private final GameEventsCache gameEventsCache;
+    private final NotificationChannelsCache notificationChannelsCache;
 
-    public HauntedCarriageEmbed(final ClientCache clientCache) {
-        this.clientCache = clientCache;
+    public HauntedCarriageEmbed(final GameEventsCache gameEventsCache, final NotificationChannelsCache notificationChannelsCache) {
+        this.gameEventsCache = gameEventsCache;
+        this.notificationChannelsCache = notificationChannelsCache;
     }
 
     public void checkHauntedCarriageFormatted(final TextChannel textChannel, final String timezone, final String language) {
         final String time = TimeAssistant.getTimeWithWeekday(timezone);
         final String textChannelID = textChannel.getId();
 
-        if (!clientCache.getListWithHauntedCarriageEmbedTimes().contains(time) || !clientCache.isHauntedCarriageEmbedMessageEnabled(textChannelID)) {
+        if (!gameEventsCache.getListWithHauntedCarriageEmbedTimes().contains(time) || !notificationChannelsCache.isHauntedCarriageEmbedMessageEnabled(textChannelID)) {
             return;
         }
 
-        final String guildID = textChannel.getGuild().getId();
 
-        if (clientCache.isAutoDeleteEnabled(guildID)) {
-
-            final int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
-            switch (autoDeleteValue) {
-                case 24:
-                case 48:
-                case 72:
-                    textChannel.sendMessageEmbeds(buildHauntedCarriageEmbed(timezone, language)).queue(sendMessage -> {
-                        sendMessage.delete().queueAfter(autoDeleteValue, TimeUnit.HOURS);
-                    });
-                    break;
-            }
-        } else {
-            textChannel.sendMessageEmbeds(buildHauntedCarriageEmbed(timezone, language)).queue();
-        }
+        textChannel.sendMessageEmbeds(buildHauntedCarriageEmbed(timezone, language)).queue();
 
 
     }

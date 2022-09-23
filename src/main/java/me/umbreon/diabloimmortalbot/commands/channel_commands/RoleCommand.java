@@ -1,8 +1,10 @@
 package me.umbreon.diabloimmortalbot.commands.channel_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
@@ -22,12 +24,16 @@ public class RoleCommand {
 
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
+    private final GuildsCache guildsCache;
+    private final NotificationChannelsCache notificationChannelsCache;
 
     private final Logger LOGGER = LogManager.getLogger(getClass());
 
-    public RoleCommand(final DatabaseRequests databaseRequests, final ClientCache clientCache) {
+    public RoleCommand(final DatabaseRequests databaseRequests, final ClientCache clientCache, GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
         this.databaseRequests = databaseRequests;
         this.clientCache = clientCache;
+        this.guildsCache = guildsCache;
+        this.notificationChannelsCache = notificationChannelsCache;
     }
 
     public void runMentionRoleCommand(final SlashCommandInteractionEvent event) {
@@ -50,7 +56,7 @@ public class RoleCommand {
         }
 
         String guildID = textChannel.getGuild().getId();
-        String language = clientCache.getGuildLanguage(guildID);
+        String language = guildsCache.getGuildLanguage(guildID);
         if (!isChannelTypeTextChannel(textChannel)) {
             String log = event.getUser().getName() + " tried to change mention role for " + textChannel.getName() + " but failed because that wasn't a text channel.";
             LOGGER.info(log);
@@ -85,11 +91,11 @@ public class RoleCommand {
     }
 
     private boolean isChannelRegistered(final String textChannelID) {
-        return clientCache.doNotifierChannelExists(textChannelID);
+        return notificationChannelsCache.doNotifierChannelExists(textChannelID);
     }
 
     private void setRole(final String textChannelID, final String roleID) {
-        clientCache.setRoleID(textChannelID, roleID);
+        notificationChannelsCache.setRoleID(textChannelID, roleID);
         databaseRequests.updateNotifierChannelRole(textChannelID, roleID);
     }
 

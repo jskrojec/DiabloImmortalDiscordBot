@@ -1,8 +1,10 @@
 package me.umbreon.diabloimmortalbot.commands.channel_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -22,11 +24,16 @@ public class UnregisterCommand {
     private final DatabaseRequests databaseRequests;
     private final ClientCache clientCache;
 
+    private final GuildsCache guildsCache;
+    private final NotificationChannelsCache notificationChannelsCache;
+
     private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
-    public UnregisterCommand(final DatabaseRequests databaseRequests, final ClientCache clientCache) {
+    public UnregisterCommand(final DatabaseRequests databaseRequests, final ClientCache clientCache, GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
+        this.guildsCache = guildsCache;
+        this.notificationChannelsCache = notificationChannelsCache;
     }
 
     public void runUnregisterCommand(final SlashCommandInteractionEvent event) {
@@ -40,7 +47,7 @@ public class UnregisterCommand {
         }
 
         String guildID = textChannel.getGuild().getId();
-        String language = clientCache.getGuildLanguage(guildID);
+        String language = guildsCache.getGuildLanguage(guildID);
         if (!isChannelTypeTextChannel(textChannel)) {
             String log = event.getUser().getName() + " tried to unregister " + textChannel.getName() + " but failed because that wasn't a text channel.";
             LOGGER.info(log);
@@ -75,11 +82,11 @@ public class UnregisterCommand {
 
     private void removeNotificationChannel(final String textChannelID) {
         databaseRequests.deleteNotifierChannelEntry(textChannelID);
-        clientCache.removeNotifierChannelFromList(textChannelID);
+        notificationChannelsCache.removeNotifierChannelFromList(textChannelID);
     }
 
     private boolean isChannelRegistered(final String textChannelID) {
-        return clientCache.doNotifierChannelExists(textChannelID);
+        return notificationChannelsCache.doNotifierChannelExists(textChannelID);
     }
 
     private boolean isChannelTypeTextChannel(TextChannel textChannel) {

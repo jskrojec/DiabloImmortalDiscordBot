@@ -29,6 +29,7 @@ public class CommandsUtil {
         OptionData emojiOption = new OptionData(OptionType.STRING, "emote", "Enter here your emote", true);
 
         commandDataList.add(Commands.slash("createreactionrole", "Create your custom reaction role.").addOptions(messageIdOption, roleIdOption, emojiOption));
+        commandDataList.add(Commands.slash("removereactionrole", "Removes a custom reaction role.").addOptions(messageIdOption, emojiOption));
     }
 
     private static void prepareChannelCommands(List<CommandData> commandDataList) {
@@ -165,7 +166,7 @@ public class CommandsUtil {
         OptionData serverOptionData1 = new OptionData(OptionType.STRING, "serversetting", "Server Setting", true)
                 .addChoice("headup", "headup")
                 .addChoice("message", "message");
-        OptionData serverOptionData2 = new OptionData(OptionType.BOOLEAN, "servervalue", "24 / 48 / 74 is only for autodelete.", false);
+        OptionData serverOptionData2 = new OptionData(OptionType.BOOLEAN, "servervalue", "True or false", false);
 
         commandDataList.add(Commands.slash("server", "Set's serverwide settings.").addOptions(serverOptionData1, serverOptionData2));
     }

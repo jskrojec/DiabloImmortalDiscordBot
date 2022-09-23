@@ -1,7 +1,8 @@
 package me.umbreon.diabloimmortalbot.commands.help_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -18,14 +19,16 @@ import java.awt.*;
 public class InstructionCommand {
 
     private final ClientCache clientCache;
+    private final GuildsCache guildsCache;
 
-    public InstructionCommand(final ClientCache clientCache) {
+    public InstructionCommand(final ClientCache clientCache, GuildsCache guildsCache) {
         this.clientCache = clientCache;
+        this.guildsCache = guildsCache;
     }
 
     public void runInstructionCommand(final SlashCommandInteractionEvent event) {
         String guildID = event.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildLanguage = guildsCache.getGuildLanguage(guildID);
         event.replyEmbeds(buildHelpMessage(guildLanguage)).setEphemeral(true).queue();
     }
 

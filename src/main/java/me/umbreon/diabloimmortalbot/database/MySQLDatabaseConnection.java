@@ -33,16 +33,16 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
         dataSource.setPassword(password);
         dataSource.setUrl("jdbc:mysql://" + host + ":" + port + "/" + database + "?verifyServerCertificate=false&useSSL=true");
 
-        try (final Connection connection = dataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
 
-            final String guilds = "CREATE TABLE IF NOT EXISTS guilds (" +
+            String guilds = "CREATE TABLE IF NOT EXISTS guilds (" +
                     "guildID VARCHAR(20) PRIMARY KEY NOT NULL," +
                     "language VARCHAR(5) DEFAULT 'ENG'," +
                     "timezone VARCHAR(10) DEFAULT 'GMT'," +
                     "event_headup TINYINT(1) DEFAULT 1 NOT NULL," +
                     "event_message TINYINT(1) DEFAULT 1 NOT NULL" + ")";
 
-            final String custom_messages = "CREATE TABLE IF NOT EXISTS custom_messages (" +
+            String custom_messages = "CREATE TABLE IF NOT EXISTS custom_messages (" +
                     "guildID VARCHAR(50) NOT NULL," +
                     "channelID VARCHAR(50) NOT NULL," +
                     "message VARCHAR(2000) NOT NULL," +
@@ -53,7 +53,7 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
                     "autodelete TINYINT(2) DEFAULT 24 NOT NULL," +
                     "autodelete_value TINYINT(1) DEFAULT 0 NOT NULL" + ")";
 
-            final String channel_notification = "CREATE TABLE IF NOT EXISTS channel_notification (" +
+            String channel_notification = "CREATE TABLE IF NOT EXISTS channel_notification (" +
                     "textChannelID VARCHAR(20) NOT NULL PRIMARY KEY," +
                     "guildID VARCHAR(20) NOT NULL," +
                     "roleID VARCHAR(20) NOT NULL DEFAULT 'EVERYONE'," +
@@ -77,7 +77,7 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
                     "messageID VARCHAR(20) NOT NULL," +
                     "guildID VARCHAR(20) NOT NULL," +
                     "roleID VARCHAR(20) NOT NULL," +
-                    "emojiID VARCHAR(20) NOT NULL" + ")";
+                    "emojiID TEXT NOT NULL" + ")";
 
             connection.createStatement().execute(channel_notification);
             connection.createStatement().execute(guilds);

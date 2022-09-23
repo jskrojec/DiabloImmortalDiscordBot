@@ -1,7 +1,9 @@
 package me.umbreon.diabloimmortalbot.gameevents;
 
+import me.umbreon.diabloimmortalbot.cache.GameEventsCache;
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 
@@ -13,10 +15,14 @@ import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
  */
 public class AncientNightMare {
 
-    private final ClientCache clientCache;
+    private final NotificationChannelsCache notificationChannelsCache;
+    private final GuildsCache guildsCache;
+    private final GameEventsCache gameEventsCache;
 
-    public AncientNightMare(final ClientCache clientCache) {
-        this.clientCache = clientCache;
+    public AncientNightMare(final NotificationChannelsCache notificationChannelsCache, final GuildsCache guildsCache, final GameEventsCache gameEventsCache) {
+        this.notificationChannelsCache = notificationChannelsCache;
+        this.guildsCache = guildsCache;
+        this.gameEventsCache = gameEventsCache;
     }
 
     public String checkOnAncientNightMareEvent(final String timezone, final String language, final String guildID, final String textChannelID) {
@@ -24,7 +30,7 @@ public class AncientNightMare {
             return "";
         }
 
-        if (!clientCache.isAncientNightmareMessageEnabled(textChannelID)) {
+        if (!notificationChannelsCache.isAncientNightmareMessageEnabled(textChannelID)) {
             return "";
         }
 
@@ -44,21 +50,21 @@ public class AncientNightMare {
     }
 
     private boolean isEventMessageEnabled(final String guildID, final String textChannelID) {
-        return clientCache.isEventMessageOnServerEnabled(guildID) || clientCache.isEventMessageOnChannelEnabled(textChannelID);
+        return guildsCache.isEventMessageOnServerEnabled(guildID) || notificationChannelsCache.isEventMessageOnChannelEnabled(textChannelID);
     }
 
     private boolean isHeadUpEnabled(final String guildID, final String textChannelID) {
-        return clientCache.isHeadUpOnServerEnabled(guildID) && clientCache.isHeadUpMessageOnChannelEnabled(textChannelID);
+        return guildsCache.isHeadUpOnServerEnabled(guildID) && notificationChannelsCache.isHeadUpMessageOnChannelEnabled(textChannelID);
     }
 
     private boolean isTimeValid(final String timezone) {
         final String time = TimeAssistant.getTimeWithWeekday(timezone);
-        return clientCache.getListWithAncientNightmareTimes().get(time) != null;
+        return gameEventsCache.getListWithAncientNightmareTimes().get(time) != null;
     }
 
     private boolean isHeadUpTime(final String timezone) {
         final String time = TimeAssistant.getTimeWithWeekday(timezone);
-        return clientCache.getListWithAncientNightmareTimes().get(time);
+        return gameEventsCache.getListWithAncientNightmareTimes().get(time);
     }
 
 }

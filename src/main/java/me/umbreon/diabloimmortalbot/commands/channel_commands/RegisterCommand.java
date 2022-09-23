@@ -1,9 +1,10 @@
 package me.umbreon.diabloimmortalbot.commands.channel_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -21,13 +22,16 @@ import org.apache.log4j.Logger;
 public class RegisterCommand {
 
     private final DatabaseRequests databaseRequests;
-    private final ClientCache clientCache;
+
+    private final GuildsCache guildsCache;
+    private final NotificationChannelsCache notificationChannelsCache;
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
-    public RegisterCommand(DatabaseRequests databaseRequests, ClientCache clientCache) {
-        this.clientCache = clientCache;
+    public RegisterCommand(DatabaseRequests databaseRequests, GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
         this.databaseRequests = databaseRequests;
+        this.guildsCache = guildsCache;
+        this.notificationChannelsCache = notificationChannelsCache;
     }
 
     public void runRegisterCommand(final SlashCommandInteraction event) {
@@ -41,7 +45,7 @@ public class RegisterCommand {
         }
 
         String guildID = textChannel.getGuild().getId();
-        String language = clientCache.getGuildLanguage(guildID);
+        String language = guildsCache.getGuildLanguage(guildID);
         if (!isChannelTypeTextChannel(textChannel)) {
             String log = event.getUser().getName() + " tried to register " + textChannel.getName() + " but failed because that wasn't a text channel.";
             LOGGER.info(log);
@@ -76,12 +80,12 @@ public class RegisterCommand {
     }
 
     private boolean isChannelRegistered(final String textChannelID) {
-        return clientCache.doNotifierChannelExists(textChannelID);
+        return notificationChannelsCache.doNotifierChannelExists(textChannelID);
     }
 
     public void createNotifierChannel(final NotificationChannel notificationChannel) {
         databaseRequests.createNewNotifierChannel(notificationChannel);
-        clientCache.addNotifierChannelToList(notificationChannel);
+        notificationChannelsCache.addNotifierChannelToList(notificationChannel);
     }
 
     private boolean isChannelTypeTextChannel(TextChannel textChannel) {

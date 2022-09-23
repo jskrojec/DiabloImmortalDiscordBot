@@ -5,19 +5,15 @@ import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
-/**
+/***********************************************************
  * @author Umbreon Majora
  * <p>
  * Command: /createreactionmessage <Message_ID> <Reaction_Emoji> <Reaction_Role>
@@ -26,11 +22,7 @@ import org.jetbrains.annotations.NotNull;
  * The user has to create an own message and get that message ID.
  * Now with this command the user can add a Reaction to his message and if user also reacts with the emoji they will
  * recieve the role. This is not possible with roles that have admin permissions.
- * <p>
- * Database: [guildID] [reactionRoleMsgID]-autoincrement [emojiID] [roleID]
- * <p>
- * Command send must be in the same channel?
- */
+ ************************************************************/
 public class CreateReactionMessageCommand {
 
     private final DatabaseRequests databaseRequests;
@@ -44,8 +36,6 @@ public class CreateReactionMessageCommand {
     }
 
     public void runCreateReactionMessageCommand(final SlashCommandInteractionEvent event) {
-        OptionMapping messageIdOption = event.getOption("messageid");
-        String messageID;
         String log;
         Member member = event.getMember();
         User user = event.getUser();
@@ -62,6 +52,8 @@ public class CreateReactionMessageCommand {
 
         String guildID = guild.getId();
 
+        OptionMapping messageIdOption = event.getOption("messageid");
+        String messageID;
         if (messageIdOption != null) {
             messageID = messageIdOption.getAsString();
         } else {
@@ -72,7 +64,7 @@ public class CreateReactionMessageCommand {
             return;
         }
 
-        OptionMapping roleIdOption = event.getOption("roleid");
+        OptionMapping roleIdOption = event.getOption("role");
         Role role;
         if (roleIdOption != null) {
             role = roleIdOption.getAsRole();
@@ -96,11 +88,37 @@ public class CreateReactionMessageCommand {
             return;
         }
 
-        ReactionRole reactionRole = new ReactionRole(messageID, guildID, EmojiUtils.hexHtmlify(emoteID), role.getId());
+        String s = EmojiUtils.shortCodify(emoteID);
+
+
+        event.getTextChannel().retrieveMessageById(messageID).queue((message) -> {
+            for (MessageReaction reaction : message.getReactions()) {
+                String givenReaction = EmojiUtils.shortCodify(emoteID);
+                String messageReaction = EmojiUtils.shortCodify(reaction.getReactionEmote().getAsReactionCode());
+
+                if (givenReaction.equalsIgnoreCase(messageReaction)) {
+                    event.reply("This emote is already in use.").setEphemeral(true).queue();
+                    return;
+                }
+            }
+        });
+
+        ReactionRole reactionRole = new ReactionRole(messageID, guildID, s, role.getId());
         reactionRolesCache.addReactionRoleToList(reactionRole);
         databaseRequests.createNewReactionRole(reactionRole);
+        log = member.getEffectiveName() + "#" + user.getDiscriminator() + " created a new reaction role.";
+        LOGGER.info(log);
+        ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+        event.getTextChannel().retrieveMessageById(messageID).queue((message) -> {
 
-        event.getTextChannel().retrieveMessageById(messageID).queue((message) -> message.addReaction(emoteID).queue(), (failure) -> {
+            if (message.getReactions().size() == 10) {
+                event.reply("More than 10 reactions is not allowed.").setEphemeral(true).queue();
+                return;
+            }
+
+            message.addReaction(emoteID).queue();
+            event.reply("Created new reaction role.").setEphemeral(true).queue();
+        }, (failure) -> {
             if (failure instanceof ErrorResponseException) {
                 ErrorResponseException ex = (ErrorResponseException) failure;
                 if (ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
@@ -109,5 +127,6 @@ public class CreateReactionMessageCommand {
             }
             failure.printStackTrace();
         });
+
     }
 }

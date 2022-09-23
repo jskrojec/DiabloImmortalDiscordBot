@@ -1,9 +1,11 @@
 package me.umbreon.diabloimmortalbot.events;
 
 import emoji4j.EmojiUtils;
+import me.umbreon.diabloimmortalbot.Client;
 import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
@@ -12,6 +14,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+
+import java.sql.SQLOutput;
 
 public class MessageReactionAdd extends ListenerAdapter {
 
@@ -30,13 +34,7 @@ public class MessageReactionAdd extends ListenerAdapter {
         String textChannelID = event.getTextChannel().getId();
         String log;
 
-        if (!reactionRolesCache.doReactionRoleMessageExists(messageID)) {
-            return;
-        }
-
-        ReactionRole reactionRole = reactionRolesCache.getReactionRoleByMessageID(messageID);
-
-        if (!EmojiUtils.emojify(reactionRole.getEmojiID()).equalsIgnoreCase(EmojiUtils.emojify(event.getReactionEmote().getAsReactionCode()))) {
+        if (!isChannelTypeTextChannel(event.getChannel().getType())) {
             return;
         }
 
@@ -45,11 +43,24 @@ public class MessageReactionAdd extends ListenerAdapter {
         if (member == null || user == null) {
             log = "Failed to run " + getClass().getSimpleName() + " because guild or member was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry("global", textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
             return;
         }
 
-        if (hasRole(member, reactionRole.getRoleID())) {
+        if (user.isBot()) {
+            return;
+        }
+
+        if (!reactionRolesCache.doReactionRoleMessageExists(messageID)) {
+            return;
+        }
+
+        String s = EmojiUtils.shortCodify(event.getReaction().getReactionEmote().getAsReactionCode());
+        ReactionRole reactionRole = reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, s);
+        String givenReaction = reactionRole.getEmojiID();
+
+        if (!givenReaction.equalsIgnoreCase(s)) {
+            LOGGER.info("Failed to run onMessageReactionAdd because reacted reaction was not registered.");
             return;
         }
 
@@ -62,15 +73,16 @@ public class MessageReactionAdd extends ListenerAdapter {
             return;
         }
 
-        LOGGER.info("Added " + role.getName() + " to " + member.getEffectiveName() + " by using reaction role.");
+        log = "Added " + role.getName() + " to " + member.getEffectiveName() + " by using reaction role.";
+        LOGGER.info(log);
+        ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+        event.getUser().openPrivateChannel().queue(privateChannel -> {
+            privateChannel.sendMessage("You received role " + role.getName()).queue();
+        });
         event.getGuild().addRoleToMember(member, role).queue();
     }
 
-    private boolean hasRole(Member member, String roleID) {
-        Role role = member.getRoles().stream()
-                .filter(guildRole -> guildRole.getId().equalsIgnoreCase(roleID))
-                .findFirst()
-                .orElse(null);
-        return role != null;
+    private boolean isChannelTypeTextChannel(final ChannelType channelType) {
+        return channelType.getId() == 0;
     }
 }

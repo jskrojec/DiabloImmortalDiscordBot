@@ -1,7 +1,9 @@
 package me.umbreon.diabloimmortalbot.notifier;
 
+import me.umbreon.diabloimmortalbot.cache.CustomMessagesCache;
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -15,10 +17,14 @@ public class CustomMessagesNotifier {
 
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
+    private final GuildsCache guildsCache;
+    private final CustomMessagesCache customMessagesCache;
 
-    public CustomMessagesNotifier(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
+    public CustomMessagesNotifier(final ClientCache clientCache, final DatabaseRequests databaseRequests, final GuildsCache guildsCache, CustomMessagesCache customMessagesCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
+        this.guildsCache = guildsCache;
+        this.customMessagesCache = customMessagesCache;
     }
 
     public void runCustomMessagesNotifierScheduler(final JDA jda) {
@@ -28,15 +34,10 @@ public class CustomMessagesNotifier {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                clientCache.getAllCustomMessages().forEach((integer, customMessage) -> {
+                customMessagesCache.getAllCustomMessages().forEach((integer, customMessage) -> {
                     String channel = customMessage.getChannelID();
-
-                    if (!clientCache.doNotifierChannelExists(channel)) {
-                        return; //Needs to be registered to send messages.
-                    }
-
                     String guildID = customMessage.getGuildID();
-                    String timezone = clientCache.getGuildTimeZone(guildID);
+                    String timezone = guildsCache.getGuildTimeZone(guildID);
                     String day = customMessage.getDay();
                     String time = customMessage.getTime();
                     String fullTime = day + " " + time;
@@ -62,7 +63,7 @@ public class CustomMessagesNotifier {
 
 
                     if (!customMessage.isRepeat()) {
-                        clientCache.deleteCustomMessageByID(customMessage.getCustomMessageID());
+                        customMessagesCache.deleteCustomMessageByID(customMessage.getCustomMessageID());
                         databaseRequests.deleteCustomMessageEntry(customMessage.getCustomMessageID());
                     }
                 });

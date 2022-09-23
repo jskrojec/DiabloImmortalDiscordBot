@@ -1,8 +1,10 @@
 package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -20,11 +22,16 @@ public class ChangeServerValueCommand {
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
 
+    private final GuildsCache guildsCache;
+    private final NotificationChannelsCache notificationChannelsCache;
+
     private final Logger LOGGER = LogManager.getLogger(getClass());
 
-    public ChangeServerValueCommand(ClientCache clientCache, DatabaseRequests databaseRequests) {
+    public ChangeServerValueCommand(ClientCache clientCache, DatabaseRequests databaseRequests, GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
+        this.guildsCache = guildsCache;
+        this.notificationChannelsCache = notificationChannelsCache;
     }
 
     public void runChangeServerValueCommand(final SlashCommandInteractionEvent event) {
@@ -32,7 +39,7 @@ public class ChangeServerValueCommand {
         OptionMapping serverValueOption = event.getOption("servervalue");
 
         String guildID = event.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildLanguage = guildsCache.getGuildLanguage(guildID);
         String textChannelID = event.getTextChannel().getId();
 
         String serverSetting;
@@ -63,7 +70,7 @@ public class ChangeServerValueCommand {
     }
 
     private void changeServerHeadUpValue(SlashCommandInteractionEvent event, String guildID, String guildLanguage, String textChannelID, String serverSetting, boolean serverValue) {
-        if (clientCache.isHeadUpOnServerEnabled(guildID) && serverValue) {
+        if (guildsCache.isHeadUpOnServerEnabled(guildID) && serverValue) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server headup value to true but it failed because it is already set to true.";
             LOGGER.info(log);
             ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
@@ -71,7 +78,7 @@ public class ChangeServerValueCommand {
             return;
         }
 
-        if (!clientCache.isHeadUpOnServerEnabled(guildID) && !serverValue) {
+        if (!guildsCache.isHeadUpOnServerEnabled(guildID) && !serverValue) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server headup value to false but it failed because it is already set to false.";
             LOGGER.info(log);
             ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
@@ -89,7 +96,7 @@ public class ChangeServerValueCommand {
     }
 
     private void changeServerMessageValue(SlashCommandInteractionEvent event, String guildID, String guildLanguage, String textChannelID, String serverSetting, boolean serverValue) {
-        if (clientCache.isEventMessageOnServerEnabled(guildID) && serverValue) {
+        if (guildsCache.isEventMessageOnServerEnabled(guildID) && serverValue) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server message value to true but it failed because it is already set to true.";
             LOGGER.info(log);
             ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
@@ -97,7 +104,7 @@ public class ChangeServerValueCommand {
             return;
         }
 
-        if (!clientCache.isEventMessageOnServerEnabled(guildID) && !serverValue) {
+        if (!guildsCache.isEventMessageOnServerEnabled(guildID) && !serverValue) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server message value to false but it failed because it is already set to false.";
             LOGGER.info(log);
             ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
@@ -116,11 +123,11 @@ public class ChangeServerValueCommand {
 
     private void setEventHeadUpOnServerValue(final String guildID, final boolean value) {
         databaseRequests.setEventHeadUpOnServerValue(value, guildID);
-        clientCache.setHeadUpOnServerValue(guildID, value);
+        guildsCache.setHeadUpOnServerValue(guildID, value);
     }
 
     private void setEventMessageOnServerValue(final String guildID, final boolean value) {
         databaseRequests.setEventMessageOnServerValue(value, guildID);
-        clientCache.setEventMessageOnServerValue(guildID, value);
+        guildsCache.setEventMessageOnServerValue(guildID, value);
     }
 }

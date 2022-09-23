@@ -1,8 +1,10 @@
 package me.umbreon.diabloimmortalbot.commands.custom_messages;
 
+import me.umbreon.diabloimmortalbot.cache.CustomMessagesCache;
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -20,12 +22,16 @@ public class DeleteCustomMessage {
 
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
+    private final GuildsCache guildsCache;
+    private final CustomMessagesCache customMessagesCache;
 
     private final Logger LOGGER = LogManager.getLogger(getClass());
 
-    public DeleteCustomMessage(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
+    public DeleteCustomMessage(final ClientCache clientCache, final DatabaseRequests databaseRequests, GuildsCache guildsCache, CustomMessagesCache customMessagesCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
+        this.guildsCache = guildsCache;
+        this.customMessagesCache = customMessagesCache;
     }
 
     public void runDeleteCustomMessage(final SlashCommandInteractionEvent event) {
@@ -33,7 +39,7 @@ public class DeleteCustomMessage {
 
         String guildID = event.getGuild().getId();
         String textChannelID = event.getTextChannel().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildLanguage = guildsCache.getGuildLanguage(guildID);
 
         int customMessageID;
         if (customMessageIdOption != null) {
@@ -59,15 +65,15 @@ public class DeleteCustomMessage {
 
     private boolean isCustomMessageGuildIdCurrentGuildId(final String guildID, final int customMessageID) {
         //Todo: Add a sperate error message, like "Custom Message with ID <ID> does not exists.
-        if (clientCache.getCustomMessageByID(customMessageID) == null) {
+        if (customMessagesCache.getCustomMessageByID(customMessageID) == null) {
             return false;
         }
-        String targetGuildID = clientCache.getCustomMessageByID(customMessageID).getGuildID();
+        String targetGuildID = customMessagesCache.getCustomMessageByID(customMessageID).getGuildID();
         return Objects.equals(guildID, targetGuildID);
     }
 
     private void deleteCustomMessage(final int customMessageID) {
-        clientCache.deleteCustomMessageByID(customMessageID);
+        customMessagesCache.deleteCustomMessageByID(customMessageID);
         databaseRequests.deleteCustomMessageEntry(customMessageID);
     }
 

@@ -1,8 +1,9 @@
 package me.umbreon.diabloimmortalbot.commands.server_commands;
 
+import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -19,19 +20,21 @@ public class LanguageCommand {
 
     private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
+    private final GuildsCache guildsCache;
 
     private final Logger LOGGER = LogManager.getLogger(getClass());
 
-    public LanguageCommand(final ClientCache clientCache, final DatabaseRequests databaseRequests) {
+    public LanguageCommand(final ClientCache clientCache, final DatabaseRequests databaseRequests, GuildsCache guildsCache) {
         this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
+        this.guildsCache = guildsCache;
     }
 
     public void runLanguageCommand(final SlashCommandInteractionEvent event) {
         OptionMapping languageOption = event.getOption("language");
 
         String guildID = event.getGuild().getId();
-        String guildLanguage = clientCache.getGuildLanguage(guildID);
+        String guildLanguage = guildsCache.getGuildLanguage(guildID);
         String textChannelID = event.getTextChannel().getId();
         String language;
 
@@ -63,6 +66,6 @@ public class LanguageCommand {
 
     private void setGuildLanguage(final String guildID, final String guildLanguage) {
         databaseRequests.setGuildLanguage(guildID, guildLanguage);
-        clientCache.setGuildLanguage(guildID, guildLanguage);
+        guildsCache.setGuildLanguage(guildID, guildLanguage);
     }
 }

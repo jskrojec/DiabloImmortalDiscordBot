@@ -4,10 +4,7 @@ import emoji4j.EmojiUtils;
 import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.apache.log4j.LogManager;
@@ -26,31 +23,37 @@ public class MessageReactionRemove extends ListenerAdapter {
     @Override
     public void onMessageReactionRemove(final MessageReactionRemoveEvent event) {
         String messageID = event.getReaction().getMessageId();
+        String guildID = event.getGuild().getId();
+        String textChannelID = event.getTextChannel().getId();
+        String log;
+
+        if (!isChannelTypeTextChannel(event.getChannelType())) {
+            return;
+        }
+
+        Member member = event.getMember();
+        User user = event.getUser();
+        if (member == null || user == null) {
+            log = "Failed to run " + getClass().getSimpleName() + " because guild or member was null.";
+            LOGGER.info(log);
+            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            return;
+        }
+
+        if (user.isBot()) {
+            return;
+        }
 
         if (!reactionRolesCache.doReactionRoleMessageExists(messageID)) {
             return;
         }
 
-        ReactionRole reactionRole = reactionRolesCache.getReactionRoleByMessageID(messageID);
+        String s = EmojiUtils.shortCodify(event.getReaction().getReactionEmote().getAsReactionCode());
+        ReactionRole reactionRole = reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, s);
+        String givenReaction = reactionRole.getEmojiID();
 
-        if (!EmojiUtils.emojify(reactionRole.getEmojiID()).equalsIgnoreCase(EmojiUtils.emojify(event.getReactionEmote().getAsReactionCode()))) {
-            return;
-        }
-
-        String guildID = event.getGuild().getId();
-        String textChannelID = event.getTextChannel().getId();
-        String log;
-        Guild guild = event.getGuild();
-        Member member = event.getMember();
-        User user = event.getUser();
-        if (member == null || user == null || guild == null) {
-            log = "Failed to run " + getClass().getSimpleName() + " because of NullPointerException.";
-            LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry("global", textChannelID, log);
-            return;
-        }
-
-        if (!hasRole(member, reactionRole.getRoleID())) {
+        if (!givenReaction.equalsIgnoreCase(s)) {
+            LOGGER.info("Failed to run onMessageReactionRemove because reacted reaction was not registered.");
             return;
         }
 
@@ -63,18 +66,17 @@ public class MessageReactionRemove extends ListenerAdapter {
             return;
         }
 
-        log = "Added " + role.getName() + " to " + member.getEffectiveName() + " by using reaction role.";
+        log = "Removed " + role.getName() + " from " + member.getEffectiveName() + " by using reaction role.";
         LOGGER.info(log);
         ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+        event.getUser().openPrivateChannel().queue(privateChannel -> {
+            privateChannel.sendMessage("You have lost the role " + role.getName()).queue();
+        });
         event.getGuild().removeRoleFromMember(member, role).queue();
     }
 
-    private boolean hasRole(Member member, String roleID) {
-        Role role = member.getRoles().stream()
-                .filter(guildRole -> guildRole.getId().equalsIgnoreCase(roleID))
-                .findFirst()
-                .orElse(null);
-        return role != null;
+    private boolean isChannelTypeTextChannel(final ChannelType channelType) {
+        return channelType.getId() == 0;
     }
 }
 

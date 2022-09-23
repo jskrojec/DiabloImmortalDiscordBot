@@ -1,50 +1,32 @@
 package me.umbreon.diabloimmortalbot.gameevents.embeds;
 
+import me.umbreon.diabloimmortalbot.cache.GameEventsCache;
+import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
 import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.util.concurrent.TimeUnit;
-
 public class DemonGatesEmbed {
 
-    private final ClientCache clientCache;
+    private final GameEventsCache gameEventsCache;
+    private final NotificationChannelsCache notificationChannelsCache;
 
-    public DemonGatesEmbed(final ClientCache clientCache) {
-        this.clientCache = clientCache;
+    public DemonGatesEmbed(final GameEventsCache gameEventsCache, final NotificationChannelsCache notificationChannelsCache) {
+        this.gameEventsCache = gameEventsCache;
+        this.notificationChannelsCache = notificationChannelsCache;
     }
-
     public void checkDemonGatesFormatted(final TextChannel textChannel, final String timezone, final String language) {
         final String time = TimeAssistant.getTimeWithWeekday(timezone);
         final String textChannelID = textChannel.getId();
 
-        if (!clientCache.getListWithDemonGateEmbedTimes().contains(time) || !clientCache.isDemonGatesEmbedMessageEnabled(textChannelID)) {
+        if (!gameEventsCache.getListWithDemonGateEmbedTimes().contains(time) || !notificationChannelsCache.isDemonGatesEmbedMessageEnabled(textChannelID)) {
             return;
         }
 
-        final String guildID = textChannel.getGuild().getId();
-
-        if (clientCache.isAutoDeleteEnabled(guildID)) {
-
-            final int autoDeleteValue = clientCache.getAutoDeleteValue(guildID);
-            switch (autoDeleteValue) {
-                case 24:
-                case 48:
-                case 72:
-                    textChannel.sendMessageEmbeds(buildDemonGatesEmbed(timezone, language)).queue(sendMessage -> {
-                        sendMessage.delete().queueAfter(autoDeleteValue, TimeUnit.HOURS);
-                    });
-                    break;
-            }
-        } else {
-            textChannel.sendMessageEmbeds(buildDemonGatesEmbed(timezone, language)).queue();
-        }
-
-
+        textChannel.sendMessageEmbeds(buildDemonGatesEmbed(timezone, language)).queue();
     }
 
     private MessageEmbed buildDemonGatesEmbed(final String timezone, final String language) {
