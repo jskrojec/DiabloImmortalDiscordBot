@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.umbreon.dib</groupId>
+    <groupId>me.umbreon.diabloimmortalbot</groupId>
     <artifactId>DiabloImmortalBot</artifactId>
     <version>1.0.1</version>
 
@@ -30,6 +30,7 @@
             <artifactId>JDA</artifactId>
             <version>5.0.0-alpha.12</version>
             <scope>compile</scope>
+            <!-- Removes Voice Options -->
             <exclusions>
                 <exclusion>
                     <groupId>club.minnced</groupId>
@@ -37,38 +38,43 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--   https://mvnrepository.com/artifact/mysql/mysql-connector-java   -->
+
+        <!--  https://mvnrepository.com/artifact/mysql/mysql-connector-java   -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.0</version>
+            <version>2.0.3</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>2.0.0</version>
+            <artifactId>slf4j-reload4j</artifactId>
+            <version>2.0.3</version>
+            <scope>test</scope>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.30</version>
+            <version>1.33</version>
         </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.11</version>
-        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.kcthota/emoji4j -->
         <dependency>
             <groupId>com.kcthota</groupId>
             <artifactId>emoji4j</artifactId>
             <version>6.0</version>
         </dependency>
+
     </dependencies>
 
     <build>

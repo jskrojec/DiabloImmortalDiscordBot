@@ -80,7 +80,7 @@ public class NotificationChannelsCache {
         return notifierChannelsList.get(textchannelID).isAncientNightmareMessageEmbedEnabled();
     }
 
-    public String getRoleID(final String textchannelID) {
+    public String getRoleIdByChannelId(final String textchannelID) {
         return notifierChannelsList.get(textchannelID).getRoleID();
     }
 

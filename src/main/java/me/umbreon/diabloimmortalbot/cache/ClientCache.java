@@ -54,7 +54,8 @@ public class ClientCache {
 
     // -
 
-    private final List<String> listWithSupportedLanguage = Arrays.asList("ger", "eng", "esp", "fra", "pol", "ita", "rus", "ind");
+    private final List<String> listWithSupportedLanguage = Arrays.asList(
+            "ger", "eng", "esp", "fra", "pol", "ita", "rus", "ind", "ukr");
 
     public List<String> getListWithSupportedLanguage() {
         return listWithSupportedLanguage;

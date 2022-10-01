@@ -29,14 +29,14 @@ public class MessageReactionAdd extends ListenerAdapter {
 
     @Override
     public void onMessageReactionAdd(final @NotNull MessageReactionAddEvent event) {
+        if (!isChannelTypeTextChannel(event.getChannelType())) {
+            return;
+        }
+
         String messageID = event.getReaction().getMessageId();
         String guildID = event.getGuild().getId();
         String textChannelID = event.getTextChannel().getId();
         String log;
-
-        if (!isChannelTypeTextChannel(event.getChannel().getType())) {
-            return;
-        }
 
         Member member = event.getMember();
         User user = event.getUser();

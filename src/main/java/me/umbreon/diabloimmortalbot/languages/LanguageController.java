@@ -26,6 +26,9 @@ public class LanguageController {
 
         LanguageIndonesia languageIndonesia = new LanguageIndonesia();
         languageIndonesia.loadLanguageConfiguration();
+
+        LanguageUkrainian languageUkrainian = new LanguageUkrainian();
+        languageUkrainian.loadLanguageConfiguration();
     }
 
     public static String getHauntedCarriageMessage(final String lang) {
@@ -44,6 +47,8 @@ public class LanguageController {
                 return LanguageRussian.getHauntedCarriageMessage();
             case "IND":
                 return LanguageIndonesia.getHauntedCarriageMessage();
+            case "UKR":
+                return LanguageUkrainian.getHauntedCarriageMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageMessage();
         }
@@ -65,6 +70,8 @@ public class LanguageController {
                 return LanguageRussian.getHauntedCarriageHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getHauntedCarriageHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getHauntedCarriageHeadUpMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageHeadUpMessage();
         }
@@ -86,6 +93,8 @@ public class LanguageController {
                 return LanguageRussian.getDemonGatesMessage();
             case "IND":
                 return LanguageIndonesia.getDemonGatesMessage();
+            case "UKR":
+                return LanguageUkrainian.getDemonGatesMessage();
             default:
                 return LanguageEnglish.getDemonGatesMessage();
         }
@@ -107,6 +116,8 @@ public class LanguageController {
                 return LanguageRussian.getDemonGatesHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getDemonGatesHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getDemonGatesHeadUpMessage();
             default:
                 return LanguageEnglish.getDemonGatesHeadUpMessage();
         }
@@ -128,6 +139,8 @@ public class LanguageController {
                 return LanguageRussian.getBattlegroundMessage();
             case "IND":
                 return LanguageIndonesia.getBattlegroundMessage();
+            case "UKR":
+                return LanguageUkrainian.getBattlegroundMessage();
             default:
                 return LanguageEnglish.getBattlegroundMessage();
         }
@@ -149,6 +162,8 @@ public class LanguageController {
                 return LanguageRussian.getBattlegroundHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getBattlegroundHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getBattlegroundHeadUpMessage();
             default:
                 return LanguageEnglish.getBattlegroundHeadUpMessage();
         }
@@ -170,6 +185,8 @@ public class LanguageController {
                 return LanguageRussian.getAncientNightmareMessage();
             case "IND":
                 return LanguageIndonesia.getAncientNightmareMessage();
+            case "UKR":
+                return LanguageUkrainian.getAncientNightmareMessage();
             default:
                 return LanguageEnglish.getAncientNightmareMessage();
         }
@@ -191,6 +208,8 @@ public class LanguageController {
                 return LanguageRussian.getAncientNightmareHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getAncientNightmareHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getAncientNightmareHeadUpMessage();
             default:
                 return LanguageEnglish.getAncientNightmareHeadUpMessage();
         }
@@ -212,6 +231,8 @@ public class LanguageController {
                 return LanguageRussian.getAncientArenaMessage();
             case "IND":
                 return LanguageIndonesia.getAncientArenaMessage();
+            case "UKR":
+                return LanguageUkrainian.getAncientArenaMessage();
             default:
                 return LanguageEnglish.getAncientArenaMessage();
         }
@@ -233,6 +254,8 @@ public class LanguageController {
                 return LanguageRussian.getAncientArenaHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getAncientArenaHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getAncientArenaHeadUpMessage();
             default:
                 return LanguageEnglish.getAncientArenaHeadUpMessage();
         }
@@ -254,6 +277,8 @@ public class LanguageController {
                 return LanguageRussian.getAssemblyMessage();
             case "IND":
                 return LanguageIndonesia.getAssemblyMessage();
+            case "UKR":
+                return LanguageUkrainian.getAssemblyMessage();
             default:
                 return LanguageEnglish.getAssemblyMessage();
         }
@@ -275,6 +300,8 @@ public class LanguageController {
                 return LanguageRussian.getAssemblyHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getAssemblyHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getAssemblyHeadUpMessage();
             default:
                 return LanguageEnglish.getAssemblyHeadUpMessage();
         }
@@ -296,6 +323,8 @@ public class LanguageController {
                 return LanguageRussian.getShadowLotteryMessage();
             case "IND":
                 return LanguageIndonesia.getShadowLotteryMessage();
+            case "UKR":
+                return LanguageUkrainian.getShadowLotteryMessage();
             default:
                 return LanguageEnglish.getShadowLotteryMessage();
         }
@@ -317,6 +346,8 @@ public class LanguageController {
                 return LanguageRussian.getShadowLotteryHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getShadowLotteryHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getShadowLotteryHeadUpMessage();
             default:
                 return LanguageEnglish.getShadowLotteryHeadUpMessage();
         }
@@ -338,6 +369,8 @@ public class LanguageController {
                 return LanguageRussian.getChannelRegisteredMessage();
             case "IND":
                 return LanguageIndonesia.getChannelRegisteredMessage();
+            case "UKR":
+                return LanguageUkrainian.getChannelRegisteredMessage();
             default:
                 return LanguageEnglish.getChannelRegisteredMessage();
         }
@@ -359,6 +392,8 @@ public class LanguageController {
                 return LanguageRussian.getChannelAlreadyRegisteredMessage();
             case "IND":
                 return LanguageIndonesia.getChannelAlreadyRegisteredMessage();
+            case "UKR":
+                return LanguageUkrainian.getChannelAlreadyRegisteredMessage();
             default:
                 return LanguageEnglish.getChannelAlreadyRegisteredMessage();
         }
@@ -380,6 +415,8 @@ public class LanguageController {
                 return LanguageRussian.getRoleNotFoundMessage();
             case "IND":
                 return LanguageIndonesia.getRoleNotFoundMessage();
+            case "UKR":
+                return LanguageUkrainian.getRoleNotFoundMessage();
             default:
                 return LanguageEnglish.getRoleNotFoundMessage();
         }
@@ -401,6 +438,8 @@ public class LanguageController {
                 return LanguageRussian.getChannelNotRegisteredMessage();
             case "IND":
                 return LanguageIndonesia.getChannelNotRegisteredMessage();
+            case "UKR":
+                return LanguageUkrainian.getChannelNotRegisteredMessage();
             default:
                 return LanguageEnglish.getChannelNotRegisteredMessage();
         }
@@ -422,6 +461,8 @@ public class LanguageController {
                 return LanguageRussian.getTimezoneChangedMessage();
             case "IND":
                 return LanguageIndonesia.getTimezoneChangedMessage();
+            case "UKR":
+                return LanguageUkrainian.getTimezoneChangedMessage();
             default:
                 return LanguageEnglish.getTimezoneChangedMessage();
         }
@@ -443,6 +484,8 @@ public class LanguageController {
                 return LanguageRussian.getChannelUnregisteredMessage();
             case "IND":
                 return LanguageIndonesia.getChannelUnregisteredMessage();
+            case "UKR":
+                return LanguageUkrainian.getChannelNotRegisteredMessage();
             default:
                 return LanguageEnglish.getChannelUnregisteredMessage();
         }
@@ -464,6 +507,8 @@ public class LanguageController {
                 return LanguageRussian.getUnknownTimezoneMessage();
             case "IND":
                 return LanguageIndonesia.getUnknownTimezoneMessage();
+            case "UKR":
+                return LanguageUkrainian.getUnknownTimezoneMessage();
             default:
                 return LanguageEnglish.getUnknownTimezoneMessage();
         }
@@ -485,6 +530,8 @@ public class LanguageController {
                 return LanguageRussian.getRoleChangedMessage();
             case "IND":
                 return LanguageIndonesia.getRoleChangedMessage();
+            case "UKR":
+                return LanguageUkrainian.getRoleChangedMessage();
             default:
                 return LanguageEnglish.getRoleChangedMessage();
         }
@@ -506,6 +553,8 @@ public class LanguageController {
                 return LanguageRussian.getRaidTheVaultMessage();
             case "IND":
                 return LanguageIndonesia.getRaidTheVaultMessage();
+            case "UKR":
+                return LanguageUkrainian.getRaidTheVaultMessage();
             default:
                 return LanguageEnglish.getRaidTheVaultMessage();
         }
@@ -527,6 +576,8 @@ public class LanguageController {
                 return LanguageRussian.getRaidTheVaultHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getRaidTheVaultHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getRaidTheVaultHeadUpMessage();
             default:
                 return LanguageEnglish.getRaidTheVaultHeadUpMessage();
         }
@@ -548,6 +599,8 @@ public class LanguageController {
                 return LanguageRussian.getDefendTheVaultMessage();
             case "IND":
                 return LanguageIndonesia.getDefendTheVaultMessage();
+            case "UKR":
+                return LanguageUkrainian.getDefendTheVaultMessage();
             default:
                 return LanguageEnglish.getDefendTheVaultMessage();
         }
@@ -569,6 +622,8 @@ public class LanguageController {
                 return LanguageRussian.getDefendTheVaultHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getDefendTheVaultHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getDefendTheVaultHeadUpMessage();
             default:
                 return LanguageEnglish.getDefendTheVaultHeadUpMessage();
         }
@@ -590,6 +645,8 @@ public class LanguageController {
                 return LanguageRussian.getLanguageNotSupportedMessage();
             case "IND":
                 return LanguageIndonesia.getLanguageNotSupportedMessage();
+            case "UKR":
+                return LanguageUkrainian.getLanguageNotSupportedMessage();
             default:
                 return LanguageEnglish.getLanguageNotSupportedMessage();
         }
@@ -611,6 +668,8 @@ public class LanguageController {
                 return LanguageRussian.getLanguageUpdatedMessage();
             case "IND":
                 return LanguageIndonesia.getLanguageUpdatedMessage();
+            case "UKR":
+                return LanguageUkrainian.getLanguageUpdatedMessage();
             default:
                 return LanguageEnglish.getLanguageUpdatedMessage();
         }
@@ -632,6 +691,8 @@ public class LanguageController {
                 return LanguageRussian.getLanguageMessage();
             case "IND":
                 return LanguageIndonesia.getLanguageMessage();
+            case "UKR":
+                return LanguageUkrainian.getLanguageMessage();
             default:
                 return LanguageEnglish.getLanguageMessage();
         }
@@ -653,6 +714,8 @@ public class LanguageController {
                 return LanguageRussian.getEventEnabledMessage();
             case "IND":
                 return LanguageIndonesia.getEventEnabledMessage();
+            case "UKR":
+                return LanguageUkrainian.getEventEnabledMessage();
             default:
                 return LanguageEnglish.getEventEnabledMessage();
         }
@@ -674,6 +737,8 @@ public class LanguageController {
                 return LanguageRussian.getEventDisabledMessage();
             case "IND":
                 return LanguageIndonesia.getEventDisabledMessage();
+            case "UKR":
+                return LanguageUkrainian.getEventDisabledMessage();
             default:
                 return LanguageEnglish.getEventDisabledMessage();
         }
@@ -695,6 +760,8 @@ public class LanguageController {
                 return LanguageRussian.getChannelNotFoundMessage();
             case "IND":
                 return LanguageIndonesia.getChannelNotFoundMessage();
+            case "UKR":
+                return LanguageUkrainian.getChannelNotFoundMessage();
             default:
                 return LanguageEnglish.getChannelNotFoundMessage();
         }
@@ -717,6 +784,8 @@ public class LanguageController {
                 return LanguageRussian.getCustomMessageCreatedMessage();
             case "IND":
                 return LanguageIndonesia.getCustomMessageCreatedMessage();
+            case "UKR":
+                return LanguageUkrainian.getCustomMessageCreatedMessage();
             default:
                 return LanguageEnglish.getCustomMessageCreatedMessage();
         }
@@ -738,6 +807,8 @@ public class LanguageController {
                 return LanguageRussian.getNoCustomMessagesMessage();
             case "IND":
                 return LanguageIndonesia.getNoCustomMessagesMessage();
+            case "UKR":
+                return LanguageUkrainian.getNoCustomMessagesMessage();
             default:
                 return LanguageEnglish.getNoCustomMessagesMessage();
         }
@@ -759,6 +830,8 @@ public class LanguageController {
                 return LanguageRussian.getShowAllCustomMessages();
             case "IND":
                 return LanguageIndonesia.getShowAllCustomMessages();
+            case "UKR":
+                return LanguageUkrainian.getShowAllCustomMessages();
             default:
                 return LanguageEnglish.getShowAllCustomMessages();
         }
@@ -780,6 +853,8 @@ public class LanguageController {
                 return LanguageRussian.getCustomMessageWithIdDeleted();
             case "IND":
                 return LanguageIndonesia.getCustomMessageWithIdDeleted();
+            case "UKR":
+                return LanguageUkrainian.getCustomMessageWithIdDeleted();
             default:
                 return LanguageEnglish.getCustomMessageWithIdDeleted();
         }
@@ -801,6 +876,8 @@ public class LanguageController {
                 return LanguageRussian.getInvalidCommandMessage();
             case "IND":
                 return LanguageIndonesia.getInvalidCommandMessage();
+            case "UKR":
+                return LanguageUkrainian.getInvalidCommandMessage();
             default:
                 return LanguageEnglish.getInvalidCommandMessage();
         }
@@ -822,6 +899,8 @@ public class LanguageController {
                 return LanguageRussian.getAncientArenaEmbedMessage();
             case "IND":
                 return LanguageIndonesia.getAncientArenaEmbedMessage();
+            case "UKR":
+                return LanguageUkrainian.getAncientArenaEmbedMessage();
             default:
                 return LanguageEnglish.getAncientArenaEmbedMessage();
         }
@@ -843,6 +922,8 @@ public class LanguageController {
                 return LanguageRussian.getLocationAncientArenaEmbedMessage1();
             case "IND":
                 return LanguageIndonesia.getLocationAncientArenaEmbedMessage1();
+            case "UKR":
+                return LanguageUkrainian.getLocationAncientArenaEmbedMessage1();
             default:
                 return LanguageEnglish.getLocationAncientArenaEmbedMessage1();
         }
@@ -864,6 +945,8 @@ public class LanguageController {
                 return LanguageRussian.getLocationAncientArenaEmbedMessage2();
             case "IND":
                 return LanguageIndonesia.getLocationAncientArenaEmbedMessage2();
+            case "UKR":
+                return LanguageUkrainian.getLocationAncientArenaEmbedMessage2();
             default:
                 return LanguageEnglish.getLocationAncientArenaEmbedMessage2();
         }
@@ -885,6 +968,8 @@ public class LanguageController {
                 return LanguageRussian.getAncientNightmareEmbedMessage();
             case "IND":
                 return LanguageIndonesia.getAncientNightmareEmbedMessage();
+            case "UKR":
+                return LanguageUkrainian.getAncientNightmareEmbedMessage();
             default:
                 return LanguageEnglish.getAncientNightmareEmbedMessage();
         }
@@ -906,6 +991,8 @@ public class LanguageController {
                 return LanguageRussian.getLocationAncientNightmareEmbedMessage1();
             case "IND":
                 return LanguageIndonesia.getLocationAncientNightmareEmbedMessage1();
+            case "UKR":
+                return LanguageUkrainian.getLocationAncientNightmareEmbedMessage1();
             default:
                 return LanguageEnglish.getLocationAncientNightmareEmbedMessage1();
         }
@@ -927,6 +1014,8 @@ public class LanguageController {
                 return LanguageRussian.getLocationAncientNightmareEmbedMessage2();
             case "IND":
                 return LanguageIndonesia.getLocationAncientNightmareEmbedMessage2();
+            case "UKR":
+                return LanguageUkrainian.getLocationAncientNightmareEmbedMessage2();
             default:
                 return LanguageEnglish.getLocationAncientNightmareEmbedMessage2();
         }
@@ -948,6 +1037,8 @@ public class LanguageController {
                 return LanguageRussian.getDemonGatesEmbedMessage();
             case "IND":
                 return LanguageIndonesia.getDemonGatesEmbedMessage();
+            case "UKR":
+                return LanguageUkrainian.getDemonGatesEmbedMessage();
             default:
                 return LanguageEnglish.getDemonGatesEmbedMessage();
         }
@@ -969,6 +1060,8 @@ public class LanguageController {
                 return LanguageRussian.getLocationDemonGatesEmbedMessage1();
             case "IND":
                 return LanguageIndonesia.getLocationDemonGatesEmbedMessage1();
+            case "UKR":
+                return LanguageUkrainian.getLocationDemonGatesEmbedMessage1();
             default:
                 return LanguageEnglish.getLocationDemonGatesEmbedMessage1();
         }
@@ -990,6 +1083,8 @@ public class LanguageController {
                 return LanguageRussian.getLocationDemonGatesEmbedMessage2();
             case "IND":
                 return LanguageIndonesia.getLocationDemonGatesEmbedMessage2();
+            case "UKR":
+                return LanguageUkrainian.getLocationDemonGatesEmbedMessage2();
             default:
                 return LanguageEnglish.getLocationDemonGatesEmbedMessage2();
         }
@@ -1011,6 +1106,8 @@ public class LanguageController {
                 return LanguageRussian.getHauntedCarriageEmbedMessage();
             case "IND":
                 return LanguageIndonesia.getHauntedCarriageEmbedMessage();
+            case "UKR":
+                return LanguageUkrainian.getHauntedCarriageEmbedMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageEmbedMessage();
         }
@@ -1032,6 +1129,8 @@ public class LanguageController {
                 return LanguageRussian.getLocationHauntedCarriageEmbedMessage1();
             case "IND":
                 return LanguageIndonesia.getLocationHauntedCarriageEmbedMessage1();
+            case "UKR":
+                return LanguageUkrainian.getLocationHauntedCarriageEmbedMessage1();
             default:
                 return LanguageEnglish.getLocationHauntedCarriageEmbedMessage1();
         }
@@ -1053,6 +1152,8 @@ public class LanguageController {
                 return LanguageRussian.getLocationHauntedCarriageEmbedMessage2();
             case "IND":
                 return LanguageIndonesia.getLocationHauntedCarriageEmbedMessage2();
+            case "UKR":
+                return LanguageUkrainian.getLocationHauntedCarriageEmbedMessage2();
             default:
                 return LanguageEnglish.getLocationHauntedCarriageEmbedMessage2();
         }
@@ -1074,6 +1175,8 @@ public class LanguageController {
                 return LanguageRussian.getEmbedSpawnAtMessage();
             case "IND":
                 return LanguageIndonesia.getEmbedSpawnAtMessage();
+            case "UKR":
+                return LanguageUkrainian.getEmbedSpawnAtMessage();
             default:
                 return LanguageEnglish.getEmbedSpawnAtMessage();
         }
@@ -1095,6 +1198,8 @@ public class LanguageController {
                 return LanguageRussian.getEmbedCountdownMessage();
             case "IND":
                 return LanguageIndonesia.getEmbedCountdownMessage();
+            case "UKR":
+                return LanguageUkrainian.getEmbedCountdownMessage();
             default:
                 return LanguageEnglish.getEmbedCountdownMessage();
         }
@@ -1116,6 +1221,8 @@ public class LanguageController {
                 return LanguageRussian.getEmbedWorldEventMessage();
             case "IND":
                 return LanguageIndonesia.getEmbedWorldEventMessage();
+            case "UKR":
+                return LanguageUkrainian.getEmbedWorldEventMessage();
             default:
                 return LanguageEnglish.getEmbedWorldEventMessage();
         }
@@ -1137,6 +1244,8 @@ public class LanguageController {
                 return LanguageRussian.getInvalidTimezoneMessage();
             case "IND":
                 return LanguageIndonesia.getInvalidTimezoneMessage();
+            case "UKR":
+                return LanguageUkrainian.getInvalidTimezoneMessage();
             default:
                 return LanguageEnglish.getInvalidTimezoneMessage();
         }
@@ -1158,6 +1267,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpRegistersChannelMessage();
             case "IND":
                 return LanguageIndonesia.getHelpRegistersChannelMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpRegistersChannelMessage();
             default:
                 return LanguageEnglish.getHelpRegistersChannelMessage();
         }
@@ -1179,6 +1290,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpUnregistersChannelMessage();
             case "IND":
                 return LanguageIndonesia.getHelpUnregistersChannelMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpUnregistersChannelMessage();
             default:
                 return LanguageEnglish.getHelpUnregistersChannelMessage();
         }
@@ -1200,6 +1313,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpSetRoleMessage();
             case "IND":
                 return LanguageIndonesia.getHelpSetRoleMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpSetRoleMessage();
             default:
                 return LanguageEnglish.getHelpSetRoleMessage();
         }
@@ -1221,6 +1336,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpShowInfoMessage();
             case "IND":
                 return LanguageIndonesia.getHelpShowInfoMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpShowInfoMessage();
             default:
                 return LanguageEnglish.getHelpShowInfoMessage();
         }
@@ -1242,6 +1359,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpCreateCustomMessageMessage();
             case "IND":
                 return LanguageIndonesia.getHelpCreateCustomMessageMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpCreateCustomMessageMessage();
             default:
                 return LanguageEnglish.getHelpCreateCustomMessageMessage();
         }
@@ -1263,6 +1382,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpDeleteCustomMessageMessage();
             case "IND":
                 return LanguageIndonesia.getHelpDeleteCustomMessageMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpDeleteCustomMessageMessage();
             default:
                 return LanguageEnglish.getHelpDeleteCustomMessageMessage();
         }
@@ -1284,6 +1405,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpShowAllCustomMessagesMessage();
             case "IND":
                 return LanguageIndonesia.getHelpShowAllCustomMessagesMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpShowAllCustomMessagesMessage();
             default:
                 return LanguageEnglish.getHelpShowAllCustomMessagesMessage();
         }
@@ -1305,6 +1428,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpShowAllCustomMessagesMessage();
             case "IND":
                 return LanguageIndonesia.getHelpShowAllCustomMessagesMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpShowAllCustomMessagesMessage();
             default:
                 return LanguageEnglish.getHelpShowCustomMessageInfoMessage();
         }
@@ -1326,6 +1451,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpServerHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getHelpServerHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpServerHeadUpMessage();
             default:
                 return LanguageEnglish.getHelpServerHeadUpMessage();
         }
@@ -1347,6 +1474,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpServerMessagesMessage();
             case "IND":
                 return LanguageIndonesia.getHelpServerMessagesMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpServerMessagesMessage();
             default:
                 return LanguageEnglish.getHelpServerMessagesMessage();
         }
@@ -1368,6 +1497,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpServerConfigMessage();
             case "IND":
                 return LanguageIndonesia.getHelpServerConfigMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpServerConfigMessage();
             default:
                 return LanguageEnglish.getHelpServerConfigMessage();
         }
@@ -1389,6 +1520,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpServerLanguageMessage();
             case "IND":
                 return LanguageIndonesia.getHelpServerLanguageMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpServerLanguageMessage();
             default:
                 return LanguageEnglish.getHelpServerLanguageMessage();
         }
@@ -1410,6 +1543,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpServerTimezoneMessage();
             case "IND":
                 return LanguageIndonesia.getHelpServerTimezoneMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpServerTimezoneMessage();
             default:
                 return LanguageEnglish.getHelpServerTimezoneMessage();
         }
@@ -1431,6 +1566,8 @@ public class LanguageController {
                 return LanguageRussian.getShowsBotInstallMessage();
             case "IND":
                 return LanguageIndonesia.getShowsBotInstallMessage();
+            case "UKR":
+                return LanguageUkrainian.getShowsBotInstallMessage();
             default:
                 return LanguageEnglish.getShowsBotInstallMessage();
         }
@@ -1452,6 +1589,8 @@ public class LanguageController {
                 return LanguageRussian.getShowsThisMessageMessage();
             case "IND":
                 return LanguageIndonesia.getShowsThisMessageMessage();
+            case "UKR":
+                return LanguageUkrainian.getShowsThisMessageMessage();
             default:
                 return LanguageEnglish.getShowsThisMessageMessage();
         }
@@ -1473,6 +1612,8 @@ public class LanguageController {
                 return LanguageRussian.getSupportDiscordMessage();
             case "IND":
                 return LanguageIndonesia.getSupportDiscordMessage();
+            case "UKR":
+                return LanguageUkrainian.getSupportDiscordMessage();
             default:
                 return LanguageEnglish.getSupportDiscordMessage();
         }
@@ -1494,6 +1635,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpServerAutoDeleteSetMessage();
             case "IND":
                 return LanguageIndonesia.getHelpServerAutoDeleteSetMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpServerAutoDeleteSetMessage();
             default:
                 return LanguageEnglish.getHelpServerAutoDeleteSetMessage();
         }
@@ -1515,6 +1658,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpServerAutoDeleteValueMessage();
             case "IND":
                 return LanguageIndonesia.getHelpServerAutoDeleteValueMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpServerAutoDeleteValueMessage();
             default:
                 return LanguageEnglish.getHelpServerAutoDeleteValueMessage();
         }
@@ -1536,6 +1681,8 @@ public class LanguageController {
                 return LanguageRussian.getShortHoursMessage();
             case "IND":
                 return LanguageIndonesia.getShortHoursMessage();
+            case "UKR":
+                return LanguageUkrainian.getShortHoursMessage();
             default:
                 return LanguageEnglish.getShortHoursMessage();
         }
@@ -1558,6 +1705,8 @@ public class LanguageController {
                 return LanguageRussian.getErrorOccurredMessage();
             case "IND":
                 return LanguageIndonesia.getErrorOccurredMessage();
+            case "UKR":
+                return LanguageUkrainian.getErrorOccurredMessage();
             default:
                 return LanguageEnglish.getErrorOccurredMessage();
         }
@@ -1579,6 +1728,8 @@ public class LanguageController {
                 return LanguageRussian.getFooterReportToDevMessage();
             case "IND":
                 return LanguageIndonesia.getFooterReportToDevMessage();
+            case "UKR":
+                return LanguageUkrainian.getFooterReportToDevMessage();
             default:
                 return LanguageEnglish.getFooterReportToDevMessage();
         }
@@ -1600,6 +1751,8 @@ public class LanguageController {
                 return LanguageRussian.getWrathborneInvasionMessage();
             case "IND":
                 return LanguageIndonesia.getWrathborneInvasionMessage();
+            case "UKR":
+                return LanguageUkrainian.getWrathborneInvasionMessage();
             default:
                 return LanguageEnglish.getWrathborneInvasionMessage();
         }
@@ -1621,6 +1774,8 @@ public class LanguageController {
                 return LanguageRussian.getWrathborneInvasionHeadUpMessage();
             case "IND":
                 return LanguageIndonesia.getWrathborneInvasionHeadUpMessage();
+            case "UKR":
+                return LanguageUkrainian.getWrathborneInvasionHeadUpMessage();
             default:
                 return LanguageEnglish.getWrathborneInvasionHeadUpMessage();
         }
@@ -1642,6 +1797,8 @@ public class LanguageController {
                 return LanguageRussian.getInstall1Message();
             case "IND":
                 return LanguageIndonesia.getInstall1Message();
+            case "UKR":
+                return LanguageUkrainian.getInstall1Message();
             default:
                 return LanguageEnglish.getInstall1Message();
         }
@@ -1663,6 +1820,8 @@ public class LanguageController {
                 return LanguageRussian.getInstall2Message();
             case "IND":
                 return LanguageIndonesia.getInstall2Message();
+            case "UKR":
+                return LanguageUkrainian.getInstall2Message();
             default:
                 return LanguageEnglish.getInstall2Message();
         }
@@ -1684,6 +1843,8 @@ public class LanguageController {
                 return LanguageRussian.getInstall3Message();
             case "IND":
                 return LanguageIndonesia.getInstall3Message();
+            case "UKR":
+                return LanguageUkrainian.getInstall3Message();
             default:
                 return LanguageEnglish.getInstall3Message();
         }
@@ -1705,6 +1866,8 @@ public class LanguageController {
                 return LanguageRussian.getInstall4Message();
             case "IND":
                 return LanguageIndonesia.getInstall4Message();
+            case "UKR":
+                return LanguageUkrainian.getInstall4Message();
             default:
                 return LanguageEnglish.getInstall4Message();
         }
@@ -1726,6 +1889,8 @@ public class LanguageController {
                 return LanguageRussian.getInstall5Message();
             case "IND":
                 return LanguageIndonesia.getInstall5Message();
+            case "UKR":
+                return LanguageUkrainian.getInstall5Message();
             default:
                 return LanguageEnglish.getInstall5Message();
         }
@@ -1747,6 +1912,8 @@ public class LanguageController {
                 return LanguageRussian.getInstructionsMessage();
             case "IND":
                 return LanguageIndonesia.getInstructionsMessage();
+            case "UKR":
+                return LanguageUkrainian.getInstructionsMessage();
             default:
                 return LanguageEnglish.getInstructionsMessage();
         }
@@ -1768,6 +1935,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoTimezoneMessage();
             case "IND":
                 return LanguageIndonesia.getInfoTimezoneMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoTimezoneMessage();
             default:
                 return LanguageEnglish.getInfoTimezoneMessage();
         }
@@ -1789,6 +1958,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoCurrentTimeMessage();
             case "IND":
                 return LanguageIndonesia.getInfoCurrentTimeMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoCurrentTimeMessage();
             default:
                 return LanguageEnglish.getInfoCurrentTimeMessage();
         }
@@ -1810,6 +1981,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoTextChannelIDMessage();
             case "IND":
                 return LanguageIndonesia.getInfoTextChannelIDMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoTextChannelIDMessage();
             default:
                 return LanguageEnglish.getInfoTextChannelIDMessage();
         }
@@ -1831,6 +2004,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoMentionedRoleMessage();
             case "IND":
                 return LanguageIndonesia.getInfoMentionedRoleMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoMentionedRoleMessage();
             default:
                 return LanguageEnglish.getInfoMentionedRoleMessage();
         }
@@ -1852,6 +2027,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoYesMessage();
             case "IND":
                 return LanguageIndonesia.getInfoYesMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoYesMessage();
             default:
                 return LanguageEnglish.getInfoYesMessage();
         }
@@ -1873,6 +2050,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoNoMessage();
             case "IND":
                 return LanguageIndonesia.getInfoNoMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoNoMessage();
             default:
                 return LanguageEnglish.getInfoNoMessage();
         }
@@ -1894,6 +2073,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoEventMessageMessage();
             case "IND":
                 return LanguageIndonesia.getInfoEventMessageMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoEventMessageMessage();
             default:
                 return LanguageEnglish.getInfoEventMessageMessage();
         }
@@ -1915,6 +2096,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoHeadUpMessageMessage();
             case "IND":
                 return LanguageIndonesia.getInfoHeadUpMessageMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoHeadUpMessageMessage();
             default:
                 return LanguageEnglish.getInfoHeadUpMessageMessage();
         }
@@ -1936,6 +2119,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoAncientNightmareMessage();
             case "IND":
                 return LanguageIndonesia.getInfoAncientNightmareMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoAncientNightmareMessage();
             default:
                 return LanguageEnglish.getInfoAncientNightmareMessage();
         }
@@ -1957,6 +2142,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoAncientArenaMessage();
             case "IND":
                 return LanguageIndonesia.getInfoAncientArenaMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoAncientArenaMessage();
             default:
                 return LanguageEnglish.getInfoAncientArenaMessage();
         }
@@ -1978,6 +2165,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoAssemblyMessage();
             case "IND":
                 return LanguageIndonesia.getInfoAssemblyMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoAssemblyMessage();
             default:
                 return LanguageEnglish.getInfoAssemblyMessage();
         }
@@ -1999,6 +2188,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoBattlegroundMessage();
             case "IND":
                 return LanguageIndonesia.getInfoBattlegroundMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoBattlegroundMessage();
             default:
                 return LanguageEnglish.getInfoBattlegroundMessage();
         }
@@ -2020,6 +2211,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoDefendTheVaultMessage();
             case "IND":
                 return LanguageIndonesia.getInfoDefendTheVaultMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoDefendTheVaultMessage();
             default:
                 return LanguageEnglish.getInfoDefendTheVaultMessage();
         }
@@ -2041,6 +2234,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoRaidTheVaultMessage();
             case "IND":
                 return LanguageIndonesia.getInfoRaidTheVaultMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoRaidTheVaultMessage();
             default:
                 return LanguageEnglish.getInfoRaidTheVaultMessage();
         }
@@ -2062,6 +2257,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoDemonGatesMessage();
             case "IND":
                 return LanguageIndonesia.getInfoDemonGatesMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoDemonGatesMessage();
             default:
                 return LanguageEnglish.getInfoDemonGatesMessage();
         }
@@ -2083,6 +2280,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoShadowLotteryMessage();
             case "IND":
                 return LanguageIndonesia.getInfoShadowLotteryMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoShadowLotteryMessage();
             default:
                 return LanguageEnglish.getInfoShadowLotteryMessage();
         }
@@ -2104,6 +2303,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoHauntedCarriageMessage();
             case "IND":
                 return LanguageIndonesia.getInfoHauntedCarriageMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoHauntedCarriageMessage();
             default:
                 return LanguageEnglish.getInfoHauntedCarriageMessage();
         }
@@ -2125,6 +2326,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoWrathborneInvasionMessage();
             case "IND":
                 return LanguageIndonesia.getInfoWrathborneInvasionMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoWrathborneInvasionMessage();
             default:
                 return LanguageEnglish.getInfoWrathborneInvasionMessage();
         }
@@ -2146,6 +2349,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoHauntedCarriageEmbedMessage();
             case "IND":
                 return LanguageIndonesia.getInfoHauntedCarriageEmbedMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoHauntedCarriageEmbedMessage();
             default:
                 return LanguageEnglish.getInfoHauntedCarriageEmbedMessage();
         }
@@ -2167,6 +2372,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoDemonGatesEmbedMessage();
             case "IND":
                 return LanguageIndonesia.getInfoDemonGatesEmbedMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoDemonGatesEmbedMessage();
             default:
                 return LanguageEnglish.getInfoDemonGatesEmbedMessage();
         }
@@ -2188,6 +2395,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoAncientNightmareEmbedMessage();
             case "IND":
                 return LanguageIndonesia.getInfoAncientNightmareEmbedMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoAncientNightmareEmbedMessage();
             default:
                 return LanguageEnglish.getInfoAncientNightmareEmbedMessage();
         }
@@ -2209,6 +2418,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoAncientArenaEmbedMessage();
             case "IND":
                 return LanguageIndonesia.getInfoAncientArenaEmbedMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoAncientArenaEmbedMessage();
             default:
                 return LanguageEnglish.getInfoAncientArenaEmbedMessage();
         }
@@ -2230,6 +2441,8 @@ public class LanguageController {
                 return LanguageRussian.getErrorCannotDisableEventMessage();
             case "IND":
                 return LanguageIndonesia.getErrorCannotDisableEventMessage();
+            case "UKR":
+                return LanguageUkrainian.getErrorCannotDisableEventMessage();
             default:
                 return LanguageEnglish.getErrorCannotDisableEventMessage();
         }
@@ -2251,6 +2464,8 @@ public class LanguageController {
                 return LanguageRussian.getFooterCreatedByMessage();
             case "IND":
                 return LanguageIndonesia.getFooterCreatedByMessage();
+            case "UKR":
+                return LanguageUkrainian.getFooterCreatedByMessage();
             default:
                 return LanguageEnglish.getFooterCreatedByMessage();
         }
@@ -2272,6 +2487,8 @@ public class LanguageController {
                 return LanguageRussian.getAutoDeleteEnabledMessage();
             case "IND":
                 return LanguageIndonesia.getAutoDeleteEnabledMessage();
+            case "UKR":
+                return LanguageUkrainian.getAutoDeleteEnabledMessage();
             default:
                 return LanguageEnglish.getAutoDeleteEnabledMessage();
         }
@@ -2293,6 +2510,8 @@ public class LanguageController {
                 return LanguageRussian.getAutoDeleteDisabledMessage();
             case "IND":
                 return LanguageIndonesia.getAutoDeleteDisabledMessage();
+            case "UKR":
+                return LanguageUkrainian.getAutoDeleteDisabledMessage();
             default:
                 return LanguageEnglish.getAutoDeleteDisabledMessage();
         }
@@ -2314,6 +2533,8 @@ public class LanguageController {
                 return LanguageRussian.getAutoDeleteValueSetMessage();
             case "IND":
                 return LanguageIndonesia.getAutoDeleteValueSetMessage();
+            case "UKR":
+                return LanguageUkrainian.getAutoDeleteValueSetMessage();
             default:
                 return LanguageEnglish.getAutoDeleteValueSetMessage();
         }
@@ -2335,6 +2556,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoLanguageMessage();
             case "IND":
                 return LanguageIndonesia.getInfoLanguageMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoLanguageMessage();
             default:
                 return LanguageEnglish.getInfoLanguageMessage();
         }
@@ -2356,6 +2579,8 @@ public class LanguageController {
                 return LanguageRussian.getInfoGuildIdMessage();
             case "IND":
                 return LanguageIndonesia.getInfoGuildIdMessage();
+            case "UKR":
+                return LanguageUkrainian.getInfoGuildIdMessage();
             default:
                 return LanguageEnglish.getInfoGuildIdMessage();
         }
@@ -2377,6 +2602,8 @@ public class LanguageController {
                 return LanguageRussian.getEventMessagesAlreadyOnMessage();
             case "IND":
                 return LanguageIndonesia.getEventMessagesAlreadyOnMessage();
+            case "UKR":
+                return LanguageUkrainian.getEventMessagesAlreadyOnMessage();
             default:
                 return LanguageEnglish.getEventMessagesAlreadyOnMessage();
         }
@@ -2398,6 +2625,8 @@ public class LanguageController {
                 return LanguageRussian.getEventMessagesAlreadyOffMessage();
             case "IND":
                 return LanguageIndonesia.getEventMessagesAlreadyOffMessage();
+            case "UKR":
+                return LanguageUkrainian.getEventMessagesAlreadyOffMessage();
             default:
                 return LanguageEnglish.getEventMessagesAlreadyOffMessage();
         }
@@ -2419,6 +2648,8 @@ public class LanguageController {
                 return LanguageRussian.getHeadUpMessagesAlreadyOnMessage();
             case "IND":
                 return LanguageIndonesia.getHeadUpMessagesAlreadyOnMessage();
+            case "UKR":
+                return LanguageUkrainian.getHeadUpMessagesAlreadyOnMessage();
             default:
                 return LanguageEnglish.getHeadUpMessagesAlreadyOnMessage();
         }
@@ -2440,6 +2671,8 @@ public class LanguageController {
                 return LanguageRussian.getHeadUpMessagesAlreadyOffMessages();
             case "IND":
                 return LanguageIndonesia.getHeadUpMessagesAlreadyOffMessages();
+            case "UKR":
+                return LanguageUkrainian.getHeadUpMessagesAlreadyOffMessages();
             default:
                 return LanguageEnglish.getHeadUpMessagesAlreadyOffMessages();
         }
@@ -2461,6 +2694,8 @@ public class LanguageController {
                 return LanguageRussian.getFooterTimesIn24HrsFormatMessage();
             case "IND":
                 return LanguageIndonesia.getFooterTimesIn24HrsFormatMessage();
+            case "UKR":
+                return LanguageUkrainian.getFooterTimesIn24HrsFormatMessage();
             default:
                 return LanguageEnglish.getFooterTimesIn24HrsFormatMessage();
         }
@@ -2482,6 +2717,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpEventListMessage();
             case "IND":
                 return LanguageIndonesia.getHelpEventListMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpEventListMessage();
             default:
                 return LanguageEnglish.getHelpEventListMessage();
         }
@@ -2503,6 +2740,8 @@ public class LanguageController {
                 return LanguageRussian.getHelpEventSetMessage();
             case "IND":
                 return LanguageIndonesia.getHelpEventSetMessage();
+            case "UKR":
+                return LanguageUkrainian.getHelpEventSetMessage();
             default:
                 return LanguageEnglish.getHelpEventSetMessage();
         }

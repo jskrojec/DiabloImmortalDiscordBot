@@ -10,6 +10,7 @@ import me.umbreon.diabloimmortalbot.gameevents.embeds.DemonGatesEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.HauntedCarriageEmbed;
 import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
+import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
@@ -80,8 +81,10 @@ public class Notifier {
             @Override
             public void run() {
                 if (isChannelNotificationListEmpty()) {
+                    LOGGER.info("Notifier Channels list is empty.");
                     return;
                 }
+                LOGGER.info("Checked if new event starts.");
 
                 notificationChannelsCache.getListWithNotifierChannels().forEach((textChannelID, notifierChannel) -> {
                     try {
@@ -165,8 +168,10 @@ public class Notifier {
                         }
                     } catch (InsufficientPermissionException e) {
                         ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "global", "Failed to send notification message cause of insufficient permissions. " + e.getMessage());
+                        e.printStackTrace();
                     } catch (Exception e) {
                         ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "global", "Failed to send notification message.");
+                        e.printStackTrace();
                     }
 
                 });
@@ -185,7 +190,7 @@ public class Notifier {
     private void addMentionToMessage(final StringBuilder stringBuilder, final TextChannel textChannel) {
         String mention = null;
         String textChannelID = textChannel.getId();
-        String roleID = notificationChannelsCache.getRoleID(textChannelID);
+        String roleID = notificationChannelsCache.getRoleIdByChannelId(textChannelID);
         Guild guild = textChannel.getGuild();
         switch (roleID.toLowerCase()) {
             case "everyone":
@@ -211,7 +216,7 @@ public class Notifier {
     }
 
     private boolean isChannelNotificationListEmpty() {
-        return notificationChannelsCache.getNotificationChannelsAmount() > 0;
+        return notificationChannelsCache.getNotificationChannelsAmount() == 0;
     }
 
     private Role findRoleInGuildUsingID(Guild guild, String roleID) {
