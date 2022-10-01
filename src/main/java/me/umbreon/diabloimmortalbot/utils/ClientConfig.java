@@ -15,17 +15,22 @@ public class ClientConfig {
     private String token;
     private String logFolderPath;
 
-    public ClientConfig() {
-        loadConfig();
+    public ClientConfig(boolean testMode) {
+        loadConfig(testMode);
     }
 
-    public void loadConfig() {
+    public void loadConfig(boolean testMode) {
         try {
-            final String configFilePath = "/home/discord/config.properties";
-            final FileInputStream propsInput = new FileInputStream(configFilePath);
+            String configFilePath;
+            if (testMode) {
+                configFilePath = "C:\\workspace\\config.properties";
+            } else {
+                configFilePath = "/home/discord/config.properties";
+            }
+            FileInputStream propsInput = new FileInputStream(configFilePath);
             properties = new Properties();
             properties.load(propsInput);
-        } catch (final IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

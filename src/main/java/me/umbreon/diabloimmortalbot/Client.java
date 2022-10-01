@@ -17,17 +17,16 @@ import javax.security.auth.login.LoginException;
 
 public class Client {
 
-    public static void main(final String[] args) {
-        boolean registerAllCommands = isRegisterAllCommands(args);
+    private static final boolean TEST_MODE = true;
 
+    public static void main(final String[] args) {
         ClientCache clientCache = new ClientCache();
-        ClientConfig clientConfig = new ClientConfig();
+        ClientConfig clientConfig = new ClientConfig(TEST_MODE);
         GuildsCache guildsCache = new GuildsCache();
         CustomMessagesCache customMessagesCache = new CustomMessagesCache();
         GameEventsCache gameEventsCache = new GameEventsCache();
         NotificationChannelsCache notificationChannelsCache = new NotificationChannelsCache();
 
-        clientConfig.loadConfig();
         ClientLogger.checkIfLogFolderExists(clientConfig.getLogFolderPath());
         LanguageController.loadConfigurations();
 
@@ -62,16 +61,6 @@ public class Client {
         notifier.runNotificationScheduler(jda);
         customMessagesNotifier.runCustomMessagesNotifierScheduler(jda);
         infoNotifier.runScheduler(jda);
-    }
-
-    private static boolean isRegisterAllCommands(String[] args) {
-        boolean registerAllCommands;
-        if (args.length == 0) {
-            registerAllCommands = false;
-        } else {
-            registerAllCommands = Boolean.parseBoolean(args[0]);
-        }
-        return registerAllCommands;
     }
 
     private static void loadCache(ClientCache clientCache, GuildsCache guildsCache, CustomMessagesCache customMessagesCache, GameEventsCache gameEventsCache, NotificationChannelsCache notificationChannelsCache, DatabaseRequests databaseRequests, ReactionRolesCache reactionRolesCache) {
