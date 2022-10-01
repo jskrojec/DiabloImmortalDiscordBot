@@ -10,8 +10,8 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Umbreon Majora
@@ -26,7 +26,7 @@ public class RegisterCommand {
     private final GuildsCache guildsCache;
     private final NotificationChannelsCache notificationChannelsCache;
 
-    private final Logger LOGGER = LogManager.getLogger(this.getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(RegisterCommand.class);
 
     public RegisterCommand(DatabaseRequests databaseRequests, GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
         this.databaseRequests = databaseRequests;

@@ -8,17 +8,15 @@ import me.umbreon.diabloimmortalbot.gameevents.embeds.AncientArenaEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.AncientNightmareEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.DemonGatesEmbed;
 import me.umbreon.diabloimmortalbot.gameevents.embeds.HauntedCarriageEmbed;
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -27,9 +25,7 @@ import java.util.TimerTask;
 
 public class Notifier {
 
-    private final ClientCache clientCache;
     private final NotificationChannelsCache notificationChannelsCache;
-    private final GameEventsCache gameEventsCache;
     private final GuildsCache guildsCache;
 
     //Normal Notifications
@@ -50,12 +46,10 @@ public class Notifier {
     private final DemonGatesEmbed demonGatesEmbed;
     private final HauntedCarriageEmbed hauntedCarriageEmbed;
 
-    private final Logger LOGGER = LogManager.getLogger(this.getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(Notifier.class);
 
-    public Notifier(final ClientCache clientCache, final NotificationChannelsCache notificationChannelsCache, final GameEventsCache gameEventsCache, final GuildsCache guildsCache) {
-        this.clientCache = clientCache;
+    public Notifier(final NotificationChannelsCache notificationChannelsCache, final GameEventsCache gameEventsCache, final GuildsCache guildsCache) {
         this.notificationChannelsCache = notificationChannelsCache;
-        this.gameEventsCache = gameEventsCache;
         this.guildsCache = guildsCache;
 
         this.assembly = new Assembly(notificationChannelsCache, guildsCache, gameEventsCache);

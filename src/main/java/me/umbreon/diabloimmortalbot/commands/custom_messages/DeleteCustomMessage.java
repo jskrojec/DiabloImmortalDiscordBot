@@ -4,12 +4,11 @@ import me.umbreon.diabloimmortalbot.cache.CustomMessagesCache;
 import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
@@ -20,15 +19,13 @@ import java.util.Objects;
  */
 public class DeleteCustomMessage {
 
-    private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
     private final GuildsCache guildsCache;
     private final CustomMessagesCache customMessagesCache;
 
-    private final Logger LOGGER = LogManager.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(DeleteCustomMessage.class);
 
-    public DeleteCustomMessage(final ClientCache clientCache, final DatabaseRequests databaseRequests, GuildsCache guildsCache, CustomMessagesCache customMessagesCache) {
-        this.clientCache = clientCache;
+    public DeleteCustomMessage(final DatabaseRequests databaseRequests, GuildsCache guildsCache, CustomMessagesCache customMessagesCache) {
         this.databaseRequests = databaseRequests;
         this.guildsCache = guildsCache;
         this.customMessagesCache = customMessagesCache;

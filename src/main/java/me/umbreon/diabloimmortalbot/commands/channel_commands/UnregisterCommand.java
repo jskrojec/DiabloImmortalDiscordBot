@@ -1,17 +1,17 @@
 package me.umbreon.diabloimmortalbot.commands.channel_commands;
 
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Umbreon Majora
@@ -22,15 +22,13 @@ import org.apache.log4j.Logger;
 public class UnregisterCommand {
 
     private final DatabaseRequests databaseRequests;
-    private final ClientCache clientCache;
 
     private final GuildsCache guildsCache;
     private final NotificationChannelsCache notificationChannelsCache;
 
-    private final Logger LOGGER = LogManager.getLogger(this.getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(UnregisterCommand.class);
 
     public UnregisterCommand(final DatabaseRequests databaseRequests, final ClientCache clientCache, GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
-        this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
         this.guildsCache = guildsCache;
         this.notificationChannelsCache = notificationChannelsCache;

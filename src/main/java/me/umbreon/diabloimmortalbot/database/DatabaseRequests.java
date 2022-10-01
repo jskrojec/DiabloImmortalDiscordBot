@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -397,7 +396,7 @@ public class DatabaseRequests {
             try {
                 preparedStatement.setString(1, reactionRole.getMessageID());
                 preparedStatement.setString(2, reactionRole.getGuildID());
-                preparedStatement.setString(3, reactionRole.getEmojiID());
+                preparedStatement.setString(3, reactionRole.getReactionID());
                 preparedStatement.setString(4, reactionRole.getRoleID());
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
@@ -437,7 +436,7 @@ public class DatabaseRequests {
         List<ReactionRole> reactionRolesMap = new ArrayList<>();
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM reaction_role")) {
-            try (ResultSet resultSet = preparedStatement.executeQuery()){
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     String messageID = resultSet.getString("messageID");
                     String guildID = resultSet.getString("guildID");

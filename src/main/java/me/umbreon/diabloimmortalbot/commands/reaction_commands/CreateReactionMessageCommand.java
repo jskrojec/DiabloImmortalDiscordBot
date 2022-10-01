@@ -10,8 +10,8 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.requests.ErrorResponse;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /***********************************************************
  * @author Umbreon Majora
@@ -28,7 +28,7 @@ public class CreateReactionMessageCommand {
     private final DatabaseRequests databaseRequests;
     private final ReactionRolesCache reactionRolesCache;
 
-    private final Logger LOGGER = LogManager.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(CreateReactionMessageCommand.class);
 
     public CreateReactionMessageCommand(ReactionRolesCache reactionRolesCache, DatabaseRequests databaseRequests) {
         this.reactionRolesCache = reactionRolesCache;
@@ -87,6 +87,7 @@ public class CreateReactionMessageCommand {
             event.reply(log).setEphemeral(true).queue();
             return;
         }
+
 
         String s = EmojiUtils.shortCodify(emoteID);
 

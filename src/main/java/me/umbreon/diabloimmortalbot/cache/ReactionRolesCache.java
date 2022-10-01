@@ -3,9 +3,7 @@ package me.umbreon.diabloimmortalbot.cache;
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ReactionRolesCache {
 
@@ -31,7 +29,7 @@ public class ReactionRolesCache {
     public ReactionRole getReactionRoleByMessageIDAndEmojiID(String messageID, String emojiID) {
         for (ReactionRole reactionRole : reactionRolesList) {
             if (reactionRole.getMessageID().equalsIgnoreCase(messageID)) {
-                if (reactionRole.getEmojiID().equalsIgnoreCase(emojiID)) {
+                if (reactionRole.getReactionID().equalsIgnoreCase(emojiID)) {
                     return reactionRole;
                 }
             }
@@ -51,7 +49,7 @@ public class ReactionRolesCache {
     public void deleteReactionRole(final String messageID, final String codifiedEmote) {
         for (ReactionRole reactionRole : reactionRolesList) {
             String tmpListMessageID = reactionRole.getMessageID();
-            String tmpListCodifiedEmote = reactionRole.getEmojiID();
+            String tmpListCodifiedEmote = reactionRole.getReactionID();
             if (tmpListMessageID.equalsIgnoreCase(messageID) && tmpListCodifiedEmote.equalsIgnoreCase(codifiedEmote)) {
                 reactionRolesList.remove(reactionRole);
                 break;

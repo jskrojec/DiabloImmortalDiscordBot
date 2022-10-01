@@ -28,8 +28,9 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -38,11 +39,8 @@ import java.util.List;
  */
 public class SlashCommandInteraction extends ListenerAdapter {
 
-    private final ClientCache clientCache;
-    private final ReactionRolesCache reactionRolesCache;
     private final DatabaseRequests databaseRequests;
     private final GuildsCache guildsCache;
-    private final NotificationChannelsCache notificationChannelsCache;
 
     // channel commands
     private final RegisterCommand registerCommand;
@@ -75,7 +73,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
     private final CreateReactionMessageCommand createReactionMessageCommand;
     private final RemoveReactionCommand removeReactionCommand;
 
-    private final Logger LOGGER = Logger.getLogger(this.getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(SlashCommandInteraction.class);
 
     public SlashCommandInteraction(final ClientCache clientCache,
                                    final DatabaseRequests databaseRequests,
@@ -83,17 +81,14 @@ public class SlashCommandInteraction extends ListenerAdapter {
                                    final GuildsCache guildsCache,
                                    final NotificationChannelsCache notificationChannelsCache,
                                    final CustomMessagesCache customMessagesCache) {
-        this.clientCache = clientCache;
         this.databaseRequests = databaseRequests;
-        this.reactionRolesCache = reactionRolesCache;
         this.guildsCache = guildsCache;
-        this.notificationChannelsCache = notificationChannelsCache;
 
 
         // channel commands
         this.registerCommand = new RegisterCommand(databaseRequests, guildsCache, notificationChannelsCache);
         this.unregisterCommand = new UnregisterCommand(databaseRequests, clientCache, guildsCache, notificationChannelsCache);
-        this.roleCommand = new RoleCommand(databaseRequests, clientCache, guildsCache, notificationChannelsCache);
+        this.roleCommand = new RoleCommand(databaseRequests, guildsCache, notificationChannelsCache);
         this.infoCommand = new InfoCommand(guildsCache, notificationChannelsCache);
 
         // help commands
@@ -103,8 +98,8 @@ public class SlashCommandInteraction extends ListenerAdapter {
         this.languagesCommand = new LanguagesCommand();
 
         // custom messages commands
-        this.customMessageInfo = new CustomMessageInfo(clientCache, customMessagesCache);
-        this.deleteCustomMessage = new DeleteCustomMessage(clientCache, databaseRequests, guildsCache, customMessagesCache);
+        this.customMessageInfo = new CustomMessageInfo(customMessagesCache);
+        this.deleteCustomMessage = new DeleteCustomMessage(databaseRequests, guildsCache, customMessagesCache);
         this.listCustomMessagesCommand = new ListCustomMessagesCommand(clientCache, guildsCache, customMessagesCache);
         this.createCustomMessageCommand = new CreateCustomMessageCommand(clientCache, databaseRequests, customMessagesCache, guildsCache);
 
@@ -114,7 +109,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
 
         // server commands
         this.configCommand = new ConfigCommand(clientCache, guildsCache);
-        this.timezoneCommand = new TimezoneCommand(databaseRequests, clientCache, guildsCache);
+        this.timezoneCommand = new TimezoneCommand(databaseRequests, guildsCache);
         this.languageCommand = new LanguageCommand(clientCache, databaseRequests, guildsCache);
 
         // reaction roles commands

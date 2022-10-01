@@ -2,14 +2,13 @@ package me.umbreon.diabloimmortalbot.commands.custom_messages;
 
 import me.umbreon.diabloimmortalbot.cache.CustomMessagesCache;
 import me.umbreon.diabloimmortalbot.data.CustomMessage;
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 
@@ -20,13 +19,11 @@ import java.awt.*;
  */
 public class CustomMessageInfo {
 
-    private final ClientCache clientCache;
     private final CustomMessagesCache customMessagesCache;
 
-    private final Logger LOGGER = LogManager.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(CustomMessageInfo.class);
 
-    public CustomMessageInfo(ClientCache clientCache, CustomMessagesCache customMessagesCache) {
-        this.clientCache = clientCache;
+    public CustomMessageInfo(CustomMessagesCache customMessagesCache) {
         this.customMessagesCache = customMessagesCache;
     }
 

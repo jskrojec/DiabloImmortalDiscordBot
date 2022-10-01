@@ -13,13 +13,13 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Umbreon Majora
- *
+ * <p>
  * Command: /info <CHANNEL>
  * Description: Show's all information about that channel.
  */
@@ -32,7 +32,7 @@ public class InfoCommand {
     private final GuildsCache guildsCache;
     private final NotificationChannelsCache notificationChannelsCache;
 
-    private final Logger LOGGER = LogManager.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(InfoCommand.class);
 
     public InfoCommand(GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
         this.guildsCache = guildsCache;
@@ -52,12 +52,12 @@ public class InfoCommand {
             event.getHook().sendMessage(guildIsNullError).setEphemeral(true).queue();
             return;
         }
-        
+
         String guildID = guild.getId();
         String language = guildsCache.getGuildLanguage(guildID);
 
         TextChannel textChannel = getTextChannel(event);
-        
+
         if (textChannel == null) {
             log = user.getName() + "#" + user.getDiscriminator() + " tried to use /info command but it failed because text channel is null.";
             LOGGER.info(log);

@@ -8,21 +8,17 @@ import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
 import me.umbreon.diabloimmortalbot.notifier.InfoNotifier;
 import me.umbreon.diabloimmortalbot.notifier.Notifier;
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
 
 public class Client {
 
     public static void main(final String[] args) {
-        Logger.getRootLogger().setLevel(Level.INFO);
+        boolean registerAllCommands = isRegisterAllCommands(args);
 
         ClientCache clientCache = new ClientCache();
         ClientConfig clientConfig = new ClientConfig();
@@ -31,7 +27,6 @@ public class Client {
         GameEventsCache gameEventsCache = new GameEventsCache();
         NotificationChannelsCache notificationChannelsCache = new NotificationChannelsCache();
 
-        BasicConfigurator.configure();
         clientConfig.loadConfig();
         ClientLogger.checkIfLogFolderExists(clientConfig.getLogFolderPath());
         LanguageController.loadConfigurations();
@@ -48,7 +43,7 @@ public class Client {
                     .addEventListeners(new ChannelDelete(clientCache, databaseRequests, notificationChannelsCache))
                     .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests, reactionRolesCache, guildsCache, notificationChannelsCache, customMessagesCache))
                     .addEventListeners(new GuildJoin())
-                    .addEventListeners(new GuildReady())
+                    //.addEventListeners(registerAllCommands ? new GuildReady() : null)
                     .addEventListeners(new MessageReactionAdd(reactionRolesCache))
                     .addEventListeners(new MessageReactionRemove(reactionRolesCache))
                     .addEventListeners(new MessageDelete(reactionRolesCache, databaseRequests))
@@ -60,13 +55,23 @@ public class Client {
             return;
         }
 
-        Notifier notifier = new Notifier(clientCache, notificationChannelsCache, gameEventsCache, guildsCache);
+        Notifier notifier = new Notifier(notificationChannelsCache, gameEventsCache, guildsCache);
         CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests, guildsCache, customMessagesCache);
         InfoNotifier infoNotifier = new InfoNotifier();
 
         notifier.runNotificationScheduler(jda);
         customMessagesNotifier.runCustomMessagesNotifierScheduler(jda);
         infoNotifier.runScheduler(jda);
+    }
+
+    private static boolean isRegisterAllCommands(String[] args) {
+        boolean registerAllCommands;
+        if (args.length == 0) {
+            registerAllCommands = false;
+        } else {
+            registerAllCommands = Boolean.parseBoolean(args[0]);
+        }
+        return registerAllCommands;
     }
 
     private static void loadCache(ClientCache clientCache, GuildsCache guildsCache, CustomMessagesCache customMessagesCache, GameEventsCache gameEventsCache, NotificationChannelsCache notificationChannelsCache, DatabaseRequests databaseRequests, ReactionRolesCache reactionRolesCache) {

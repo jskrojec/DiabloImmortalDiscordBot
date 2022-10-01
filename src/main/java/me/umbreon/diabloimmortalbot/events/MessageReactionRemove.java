@@ -4,17 +4,20 @@ import emoji4j.EmojiUtils;
 import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MessageReactionRemove extends ListenerAdapter {
 
     private final ReactionRolesCache reactionRolesCache;
 
-    private final Logger LOGGER = LogManager.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(MessageReactionRemove.class);
 
     public MessageReactionRemove(ReactionRolesCache reactionRolesCache) {
         this.reactionRolesCache = reactionRolesCache;
@@ -50,7 +53,7 @@ public class MessageReactionRemove extends ListenerAdapter {
 
         String s = EmojiUtils.shortCodify(event.getReaction().getReactionEmote().getAsReactionCode());
         ReactionRole reactionRole = reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, s);
-        String givenReaction = reactionRole.getEmojiID();
+        String givenReaction = reactionRole.getReactionID();
 
         if (!givenReaction.equalsIgnoreCase(s)) {
             LOGGER.info("Failed to run onMessageReactionRemove because reacted reaction was not registered.");

@@ -5,11 +5,14 @@ import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageReaction;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /***********************************************************
  * @author Umbreon Majora
@@ -26,7 +29,7 @@ public class RemoveReactionCommand {
     private final ReactionRolesCache reactionRolesCache;
     private final DatabaseRequests databaseRequests;
 
-    private final Logger LOGGER = LogManager.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(RemoveReactionCommand.class);
 
     public RemoveReactionCommand(ReactionRolesCache reactionRolesCache, DatabaseRequests databaseRequests) {
         this.reactionRolesCache = reactionRolesCache;

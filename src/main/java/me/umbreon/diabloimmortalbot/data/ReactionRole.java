@@ -4,13 +4,13 @@ public class ReactionRole {
 
     private String messageID;
     private String guildID;
-    private String emojiID;
+    private String reactionID;
     private String roleID;
 
-    public ReactionRole(String messageID, String guildID, String emojiID, String roleID) {
+    public ReactionRole(String messageID, String guildID, String reactionID, String roleID) {
         this.messageID = messageID;
         this.guildID = guildID;
-        this.emojiID = emojiID;
+        this.reactionID = reactionID;
         this.roleID = roleID;
     }
 
@@ -30,12 +30,12 @@ public class ReactionRole {
         this.guildID = guildID;
     }
 
-    public String getEmojiID() {
-        return emojiID;
+    public String getReactionID() {
+        return reactionID;
     }
 
-    public void setEmojiID(String emojiID) {
-        this.emojiID = emojiID;
+    public void setReactionID(String reactionID) {
+        this.reactionID = reactionID;
     }
 
     public String getRoleID() {
@@ -45,4 +45,5 @@ public class ReactionRole {
     public void setRoleID(String roleID) {
         this.roleID = roleID;
     }
+
 }
