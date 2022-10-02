@@ -5,7 +5,7 @@ import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 
 /**
  * @author Umbreon Majora
@@ -58,12 +58,12 @@ public class AncientArena {
     }
 
     private boolean isTimeValid(final String timezone) {
-        String time = TimeAssistant.getTimeWithWeekday(timezone);
+        String time = TimeUtils.getTimeWithWeekday(timezone);
         return gameEventsCache.getListWithAncientAreaTimes().get(time) != null;
     }
 
     private boolean isHeadUpTime(final String timezone) {
-        String time = TimeAssistant.getTimeWithWeekday(timezone);
+        String time = TimeUtils.getTimeWithWeekday(timezone);
         return gameEventsCache.getListWithAncientAreaTimes().get(time);
     }
 

@@ -3,7 +3,10 @@ package me.umbreon.diabloimmortalbot;
 import me.umbreon.diabloimmortalbot.cache.*;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
-import me.umbreon.diabloimmortalbot.events.*;
+import me.umbreon.diabloimmortalbot.events.ChannelDelete;
+import me.umbreon.diabloimmortalbot.events.GuildJoin;
+import me.umbreon.diabloimmortalbot.events.MessageDelete;
+import me.umbreon.diabloimmortalbot.events.SlashCommandInteraction;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
 import me.umbreon.diabloimmortalbot.notifier.InfoNotifier;
@@ -12,8 +15,6 @@ import me.umbreon.diabloimmortalbot.utils.ClientConfig;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-
-import javax.security.auth.login.LoginException;
 
 public class Client {
 
@@ -39,23 +40,26 @@ public class Client {
         JDA jda;
         try {
             jda = JDABuilder.createDefault(clientConfig.getToken())
-                    .addEventListeners(new ChannelDelete(clientCache, databaseRequests, notificationChannelsCache))
+                    .addEventListeners(new ChannelDelete(databaseRequests, notificationChannelsCache))
                     .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests, reactionRolesCache, guildsCache, notificationChannelsCache, customMessagesCache))
                     .addEventListeners(new GuildJoin())
                     //.addEventListeners(registerAllCommands ? new GuildReady() : null)
-                    .addEventListeners(new MessageReactionAdd(reactionRolesCache))
-                    .addEventListeners(new MessageReactionRemove(reactionRolesCache))
+
+
+                    // removed for upgrade to alpha20
+                    //.addEventListeners(new MessageReactionAdd(reactionRolesCache))
+                    //.addEventListeners(new MessageReactionRemove(reactionRolesCache))
                     .addEventListeners(new MessageDelete(reactionRolesCache, databaseRequests))
                     .build()
                     .awaitReady();
-        } catch (LoginException | InterruptedException e) {
+        } catch (InterruptedException e) {
             ClientLogger.createNewErrorLogEntry(e);
             e.printStackTrace();
             return;
         }
 
         Notifier notifier = new Notifier(notificationChannelsCache, gameEventsCache, guildsCache);
-        CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(clientCache, databaseRequests, guildsCache, customMessagesCache);
+        CustomMessagesNotifier customMessagesNotifier = new CustomMessagesNotifier(databaseRequests, guildsCache, customMessagesCache);
         InfoNotifier infoNotifier = new InfoNotifier();
 
         notifier.runNotificationScheduler(jda);

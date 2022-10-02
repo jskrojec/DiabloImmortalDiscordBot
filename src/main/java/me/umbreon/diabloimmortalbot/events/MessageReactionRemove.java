@@ -1,13 +1,12 @@
 package me.umbreon.diabloimmortalbot.events;
 
-import emoji4j.EmojiUtils;
 import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
@@ -31,7 +30,6 @@ public class MessageReactionRemove extends ListenerAdapter {
 
         String messageID = event.getReaction().getMessageId();
         String guildID = event.getGuild().getId();
-        String textChannelID = event.getTextChannel().getId();
         String log;
 
         Member member = event.getMember();
@@ -39,7 +37,7 @@ public class MessageReactionRemove extends ListenerAdapter {
         if (member == null || user == null) {
             log = "Failed to run " + getClass().getSimpleName() + " because guild or member was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             return;
         }
 
@@ -50,8 +48,8 @@ public class MessageReactionRemove extends ListenerAdapter {
         if (!reactionRolesCache.doReactionRoleMessageExists(messageID)) {
             return;
         }
-
-        String s = EmojiUtils.shortCodify(event.getReaction().getReactionEmote().getAsReactionCode());
+        //removed for upgrade to alpha20
+        String s = "";//EmojiUtils.shortCodify(event.getReaction().getReactionEmote().getAsReactionCode());
         ReactionRole reactionRole = reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, s);
         String givenReaction = reactionRole.getReactionID();
 
@@ -65,13 +63,13 @@ public class MessageReactionRemove extends ListenerAdapter {
         if (role == null) {
             log = member.getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to remove a role using reaction roles but it failed because role was null";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             return;
         }
 
         log = "Removed " + role.getName() + " from " + member.getEffectiveName() + " by using reaction role.";
         LOGGER.info(log);
-        ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+        ClientLogger.createNewServerLogEntry(guildID, "global", log);
         event.getUser().openPrivateChannel().queue(privateChannel -> {
             privateChannel.sendMessage("You have lost the role " + role.getName()).queue();
         });

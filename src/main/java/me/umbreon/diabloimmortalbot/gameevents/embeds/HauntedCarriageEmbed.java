@@ -4,10 +4,10 @@ import me.umbreon.diabloimmortalbot.cache.GameEventsCache;
 import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class HauntedCarriageEmbed {
 
@@ -20,7 +20,7 @@ public class HauntedCarriageEmbed {
     }
 
     public void checkHauntedCarriageFormatted(final TextChannel textChannel, final String timezone, final String language) {
-        final String time = TimeAssistant.getTimeWithWeekday(timezone);
+        final String time = TimeUtils.getTimeWithWeekday(timezone);
         final String textChannelID = textChannel.getId();
 
         if (!gameEventsCache.getListWithHauntedCarriageEmbedTimes().contains(time) || !notificationChannelsCache.isHauntedCarriageEmbedMessageEnabled(textChannelID)) {
@@ -43,7 +43,7 @@ public class HauntedCarriageEmbed {
         final String locationMessage1 = LanguageController.getLocationHauntedCarriageEmbedMessage1(language);
         final String locationMessage2 = LanguageController.getLocationHauntedCarriageEmbedMessage2(language);
 
-        final long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
+        final long unix = TimeUtils.getTimeInUnix(timezone) + (3600 * 2);
 
         embedBuilder.setTitle(eventTitle + " | " + worldEventMessage);
         embedBuilder.setImage(ImageAssistant.getDiabloHauntedCarriageImage());

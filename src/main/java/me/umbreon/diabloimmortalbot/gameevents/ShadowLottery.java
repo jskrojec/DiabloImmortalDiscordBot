@@ -5,7 +5,7 @@ import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 
 /**
  * @author Umbreon Majora
@@ -24,6 +24,7 @@ public class ShadowLottery {
         this.guildsCache = guildsCache;
         this.gameEventsCache = gameEventsCache;
     }
+
     public String checkOnShadowLotteryEvent(final String timezone, final String language, final String guildID, final String textChannelID) {
         if (!isTimeValid(timezone)) {
             return "";
@@ -57,12 +58,12 @@ public class ShadowLottery {
     }
 
     private boolean isTimeValid(final String timezone) {
-        final String time = TimeAssistant.getTime(timezone);
+        final String time = TimeUtils.getTime(timezone);
         return gameEventsCache.getListWithShadowLotteryTimes().get(time) != null;
     }
 
     private boolean isHeadUpTime(final String timezone) {
-        final String time = TimeAssistant.getTime(timezone);
+        final String time = TimeUtils.getTime(timezone);
         return gameEventsCache.getListWithShadowLotteryTimes().get(time);
     }
 

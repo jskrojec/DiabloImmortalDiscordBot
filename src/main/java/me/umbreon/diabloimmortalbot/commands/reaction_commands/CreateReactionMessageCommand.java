@@ -2,14 +2,15 @@ package me.umbreon.diabloimmortalbot.commands.reaction_commands;
 
 import emoji4j.EmojiUtils;
 import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
-import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import net.dv8tion.jda.api.requests.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,11 +42,10 @@ public class CreateReactionMessageCommand {
         User user = event.getUser();
         Guild guild = event.getGuild();
 
-        String textChannelID = event.getTextChannel().getId();
         if (member == null || guild == null) {
             log = "Failed to run " + getClass().getSimpleName() + " because guild or member was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry("global", textChannelID, log);
+            ClientLogger.createNewServerLogEntry("global", "global", log);
             event.reply(log).setEphemeral(true).queue();
             return;
         }
@@ -58,7 +58,7 @@ public class CreateReactionMessageCommand {
             messageID = messageIdOption.getAsString();
         } else {
             log = member.getEffectiveName() + "#" + user.getDiscriminator() + " tried to create a reaction role but it failed because messageID was null.";
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             LOGGER.info(log);
             event.reply(log).setEphemeral(true).queue();
             return;
@@ -70,7 +70,7 @@ public class CreateReactionMessageCommand {
             role = roleIdOption.getAsRole();
         } else {
             log = member.getEffectiveName() + "#" + user.getDiscriminator() + " tried to create a reaction role but it failed because roleID was null.";
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             LOGGER.info(log);
             event.reply(log).setEphemeral(true).queue();
             return;
@@ -82,17 +82,20 @@ public class CreateReactionMessageCommand {
             emoteID = emoteOption.getAsString();
         } else {
             log = member.getEffectiveName() + "#" + user.getDiscriminator() + " tried to create a reaction role but it failed because emoji was null.";
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             LOGGER.info(log);
             event.reply(log).setEphemeral(true).queue();
             return;
         }
 
+        Emoji emoji = Emoji.fromFormatted(emoteOption.getAsString());
+
+        String reactionType = emoji.getType().name();
+
 
         String s = EmojiUtils.shortCodify(emoteID);
-
-
-        event.getTextChannel().retrieveMessageById(messageID).queue((message) -> {
+/* REMOVED FOR UPGRADE TO ALPHA20
+        event.getChannel().retrieveMessageById(messageID).queue((message) -> {
             for (MessageReaction reaction : message.getReactions()) {
                 String givenReaction = EmojiUtils.shortCodify(emoteID);
                 String messageReaction = EmojiUtils.shortCodify(reaction.getReactionEmote().getAsReactionCode());
@@ -104,7 +107,7 @@ public class CreateReactionMessageCommand {
             }
         });
 
-        ReactionRole reactionRole = new ReactionRole(messageID, guildID, s, role.getId());
+        ReactionRole reactionRole = new ReactionRole(messageID, guildID, s, reactionType, role.getId());
         reactionRolesCache.addReactionRoleToList(reactionRole);
         databaseRequests.createNewReactionRole(reactionRole);
         log = member.getEffectiveName() + "#" + user.getDiscriminator() + " created a new reaction role.";
@@ -128,6 +131,6 @@ public class CreateReactionMessageCommand {
             }
             failure.printStackTrace();
         });
-
+*/
     }
 }

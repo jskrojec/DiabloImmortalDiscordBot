@@ -3,10 +3,9 @@ package me.umbreon.diabloimmortalbot.notifier;
 import me.umbreon.diabloimmortalbot.cache.CustomMessagesCache;
 import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -15,13 +14,11 @@ import java.util.TimerTask;
 
 public class CustomMessagesNotifier {
 
-    private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
     private final GuildsCache guildsCache;
     private final CustomMessagesCache customMessagesCache;
 
-    public CustomMessagesNotifier(final ClientCache clientCache, final DatabaseRequests databaseRequests, final GuildsCache guildsCache, CustomMessagesCache customMessagesCache) {
-        this.clientCache = clientCache;
+    public CustomMessagesNotifier(final DatabaseRequests databaseRequests, final GuildsCache guildsCache, CustomMessagesCache customMessagesCache) {
         this.databaseRequests = databaseRequests;
         this.guildsCache = guildsCache;
         this.customMessagesCache = customMessagesCache;
@@ -73,12 +70,12 @@ public class CustomMessagesNotifier {
     }
 
     private boolean isFulltimeValid(final String timezone, final String fullTime) {
-        final String time = TimeAssistant.getTimeWithWeekday(timezone);
+        final String time = TimeUtils.getTimeWithWeekday(timezone);
         return time.equalsIgnoreCase(fullTime);
     }
 
     private boolean isTimeValid(final String timezone, final String time) {
-        final String timeOnly = TimeAssistant.getTime(timezone);
+        final String timeOnly = TimeUtils.getTime(timezone);
         return time.equalsIgnoreCase(timeOnly);
     }
 }

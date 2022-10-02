@@ -35,7 +35,7 @@ public class DeleteCustomMessage {
         OptionMapping customMessageIdOption = event.getOption("custommessageid");
 
         String guildID = event.getGuild().getId();
-        String textChannelID = event.getTextChannel().getId();
+        String textChannelID = event.getChannel().getId();
         String guildLanguage = guildsCache.getGuildLanguage(guildID);
 
         int customMessageID;

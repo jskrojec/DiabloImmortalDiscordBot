@@ -1,9 +1,9 @@
 package me.umbreon.diabloimmortalbot.commands.help_commands;
 
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -44,7 +44,7 @@ public class TimezonesCommand {
                 timezoneMessage = timezone + i;
             }
 
-            final String time = TimeAssistant.getTimeWithWeekday(timezoneMessage);
+            final String time = TimeUtils.getTimeWithWeekday(timezoneMessage);
 
             if (time.equalsIgnoreCase("INVALID_TIMEZONE")) {
                 event.reply(LanguageController.getUnknownTimezoneMessage(guildLanguage)).setEphemeral(true).queue();

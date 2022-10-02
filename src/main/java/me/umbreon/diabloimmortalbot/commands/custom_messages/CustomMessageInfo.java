@@ -31,7 +31,7 @@ public class CustomMessageInfo {
         OptionMapping customMessageIdOption = event.getOption("custommessageid");
 
         String guildID = event.getGuild().getId();
-        String textChannelID = event.getTextChannel().getId();
+        String textChannelID = event.getChannel().getId();
 
         int customMessageID;
         if (customMessageIdOption != null) {

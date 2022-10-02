@@ -11,7 +11,15 @@ public class ClientLogger {
 
     private static File logFolder;
     private static File logFile;
-    private static final String path = "/home/discord/logs/";
+    private static String path;
+
+    static {
+        if (true) {
+            path = "C:\\workspace\\log\\";
+        } else {
+            path = "/home/discord/logs";
+        }
+    }
 
     private ClientLogger() {
     }
@@ -36,9 +44,9 @@ public class ClientLogger {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(serverLogFile, true))) {
             bufferedWriter.append("\n[")
-                    .append(TimeAssistant.getCurrentDate())
+                    .append(TimeUtils.getCurrentDate())
                     .append(" ")
-                    .append(TimeAssistant.getCurrentTime())
+                    .append(TimeUtils.getCurrentTime())
                     .append("] ")
                     .append(message)
                     .append("\n");
@@ -81,9 +89,9 @@ public class ClientLogger {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
             bufferedWriter.append("[")
-                    .append(TimeAssistant.getCurrentDate())
+                    .append(TimeUtils.getCurrentDate())
                     .append(" ")
-                    .append(TimeAssistant.getCurrentTime())
+                    .append(TimeUtils.getCurrentTime())
                     .append("] ")
                     .append(logMessage.getMessage())
                     .append("\n");
@@ -107,9 +115,9 @@ public class ClientLogger {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
             bufferedWriter.append("\n[")
-                    .append(TimeAssistant.getCurrentDate())
+                    .append(TimeUtils.getCurrentDate())
                     .append(" ")
-                    .append(TimeAssistant.getCurrentTime())
+                    .append(TimeUtils.getCurrentTime())
                     .append("] ")
                     .append(logMessage.getMessage())
                     .append("\n");

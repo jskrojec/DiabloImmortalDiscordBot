@@ -40,7 +40,7 @@ public class TimezoneCommand {
     public void runTimezoneCommand(final SlashCommandInteractionEvent event) {
         event.deferReply().queue();
         String log;
-        String textChannelID = event.getTextChannel().getId();
+        String textChannelID = event.getChannel().getId();
         User user = event.getUser();
 
         Guild guild = event.getGuild();
