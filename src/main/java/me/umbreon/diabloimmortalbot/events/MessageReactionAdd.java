@@ -1,13 +1,12 @@
 package me.umbreon.diabloimmortalbot.events;
 
-import emoji4j.EmojiUtils;
 import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +31,7 @@ public class MessageReactionAdd extends ListenerAdapter {
 
         String messageID = event.getReaction().getMessageId();
         String guildID = event.getGuild().getId();
-        String textChannelID = event.getTextChannel().getId();
+        String textChannelID = event.getChannel().getId();
         String log;
 
         Member member = event.getMember();
@@ -52,7 +51,8 @@ public class MessageReactionAdd extends ListenerAdapter {
             return;
         }
 
-        String s = EmojiUtils.shortCodify(event.getReaction().getReactionEmote().getAsReactionCode());
+        //removed for upgrade to alpha20
+        String s = "";//EmojiUtils.shortCodify(event.getReaction().getReactionEmote().getAsReactionCode());
         ReactionRole reactionRole = reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, s);
         String givenReaction = reactionRole.getReactionID();
 

@@ -42,11 +42,10 @@ public class RemoveReactionCommand {
         User user = event.getUser();
         Guild guild = event.getGuild();
 
-        String textChannelID = event.getTextChannel().getId();
         if (member == null || guild == null) {
             log = "Failed to run " + getClass().getSimpleName() + " because guild or member was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry("global", textChannelID, log);
+            ClientLogger.createNewServerLogEntry("global", "global", log);
             event.reply(log).setEphemeral(true).queue();
             return;
         }
@@ -59,7 +58,7 @@ public class RemoveReactionCommand {
             messageID = messageIdOption.getAsString();
         } else {
             log = user.getName() + "#" + user.getDiscriminator() + " tried to remove a reaction role but it failed because messageID was null.";
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             LOGGER.info(log);
             event.reply(log).setEphemeral(true).queue();
             return;
@@ -71,7 +70,7 @@ public class RemoveReactionCommand {
             emote = emoteOption.getAsString();
         } else {
             log = user.getName() + "#" + user.getDiscriminator() + " tried to remove a reaction role but it failed because emote was null.";
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             LOGGER.info(log);
             event.reply(log).setEphemeral(true).queue();
             return;
@@ -82,13 +81,13 @@ public class RemoveReactionCommand {
 
         if (reactionRole == null) {
             log = user.getName() + "#" + user.getDiscriminator() + " tried to remove a reaction role but it failed because Reaction Role Object was null.";
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             LOGGER.info(log);
             event.reply(log).setEphemeral(true).queue();
             return;
         }
 
-        event.getTextChannel().retrieveMessageById(messageID).queue(message -> {
+        event.getChannel().retrieveMessageById(messageID).queue(message -> {
             for (MessageReaction messageReaction : message.getReactions()) {
                 String codifiedEmote1 = EmojiUtils.shortCodify(messageID);
                 if (codifiedEmote1.equalsIgnoreCase(codifiedEmote)) {

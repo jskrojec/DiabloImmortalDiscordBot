@@ -4,10 +4,10 @@ import me.umbreon.diabloimmortalbot.cache.GameEventsCache;
 import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class AncientNightmareEmbed {
 
@@ -20,8 +20,8 @@ public class AncientNightmareEmbed {
     }
 
     public void checkAncientNightmareFormatted(final TextChannel textChannel, final String timezone, final String language) {
-        final String time = TimeAssistant.getTimeWithWeekday(timezone);
-        final String textChannelID = textChannel.getId();
+        String time = TimeUtils.getTimeWithWeekday(timezone);
+        String textChannelID = textChannel.getId();
 
         if (!gameEventsCache.getListWithAncientNightmareEmbedTimes().contains(time) || !notificationChannelsCache.isAncientNightmareEmbedMessageEnabled(textChannelID)) {
             return;
@@ -40,7 +40,7 @@ public class AncientNightmareEmbed {
         final String locationMessage1 = LanguageController.getLocationAncientNightmareEmbedMessage1(language);
         final String locationMessage2 = LanguageController.getLocationAncientNightmareEmbedMessage2(language);
 
-        final long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
+        final long unix = TimeUtils.getTimeInUnix(timezone) + (3600 * 2);
 
         embedBuilder.setTitle(eventTitle + " | " + worldEventMessage);
         embedBuilder.setImage(ImageAssistant.getDiabloAncientNightmareImage());

@@ -4,10 +4,10 @@ import me.umbreon.diabloimmortalbot.cache.GameEventsCache;
 import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class AncientArenaEmbed {
 
@@ -20,7 +20,7 @@ public class AncientArenaEmbed {
     }
 
     public void checkAncientArenaFormatted(final TextChannel textChannel, final String timezone, final String language) {
-        final String time = TimeAssistant.getTimeWithWeekday(timezone);
+        final String time = TimeUtils.getTimeWithWeekday(timezone);
         final String textChannelID = textChannel.getId();
 
         if (!gameEventsCache.getListWithAncientArenaEmbedTimes().contains(time) || !notificationChannelsCache.isAncientArenaEmbedMessageEnabled(textChannelID)) {
@@ -33,7 +33,7 @@ public class AncientArenaEmbed {
     private MessageEmbed buildAncientArenaEmbed(final String timezone, final String language) {
         final EmbedBuilder embedBuilder = new EmbedBuilder();
 
-        final long unix = TimeAssistant.getTimeInUnix(timezone) + (3600 * 2);
+        final long unix = TimeUtils.getTimeInUnix(timezone) + (3600 * 2);
 
         final String eventTitle = LanguageController.getAncientArenaEmbedMessage(language);
         final String worldEventMessage = LanguageController.getEmbedWorldEventMessage(language);

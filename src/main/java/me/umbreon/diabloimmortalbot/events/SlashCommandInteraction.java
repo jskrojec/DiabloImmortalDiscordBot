@@ -11,6 +11,7 @@ import me.umbreon.diabloimmortalbot.commands.custom_messages.DeleteCustomMessage
 import me.umbreon.diabloimmortalbot.commands.custom_messages.ListCustomMessagesCommand;
 import me.umbreon.diabloimmortalbot.commands.event_commands.ChangeEventValueCommand;
 import me.umbreon.diabloimmortalbot.commands.event_commands.EventListCommand;
+import me.umbreon.diabloimmortalbot.commands.guilds_commands.ChangeServerValueCommand;
 import me.umbreon.diabloimmortalbot.commands.guilds_commands.ConfigCommand;
 import me.umbreon.diabloimmortalbot.commands.help_commands.HelpCommand;
 import me.umbreon.diabloimmortalbot.commands.help_commands.InstructionCommand;
@@ -22,9 +23,9 @@ import me.umbreon.diabloimmortalbot.commands.server_commands.LanguageCommand;
 import me.umbreon.diabloimmortalbot.commands.server_commands.TimezoneCommand;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
-import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -65,6 +66,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
     private final ChangeEventValueCommand changeEventValueCommand;
 
     // server commands
+    private final ChangeServerValueCommand changeServerValueCommand;
     private final ConfigCommand configCommand;
     private final TimezoneCommand timezoneCommand;
     private final LanguageCommand languageCommand;
@@ -108,6 +110,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
         this.changeEventValueCommand = new ChangeEventValueCommand(clientCache, databaseRequests, guildsCache, notificationChannelsCache);
 
         // server commands
+        this.changeServerValueCommand = new ChangeServerValueCommand(clientCache, databaseRequests, guildsCache, notificationChannelsCache);
         this.configCommand = new ConfigCommand(clientCache, guildsCache);
         this.timezoneCommand = new TimezoneCommand(databaseRequests, guildsCache);
         this.languageCommand = new LanguageCommand(clientCache, databaseRequests, guildsCache);
@@ -124,7 +127,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
             String guildID = event.getGuild().getId();
             registerGuildIfDoNotExist(guildID);
 
-            if (!isChannelTypeTextChannel(event.getChannel().getType())) {
+            if (!isChannelTypeTextChannel(event.getChannelType())) {
                 return;
             }
             Member member = event.getMember();
@@ -185,6 +188,9 @@ public class SlashCommandInteraction extends ListenerAdapter {
                         break;
                     case "language":
                         languageCommand.runLanguageCommand(event);
+                        break;
+                    case "server":
+                        changeServerValueCommand.runChangeServerValueCommand(event);
                         break;
                     case "config":
                         configCommand.runConfigCommand(event);

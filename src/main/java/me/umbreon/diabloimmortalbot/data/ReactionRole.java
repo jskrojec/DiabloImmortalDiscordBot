@@ -5,12 +5,14 @@ public class ReactionRole {
     private String messageID;
     private String guildID;
     private String reactionID;
+    private String reactionType;
     private String roleID;
 
-    public ReactionRole(String messageID, String guildID, String reactionID, String roleID) {
+    public ReactionRole(String messageID, String guildID, String reactionID, String reactionType, String roleID) {
         this.messageID = messageID;
         this.guildID = guildID;
         this.reactionID = reactionID;
+        this.reactionType = reactionType;
         this.roleID = roleID;
     }
 
@@ -46,4 +48,11 @@ public class ReactionRole {
         this.roleID = roleID;
     }
 
+    public String getReactionType() {
+        return reactionType;
+    }
+
+    public void setReactionType(String reactionType) {
+        this.reactionType = reactionType;
+    }
 }

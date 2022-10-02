@@ -40,7 +40,7 @@ public class ChangeEventValueCommand {
 
         String guildID = event.getGuild().getId();
         String guildLanguage = guildsCache.getGuildLanguage(guildID);
-        String textChannelID = event.getTextChannel().getId();
+        String textChannelID = event.getChannel().getId();
 
         if (!notificationChannelsCache.isChannelRegistered(textChannelID)) {
             event.reply("This channel is not registered. Use /register to register this channel.").setEphemeral(true).queue();

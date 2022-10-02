@@ -5,15 +5,15 @@ import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import me.umbreon.diabloimmortalbot.utils.TimeAssistant;
+import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * Description: Show's all information about that channel.
  */
 public class InfoCommand {
-    // new strings
+    // new strings -> to stringUtils
     String channelNotTextChannelError = "%s isn't a TextChannel. Only text channels can be registered.";
     String guildIsNullError = "An error occurred. Your guild couldn't be found.";
     String textChannelIsNullError = "An error occurred. Your text channel couldn't be found.";
@@ -43,7 +43,7 @@ public class InfoCommand {
         String log;
         Guild guild = event.getGuild();
         User user = event.getUser();
-        String textChannelID = event.getTextChannel().getId();
+        String textChannelID = event.getChannel().getId();
 
         if (!isGuildValid(guild)) {
             log = user.getName() + "#" + user.getDiscriminator() + " tried to use /info command but it failed because guild is null.";
@@ -57,14 +57,6 @@ public class InfoCommand {
         String language = guildsCache.getGuildLanguage(guildID);
 
         TextChannel textChannel = getTextChannel(event);
-
-        if (textChannel == null) {
-            log = user.getName() + "#" + user.getDiscriminator() + " tried to use /info command but it failed because text channel is null.";
-            LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
-            event.getHook().sendMessage(textChannelIsNullError).setEphemeral(true).queue();
-            return;
-        }
 
         if (!isChannelTypeTextChannel(textChannel)) {
             log = event.getUser().getName() + " tried to use /info command on " + textChannel.getName() + " but failed because that wasn't a text channel.";
@@ -95,14 +87,13 @@ public class InfoCommand {
         event.replyEmbeds(buildInfoEmbed(textChannel, roleID, guildID)).setEphemeral(true).queue();
     }
 
-    @Nullable
-    private TextChannel getTextChannel(SlashCommandInteraction event) {
+    private @NotNull TextChannel getTextChannel(SlashCommandInteraction event) {
         OptionMapping channelOption = event.getOption("targetchannel");
         TextChannel textChannel;
         if (channelOption != null) {
-            textChannel = channelOption.getAsTextChannel();
+            textChannel = channelOption.getAsChannel().asTextChannel();
         } else {
-            textChannel = event.getTextChannel();
+            textChannel = event.getChannel().asTextChannel();
         }
         return textChannel;
     }
@@ -123,7 +114,7 @@ public class InfoCommand {
         String guildLanguage = guildsCache.getGuildLanguage(guildID);
 
         embedBuilder.addField(LanguageController.getInfoTimezoneMessage(guildLanguage), timezone, true);
-        embedBuilder.addField(LanguageController.getInfoCurrentTimeMessage(guildLanguage), TimeAssistant.getTimeWithWeekday(timezone), true);
+        embedBuilder.addField(LanguageController.getInfoCurrentTimeMessage(guildLanguage), TimeUtils.getTimeWithWeekday(timezone), true);
         embedBuilder.addField(LanguageController.getInfoTextChannelIDMessage(guildLanguage), notificationChannel.getTextChannelID(), false);
         embedBuilder.addField(LanguageController.getInfoMentionedRoleMessage(guildLanguage), mentionedRoleName, false);
 

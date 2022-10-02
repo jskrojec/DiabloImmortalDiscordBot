@@ -35,7 +35,7 @@ public class LanguageCommand {
 
         String guildID = event.getGuild().getId();
         String guildLanguage = guildsCache.getGuildLanguage(guildID);
-        String textChannelID = event.getTextChannel().getId();
+        String textChannelID = event.getChannel().getId();
         String language;
 
         if (languageOption != null) {

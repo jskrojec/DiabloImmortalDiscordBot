@@ -442,8 +442,9 @@ public class DatabaseRequests {
                     String guildID = resultSet.getString("guildID");
                     String roleID = resultSet.getString("roleID");
                     String emojiID = resultSet.getString("emojiID");
-                    ReactionRole reactionRole = new ReactionRole(messageID, guildID, emojiID, roleID);
-                    reactionRolesMap.add(reactionRole);
+                    //removed for upgrade to alpha 20
+                    //ReactionRole reactionRole = new ReactionRole(messageID, guildID, emojiID, reactionType, roleID);
+                    //reactionRolesMap.add(reactionRole);
                 }
             }
         } catch (SQLException e) {

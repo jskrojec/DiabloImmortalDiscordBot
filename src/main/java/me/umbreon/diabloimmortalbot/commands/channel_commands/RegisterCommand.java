@@ -7,7 +7,7 @@ import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import org.slf4j.Logger;
@@ -35,13 +35,13 @@ public class RegisterCommand {
     }
 
     public void runRegisterCommand(final SlashCommandInteraction event) {
-        OptionMapping optionMapping = event.getOption("targetchannel");
+        OptionMapping channelOption = event.getOption("targetchannel");
 
         TextChannel textChannel;
-        if (optionMapping != null) {
-            textChannel = optionMapping.getAsTextChannel();
+        if (channelOption != null) {
+            textChannel = channelOption.getAsChannel().asTextChannel();
         } else {
-            textChannel = event.getTextChannel();
+            textChannel = event.getChannel().asTextChannel();
         }
 
         String guildID = textChannel.getGuild().getId();
@@ -49,7 +49,7 @@ public class RegisterCommand {
         if (!isChannelTypeTextChannel(textChannel)) {
             String log = event.getUser().getName() + " tried to register " + textChannel.getName() + " but failed because that wasn't a text channel.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, event.getTextChannel().getId(), log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             //todo: Add new error message: Given channel is not a text channel.
             event.reply(LanguageController.getInvalidCommandMessage(language)).setEphemeral(true).queue();
             return;
@@ -59,7 +59,7 @@ public class RegisterCommand {
         if (isChannelRegistered(targetTextChannelId)) {
             String log = event.getUser().getName() + " tried to register " + textChannel.getName() + " but failed because that text channel was already registered.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, event.getTextChannel().getId(), log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             event.reply(String.format(LanguageController.getChannelAlreadyRegisteredMessage(language), textChannel.getAsMention())).setEphemeral(true).queue();
             return;
         }
@@ -69,7 +69,7 @@ public class RegisterCommand {
         if (targetTextChannel == null) {
             String log = event.getUser().getName() + " tried to register " + textChannel.getName() + " but failed because that text channel couldn't be found.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, event.getTextChannel().getId(), log);
+            ClientLogger.createNewServerLogEntry(guildID, "global", log);
             event.reply(LanguageController.getInvalidCommandMessage(language)).setEphemeral(true).queue();
             return;
         }

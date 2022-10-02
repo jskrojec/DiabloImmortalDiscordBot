@@ -39,7 +39,7 @@ public class CreateCustomMessageCommand {
 
     public void runCreateCustomMessageCommand(final SlashCommandInteractionEvent event) {
         String guildID = event.getGuild().getId();
-        String textChannelID = event.getTextChannel().getId();
+        String textChannelID = event.getChannel().getId();
         String guildLanguage = guildsCache.getGuildLanguage(guildID);
 
         OptionMapping weekdayOption = event.getOption("custommessageweekday");
