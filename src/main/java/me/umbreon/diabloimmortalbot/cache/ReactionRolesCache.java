@@ -1,6 +1,7 @@
 package me.umbreon.diabloimmortalbot.cache;
 
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,11 @@ public class ReactionRolesCache {
         return false;
     }
 
-    public ReactionRole getReactionRoleByMessageIDAndEmojiID(String messageID, String emojiID) {
+    public ReactionRole getReactionRoleByMessageIDAndEmojiID(String messageID, String emojiCode) {
         for (ReactionRole reactionRole : reactionRolesList) {
-            if (reactionRole.getMessageID().equalsIgnoreCase(messageID)) {
-                if (reactionRole.getReactionID().equalsIgnoreCase(emojiID)) {
+            System.out.println(reactionRole.getReactionID() + reactionRole.getMessageID());
+            if (reactionRole.getMessageID().equals(messageID)) {
+                if (reactionRole.getReactionID().equals(emojiCode)) {
                     return reactionRole;
                 }
             }
@@ -55,6 +57,16 @@ public class ReactionRolesCache {
                 break;
             }
         }
+    }
+
+    public int getReactionRolesAmountFromMessage(@NotNull String messageID) {
+        int amount = 0;
+        for (ReactionRole reactionRole : reactionRolesList) {
+            if (reactionRole.getMessageID().equals(messageID)) {
+                amount++;
+            }
+        }
+        return amount;
     }
 
 }

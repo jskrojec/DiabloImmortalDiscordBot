@@ -3,10 +3,7 @@ package me.umbreon.diabloimmortalbot;
 import me.umbreon.diabloimmortalbot.cache.*;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
-import me.umbreon.diabloimmortalbot.events.ChannelDelete;
-import me.umbreon.diabloimmortalbot.events.GuildJoin;
-import me.umbreon.diabloimmortalbot.events.MessageDelete;
-import me.umbreon.diabloimmortalbot.events.SlashCommandInteraction;
+import me.umbreon.diabloimmortalbot.events.*;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
 import me.umbreon.diabloimmortalbot.notifier.InfoNotifier;
@@ -43,11 +40,10 @@ public class Client {
                     .addEventListeners(new ChannelDelete(databaseRequests, notificationChannelsCache))
                     .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests, reactionRolesCache, guildsCache, notificationChannelsCache, customMessagesCache))
                     .addEventListeners(new GuildJoin())
-                    //.addEventListeners(registerAllCommands ? new GuildReady() : null)
+                    .addEventListeners(new GuildReady())
 
 
-                    // removed for upgrade to alpha20
-                    //.addEventListeners(new MessageReactionAdd(reactionRolesCache))
+                    .addEventListeners(new MessageReactionAdd(reactionRolesCache, databaseRequests))
                     //.addEventListeners(new MessageReactionRemove(reactionRolesCache))
                     .addEventListeners(new MessageDelete(reactionRolesCache, databaseRequests))
                     .build()

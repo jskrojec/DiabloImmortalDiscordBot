@@ -1,18 +1,25 @@
 package me.umbreon.diabloimmortalbot.commands.reaction_commands;
 
-import emoji4j.EmojiUtils;
 import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
+import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
+import me.umbreon.diabloimmortalbot.utils.StringUtils;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.requests.ErrorResponse;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /***********************************************************
  * @author Umbreon Majora
@@ -36,101 +43,200 @@ public class CreateReactionMessageCommand {
         this.databaseRequests = databaseRequests;
     }
 
-    public void runCreateReactionMessageCommand(final SlashCommandInteractionEvent event) {
-        String log;
-        Member member = event.getMember();
-        User user = event.getUser();
-        Guild guild = event.getGuild();
+    public void runCreateReactionMessageCommand(SlashCommandInteractionEvent event) {
+        String commandExecutor = event.getUser().getName() + "#" + event.getUser().getDiscriminator();
+        String guildID = event.getGuild().getId();
 
-        if (member == null || guild == null) {
-            log = "Failed to run " + getClass().getSimpleName() + " because guild or member was null.";
-            LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry("global", "global", log);
-            event.reply(log).setEphemeral(true).queue();
+        String messageID = getMessageID(event);
+        if (messageID == null) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to create a reaction role but it failed because messageID was null.");
+            LOGGER.info("{} tried to create a reaction role but it failed because messageID was null.", commandExecutor);
+
+            event.reply(StringUtils.messageIdNullError).setEphemeral(true).queue();
             return;
         }
 
-        String guildID = guild.getId();
-
-        OptionMapping messageIdOption = event.getOption("messageid");
-        String messageID;
-        if (messageIdOption != null) {
-            messageID = messageIdOption.getAsString();
-        } else {
-            log = member.getEffectiveName() + "#" + user.getDiscriminator() + " tried to create a reaction role but it failed because messageID was null.";
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
-            LOGGER.info(log);
-            event.reply(log).setEphemeral(true).queue();
+        String emote = getEmote(event);
+        if (emote == null) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to create a reaction role but it failed because emoji was null.");
+            LOGGER.info("{} tried to create a reaction role but it failed because emoji was null.", commandExecutor);
+            event.reply(StringUtils.emoteNullError).setEphemeral(true).queue();
             return;
         }
 
-        OptionMapping roleIdOption = event.getOption("role");
-        Role role;
-        if (roleIdOption != null) {
-            role = roleIdOption.getAsRole();
-        } else {
-            log = member.getEffectiveName() + "#" + user.getDiscriminator() + " tried to create a reaction role but it failed because roleID was null.";
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
-            LOGGER.info(log);
-            event.reply(log).setEphemeral(true).queue();
+        Role role = getRole(event);
+        if (role == null) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to create a reaction role but it failed because role was null.");
+            LOGGER.info("{} tried to create a reaction role but it failed because role was null.", commandExecutor);
+            event.reply(StringUtils.roleNullError).setEphemeral(true).queue();
             return;
         }
 
-        OptionMapping emoteOption = event.getOption("emote");
-        String emoteID;
-        if (emoteOption != null) {
-            emoteID = emoteOption.getAsString();
-        } else {
-            log = member.getEffectiveName() + "#" + user.getDiscriminator() + " tried to create a reaction role but it failed because emoji was null.";
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
-            LOGGER.info(log);
-            event.reply(log).setEphemeral(true).queue();
+        if (hasRoleAdminPermissions(role)) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to create a new reaction role but it failed because the role has admin permissions.");
+            LOGGER.info("{} tried to create a new reaction role but it failed because the role has admin permissions.", commandExecutor);
+            event.reply(StringUtils.roleHasAdminPermissionsError).setEphemeral(true).queue();
             return;
         }
 
-        Emoji emoji = Emoji.fromFormatted(emoteOption.getAsString());
+        MessageChannelUnion channel = event.getChannel();
+        if (doMessageNotExist(channel, messageID)) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to create a new reaction role but it failed because the message doesn't exist.");
+            LOGGER.info("{} tried to create a new reaction role but it failed because the message doesn't exist.", commandExecutor);
+            event.reply(StringUtils.messageNotFoundError).setEphemeral(true).queue();
+            return;
+        }
 
-        String reactionType = emoji.getType().name();
+        if (isMaxReactionRolesReached(messageID)) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to create a reaction role but it failed because the max amount of reaction roles on this" +
+                    " message is reached.");
+            LOGGER.info("{} tried to create a reaction role but it failed because the max amount of reaction roles on" +
+                    " this message is reached.", commandExecutor);
+            event.reply(StringUtils.maxAmountOfReactionRolesReachedError).setEphemeral(true).queue();
+            return;
+        }
 
+        Emoji emoji = Emoji.fromFormatted(emote);
+        if (isEmoteAlreadyInUse(event.getChannel(), messageID, emoji)) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to create a reaction role but it failed because messageID was null.");
+            LOGGER.info("{} tried to create a reaction role but it failed because messageID was null.", commandExecutor);
+            event.reply(StringUtils.emoteAlreadyInUseError).setEphemeral(true).queue();
+            return;
+        }
 
-        String s = EmojiUtils.shortCodify(emoteID);
-/* REMOVED FOR UPGRADE TO ALPHA20
-        event.getChannel().retrieveMessageById(messageID).queue((message) -> {
-            for (MessageReaction reaction : message.getReactions()) {
-                String givenReaction = EmojiUtils.shortCodify(emoteID);
-                String messageReaction = EmojiUtils.shortCodify(reaction.getReactionEmote().getAsReactionCode());
+        String emojiCode = getEmojiCode(emoji);
+        if (emojiCode == null) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to create a reaction role but it failed because emoji code was null.");
+            LOGGER.info("{} tried to create a reaction role but it failed because emoji code was null.", commandExecutor);
+            event.reply(StringUtils.emojiCodeNullError).setEphemeral(true).queue();
+            return;
+        }
 
-                if (givenReaction.equalsIgnoreCase(messageReaction)) {
-                    event.reply("This emote is already in use.").setEphemeral(true).queue();
-                    return;
-                }
-            }
-        });
+        String emojiType = emoji.getType().name();
 
-        ReactionRole reactionRole = new ReactionRole(messageID, guildID, s, reactionType, role.getId());
-        reactionRolesCache.addReactionRoleToList(reactionRole);
+        ReactionRole reactionRole = new ReactionRole(messageID, guildID, emojiCode, emojiType, role.getId());
         databaseRequests.createNewReactionRole(reactionRole);
-        log = member.getEffectiveName() + "#" + user.getDiscriminator() + " created a new reaction role.";
-        LOGGER.info(log);
-        ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
-        event.getTextChannel().retrieveMessageById(messageID).queue((message) -> {
+        reactionRolesCache.addReactionRoleToList(reactionRole);
+        addReactionToMessage(channel, messageID, emoji);
+        ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                " created a new reaction role. MessageID: " + messageID + " EmojiCode: " + emojiCode +
+                " EmojiType: " + emojiType);
+        LOGGER.info("{} has created a new reaction role.", commandExecutor);
+        event.reply(StringUtils.reactionRoleCreatedMessage).setEphemeral(true).queue();
+    }
 
-            if (message.getReactions().size() == 10) {
-                event.reply("More than 10 reactions is not allowed.").setEphemeral(true).queue();
-                return;
-            }
+    private void addReactionToMessage(MessageChannelUnion channel, String messageID, Emoji emoji) {
+        channel.retrieveMessageById(messageID).queue(message -> {
+            message.addReaction(emoji).queue();
+        });
+    }
 
-            message.addReaction(emoteID).queue();
-            event.reply("Created new reaction role.").setEphemeral(true).queue();
+    @Nullable
+    private String getEmojiCode(Emoji emoji) {
+        String emojiReactionCode = emoji.getAsReactionCode();
+        String emojiCode;
+
+        switch (getEmojiType(emoji)) {
+            case "unicode":
+                emojiCode = StringUtils.convertEmojiToUnicode(emojiReactionCode);
+                break;
+            case "custom":
+                emojiCode = emojiReactionCode;
+                break;
+            default:
+                emojiCode = null;
+                break;
+        }
+
+        return emojiCode;
+    }
+
+    @NotNull
+    private String getEmojiType(Emoji emoji) {
+        return emoji.getType().name().toLowerCase();
+    }
+
+    private boolean isMaxReactionRolesReached(String messageID) {
+        return reactionRolesCache.getReactionRolesAmountFromMessage(messageID) >= 10;
+    }
+
+    //Todo: Is there a better option to handle this?
+    private boolean doMessageNotExist(MessageChannelUnion channel, String messageID) {
+        AtomicBoolean result = new AtomicBoolean(false);
+
+        channel.retrieveMessageById(messageID).queue((message) -> {
         }, (failure) -> {
             if (failure instanceof ErrorResponseException) {
                 ErrorResponseException ex = (ErrorResponseException) failure;
                 if (ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
-                    event.getTextChannel().sendMessage("That message doesn't exist !").queue();
+                    result.set(true);
                 }
             }
-            failure.printStackTrace();
         });
-*/
+
+        return result.get();
+    }
+
+    private boolean isEmoteAlreadyInUse(MessageChannelUnion channel, String messageID, Emoji emoji) {
+        AtomicBoolean result = new AtomicBoolean(false);
+
+        channel.retrieveMessageById(messageID).queue((message) -> {
+            for (MessageReaction reaction : message.getReactions()) {
+
+                String emojiAsReactionCode = emoji.getAsReactionCode();
+                String messageReactionAsReactionCode = reaction.getEmoji().getAsReactionCode();
+
+                if (emojiAsReactionCode.equals(messageReactionAsReactionCode)) {
+                    result.set(true);
+                }
+            }
+        });
+
+        return result.get();
+    }
+
+    @Nullable
+    private String getMessageID(SlashCommandInteractionEvent event) {
+        OptionMapping messageIdOption = event.getOption("messageid");
+
+        if (messageIdOption != null) {
+            return messageIdOption.getAsString();
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private String getEmote(SlashCommandInteractionEvent event) {
+        OptionMapping emoteOption = event.getOption("emote");
+
+        if (emoteOption != null) {
+            return emoteOption.getAsString();
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private Role getRole(SlashCommandInteractionEvent event) {
+        OptionMapping roleIdOption = event.getOption("role");
+
+        if (roleIdOption != null) {
+            return roleIdOption.getAsRole();
+        }
+
+        return null;
+    }
+
+    private boolean hasRoleAdminPermissions(Role role) {
+        return role.hasPermission(Permission.ADMINISTRATOR);
     }
 }

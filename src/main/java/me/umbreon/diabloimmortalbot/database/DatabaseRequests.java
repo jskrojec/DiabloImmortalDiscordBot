@@ -142,9 +142,9 @@ public class DatabaseRequests {
                     final String timezone = resultSet.getString("timezone");
                     final boolean isHeadUpEnabled = (resultSet.getInt("event_headup") == 1);
                     final boolean eventMessagesEnabled = (resultSet.getInt("event_message") == 1);
-                    final int autoDeleteValue = resultSet.getInt("autodelete_value");
-                    final boolean isAutoDeleteEnabled = (resultSet.getInt("autodelete") == 1);
-                    final GuildInformation guildInformation = new GuildInformation(guildID, language, timezone, isHeadUpEnabled, eventMessagesEnabled, isAutoDeleteEnabled, autoDeleteValue);
+                    //final int autoDeleteValue = resultSet.getInt("autodelete_value");
+                    //final boolean isAutoDeleteEnabled = (resultSet.getInt("autodelete") == 1);
+                    final GuildInformation guildInformation = new GuildInformation(guildID, language, timezone, isHeadUpEnabled, eventMessagesEnabled, false, 0);
                     listWithGuildInformation.put(guildID, guildInformation);
                 }
             } catch (final Exception e) {
