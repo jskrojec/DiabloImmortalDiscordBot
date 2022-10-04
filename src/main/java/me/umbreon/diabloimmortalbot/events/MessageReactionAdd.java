@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -33,13 +34,11 @@ public class MessageReactionAdd extends ListenerAdapter {
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         if (!isChannelTypeNotText(event.getChannel())) {
-            System.out.println("xd1");
             return;
         }
 
         User user = event.getUser();
         if (isUserBot(user)) {
-            System.out.println("1x");
             return;
         }
 
@@ -47,7 +46,6 @@ public class MessageReactionAdd extends ListenerAdapter {
         Emoji emoji = event.getEmoji();
         String emojiCode = getEmojiCode(emoji);
         if (!doReactionRoleExists(messageID, emojiCode)) {
-            System.out.println("1");
             return;
         }
 
@@ -72,13 +70,24 @@ public class MessageReactionAdd extends ListenerAdapter {
             return;
         }
 
-        Role role = getRoleByID(event.getGuild(), roleID);
-        event.getGuild().addRoleToMember(user, role).queue();
-        String roleName = role.getName();
-        sendFeedbackMessageInPrivateChannel(user, roleName);
-        ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
-                " got a role using reaction roles. Added role " + roleName);
-        LOGGER.info("{} got a role using reaction roles. Added role {}.", commandExecutor, roleName);
+        boolean success;
+        try {
+            Role role = getRoleByID(event.getGuild(), roleID);
+            event.getGuild().addRoleToMember(user, role).queue();
+            String roleName = role.getName();
+
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " got a role using reaction roles. Added role " + roleName);
+            LOGGER.info("{} got a role using reaction roles. Added role {}.", commandExecutor, roleName);
+        } catch (InsufficientPermissionException e) {
+            if (e.getMessage().equals("Cannot perform action due to a lack of Permission. Missing permission: MANAGE_ROLES")) {
+                ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                        " tried to get a role using reaction roles but it failed because insufficient permissions.");
+                LOGGER.info("{} tried to get a role using reaction roles but it failed because insufficient permissions.", commandExecutor);
+            }
+        } finally {
+
+        }
     }
 
     private void deleteReactionRole(String messageID, String emojiCode) {
@@ -86,14 +95,14 @@ public class MessageReactionAdd extends ListenerAdapter {
         databaseRequests.deleteReactionRole(messageID, emojiCode);
     }
 
-    private void sendFeedbackMessageInPrivateChannel(User user, String roleName) {
+    private void sendFeedbackMessageInPrivateChannel(User user, String roleName, boolean success) {
         user.openPrivateChannel().queue(privateChannel -> {
             privateChannel.sendMessage(String.format(StringUtils.roleReceivedMessage, roleName)).queue();
         });
     }
 
     private boolean doReactionRoleExists(String messageID, String emojiCode) {
-        return reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, emojiCode) == null;
+        return reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, emojiCode) != null;
     }
 
     private ReactionRole getReactionRoleFromCache(String messageID, String emojiCode) {
