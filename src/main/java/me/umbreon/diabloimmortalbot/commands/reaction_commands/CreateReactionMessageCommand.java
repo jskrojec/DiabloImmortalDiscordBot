@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.exceptions.ContextException;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.requests.ErrorResponse;
@@ -52,7 +53,6 @@ public class CreateReactionMessageCommand {
             ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
                     " tried to create a reaction role but it failed because messageID was null.");
             LOGGER.info("{} tried to create a reaction role but it failed because messageID was null.", commandExecutor);
-
             event.reply(StringUtils.messageIdNullError).setEphemeral(true).queue();
             return;
         }
@@ -120,23 +120,26 @@ public class CreateReactionMessageCommand {
             return;
         }
 
+
         String emojiType = emoji.getType().name();
 
         ReactionRole reactionRole = new ReactionRole(messageID, guildID, emojiCode, emojiType, role.getId());
         databaseRequests.createNewReactionRole(reactionRole);
         reactionRolesCache.addReactionRoleToList(reactionRole);
-        addReactionToMessage(channel, messageID, emoji);
+        AtomicBoolean unknownEmoji = new AtomicBoolean(false);
+        channel.retrieveMessageById(messageID).queue(message -> {
+            message.addReaction(emoji).queue();
+        }, (failure) -> {
+            if (failure instanceof ContextException) {
+                unknownEmoji.set(true);
+            }
+        });
+        if (unknownEmoji.get()) return;
         ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
                 " created a new reaction role. MessageID: " + messageID + " EmojiCode: " + emojiCode +
                 " EmojiType: " + emojiType);
         LOGGER.info("{} has created a new reaction role.", commandExecutor);
         event.reply(StringUtils.reactionRoleCreatedMessage).setEphemeral(true).queue();
-    }
-
-    private void addReactionToMessage(MessageChannelUnion channel, String messageID, Emoji emoji) {
-        channel.retrieveMessageById(messageID).queue(message -> {
-            message.addReaction(emoji).queue();
-        });
     }
 
     @Nullable

@@ -5,21 +5,17 @@ import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import me.umbreon.diabloimmortalbot.utils.StringUtils;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.exceptions.HierarchyException;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
-
-public class MessageReactionAdd extends ListenerAdapter {
+public class MessageReactionAdd extends ListenerAdapter implements MessageReactionRoles {
 
     private final ReactionRolesCache reactionRolesCache;
     private final DatabaseRequests databaseRequests;
@@ -33,7 +29,7 @@ public class MessageReactionAdd extends ListenerAdapter {
 
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
-        if (!isChannelTypeNotText(event.getChannel())) {
+        if (isChannelTypeNotTextChannel(event.getChannelType())) {
             return;
         }
 
@@ -70,7 +66,6 @@ public class MessageReactionAdd extends ListenerAdapter {
             return;
         }
 
-        boolean success;
         try {
             Role role = getRoleByID(event.getGuild(), roleID);
             event.getGuild().addRoleToMember(user, role).queue();
@@ -79,14 +74,25 @@ public class MessageReactionAdd extends ListenerAdapter {
             ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
                     " got a role using reaction roles. Added role " + roleName);
             LOGGER.info("{} got a role using reaction roles. Added role {}.", commandExecutor, roleName);
+            user.openPrivateChannel().queue(privateChannel -> {
+                privateChannel.sendMessage(String.format(StringUtils.receivedRoleMessage, roleName)).queue();
+            });
         } catch (InsufficientPermissionException e) {
             if (e.getMessage().equals("Cannot perform action due to a lack of Permission. Missing permission: MANAGE_ROLES")) {
                 ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
                         " tried to get a role using reaction roles but it failed because insufficient permissions.");
                 LOGGER.info("{} tried to get a role using reaction roles but it failed because insufficient permissions.", commandExecutor);
+                event.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
+                    privateChannel.sendMessage("Hey, I can't give people roles because of insufficient permissions.").queue();
+                });
             }
-        } finally {
-
+        } catch (HierarchyException e) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to remove a role using reaction roles but it failed because insufficient permissions.");
+            LOGGER.info("{} tried to remove a role using reaction roles but it failed because the bot can't modify a role with higher or equal highest role.", commandExecutor);
+            event.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
+                privateChannel.sendMessage("Hey, I can't give people roles because of the hierarchy.").queue();
+            });
         }
     }
 
@@ -95,64 +101,12 @@ public class MessageReactionAdd extends ListenerAdapter {
         databaseRequests.deleteReactionRole(messageID, emojiCode);
     }
 
-    private void sendFeedbackMessageInPrivateChannel(User user, String roleName, boolean success) {
-        user.openPrivateChannel().queue(privateChannel -> {
-            privateChannel.sendMessage(String.format(StringUtils.roleReceivedMessage, roleName)).queue();
-        });
-    }
-
     private boolean doReactionRoleExists(String messageID, String emojiCode) {
         return reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, emojiCode) != null;
     }
 
     private ReactionRole getReactionRoleFromCache(String messageID, String emojiCode) {
         return reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, emojiCode);
-    }
-
-    @Nullable
-    private String getEmojiCode(Emoji emoji) {
-        String emojiReactionCode = emoji.getAsReactionCode();
-        String emojiCode;
-
-        switch (getEmojiType(emoji)) {
-            case "unicode":
-                emojiCode = StringUtils.convertEmojiToUnicode(emojiReactionCode);
-                break;
-            case "custom":
-                emojiCode = emojiReactionCode;
-                break;
-            default:
-                emojiCode = null;
-                break;
-        }
-
-        return emojiCode;
-    }
-
-    @NotNull
-    private String getEmojiType(Emoji emoji) {
-        return emoji.getType().name().toLowerCase();
-    }
-
-    private boolean isChannelTypeNotText(MessageChannelUnion channel) {
-        return channel.getType().getId() == 0;
-    }
-
-    private boolean isUserBot(User user) {
-        if (user == null) {
-            //Small workaround, user can be null. If so just return true so the event will be cancelled.
-            return true;
-        }
-
-        return user.isBot();
-    }
-
-    private boolean doRoleStillExists(Guild guild, String roleID) {
-        return guild.getRoleById(roleID) != null;
-    }
-
-    private Role getRoleByID(Guild guild, String roleID) {
-        return guild.getRoleById(roleID);
     }
 
 }

@@ -11,8 +11,8 @@ public class StringUtils {
     public static String roleHasAdminPermissionsError = "Failed to create a new reaction role. The role has admin permissions. This is disabled for safety reasons.";
     public static String emojiCodeNullError = "Failed to create a new reaction role. The emoji code was null. Please report that to an developer.";
     public static String reactionRoleCreatedMessage = "Created a new reaction role use /reactionroleslist to see all your reaction roles";
-
-    public static String roleReceivedMessage = "You received role %s";
+    public static String receivedRoleMessage = "You've got the %s role.";
+    public static String lostRoleMessage = "You've lost the role %s.";
 
     public static String convertEmojiToUnicode(String emoji) {
         StringBuilder sb = new StringBuilder();
