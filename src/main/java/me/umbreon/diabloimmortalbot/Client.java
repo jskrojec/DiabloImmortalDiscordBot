@@ -3,10 +3,7 @@ package me.umbreon.diabloimmortalbot;
 import me.umbreon.diabloimmortalbot.cache.*;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
-import me.umbreon.diabloimmortalbot.events.ChannelDelete;
-import me.umbreon.diabloimmortalbot.events.GuildJoin;
-import me.umbreon.diabloimmortalbot.events.MessageDelete;
-import me.umbreon.diabloimmortalbot.events.SlashCommandInteraction;
+import me.umbreon.diabloimmortalbot.events.*;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
 import me.umbreon.diabloimmortalbot.notifier.InfoNotifier;
@@ -18,7 +15,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 public class Client {
 
-    private static final boolean TEST_MODE = true;
+    private static final boolean TEST_MODE = false;
 
     public static void main(final String[] args) {
         ClientCache clientCache = new ClientCache();
@@ -35,7 +32,7 @@ public class Client {
         DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
 
         ReactionRolesCache reactionRolesCache = new ReactionRolesCache();
-        loadCache(clientCache, guildsCache, customMessagesCache, gameEventsCache, notificationChannelsCache, databaseRequests, reactionRolesCache);
+        loadCache(guildsCache, customMessagesCache, gameEventsCache, notificationChannelsCache, databaseRequests, reactionRolesCache);
 
         JDA jda;
         try {
@@ -43,12 +40,9 @@ public class Client {
                     .addEventListeners(new ChannelDelete(databaseRequests, notificationChannelsCache))
                     .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests, reactionRolesCache, guildsCache, notificationChannelsCache, customMessagesCache))
                     .addEventListeners(new GuildJoin())
-                    //.addEventListeners(registerAllCommands ? new GuildReady() : null)
-
-
-                    // removed for upgrade to alpha20
-                    //.addEventListeners(new MessageReactionAdd(reactionRolesCache))
-                    //.addEventListeners(new MessageReactionRemove(reactionRolesCache))
+                    .addEventListeners(new GuildReady())
+                    .addEventListeners(new MessageReactionAdd(reactionRolesCache, databaseRequests))
+                    .addEventListeners(new MessageReactionRemove(reactionRolesCache))
                     .addEventListeners(new MessageDelete(reactionRolesCache, databaseRequests))
                     .build()
                     .awaitReady();
@@ -67,10 +61,7 @@ public class Client {
         infoNotifier.runScheduler(jda);
     }
 
-    private static void loadCache(ClientCache clientCache, GuildsCache guildsCache, CustomMessagesCache customMessagesCache, GameEventsCache gameEventsCache, NotificationChannelsCache notificationChannelsCache, DatabaseRequests databaseRequests, ReactionRolesCache reactionRolesCache) {
-        clientCache.fillListWithEvents();
-        clientCache.fillListWithAvailableEventDays();
-
+    private static void loadCache(GuildsCache guildsCache, CustomMessagesCache customMessagesCache, GameEventsCache gameEventsCache, NotificationChannelsCache notificationChannelsCache, DatabaseRequests databaseRequests, ReactionRolesCache reactionRolesCache) {
         notificationChannelsCache.setNotifierChannelsList(databaseRequests.getAllNotifierChannels());
         guildsCache.setListWithGuildInformation(databaseRequests.getAllGuilds());
         customMessagesCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());

@@ -158,7 +158,14 @@ public class Notifier {
 
                         if (notificationMessageBuilder.length() > 0) {
                             addMentionToMessage(notificationMessageBuilder, textChannel);
-                            textChannel.sendMessage(notificationMessageBuilder.toString()).queue();
+                            textChannel.sendMessage(notificationMessageBuilder.toString()).queue(message -> {
+                            }, throwable -> {
+                                if (throwable instanceof InsufficientPermissionException) {
+                                    jda.getGuildById(guildID).getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
+                                        privateChannel.sendMessage("I do not have enough permissions.").queue();
+                                    });
+                                }
+                            });
                         }
                     } catch (InsufficientPermissionException e) {
                         ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "global", "Failed to send notification message cause of insufficient permissions. " + e.getMessage());

@@ -142,9 +142,9 @@ public class DatabaseRequests {
                     final String timezone = resultSet.getString("timezone");
                     final boolean isHeadUpEnabled = (resultSet.getInt("event_headup") == 1);
                     final boolean eventMessagesEnabled = (resultSet.getInt("event_message") == 1);
-                    final int autoDeleteValue = resultSet.getInt("autodelete_value");
-                    final boolean isAutoDeleteEnabled = (resultSet.getInt("autodelete") == 1);
-                    final GuildInformation guildInformation = new GuildInformation(guildID, language, timezone, isHeadUpEnabled, eventMessagesEnabled, isAutoDeleteEnabled, autoDeleteValue);
+                    //final int autoDeleteValue = resultSet.getInt("autodelete_value");
+                    //final boolean isAutoDeleteEnabled = (resultSet.getInt("autodelete") == 1);
+                    final GuildInformation guildInformation = new GuildInformation(guildID, language, timezone, isHeadUpEnabled, eventMessagesEnabled, false, 0);
                     listWithGuildInformation.put(guildID, guildInformation);
                 }
             } catch (final Exception e) {
@@ -392,12 +392,13 @@ public class DatabaseRequests {
 
     public void createNewReactionRole(final ReactionRole reactionRole) {
         try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO reaction_role (messageID, guildID, emojiID, roleID) VALUES (?, ?, ?, ?)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO reaction_role (messageID, guildID, emojiCode, emojiType, roleID) VALUES (?, ?, ?, ?, ?)")) {
             try {
                 preparedStatement.setString(1, reactionRole.getMessageID());
                 preparedStatement.setString(2, reactionRole.getGuildID());
                 preparedStatement.setString(3, reactionRole.getReactionID());
-                preparedStatement.setString(4, reactionRole.getRoleID());
+                preparedStatement.setString(4, reactionRole.getReactionType());
+                preparedStatement.setString(5, reactionRole.getRoleID());
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 ClientLogger.createNewSqlLogEntry(e);
@@ -441,14 +442,14 @@ public class DatabaseRequests {
                     String messageID = resultSet.getString("messageID");
                     String guildID = resultSet.getString("guildID");
                     String roleID = resultSet.getString("roleID");
-                    String emojiID = resultSet.getString("emojiID");
-                    //removed for upgrade to alpha 20
-                    //ReactionRole reactionRole = new ReactionRole(messageID, guildID, emojiID, reactionType, roleID);
-                    //reactionRolesMap.add(reactionRole);
+                    String emojiCode = resultSet.getString("emojiCode");
+                    String emojiType = resultSet.getString("emojiType");
+                    ReactionRole reactionRole = new ReactionRole(messageID, guildID, emojiCode, emojiType, roleID);
+                    reactionRolesMap.add(reactionRole);
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return reactionRolesMap;
     }

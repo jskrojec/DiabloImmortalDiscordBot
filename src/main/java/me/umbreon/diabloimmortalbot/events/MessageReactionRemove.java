@@ -3,16 +3,18 @@ package me.umbreon.diabloimmortalbot.events;
 import me.umbreon.diabloimmortalbot.cache.ReactionRolesCache;
 import me.umbreon.diabloimmortalbot.data.ReactionRole;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import net.dv8tion.jda.api.entities.Member;
+import me.umbreon.diabloimmortalbot.utils.StringUtils;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.channel.ChannelType;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
+import net.dv8tion.jda.api.exceptions.HierarchyException;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MessageReactionRemove extends ListenerAdapter {
+public class MessageReactionRemove extends ListenerAdapter implements MessageReactionRoles {
 
     private final ReactionRolesCache reactionRolesCache;
 
@@ -24,60 +26,69 @@ public class MessageReactionRemove extends ListenerAdapter {
 
     @Override
     public void onMessageReactionRemove(final MessageReactionRemoveEvent event) {
-        if (!isChannelTypeTextChannel(event.getChannelType())) {
+        if (isChannelTypeNotTextChannel(event.getChannelType())) {
             return;
         }
 
-        String messageID = event.getReaction().getMessageId();
-        String guildID = event.getGuild().getId();
-        String log;
-
-        Member member = event.getMember();
         User user = event.getUser();
-        if (member == null || user == null) {
-            log = "Failed to run " + getClass().getSimpleName() + " because guild or member was null.";
-            LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
+        if (isUserBot(user)) {
             return;
         }
 
-        if (user.isBot()) {
+        String messageID = event.getMessageId();
+        Emoji emoji = event.getEmoji();
+        String emojiCode = getEmojiCode(emoji);
+        if (!doReactionRoleExists(messageID, emojiCode)) {
             return;
         }
 
-        if (!reactionRolesCache.doReactionRoleMessageExists(messageID)) {
-            return;
-        }
-        //removed for upgrade to alpha20
-        String s = "";//EmojiUtils.shortCodify(event.getReaction().getReactionEmote().getAsReactionCode());
-        ReactionRole reactionRole = reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, s);
-        String givenReaction = reactionRole.getReactionID();
-
-        if (!givenReaction.equalsIgnoreCase(s)) {
-            LOGGER.info("Failed to run onMessageReactionRemove because reacted reaction was not registered.");
+        String commandExecutor = user.getName() + "#" + user.getDiscriminator();
+        String guildID = event.getGuild().getId();
+        ReactionRole reactionRole = getReactionRoleFromCache(messageID, emojiCode);
+        if (reactionRole == null) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to remove a role using reaction roles but it failed because reactionRole was null.");
+            LOGGER.info("{} tried to remove a role using reaction roles but it failed because reactionRole was null.", commandExecutor);
             return;
         }
 
         String roleID = reactionRole.getRoleID();
-        Role role = event.getGuild().getRoleById(roleID);
-        if (role == null) {
-            log = member.getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to remove a role using reaction roles but it failed because role was null";
-            LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
-            return;
+        try {
+            Role role = getRoleByID(event.getGuild(), roleID);
+            event.getGuild().removeRoleFromMember(user, role).queue();
+            String roleName = role.getName();
+
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " removed a role using reaction roles. Added role " + roleName);
+            LOGGER.info("{} removed a role using reaction roles. Added role {}.", commandExecutor, roleName);
+            user.openPrivateChannel().queue(privateChannel -> {
+                privateChannel.sendMessage(String.format(StringUtils.lostRoleMessage, roleName)).queue();
+            });
+        } catch (InsufficientPermissionException e) {
+            if (e.getMessage().equals("Cannot perform action due to a lack of Permission. Missing permission: MANAGE_ROLES")) {
+                ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                        " tried to remove a role using reaction roles but it failed because insufficient permissions.");
+                LOGGER.info("{} tried to remove a role using reaction roles but it failed because insufficient permissions.", commandExecutor);
+                event.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
+                    privateChannel.sendMessage("Hey, I can't give people roles because of insufficient permissions.").queue();
+                });
+            }
+        } catch (HierarchyException e) {
+            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                    " tried to remove a role using reaction roles but it failed because insufficient permissions.");
+            LOGGER.info("{} tried to remove a role using reaction roles but it failed because the bot can't modify a role with higher or equal highest role.", commandExecutor);
+            event.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
+                privateChannel.sendMessage("Hey, I can't give people roles because of the hierarchy.").queue();
+            });
         }
-
-        log = "Removed " + role.getName() + " from " + member.getEffectiveName() + " by using reaction role.";
-        LOGGER.info(log);
-        ClientLogger.createNewServerLogEntry(guildID, "global", log);
-        event.getUser().openPrivateChannel().queue(privateChannel -> {
-            privateChannel.sendMessage("You have lost the role " + role.getName()).queue();
-        });
-        event.getGuild().removeRoleFromMember(member, role).queue();
     }
 
-    private boolean isChannelTypeTextChannel(final ChannelType channelType) {
-        return channelType.getId() == 0;
+    private boolean doReactionRoleExists(String messageID, String emojiCode) {
+        return reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, emojiCode) != null;
     }
+
+    private ReactionRole getReactionRoleFromCache(String messageID, String emojiCode) {
+        return reactionRolesCache.getReactionRoleByMessageIDAndEmojiID(messageID, emojiCode);
+    }
+
 }
-
