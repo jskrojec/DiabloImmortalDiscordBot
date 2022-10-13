@@ -29,7 +29,6 @@ public class ReactionRolesCache {
 
     public ReactionRole getReactionRoleByMessageIDAndEmojiID(String messageID, String emojiCode) {
         for (ReactionRole reactionRole : reactionRolesList) {
-            System.out.println(reactionRole.getReactionID() + reactionRole.getMessageID());
             if (reactionRole.getMessageID().equals(messageID)) {
                 if (reactionRole.getReactionID().equals(emojiCode)) {
                     return reactionRole;

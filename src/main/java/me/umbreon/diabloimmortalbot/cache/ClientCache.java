@@ -1,14 +1,34 @@
 package me.umbreon.diabloimmortalbot.cache;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Umbreon Majora
+ * <p>
+ * System cache for static variables.
+ */
 public class ClientCache {
 
-    private final ArrayList<String> listWithAvailableNotifications = new ArrayList<>();
+    private static final ArrayList<String> listWithAvailableNotifications = new ArrayList<>();
 
-    public void fillListWithEvents() {
+    public ArrayList<String> getListWithAvailableNotifications() {
+        return listWithAvailableNotifications;
+    }
+
+    private static final ArrayList<String> listOfAvailableEventDays = new ArrayList<>();
+
+    public ArrayList<String> getListOfAvailableEventDays() {
+        return listOfAvailableEventDays;
+    }
+
+    private static final List<String> listWithSupportedLanguage = new ArrayList<>();
+
+    public List<String> getListWithSupportedLanguage() {
+        return listWithSupportedLanguage;
+    }
+
+    static {
         listWithAvailableNotifications.add("message");
         listWithAvailableNotifications.add("headup");
 
@@ -27,17 +47,7 @@ public class ClientCache {
         listWithAvailableNotifications.add("demongatesembed");
         listWithAvailableNotifications.add("ancientnightmareembed");
         listWithAvailableNotifications.add("ancientarenaembed");
-    }
 
-    public ArrayList<String> getListWithAvailableNotifications() {
-        return listWithAvailableNotifications;
-    }
-
-    // -
-
-    private final ArrayList<String> listOfAvailableEventDays = new ArrayList<>();
-
-    public void fillListWithAvailableEventDays() {
         listOfAvailableEventDays.add("monday");
         listOfAvailableEventDays.add("tuesday");
         listOfAvailableEventDays.add("wednesday");
@@ -46,19 +56,16 @@ public class ClientCache {
         listOfAvailableEventDays.add("saturday");
         listOfAvailableEventDays.add("sunday");
         listOfAvailableEventDays.add("everyday");
-    }
 
-    public ArrayList<String> getListOfAvailableEventDays() {
-        return listOfAvailableEventDays;
-    }
-
-    // -
-
-    private final List<String> listWithSupportedLanguage = Arrays.asList(
-            "ger", "eng", "esp", "fra", "pol", "ita", "rus", "ind", "ukr");
-
-    public List<String> getListWithSupportedLanguage() {
-        return listWithSupportedLanguage;
+        listWithSupportedLanguage.add("ger");
+        listWithSupportedLanguage.add("eng");
+        listWithSupportedLanguage.add("esp");
+        listWithSupportedLanguage.add("fra");
+        listWithSupportedLanguage.add("pol");
+        listWithSupportedLanguage.add("ita");
+        listWithSupportedLanguage.add("rus");
+        listWithSupportedLanguage.add("ind");
+        listWithSupportedLanguage.add("ukr");
     }
 
 }

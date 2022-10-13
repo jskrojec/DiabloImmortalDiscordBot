@@ -6,17 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Umbreon Majora
+ * <p>
+ * System cache for custom messages.
+ */
 public class CustomMessagesCache {
-
-    // CUSTOM MESSAGES CACHE
 
     private Map<Integer, CustomMessage> customMessagesList;
 
-    public void setCustomMessagesList(final Map<Integer, CustomMessage> customMessagesList) {
+    public void setCustomMessagesList(Map<Integer, CustomMessage> customMessagesList) {
         this.customMessagesList = customMessagesList;
     }
 
-    public void deleteCustomMessageByID(final int customMessageID) {
+    public void deleteCustomMessageByID(int customMessageID) {
         customMessagesList.forEach((key, customMessage) -> {
             if (customMessage.getCustomMessageID() == customMessageID) {
                 customMessagesList.remove(key);
@@ -24,26 +27,26 @@ public class CustomMessagesCache {
         });
     }
 
-    public List<CustomMessage> getAllCustomMessagesByGuildID(final String guildID) {
-        final List<CustomMessage> guildCustomMessagesList = new ArrayList<>();
-        this.customMessagesList.forEach((key, customMessage) -> {
+    public List<CustomMessage> getAllCustomMessagesByGuildID(String guildID) {
+        List<CustomMessage> guildCustomMessagesList = new ArrayList<>();
+        customMessagesList.forEach((key, customMessage) -> {
             if (customMessage.getGuildID().equalsIgnoreCase(guildID)) {
                 guildCustomMessagesList.add(customMessage);
             }
         });
-
         return guildCustomMessagesList;
     }
 
     public Map<Integer, CustomMessage> getAllCustomMessages() {
-        return this.customMessagesList;
+        return customMessagesList;
     }
 
-    public CustomMessage getCustomMessageByID(final int customMessageID) {
+    public CustomMessage getCustomMessageByID(int customMessageID) {
         return customMessagesList.get(customMessageID);
     }
 
-    public void addCustomMessageToList(final CustomMessage customMessage) {
+    //FIXME: Not in use because the database gives the ID's
+    public void addCustomMessageToList(CustomMessage customMessage) {
         this.customMessagesList.put(customMessage.getCustomMessageID(), customMessage);
     }
 

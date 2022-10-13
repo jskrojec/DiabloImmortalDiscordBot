@@ -3,12 +3,16 @@ package me.umbreon.diabloimmortalbot.cache;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * @author Umbreon Majora
+ * <p>
+ * System cache for game event times.
+ */
 public class GameEventsCache {
-
 
     private Map<String, Boolean> listWithShadowLotteryTimes;
 
-    public void setListWithShadowLotteryTimes(final Map<String, Boolean> listWithShadowLotteryTimes) {
+    public void setListWithShadowLotteryTimes(Map<String, Boolean> listWithShadowLotteryTimes) {
         this.listWithShadowLotteryTimes = listWithShadowLotteryTimes;
     }
 
@@ -16,19 +20,15 @@ public class GameEventsCache {
         return listWithShadowLotteryTimes;
     }
 
-    // -
-
     private Map<String, Boolean> listWithVaultTimes;
 
     public Map<String, Boolean> getListWithVaultTimes() {
         return listWithVaultTimes;
     }
 
-    public void setListWithVaultTimes(final Map<String, Boolean> listWithRaidTheVautTimes) {
-        this.listWithVaultTimes = listWithRaidTheVautTimes;
+    public void setListWithVaultTimes(Map<String, Boolean> listWithRaidTheVaultTimes) {
+        this.listWithVaultTimes = listWithRaidTheVaultTimes;
     }
-
-    // -
 
     private Map<String, Boolean> listWithHauntedCarriageTimes;
 
@@ -36,11 +36,9 @@ public class GameEventsCache {
         return listWithHauntedCarriageTimes;
     }
 
-    public void setListWithHauntedCarriageTimes(final Map<String, Boolean> listWithHauntedCarriageTimes) {
+    public void setListWithHauntedCarriageTimes(Map<String, Boolean> listWithHauntedCarriageTimes) {
         this.listWithHauntedCarriageTimes = listWithHauntedCarriageTimes;
     }
-
-    // -
 
     private Map<String, Boolean> listWithDemonGatesTimes;
 
@@ -48,11 +46,9 @@ public class GameEventsCache {
         return listWithDemonGatesTimes;
     }
 
-    public void setListWithDemonGatesTimes(final Map<String, Boolean> listWithDemonGatesTimes) {
+    public void setListWithDemonGatesTimes(Map<String, Boolean> listWithDemonGatesTimes) {
         this.listWithDemonGatesTimes = listWithDemonGatesTimes;
     }
-
-    // -
 
     private Map<String, Boolean> listWithBattlegroundTimes;
 
@@ -60,11 +56,9 @@ public class GameEventsCache {
         return listWithBattlegroundTimes;
     }
 
-    public void setListWithBattlegroundTimes(final Map<String, Boolean> listWithBattlegroundTimes) {
+    public void setListWithBattlegroundTimes(Map<String, Boolean> listWithBattlegroundTimes) {
         this.listWithBattlegroundTimes = listWithBattlegroundTimes;
     }
-
-    // -
 
     private Map<String, Boolean> listWithAssemblyTimes;
 
@@ -72,11 +66,9 @@ public class GameEventsCache {
         return listWithAssemblyTimes;
     }
 
-    public void setListWithAssemblyTimes(final Map<String, Boolean> listWithAssemblyTimes) {
+    public void setListWithAssemblyTimes(Map<String, Boolean> listWithAssemblyTimes) {
         this.listWithAssemblyTimes = listWithAssemblyTimes;
     }
-
-    // -
 
     private Map<String, Boolean> listWithAncientNightmareTimes;
 
@@ -84,11 +76,9 @@ public class GameEventsCache {
         return listWithAncientNightmareTimes;
     }
 
-    public void setListWithAncientNightmareTimes(final Map<String, Boolean> listWithAncientNightmareTimes) {
+    public void setListWithAncientNightmareTimes(Map<String, Boolean> listWithAncientNightmareTimes) {
         this.listWithAncientNightmareTimes = listWithAncientNightmareTimes;
     }
-
-    // -
 
     private Map<String, Boolean> listWithAncientAreaTimes;
 
@@ -96,11 +86,9 @@ public class GameEventsCache {
         return listWithAncientAreaTimes;
     }
 
-    public void setListWithAncientAreaTimes(final Map<String, Boolean> listWithAncientAreaTimes) {
+    public void setListWithAncientAreaTimes(Map<String, Boolean> listWithAncientAreaTimes) {
         this.listWithAncientAreaTimes = listWithAncientAreaTimes;
     }
-
-    // -
 
     private Map<String, Boolean> listWithWrathborneInvasionTimes;
 
@@ -108,11 +96,9 @@ public class GameEventsCache {
         return listWithWrathborneInvasionTimes;
     }
 
-    public void setListWithWrathborneInvasionTimes(final Map<String, Boolean> listWithAncientAreaTimes) {
+    public void setListWithWrathborneInvasionTimes(Map<String, Boolean> listWithAncientAreaTimes) {
         this.listWithWrathborneInvasionTimes = listWithAncientAreaTimes;
     }
-
-    // - Demon Gates Embed
 
     private ArrayList<String> listWithDemonGateEmbedTimes;
 
@@ -120,11 +106,9 @@ public class GameEventsCache {
         return listWithDemonGateEmbedTimes;
     }
 
-    public void setListWithDemonGateEmbedTimes(final ArrayList<String> listWithDemonGateEmbedTimes) {
+    public void setListWithDemonGateEmbedTimes(ArrayList<String> listWithDemonGateEmbedTimes) {
         this.listWithDemonGateEmbedTimes = listWithDemonGateEmbedTimes;
     }
-
-    // - Haunted Carriage Embed
 
     private ArrayList<String> listWithHauntedCarriageEmbedTimes;
 
@@ -132,11 +116,9 @@ public class GameEventsCache {
         return listWithHauntedCarriageEmbedTimes;
     }
 
-    public void setListWithHauntedCarriageEmbedTimes(final ArrayList<String> listWithHauntedCarriageEmbedTimes) {
+    public void setListWithHauntedCarriageEmbedTimes(ArrayList<String> listWithHauntedCarriageEmbedTimes) {
         this.listWithHauntedCarriageEmbedTimes = listWithHauntedCarriageEmbedTimes;
     }
-
-    // - Ancient Nightmare Embed
 
     private ArrayList<String> listWithAncientNightmareEmbedTimes;
 
@@ -144,11 +126,9 @@ public class GameEventsCache {
         return listWithAncientNightmareEmbedTimes;
     }
 
-    public void setListWithAncientNightmareEmbedTimes(final ArrayList<String> listWithAncientNightmareEmbedTimes) {
+    public void setListWithAncientNightmareEmbedTimes(ArrayList<String> listWithAncientNightmareEmbedTimes) {
         this.listWithAncientNightmareEmbedTimes = listWithAncientNightmareEmbedTimes;
     }
-
-    // - Ancient Arena Embed
 
     private ArrayList<String> listWithAncientArenaEmbedTimes;
 
@@ -156,7 +136,7 @@ public class GameEventsCache {
         return listWithAncientArenaEmbedTimes;
     }
 
-    public void setListWithAncientArenaEmbedTimes(final ArrayList<String> listWithAncientArenaEmbedTimes) {
+    public void setListWithAncientArenaEmbedTimes(ArrayList<String> listWithAncientArenaEmbedTimes) {
         this.listWithAncientArenaEmbedTimes = listWithAncientArenaEmbedTimes;
     }
 

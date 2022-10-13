@@ -4,6 +4,11 @@ import me.umbreon.diabloimmortalbot.data.NotificationChannel;
 
 import java.util.Map;
 
+/**
+ * @author Umbreon Majora
+ * <p>
+ * System cache for notification channels.
+ */
 public class NotificationChannelsCache {
 
     public Map<String, NotificationChannel> notifierChannelsList;
@@ -12,99 +17,99 @@ public class NotificationChannelsCache {
         return notifierChannelsList.containsKey(textChannelID);
     }
 
-    public void setNotifierChannelsList(final Map<String, NotificationChannel> notifierChannelsList) {
+    public void setNotifierChannelsList(Map<String, NotificationChannel> notifierChannelsList) {
         this.notifierChannelsList = notifierChannelsList;
     }
 
-    public boolean isHeadUpMessageOnChannelEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isEventHeadUpEnabled();
+    public boolean isHeadUpMessageOnChannelEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isEventHeadUpEnabled();
     }
 
-    public boolean isEventMessageOnChannelEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isEventMessageEnabled();
+    public boolean isEventMessageOnChannelEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isEventMessageEnabled();
     }
 
-    public boolean isAssemblyMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isAssemblyMessageEnabled();
+    public boolean isAssemblyMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isAssemblyMessageEnabled();
     }
 
-    public boolean isRaidVaultMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isRaidVaultMessageEnabled();
+    public boolean isRaidVaultMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isRaidVaultMessageEnabled();
     }
 
-    public boolean isDemonGatesMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isDemonGatesMessageEnabled();
+    public boolean isDemonGatesMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isDemonGatesMessageEnabled();
     }
 
-    public boolean isDefendVaultMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isDefendVaultMessageEnabled();
+    public boolean isDefendVaultMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isDefendVaultMessageEnabled();
     }
 
-    public boolean isAncientArenaMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isAncientArenaMessageEnabled();
+    public boolean isAncientArenaMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isAncientArenaMessageEnabled();
     }
 
-    public boolean isShadowLotteryMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isShadowLotteryMessageEnabled();
+    public boolean isShadowLotteryMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isShadowLotteryMessageEnabled();
     }
 
-    public boolean isBattlegroundMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isBattlegroundsMessageEnabled();
+    public boolean isBattlegroundMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isBattlegroundsMessageEnabled();
     }
 
-    public boolean isHauntedCarriageMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isHauntedCarriageMessageEnabled();
+    public boolean isHauntedCarriageMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isHauntedCarriageMessageEnabled();
     }
 
-    public boolean isAncientNightmareMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isAncientNightmareMessageEnabled();
+    public boolean isAncientNightmareMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isAncientNightmareMessageEnabled();
     }
 
-    public boolean isWrathborneInvasionEnabled(final String textChannelID) {
+    public boolean isWrathborneInvasionEnabled(String textChannelID) {
         return notifierChannelsList.get(textChannelID).isWrathborneInvasionEnabled();
     }
 
-    public boolean isDemonGatesEmbedMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isDemonGatesMessageEmbedEnabled();
+    public boolean isDemonGatesEmbedMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isDemonGatesMessageEmbedEnabled();
     }
 
-    public boolean isAncientArenaEmbedMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isAncientArenaMessageEmbedEnabled();
+    public boolean isAncientArenaEmbedMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isAncientArenaMessageEmbedEnabled();
     }
 
-    public boolean isHauntedCarriageEmbedMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isHauntedCarriageMessageEmbedEnabled();
+    public boolean isHauntedCarriageEmbedMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isHauntedCarriageMessageEmbedEnabled();
     }
 
-    public boolean isAncientNightmareEmbedMessageEnabled(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).isAncientNightmareMessageEmbedEnabled();
+    public boolean isAncientNightmareEmbedMessageEnabled(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).isAncientNightmareMessageEmbedEnabled();
     }
 
-    public String getRoleIdByChannelId(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).getRoleID();
+    public String getRoleIdByChannelId(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).getRoleID();
     }
 
     public Map<String, NotificationChannel> getListWithNotifierChannels() {
         return notifierChannelsList;
     }
 
-    public String getGuildIdByChannelID(final String textchannelID) {
-        return notifierChannelsList.get(textchannelID).getGuildID();
+    public String getGuildIdByChannelID(String textChannelID) {
+        return notifierChannelsList.get(textChannelID).getGuildID();
     }
 
-    public void addNotifierChannelToList(final NotificationChannel notificationChannel) {
+    public void addNotifierChannelToList(NotificationChannel notificationChannel) {
         notifierChannelsList.put(notificationChannel.getTextChannelID(), notificationChannel);
     }
 
-    public void setRoleID(final String textChannelID, final String roleID) {
+    public void setRoleID(String textChannelID, String roleID) {
         notifierChannelsList.get(textChannelID).setRoleID(roleID);
     }
 
-    public void removeNotifierChannelFromList(final String textChannelID) {
+    public void removeNotifierChannelFromList(String textChannelID) {
         notifierChannelsList.remove(textChannelID);
     }
 
-    public void setNotificationsValue(final String event, final boolean value, final String textChannelID) {
+    public void setNotificationsValue(String event, boolean value, String textChannelID) {
         switch (event) {
             case "message":
                 notifierChannelsList.get(textChannelID).setEventMessageEnabled(value);
@@ -156,7 +161,7 @@ public class NotificationChannelsCache {
         }
     }
 
-    public boolean doNotifierChannelExists(final String textChannelID) {
+    public boolean doNotifierChannelExists(String textChannelID) {
         return notifierChannelsList.containsKey(textChannelID);
     }
 
