@@ -2,39 +2,35 @@ package me.umbreon.diabloimmortalbot.data;
 
 public class CustomMessage {
 
-    private String channelID;
+    private final String channelID;
     private String guildID;
     private String message;
-    private String day;
+    private String weekday;
     private String time;
     private int customMessageID;
-    private boolean repeat;
+    private boolean repeating;
 
-    public CustomMessage(final String channelID, final String guildID, final String message, final String day, final String time, final int customMessageID, final boolean repeat) {
+    public CustomMessage(String channelID, String guildID, String message, String weekday, String time, int customMessageID, boolean repeating) {
         this.channelID = channelID;
         this.guildID = guildID;
         this.message = message;
-        this.day = day;
+        this.weekday = weekday;
         this.time = time;
         this.customMessageID = customMessageID;
-        this.repeat = repeat;
+        this.repeating = repeating;
     }
 
-    public CustomMessage(final String channelID, final String guildID, final String message, final String day, final String time, final boolean repeat) {
+    public CustomMessage(String channelID, String guildID, String message, String weekday, String time, boolean repeating) {
         this.channelID = channelID;
         this.guildID = guildID;
         this.message = message;
-        this.day = day;
+        this.weekday = weekday;
         this.time = time;
-        this.repeat = repeat;
+        this.repeating = repeating;
     }
 
     public String getChannelID() {
         return channelID;
-    }
-
-    public void setChannelID(final String channelID) {
-        this.channelID = channelID;
     }
 
     public String getGuildID() {
@@ -53,12 +49,12 @@ public class CustomMessage {
         this.message = message;
     }
 
-    public String getDay() {
-        return day;
+    public String getWeekday() {
+        return weekday;
     }
 
-    public void setDay(final String day) {
-        this.day = day;
+    public void setWeekday(final String weekday) {
+        this.weekday = weekday;
     }
 
     public String getTime() {
@@ -73,11 +69,11 @@ public class CustomMessage {
         return customMessageID;
     }
 
-    public boolean isRepeat() {
-        return repeat;
+    public boolean isRepeating() {
+        return repeating;
     }
 
     public void setRepeating(final boolean repeat) {
-        this.repeat = repeat;
+        this.repeating = repeat;
     }
 }

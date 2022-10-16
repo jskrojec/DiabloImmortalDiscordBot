@@ -6,6 +6,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Umbreon Majora
+ * <p>
+ * System cache for reaction roles.
+ */
 public class ReactionRolesCache {
 
     private List<ReactionRole> reactionRolesList = new ArrayList<>();

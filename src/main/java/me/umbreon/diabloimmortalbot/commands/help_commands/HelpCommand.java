@@ -1,9 +1,9 @@
 package me.umbreon.diabloimmortalbot.commands.help_commands;
 
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
+import me.umbreon.diabloimmortalbot.utils.StringUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -36,7 +36,7 @@ public class HelpCommand {
         final EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Diablo Immortal Notifier Commands");
         embedBuilder.setColor(Color.RED);
-        embedBuilder.setThumbnail(ImageAssistant.getDiabloImmortalLogo());
+        embedBuilder.setThumbnail(StringUtils.getDiabloImmortalLogo());
         embedBuilder.addField("/register", LanguageController.getHelpRegistersChannelMessage(guildLanguage), false);
         embedBuilder.addField("/unregister", LanguageController.getHelpUnregistersChannelMessage(guildLanguage), false);
         embedBuilder.addField("/mentionrole @YOUR_ROLE", LanguageController.getHelpSetRoleMessage(guildLanguage), false);

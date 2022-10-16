@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Umbreon Majora
- *
+ * <p>
  * Description: Deletes all stored information when the message gets deleted.
  */
 public class MessageDelete extends ListenerAdapter {
@@ -27,6 +27,7 @@ public class MessageDelete extends ListenerAdapter {
 
         if (reactionRolesCache.doReactionRoleMessageExists(messageID)) {
             databaseRequests.deleteReactionRoleMessage(messageID);
+            reactionRolesCache.deleteReactionRoleMessage(messageID);
         }
     }
 }

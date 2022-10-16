@@ -1,8 +1,6 @@
 package me.umbreon.diabloimmortalbot.commands.guilds_commands;
 
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.cache.GuildsCache;
-import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
@@ -19,19 +17,15 @@ import org.slf4j.LoggerFactory;
  */
 public class ChangeServerValueCommand {
 
-    private final ClientCache clientCache;
     private final DatabaseRequests databaseRequests;
 
     private final GuildsCache guildsCache;
-    private final NotificationChannelsCache notificationChannelsCache;
 
     private final Logger LOGGER = LoggerFactory.getLogger(ChangeServerValueCommand.class);
 
-    public ChangeServerValueCommand(ClientCache clientCache, DatabaseRequests databaseRequests, GuildsCache guildsCache, NotificationChannelsCache notificationChannelsCache) {
-        this.clientCache = clientCache;
+    public ChangeServerValueCommand(DatabaseRequests databaseRequests, GuildsCache guildsCache) {
         this.databaseRequests = databaseRequests;
         this.guildsCache = guildsCache;
-        this.notificationChannelsCache = notificationChannelsCache;
     }
 
     public void runChangeServerValueCommand(final SlashCommandInteractionEvent event) {
@@ -85,11 +79,12 @@ public class ChangeServerValueCommand {
             return;
         }
 
+        databaseRequests.updateGuildHeadUp(guildID, serverValue);
+        guildsCache.setHeadUpOnServerValue(guildID, serverValue);
+
         if (serverValue) {
-            setEventHeadUpOnServerValue(guildID, true);
             event.reply(String.format(LanguageController.getEventEnabledMessage(guildLanguage), serverSetting)).setEphemeral(true).queue();
         } else {
-            setEventHeadUpOnServerValue(guildID, false);
             event.reply(String.format(LanguageController.getEventDisabledMessage(guildLanguage), serverSetting)).setEphemeral(true).queue();
         }
     }
@@ -111,22 +106,14 @@ public class ChangeServerValueCommand {
             return;
         }
 
+        databaseRequests.updateGuildMessage(serverValue, guildID);
+        guildsCache.setEventMessageOnServerValue(guildID, serverValue);
+
         if (serverValue) {
-            setEventMessageOnServerValue(guildID, true);
             event.reply(String.format(LanguageController.getEventEnabledMessage(guildLanguage), serverSetting)).setEphemeral(true).queue();
         } else {
-            setEventMessageOnServerValue(guildID, false);
             event.reply(String.format(LanguageController.getEventDisabledMessage(guildLanguage), serverSetting)).setEphemeral(true).queue();
         }
     }
 
-    private void setEventHeadUpOnServerValue(final String guildID, final boolean value) {
-        databaseRequests.setEventHeadUpOnServerValue(value, guildID);
-        guildsCache.setHeadUpOnServerValue(guildID, value);
-    }
-
-    private void setEventMessageOnServerValue(final String guildID, final boolean value) {
-        databaseRequests.setEventMessageOnServerValue(value, guildID);
-        guildsCache.setEventMessageOnServerValue(guildID, value);
-    }
 }

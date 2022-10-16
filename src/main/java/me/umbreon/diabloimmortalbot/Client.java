@@ -3,6 +3,7 @@ package me.umbreon.diabloimmortalbot;
 import me.umbreon.diabloimmortalbot.cache.*;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
+import me.umbreon.diabloimmortalbot.database.SQLStatements;
 import me.umbreon.diabloimmortalbot.events.*;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
@@ -13,13 +14,20 @@ import me.umbreon.diabloimmortalbot.utils.ClientLogger;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
+/**
+ * TODO:
+ * - Find a fix for not reloading all custom message because one is new.
+ * - Command for editing custom messages.
+ */
 public class Client {
 
-    private static final boolean TEST_MODE = false;
 
     public static void main(final String[] args) {
+
+        SQLStatements sqlStatements = new SQLStatements();
+
         ClientCache clientCache = new ClientCache();
-        ClientConfig clientConfig = new ClientConfig(TEST_MODE);
+        ClientConfig clientConfig = new ClientConfig();
         GuildsCache guildsCache = new GuildsCache();
         CustomMessagesCache customMessagesCache = new CustomMessagesCache();
         GameEventsCache gameEventsCache = new GameEventsCache();

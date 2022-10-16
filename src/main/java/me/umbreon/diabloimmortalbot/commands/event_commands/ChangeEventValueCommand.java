@@ -78,21 +78,35 @@ public class ChangeEventValueCommand {
         }
 
         if (activation) {
-            setEventValue(true, eventName, textChannelID);
+
+            if (eventName.equalsIgnoreCase("headup")) {
+                databaseRequests.updateChannelHeadUp(textChannelID, activation);
+                notificationChannelsCache.setNotificationsValue(eventName, activation, textChannelID);
+            }
+
+            if (eventName.equalsIgnoreCase("message")) {
+                databaseRequests.updateChannelMessage(textChannelID, activation);
+                notificationChannelsCache.setNotificationsValue(eventName, activation, textChannelID);
+            }
+
             event.reply(String.format(LanguageController.getEventEnabledMessage(guildLanguage), eventName)).setEphemeral(true).queue();
         } else {
-            setEventValue(false, eventName, textChannelID);
+
+            if (eventName.equalsIgnoreCase("headup")) {
+                databaseRequests.updateChannelHeadUp(textChannelID, activation);
+                notificationChannelsCache.setNotificationsValue(eventName, activation, textChannelID);
+            }
+
+            if (eventName.equalsIgnoreCase("message")) {
+                databaseRequests.updateChannelMessage(textChannelID, activation);
+                notificationChannelsCache.setNotificationsValue(eventName, activation, textChannelID);
+            }
             event.reply(String.format(LanguageController.getEventDisabledMessage(guildLanguage), eventName)).setEphemeral(true).queue();
         }
     }
 
     private boolean doEventExist(final String event) {
         return clientCache.getListWithAvailableNotifications().contains(event);
-    }
-
-    private void setEventValue(final boolean value, final String event, final String textChannelID) {
-        databaseRequests.updateNotifierChannelEventMessage(event, textChannelID, value);
-        notificationChannelsCache.setNotificationsValue(event, value, textChannelID);
     }
 
 }

@@ -3,7 +3,7 @@ package me.umbreon.diabloimmortalbot.gameevents.embeds;
 import me.umbreon.diabloimmortalbot.cache.GameEventsCache;
 import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
+import me.umbreon.diabloimmortalbot.utils.StringUtils;
 import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -46,11 +46,11 @@ public class HauntedCarriageEmbed {
         final long unix = TimeUtils.getTimeInUnix(timezone) + (3600 * 2);
 
         embedBuilder.setTitle(eventTitle + " | " + worldEventMessage);
-        embedBuilder.setImage(ImageAssistant.getDiabloHauntedCarriageImage());
+        embedBuilder.setImage(StringUtils.getDiabloHauntedCarriage());
         embedBuilder.addField(spawnAtMessage, "<t:" + unix + ">", true);
         embedBuilder.addField(countdownMessage, "<t:" + unix + ":R>", true);
         embedBuilder.addField(locationMessage1, locationMessage2, false);
-        embedBuilder.setThumbnail(ImageAssistant.getDiabloImmortalLogo());
+        embedBuilder.setThumbnail(StringUtils.getDiabloImmortalLogo());
 
         return embedBuilder.build();
     }

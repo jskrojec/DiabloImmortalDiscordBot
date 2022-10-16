@@ -19,6 +19,7 @@ public class TimeUtils {
     private static final DateFormat HHmmssSSS_dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
 
     private TimeUtils() {
+        // all static methods.
     }
 
     public static String getTimeWithWeekday(final String timezone) {

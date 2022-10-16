@@ -16,19 +16,18 @@ public class ChannelDelete extends ListenerAdapter {
     private final DatabaseRequests databaseRequests;
     private final NotificationChannelsCache notificationChannelsCache;
 
-    public ChannelDelete(final DatabaseRequests databaseRequests, final NotificationChannelsCache notificationChannelsCache) {
+    public ChannelDelete(DatabaseRequests databaseRequests, NotificationChannelsCache notificationChannelsCache) {
         this.databaseRequests = databaseRequests;
         this.notificationChannelsCache = notificationChannelsCache;
     }
 
     @Override
-    public void onChannelDelete(final ChannelDeleteEvent event) {
+    public void onChannelDelete(ChannelDeleteEvent event) {
         if (!isTypeTextChannelType(event.getChannelType())) {
             return;
         }
 
         String channelID = event.getChannel().getId();
-
         if (notificationChannelsCache.doNotifierChannelExists(channelID)) {
             notificationChannelsCache.removeNotifierChannelFromList(channelID);
             databaseRequests.deleteNotifierChannelEntry(channelID);

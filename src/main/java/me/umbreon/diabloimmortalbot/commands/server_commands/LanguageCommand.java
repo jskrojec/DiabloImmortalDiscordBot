@@ -65,7 +65,7 @@ public class LanguageCommand {
     }
 
     private void setGuildLanguage(final String guildID, final String guildLanguage) {
-        databaseRequests.setGuildLanguage(guildID, guildLanguage);
+        databaseRequests.updateGuildLanguage(guildID, guildLanguage);
         guildsCache.setGuildLanguage(guildID, guildLanguage);
     }
 }

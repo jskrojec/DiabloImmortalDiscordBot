@@ -4,7 +4,7 @@ import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import me.umbreon.diabloimmortalbot.utils.StringAssistant;
+import me.umbreon.diabloimmortalbot.utils.StringUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -80,7 +80,7 @@ public class TimezoneCommand {
     }
 
     private boolean isTimeZoneValid(final String timezone) {
-        if (StringAssistant.isStringSingleDashWithDigits(timezone)) {
+        if (StringUtils.isStringSingleDashWithDigits(timezone)) {
             return false;
         }
 
@@ -94,7 +94,7 @@ public class TimezoneCommand {
     }
 
     private void setGuildTimeZone(final String guildID, final String timeZone) {
-        databaseRequests.setGuildTimezone(guildID, timeZone);
+        databaseRequests.updateGuildTimezone(guildID, timeZone);
         guildsCache.setGuildTimeZone(guildID, timeZone);
     }
 

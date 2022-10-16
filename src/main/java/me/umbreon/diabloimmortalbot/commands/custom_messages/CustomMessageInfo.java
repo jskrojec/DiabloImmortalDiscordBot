@@ -51,11 +51,11 @@ public class CustomMessageInfo {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.ORANGE);
         String textChannelMention = "<#" + customMessage.getChannelID() + ">";
-        String time = customMessage.getDay() + " " + customMessage.getTime();
+        String time = customMessage.getWeekday() + " " + customMessage.getTime();
         embedBuilder.addField("TextChannel:", textChannelMention, true);
         embedBuilder.addField("Message:", customMessage.getMessage(), true);
         embedBuilder.addField("Time:", time, true);
-        embedBuilder.addField("Repeating:", String.valueOf(customMessage.isRepeat()), true);
+        embedBuilder.addField("Repeating:", String.valueOf(customMessage.isRepeating()), true);
         return embedBuilder.build();
     }
 

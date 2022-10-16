@@ -7,7 +7,7 @@ import me.umbreon.diabloimmortalbot.data.CustomMessage;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.utils.ClientLogger;
-import me.umbreon.diabloimmortalbot.utils.StringAssistant;
+import me.umbreon.diabloimmortalbot.utils.StringUtils;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.slf4j.Logger;
@@ -77,7 +77,7 @@ public class CreateCustomMessageCommand {
             return;
         }
 
-        if (!StringAssistant.isStringInTimePattern(time)) {
+        if (!StringUtils.isStringInTimePattern(time)) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because time was invalid.";
             LOGGER.info(log);
             ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);

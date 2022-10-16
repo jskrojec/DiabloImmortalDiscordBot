@@ -12,7 +12,7 @@ import java.util.List;
 public class GuildJoin extends ListenerAdapter {
 
     @Override
-    public void onGuildJoin(@NotNull final GuildJoinEvent event) {
+    public void onGuildJoin(@NotNull GuildJoinEvent event) {
         try {
             List<CommandData> commandDataList = CommandsUtil.getCommandDataList();
             event.getGuild().updateCommands().addCommands(commandDataList).queue();

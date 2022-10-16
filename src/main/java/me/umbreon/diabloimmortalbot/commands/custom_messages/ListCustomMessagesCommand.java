@@ -50,7 +50,7 @@ public class ListCustomMessagesCommand {
             String customMessageID = "ID: " + customMessage.getCustomMessageID();
             String s = "Channel: <#" + customMessage.getChannelID() + ">\n" +
                     "Message: " + customMessage.getMessage() + "\n" +
-                    "Time: " + customMessage.getDay() + " " + customMessage.getTime() + "\n";
+                    "Time: " + customMessage.getWeekday() + " " + customMessage.getTime() + "\n";
             embedBuilder.addField(customMessageID, s, true);
         });
 

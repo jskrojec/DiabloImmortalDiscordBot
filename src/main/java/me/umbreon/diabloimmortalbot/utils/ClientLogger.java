@@ -1,5 +1,8 @@
 package me.umbreon.diabloimmortalbot.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -7,14 +10,20 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * @author Umbreon Majora
+ * <p>
+ * External logger, which stores log messages in files.
+ * Log files where created with the guild ID as file name.
+ */
 public class ClientLogger {
 
-    private static File logFolder;
-    private static File logFile;
-    private static String path;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientLogger.class);
+
+    private static final String path;
 
     static {
-        if (true) {
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
             path = "C:\\workspace\\log\\";
         } else {
             path = "/home/discord/logs";
@@ -22,16 +31,19 @@ public class ClientLogger {
     }
 
     private ClientLogger() {
+        // all static methods
     }
 
     public static void checkIfLogFolderExists(final String logFolderPath) {
-        logFolder = new File(logFolderPath);
-        if (!doesLogFolderExists()) {
-            logFolder.mkdir();
+        File logFolder = new File(logFolderPath);
+        if (!doesLogFolderExists(logFolder)) {
+            if (logFolder.mkdir()) {
+                LOGGER.info("Created new folder. " + logFolder.getAbsolutePath());
+            }
         }
     }
 
-    public static void createNewServerLogEntry(final String guildID, final String textChannelID, final String message) {
+    public static void createNewServerLogEntry(String guildID, String textChannelID, String message) {
         if (!doServerFolderExists(guildID)) {
             createServerFolder(guildID);
         }
@@ -41,13 +53,10 @@ public class ClientLogger {
         }
 
         File serverLogFile = new File(path + guildID + "/" + textChannelID + ".log");
-
+        String timeStamp = "[" + TimeUtils.getCurrentDate() + " " + TimeUtils.getCurrentTime() + "]";
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(serverLogFile, true))) {
-            bufferedWriter.append("\n[")
-                    .append(TimeUtils.getCurrentDate())
+            bufferedWriter.append(timeStamp)
                     .append(" ")
-                    .append(TimeUtils.getCurrentTime())
-                    .append("] ")
                     .append(message)
                     .append("\n");
         } catch (IOException e) {
@@ -56,43 +65,19 @@ public class ClientLogger {
 
     }
 
-    private static boolean doServerFolderExists(final String guildID) {
-        final Path folderPath = Path.of(path + guildID);
-        return Files.exists(folderPath);
-    }
+    public static void createNewErrorLogEntry(Exception logMessage) {
+        File logFile = new File(path + "error-log.log");
 
-    private static void createServerFolder(final String guildID) {
-        new File(path + guildID).mkdirs();
-    }
-
-    private static boolean doServerLogFileExists(final String guildID, final String textChannelID) {
-        final File serverLogFile = new File(path + guildID + "/" + textChannelID + ".log");
-        return serverLogFile.exists();
-    }
-
-    private static void createServerLogFile(final String guildID, final String textChannelID) {
-        try {
-            Files.createFile(Path.of(path + guildID + "/" + textChannelID + ".log"));
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void createNewSqlLogEntry(final Exception logMessage) {
-        logFile = new File(path + "sql-log.log");
-
-        if (!doesLogFileExist()) {
-            createNewLogFile("sql-log");
+        if (!doesLogFileExist(logFile)) {
+            createNewLogFile();
         }
 
         BufferedWriter bufferedWriter;
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.append("[")
-                    .append(TimeUtils.getCurrentDate())
+            String timeStamp = "[" + TimeUtils.getCurrentDate() + " " + TimeUtils.getCurrentTime() + "]";
+            bufferedWriter.append(timeStamp)
                     .append(" ")
-                    .append(TimeUtils.getCurrentTime())
-                    .append("] ")
                     .append(logMessage.getMessage())
                     .append("\n");
             for (StackTraceElement e : logMessage.getStackTrace()) {
@@ -104,50 +89,49 @@ public class ClientLogger {
         }
     }
 
-    public static void createNewErrorLogEntry(final Exception logMessage) {
-        logFile = new File(path + "error-log.log");
-
-        if (!doesLogFileExist()) {
-            createNewLogFile("client-log");
-        }
-
-        final BufferedWriter bufferedWriter;
+    private static void createNewLogFile() {
+        File logFile = new File(path + "client-log.log");
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.append("\n[")
-                    .append(TimeUtils.getCurrentDate())
-                    .append(" ")
-                    .append(TimeUtils.getCurrentTime())
-                    .append("] ")
-                    .append(logMessage.getMessage())
-                    .append("\n");
-            for (final StackTraceElement e : logMessage.getStackTrace()) {
-                bufferedWriter.append(String.valueOf(e)).append("\n");
+            if (logFile.createNewFile()) {
+                LOGGER.info("Create new log file. " + logFile.getAbsolutePath());
             }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
             bufferedWriter.close();
-        } catch (final IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void createNewLogFile(final String logFileName) {
-        logFile = new File(path + logFileName + ".log");
-
-        try {
-            logFile.createNewFile();
-            final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(logFile, true));
-            bufferedWriter.close();
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private static boolean doesLogFolderExists() {
+    private static boolean doesLogFolderExists(File logFolder) {
         return logFolder.exists();
     }
 
-    private static boolean doesLogFileExist() {
+    private static boolean doesLogFileExist(File logFile) {
         return logFile.exists();
+    }
+
+    private static void createServerFolder(String guildID) {
+        File file = new File(path + guildID);
+        if (file.mkdirs()) {
+            LOGGER.info("Created new server folder. " + file.getAbsolutePath());
+        }
+    }
+
+    private static boolean doServerLogFileExists(String guildID, String textChannelID) {
+        File serverLogFile = new File(path + guildID + "/" + textChannelID + ".log");
+        return serverLogFile.exists();
+    }
+
+    private static void createServerLogFile(String guildID, String textChannelID) {
+        try {
+            Files.createFile(Path.of(path + guildID + "/" + textChannelID + ".log"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static boolean doServerFolderExists(String guildID) {
+        Path folderPath = Path.of(path + guildID);
+        return Files.exists(folderPath);
     }
 }

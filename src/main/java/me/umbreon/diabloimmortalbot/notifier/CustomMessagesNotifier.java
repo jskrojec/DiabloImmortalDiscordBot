@@ -35,7 +35,7 @@ public class CustomMessagesNotifier {
                     String channel = customMessage.getChannelID();
                     String guildID = customMessage.getGuildID();
                     String timezone = guildsCache.getGuildTimeZone(guildID);
-                    String day = customMessage.getDay();
+                    String day = customMessage.getWeekday();
                     String time = customMessage.getTime();
                     String fullTime = day + " " + time;
 
@@ -59,7 +59,7 @@ public class CustomMessagesNotifier {
                     if (textChannel != null) textChannel.sendMessage(message).queue();
 
 
-                    if (!customMessage.isRepeat()) {
+                    if (!customMessage.isRepeating()) {
                         customMessagesCache.deleteCustomMessageByID(customMessage.getCustomMessageID());
                         databaseRequests.deleteCustomMessageEntry(customMessage.getCustomMessageID());
                     }

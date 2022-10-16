@@ -1,9 +1,9 @@
 package me.umbreon.diabloimmortalbot.commands.help_commands;
 
+import me.umbreon.diabloimmortalbot.cache.ClientCache;
 import me.umbreon.diabloimmortalbot.cache.GuildsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.cache.ClientCache;
-import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
+import me.umbreon.diabloimmortalbot.utils.StringUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -36,7 +36,7 @@ public class InstructionCommand {
         final EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Diablo Immortal Notifier " + LanguageController.getInstructionsMessage(guildLanguage));
         embedBuilder.setColor(Color.GRAY);
-        embedBuilder.setThumbnail(ImageAssistant.getDiabloImmortalLogo());
+        embedBuilder.setThumbnail(StringUtils.getDiabloImmortalLogo());
         embedBuilder.addField("1.", LanguageController.getInstall1Message(guildLanguage), false);
         embedBuilder.addField("2.", LanguageController.getInstall2Message(guildLanguage), false);
         embedBuilder.addField("3.", LanguageController.getInstall3Message(guildLanguage), false);

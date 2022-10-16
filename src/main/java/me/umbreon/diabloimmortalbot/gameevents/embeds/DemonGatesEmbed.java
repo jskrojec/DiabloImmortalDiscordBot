@@ -3,7 +3,7 @@ package me.umbreon.diabloimmortalbot.gameevents.embeds;
 import me.umbreon.diabloimmortalbot.cache.GameEventsCache;
 import me.umbreon.diabloimmortalbot.cache.NotificationChannelsCache;
 import me.umbreon.diabloimmortalbot.languages.LanguageController;
-import me.umbreon.diabloimmortalbot.utils.ImageAssistant;
+import me.umbreon.diabloimmortalbot.utils.StringUtils;
 import me.umbreon.diabloimmortalbot.utils.TimeUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -43,11 +43,11 @@ public class DemonGatesEmbed {
         final String locationMessage2 = LanguageController.getLocationDemonGatesEmbedMessage2(language);
 
         embedBuilder.setTitle(eventTitle + " | " + worldEventMessage);
-        embedBuilder.setImage(ImageAssistant.getDiabloDemonGatesImage());
+        embedBuilder.setImage(StringUtils.getDiabloDemonGates());
         embedBuilder.addField(spawnAtMessage, "<t:" + unix + ">", true);
         embedBuilder.addField(countdownMessage, "<t:" + unix + ":R>", true);
         embedBuilder.addField(locationMessage1, locationMessage2, false);
-        embedBuilder.setThumbnail(ImageAssistant.getDiabloImmortalLogo());
+        embedBuilder.setThumbnail(StringUtils.getDiabloImmortalLogo());
 
         return embedBuilder.build();
     }

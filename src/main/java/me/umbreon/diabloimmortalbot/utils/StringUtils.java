@@ -14,6 +14,20 @@ public class StringUtils {
     public static String receivedRoleMessage = "You've got the %s role.";
     public static String lostRoleMessage = "You've lost the role %s.";
 
+    private static final String DIABLO_IMMORTAL_LOGO;
+    private static final String DIABLO_ANCIENT_NIGHTMARE;
+    private static final String DIABLO_HAUNTED_CARRIAGE;
+    private static final String DIABLO_ANCIENT_ARENA;
+    private static final String DIABLO_DEMON_GATES;
+
+    static {
+        DIABLO_IMMORTAL_LOGO = "https://d1oinwhu0i67tc.cloudfront.net/images/nav-icon.c0f6fcf3e2cc6a668469ce3f4661212158627097.png";
+        DIABLO_ANCIENT_NIGHTMARE = "https://assets.maxroll.gg/wordpress/ZoneEvents_Ancient_v1.1.jpg";
+        DIABLO_HAUNTED_CARRIAGE = "https://assets.maxroll.gg/wordpress/ZoneEvents_Ashwold_v1.1.jpg";
+        DIABLO_ANCIENT_ARENA = "https://assets.maxroll.gg/wordpress/ZoneEvents_Arena_v1.1.jpg";
+        DIABLO_DEMON_GATES = "https://media.diablofans.com/attachments/23/560/screenshot-2022-05-28-204043.jpg";
+    }
+
     public static String convertEmojiToUnicode(String emoji) {
         StringBuilder sb = new StringBuilder();
 
@@ -28,5 +42,33 @@ public class StringUtils {
         }
 
         return sb.toString();
+    }
+
+    public static boolean isStringInTimePattern(final String string) {
+        return string.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+    }
+
+    public static boolean isStringSingleDashWithDigits(final String string) {
+        return string.matches("-[0-9]+");
+    }
+
+    public static String getDiabloImmortalLogo() {
+        return DIABLO_IMMORTAL_LOGO;
+    }
+
+    public static String getDiabloAncientNightmare() {
+        return DIABLO_ANCIENT_NIGHTMARE;
+    }
+
+    public static String getDiabloHauntedCarriage() {
+        return DIABLO_HAUNTED_CARRIAGE;
+    }
+
+    public static String getDiabloAncientArena() {
+        return DIABLO_ANCIENT_ARENA;
+    }
+
+    public static String getDiabloDemonGates() {
+        return DIABLO_DEMON_GATES;
     }
 }

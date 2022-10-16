@@ -110,7 +110,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
         this.changeEventValueCommand = new ChangeEventValueCommand(clientCache, databaseRequests, guildsCache, notificationChannelsCache);
 
         // server commands
-        this.changeServerValueCommand = new ChangeServerValueCommand(clientCache, databaseRequests, guildsCache, notificationChannelsCache);
+        this.changeServerValueCommand = new ChangeServerValueCommand(databaseRequests, guildsCache);
         this.configCommand = new ConfigCommand(clientCache, guildsCache);
         this.timezoneCommand = new TimezoneCommand(databaseRequests, guildsCache);
         this.languageCommand = new LanguageCommand(clientCache, databaseRequests, guildsCache);

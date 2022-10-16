@@ -168,6 +168,7 @@ public class Notifier {
                             });
                         }
                     } catch (InsufficientPermissionException e) {
+                        System.out.println(notifierChannel.getGuildID());
                         ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "global", "Failed to send notification message cause of insufficient permissions. " + e.getMessage());
                         e.printStackTrace();
                     } catch (Exception e) {
