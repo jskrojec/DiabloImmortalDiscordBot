@@ -10,39 +10,39 @@ public class SQLStatements {
 
     private static final String DEFAULT_PATH = "sql-scripts/";
 
-    private static String GET_ALL_GUILDS_STATEMENT;
-    private static String CREATE_NEW_GUILD_STATEMENT;
-    private static String UPDATE_GUILD_LANGUAGE_STATEMENT;
-    private static String UPDATE_GUILD_TIMEZONE_STATEMENT;
-    private static String UPDATE_GUILD_HEAD_UP_STATEMENT;
-    private static String UPDATE_GUILD_MESSAGE_STATEMENT;
+    private static final String GET_ALL_GUILDS_STATEMENT;
+    private static final String CREATE_NEW_GUILD_STATEMENT;
+    private static final String UPDATE_GUILD_LANGUAGE_STATEMENT;
+    private static final String UPDATE_GUILD_TIMEZONE_STATEMENT;
+    private static final String UPDATE_GUILD_HEAD_UP_STATEMENT;
+    private static final String UPDATE_GUILD_MESSAGE_STATEMENT;
     //TODO: DELETE_STATEMENT?
 
-    private static String GET_ALL_CUSTOM_MESSAGES_STATEMENT;
-    private static String CREATE_CUSTOM_MESSAGE_STATEMENT;
+    private static final String GET_ALL_CUSTOM_MESSAGES_STATEMENT;
+    private static final String CREATE_CUSTOM_MESSAGE_STATEMENT;
     //TODO: UPDATE_STATEMENTS?
-    private static String DELETE_CUSTOM_MESSAGE_BY_ID_STATEMENT;
+    private static final String DELETE_CUSTOM_MESSAGE_BY_ID_STATEMENT;
 
-    private static String GET_ALL_CHANNELS_STATEMENT;
-    private static String CREATE_CHANNEL_STATEMENT;
-    private static String UPDATE_CHANNEL_MESSAGE_STATEMENT;
-    private static String UPDATE_CHANNEL_HEAD_UP_VALUE_STATEMENT;
-    private static String UPDATE_CHANNEL_ROLE_STATEMENT;
-    private static String DELETE_CHANNEL_BY_ID_STATEMENT;
+    private static final String GET_ALL_CHANNELS_STATEMENT;
+    private static final String CREATE_CHANNEL_STATEMENT;
+    private static final String UPDATE_CHANNEL_MESSAGE_STATEMENT;
+    private static final String UPDATE_CHANNEL_HEAD_UP_VALUE_STATEMENT;
+    private static final String UPDATE_CHANNEL_ROLE_STATEMENT;
+    private static final String DELETE_CHANNEL_BY_ID_STATEMENT;
 
-    private static String GET_ALL_REACTION_ROLES_STATEMENT;
+    private static final String GET_ALL_REACTION_ROLES_STATEMENT;
     //TODO: UPDATE_STATEMENTS?
-    private static String CREATE_REACTION_ROLE_STATEMENT;
-    private static String DELETE_REACTION_ROLE_BY_MESSAGE_ID_STATEMENT;
-    private static String DELETE_REACTION_ROLE_BY_MESSAGE_ID_AND_EMOJI_STATEMENT;
+    private static final String CREATE_REACTION_ROLE_STATEMENT;
+    private static final String DELETE_REACTION_ROLE_BY_MESSAGE_ID_STATEMENT;
+    private static final String DELETE_REACTION_ROLE_BY_MESSAGE_ID_AND_EMOJI_STATEMENT;
 
-    private static String CREATE_CHANNEL_TABLE_IF_NOT_EXISTS;
-    private static String CREATE_REACTION_ROLES_TABLE_IF_NOT_EXISTS;
-    private static String CREATE_GUILDS_TABLE_IF_NOT_EXISTS;
-    private static String CREATE_CUSTOM_MESSAGES_TABLE_IF_NOT_EXISTS;
-    private static String GET_CUSTOM_MESSAGE_NEXT_AUTO_INCREMENT_VALUE;
+    private static final String CREATE_CHANNEL_TABLE_IF_NOT_EXISTS;
+    private static final String CREATE_REACTION_ROLES_TABLE_IF_NOT_EXISTS;
+    private static final String CREATE_GUILDS_TABLE_IF_NOT_EXISTS;
+    private static final String CREATE_CUSTOM_MESSAGES_TABLE_IF_NOT_EXISTS;
+    private static final String GET_CUSTOM_MESSAGE_NEXT_AUTO_INCREMENT_VALUE;
 
-    public SQLStatements() {
+    static {
         GET_ALL_GUILDS_STATEMENT = loadResourceToString(DEFAULT_PATH + "get-all-guilds.sql");
         CREATE_NEW_GUILD_STATEMENT = loadResourceToString(DEFAULT_PATH + "create-new-guild.sql");
         UPDATE_GUILD_LANGUAGE_STATEMENT = loadResourceToString(DEFAULT_PATH + "update-guild-language.sql");
@@ -73,7 +73,7 @@ public class SQLStatements {
         GET_CUSTOM_MESSAGE_NEXT_AUTO_INCREMENT_VALUE = loadResourceToString(DEFAULT_PATH + "get-custom-message-next-auto-increment-value.sql");
     }
 
-    public static String loadResourceToString(String path) {
+    private static String loadResourceToString(String path) {
         InputStream stream = Thread.currentThread()
                 .getContextClassLoader()
                 .getResourceAsStream(path);
