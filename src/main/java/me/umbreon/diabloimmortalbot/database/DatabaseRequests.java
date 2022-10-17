@@ -74,6 +74,19 @@ public class DatabaseRequests {
         return listEventTimeTables;
     }
 
+    //TODO: removoe this
+    public void updateNotifierChannelEventMessage(final String eventMessage, final String textChannelID, final boolean value) {
+        try (final Connection connection = databaseConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement("UPDATE channel_notification SET " + eventMessage + " = ? WHERE textChannelID = ?")) {
+            preparedStatement.setBoolean(1, value);
+            preparedStatement.setString(2, textChannelID);
+            preparedStatement.executeUpdate();
+        } catch (final SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /*
      * Guild Statements
      */
