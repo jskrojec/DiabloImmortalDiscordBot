@@ -1,0 +1,13 @@
+CREATE TABLE event_haunted_carriage (day VARCHAR(10), time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "12:00", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "11:45", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "20:30", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "20:15", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "22:00", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Tuesday", "21:45", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "12:00", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "11:45", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "20:30", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "20:15", 1);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "22:00", 0);
+INSERT INTO event_haunted_carriage (day, time, headup) VALUES ("Saturday", "21:45", 1);

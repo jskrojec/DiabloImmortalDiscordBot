@@ -1,0 +1,1 @@
+UPDATE channel_notification SET headup = ? WHERE textChannelID = ?

@@ -1,0 +1,1 @@
+UPDATE guilds SET language = ? WHERE guildID = ?

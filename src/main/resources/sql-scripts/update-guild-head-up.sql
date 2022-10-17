@@ -1,0 +1,1 @@
+UPDATE guilds SET event_headup = ? WHERE guildID = ?

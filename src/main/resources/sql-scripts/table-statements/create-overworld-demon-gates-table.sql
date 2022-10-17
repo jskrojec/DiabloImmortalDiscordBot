@@ -1,0 +1,10 @@
+CREATE TABLE overworld_demon_gates(day VARCHAR(10), time VARCHAR(10));
+INSERT INTO overworld_demon_gates (day, time) VALUES ("Monday", "10:00");
+INSERT INTO overworld_demon_gates (day, time) VALUES ("Monday", "18:30");
+INSERT INTO overworld_demon_gates (day, time) VALUES ("Monday", "20:00");
+INSERT INTO overworld_demon_gates (day, time) VALUES ("Thursday", "10:00");
+INSERT INTO overworld_demon_gates (day, time) VALUES ("Thursday", "18:30");
+INSERT INTO overworld_demon_gates (day, time) VALUES ("Thursday", "20:00");
+INSERT INTO overworld_demon_gates (day, time) VALUES ("Sunday", "10:00");
+INSERT INTO overworld_demon_gates (day, time) VALUES ("Sunday", "18:30");
+INSERT INTO overworld_demon_gates (day, time) VALUES ("Sunday", "20:00");

@@ -1,0 +1,13 @@
+CREATE TABLE event_assembly (day VARCHAR(10), time VARCHAR(10), headup TINYINT(1));
+INSERT INTO event_assembly (day, time, headup) VALUES ("Monday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Monday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Tuesday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Tuesday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Wednesday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Wednesday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Thursday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Thursday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Friday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Friday", "17:45", 1);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Saturday", "18:00", 0);
+INSERT INTO event_assembly (day, time, headup) VALUES ("Saturday", "17:45", 1);

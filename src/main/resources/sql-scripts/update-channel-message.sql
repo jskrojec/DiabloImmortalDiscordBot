@@ -1,0 +1,1 @@
+UPDATE channel_notification SET message = ? WHERE textChannelID = ?

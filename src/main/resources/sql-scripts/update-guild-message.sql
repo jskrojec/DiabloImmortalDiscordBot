@@ -1,0 +1,1 @@
+UPDATE guilds SET event_message = ? WHERE guildID = ?

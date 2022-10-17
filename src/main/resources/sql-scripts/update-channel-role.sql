@@ -1,0 +1,1 @@
+UPDATE channel_notification SET roleID = ? WHERE textChannelID = ?
