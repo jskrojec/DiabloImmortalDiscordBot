@@ -7,14 +7,17 @@ import java.util.Map;
 
 public class LanguageEnglish {
 
-    static Map<String, Object> messages;
+    private static final Map<String, Object> messages;
 
-    void loadLanguageConfiguration() {
-        final Yaml yaml = new Yaml();
-        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("english.yaml");
+    static {
+        Yaml yaml = new Yaml();
+        InputStream inputStream = LanguageEnglish.class.getClassLoader().getResourceAsStream("english.yaml");
         messages = yaml.load(inputStream);
     }
 
+    private LanguageEnglish() {
+        //All static methods.
+    }
 
     // Event messages
     static String getHauntedCarriageMessage() {

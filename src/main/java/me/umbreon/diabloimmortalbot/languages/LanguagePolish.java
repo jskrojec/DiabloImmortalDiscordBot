@@ -7,12 +7,16 @@ import java.util.Map;
 
 public class LanguagePolish {
 
-    static Map<String, Object> messages;
+    private static final Map<String, Object> messages;
 
-    void loadLanguageConfiguration() {
-        final Yaml yaml = new Yaml();
-        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("polish.yaml");
+    static {
+        Yaml yaml = new Yaml();
+        InputStream inputStream = LanguagePolish.class.getClassLoader().getResourceAsStream("polish.yaml");
         messages = yaml.load(inputStream);
+    }
+
+    private LanguagePolish() {
+        //All static methods.
     }
 
     // Event messages

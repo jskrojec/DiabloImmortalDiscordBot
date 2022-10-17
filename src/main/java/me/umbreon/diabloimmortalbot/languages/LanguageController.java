@@ -2,33 +2,8 @@ package me.umbreon.diabloimmortalbot.languages;
 
 public class LanguageController {
 
-    public static void loadConfigurations() {
-        LanguageEnglish languageEnglish = new LanguageEnglish();
-        languageEnglish.loadLanguageConfiguration();
-
-        LanguageGerman languageGerman = new LanguageGerman();
-        languageGerman.loadLanguageConfiguration();
-
-        LanguageSpain languageSpain = new LanguageSpain();
-        languageSpain.loadLanguageConfiguration();
-
-        LanguagePolish languagePolish = new LanguagePolish();
-        languagePolish.loadLanguageConfiguration();
-
-        LanguageFrench languageFrench = new LanguageFrench();
-        languageFrench.loadLanguageConfiguration();
-
-        LanguageItalian languageItalian = new LanguageItalian();
-        languageItalian.loadLanguageConfiguration();
-
-        LanguageRussian languageRussian = new LanguageRussian();
-        languageRussian.loadLanguageConfiguration();
-
-        LanguageIndonesia languageIndonesia = new LanguageIndonesia();
-        languageIndonesia.loadLanguageConfiguration();
-
-        LanguageUkrainian languageUkrainian = new LanguageUkrainian();
-        languageUkrainian.loadLanguageConfiguration();
+    private LanguageController() {
+        //All static methods.
     }
 
     public static String getHauntedCarriageMessage(final String lang) {

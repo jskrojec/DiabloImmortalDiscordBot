@@ -7,12 +7,16 @@ import java.util.Map;
 
 public class LanguageRussian {
 
-    static Map<String, Object> messages;
+    private static final Map<String, Object> messages;
 
-    void loadLanguageConfiguration() {
-        final Yaml yaml = new Yaml();
-        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("russian.yaml");
+    static {
+        Yaml yaml = new Yaml();
+        InputStream inputStream = LanguageRussian.class.getClassLoader().getResourceAsStream("russian.yaml");
         messages = yaml.load(inputStream);
+    }
+
+    private LanguageRussian() {
+        //All static methods.
     }
 
     // Event messages
