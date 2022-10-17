@@ -1,8 +1,9 @@
 # Diablo Immortal Discord Bot
 
-Discord Bot for Diablo Immortal. Sends a message on events.
+Discord Bot for Diablo Immortal. Sends a message on events. Also has features like reaction roles and custom
+notifications. Support and more on discord: https://discord.gg/ta4HxP6nz4
 
-## Installation:
+### Installation:
 
 You can skip step 2 and 3 if you're the server owner.
 
@@ -17,6 +18,31 @@ You can skip step 2 and 3 if you're the server owner.
 8. See what events are enabled using /info.
 9. On default the bot will mention @everyone, change that using /mentionrole [role].
 10. That's it. use /help to see all commands. And to unregister a channel use /unregister.
+
+#### How do I create a custom notification?
+
+Custom Notifications are created with the command /createcustommessage and it has 4 parameters. 1. Weekday 2. Time 3.
+Should the message be repeated every week 4. Your notification message.
+
+Here's a command example:
+/createcustommessage custommessageweekday:Monday custommessagetime:11:11 custommessagerepeating:True
+custommessagemessage:test
+
+This creates a custom notification on Monday at 11:11 (24hrs time) which repeats every monday with the message "test".
+The message will be send in the channel where the command is executed.
+
+#### How do I create a reaction role?
+
+Reaction roles are created with the command /createreactionrole and it has 3 parameters. 1. The message ID 2. The role
+3. The emoji
+
+Here's a command example:
+/createreactionrole messageid:1010156270117990450 role:@Role emote::Umbreon:
+
+This creates a reaction role with the emoji :Umbreon:  and it gives the role @Role.
+
+Here's a discord article on how you can get any ID'
+s. https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-
 
 ## Commands:
 
