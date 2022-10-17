@@ -231,6 +231,27 @@ public class DatabaseRequests {
         }
     }
 
+    public int getGetCustomMessageNextAutoIncrementValue() {
+        int nextAutoIncrementNumber = 0;
+        try (
+                Connection connection = databaseConnection.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQLStatements.getGetCustomMessageNextAutoIncrementValue())
+        ) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    nextAutoIncrementNumber = resultSet.getInt("AUTO_INCREMENT");
+                } else {
+                    throw new SQLException("Failed to get next auto increment number for custom messages");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nextAutoIncrementNumber;
+    }
+
     public void createNewCustomMessageEntry(CustomMessage customMessage) {
         try (
                 Connection connection = databaseConnection.getConnection();
@@ -251,32 +272,6 @@ public class DatabaseRequests {
     /*
      * Channel Statements
      */
-
-    public void updateChannelMessage(String textChannelID, boolean value) {
-        try (
-                Connection connection = databaseConnection.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQLStatements.getUpdateChannelMessageStatement())
-        ) {
-            preparedStatement.setBoolean(1, value);
-            preparedStatement.setString(2, textChannelID);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateChannelHeadUp(String textChannelID, boolean value) {
-        try (
-                Connection connection = databaseConnection.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQLStatements.getUpdateChannelHeadUpValueStatement())
-        ) {
-            preparedStatement.setBoolean(1, value);
-            preparedStatement.setString(2, textChannelID);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void deleteNotifierChannelEntry(String textChannelID) {
         try (

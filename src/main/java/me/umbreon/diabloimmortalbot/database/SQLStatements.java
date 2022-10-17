@@ -40,8 +40,9 @@ public class SQLStatements {
     private static String CREATE_REACTION_ROLES_TABLE_IF_NOT_EXISTS;
     private static String CREATE_GUILDS_TABLE_IF_NOT_EXISTS;
     private static String CREATE_CUSTOM_MESSAGES_TABLE_IF_NOT_EXISTS;
+    private static String GET_CUSTOM_MESSAGE_NEXT_AUTO_INCREMENT_VALUE;
 
-    public SQLStatements() { // "channel-statements/" +
+    public SQLStatements() {
         GET_ALL_GUILDS_STATEMENT = loadResourceToString(DEFAULT_PATH + "get-all-guilds.sql");
         CREATE_NEW_GUILD_STATEMENT = loadResourceToString(DEFAULT_PATH + "create-new-guild.sql");
         UPDATE_GUILD_LANGUAGE_STATEMENT = loadResourceToString(DEFAULT_PATH + "update-guild-language.sql");
@@ -69,6 +70,7 @@ public class SQLStatements {
         CREATE_REACTION_ROLES_TABLE_IF_NOT_EXISTS = loadResourceToString(DEFAULT_PATH + "create-reaction-roles-table-if-not-exists.sql");
         CREATE_GUILDS_TABLE_IF_NOT_EXISTS = loadResourceToString(DEFAULT_PATH + "create-guilds-table-if-not-exists.sql");
         CREATE_CUSTOM_MESSAGES_TABLE_IF_NOT_EXISTS = loadResourceToString(DEFAULT_PATH + "create-custom-messages-table-if-not-exists.sql");
+        GET_CUSTOM_MESSAGE_NEXT_AUTO_INCREMENT_VALUE = loadResourceToString(DEFAULT_PATH + "get-custom-message-next-auto-increment-value.sql");
     }
 
     public static String loadResourceToString(String path) {
@@ -196,4 +198,11 @@ public class SQLStatements {
         return CREATE_CUSTOM_MESSAGES_TABLE_IF_NOT_EXISTS;
     }
 
+    /*
+     *
+     */
+
+    public static String getGetCustomMessageNextAutoIncrementValue() {
+        return GET_CUSTOM_MESSAGE_NEXT_AUTO_INCREMENT_VALUE;
+    }
 }

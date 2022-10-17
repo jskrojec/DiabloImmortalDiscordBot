@@ -13,8 +13,6 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author Umbreon Majora
  * <p>
@@ -110,16 +108,14 @@ public class CreateCustomMessageCommand {
             return;
         }
 
+        int nextAutoIncrementNumber = databaseRequests.getGetCustomMessageNextAutoIncrementValue();
+
         CustomMessage customMessage = new CustomMessage(textChannelID, guildID, message, weekday, time, repeating);
         databaseRequests.createNewCustomMessageEntry(customMessage);
-        try {
-            //Todo: have to wait to get the id from the db, or the id will be 0.
-            TimeUnit.SECONDS.sleep(1);
-            customMessagesCache.setCustomMessagesList(databaseRequests.getAllCustomMessages());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        //Todo: Need to reload all custom message because of the id's the db is giving the cm, find a fix
+
+        customMessage.setCustomMessageID(nextAutoIncrementNumber);
+        customMessagesCache.addCustomMessageToList(customMessage);
+        
         event.reply(LanguageController.getCustomMessageCreatedMessage(guildLanguage)).setEphemeral(true).queue();
     }
 

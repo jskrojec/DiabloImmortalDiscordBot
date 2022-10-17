@@ -5,7 +5,6 @@ import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
 import me.umbreon.diabloimmortalbot.database.SQLStatements;
 import me.umbreon.diabloimmortalbot.events.*;
-import me.umbreon.diabloimmortalbot.languages.LanguageController;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
 import me.umbreon.diabloimmortalbot.notifier.InfoNotifier;
 import me.umbreon.diabloimmortalbot.notifier.Notifier;
@@ -34,11 +33,9 @@ public class Client {
         NotificationChannelsCache notificationChannelsCache = new NotificationChannelsCache();
 
         ClientLogger.checkIfLogFolderExists(clientConfig.getLogFolderPath());
-        LanguageController.loadConfigurations();
 
         MySQLDatabaseConnection mySQLDatabaseConnection = new MySQLDatabaseConnection(clientConfig);
         DatabaseRequests databaseRequests = new DatabaseRequests(mySQLDatabaseConnection);
-
         ReactionRolesCache reactionRolesCache = new ReactionRolesCache();
         loadCache(guildsCache, customMessagesCache, gameEventsCache, notificationChannelsCache, databaseRequests, reactionRolesCache);
 

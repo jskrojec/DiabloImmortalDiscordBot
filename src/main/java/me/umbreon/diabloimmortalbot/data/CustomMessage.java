@@ -37,7 +37,7 @@ public class CustomMessage {
         return guildID;
     }
 
-    public void setGuildID(final String guildID) {
+    public void setGuildID(String guildID) {
         this.guildID = guildID;
     }
 
@@ -45,7 +45,7 @@ public class CustomMessage {
         return message;
     }
 
-    public void setMessage(final String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
@@ -53,7 +53,7 @@ public class CustomMessage {
         return weekday;
     }
 
-    public void setWeekday(final String weekday) {
+    public void setWeekday(String weekday) {
         this.weekday = weekday;
     }
 
@@ -61,7 +61,7 @@ public class CustomMessage {
         return time;
     }
 
-    public void setTime(final String time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -69,11 +69,15 @@ public class CustomMessage {
         return customMessageID;
     }
 
+    public void setCustomMessageID(int customMessageID) {
+        this.customMessageID = customMessageID;
+    }
+
     public boolean isRepeating() {
         return repeating;
     }
 
-    public void setRepeating(final boolean repeat) {
-        this.repeating = repeat;
+    public void setRepeating(boolean repeating) {
+        this.repeating = repeating;
     }
 }
