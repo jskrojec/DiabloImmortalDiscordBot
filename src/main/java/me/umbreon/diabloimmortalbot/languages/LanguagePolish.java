@@ -11,7 +11,7 @@ public class LanguagePolish {
 
     static {
         Yaml yaml = new Yaml();
-        InputStream inputStream = LanguagePolish.class.getClassLoader().getResourceAsStream("polish.yaml");
+        InputStream inputStream = LanguagePolish.class.getClassLoader().getResourceAsStream("languages/polish.yaml");
         messages = yaml.load(inputStream);
     }
 

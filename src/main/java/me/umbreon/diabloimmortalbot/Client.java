@@ -3,7 +3,6 @@ package me.umbreon.diabloimmortalbot;
 import me.umbreon.diabloimmortalbot.cache.*;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
 import me.umbreon.diabloimmortalbot.database.MySQLDatabaseConnection;
-import me.umbreon.diabloimmortalbot.database.SQLStatements;
 import me.umbreon.diabloimmortalbot.events.*;
 import me.umbreon.diabloimmortalbot.notifier.CustomMessagesNotifier;
 import me.umbreon.diabloimmortalbot.notifier.InfoNotifier;
@@ -20,11 +19,7 @@ import net.dv8tion.jda.api.JDABuilder;
  */
 public class Client {
 
-
     public static void main(final String[] args) {
-
-        SQLStatements sqlStatements = new SQLStatements();
-
         ClientCache clientCache = new ClientCache();
         ClientConfig clientConfig = new ClientConfig();
         GuildsCache guildsCache = new GuildsCache();
