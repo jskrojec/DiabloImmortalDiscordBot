@@ -1,6 +1,22 @@
 package me.umbreon.diabloimmortalbot.languages;
 
+import java.util.List;
+
 public class LanguageController {
+
+    private static final String SHORT_ENGLISH = "ENG";
+    private static final String SHORT_GERMAN = "GER";
+    private static final String SHORT_SPAIN = "ESP";
+    private static final String SHORT_POLISH = "POL";
+    private static final String SHORT_FRENCH = "FRA";
+    private static final String SHORT_ITALIAN = "ITA";
+    private static final String SHORT_RUSSIAN = "RUS";
+    private static final String SHORT_INDONESIA = "IND";
+    private static final String SHORT_UKRAINIAN = "UKR";
+    private static final String SHORT_BRAZILIAN_PORTUGUESE = "BRPT";
+
+    public static final List<String> languages = List.of(SHORT_ENGLISH, SHORT_GERMAN, SHORT_SPAIN, SHORT_POLISH, SHORT_FRENCH,
+            SHORT_ITALIAN, SHORT_RUSSIAN, SHORT_INDONESIA, SHORT_UKRAINIAN, SHORT_BRAZILIAN_PORTUGUESE);
 
     private LanguageController() {
         //All static methods.
@@ -8,23 +24,23 @@ public class LanguageController {
 
     public static String getHauntedCarriageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHauntedCarriageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHauntedCarriageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHauntedCarriageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHauntedCarriageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHauntedCarriageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHauntedCarriageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHauntedCarriageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHauntedCarriageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHauntedCarriageMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageMessage();
@@ -33,23 +49,23 @@ public class LanguageController {
 
     public static String getHauntedCarriageHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHauntedCarriageHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHauntedCarriageHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHauntedCarriageHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHauntedCarriageHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHauntedCarriageHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHauntedCarriageHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHauntedCarriageHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHauntedCarriageHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHauntedCarriageHeadUpMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageHeadUpMessage();
@@ -58,23 +74,23 @@ public class LanguageController {
 
     public static String getDemonGatesMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getDemonGatesMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getDemonGatesMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getDemonGatesMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getDemonGatesMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getDemonGatesMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getDemonGatesMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getDemonGatesMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getDemonGatesMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getDemonGatesMessage();
             default:
                 return LanguageEnglish.getDemonGatesMessage();
@@ -83,23 +99,23 @@ public class LanguageController {
 
     public static String getDemonGatesHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getDemonGatesHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getDemonGatesHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getDemonGatesHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getDemonGatesHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getDemonGatesHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getDemonGatesHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getDemonGatesHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getDemonGatesHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getDemonGatesHeadUpMessage();
             default:
                 return LanguageEnglish.getDemonGatesHeadUpMessage();
@@ -108,23 +124,23 @@ public class LanguageController {
 
     public static String getBattlegroundMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getBattlegroundMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getBattlegroundMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getBattlegroundMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getBattlegroundMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getBattlegroundMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getBattlegroundMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getBattlegroundMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getBattlegroundMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getBattlegroundMessage();
             default:
                 return LanguageEnglish.getBattlegroundMessage();
@@ -133,23 +149,23 @@ public class LanguageController {
 
     public static String getBattlegroundHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getBattlegroundHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getBattlegroundHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getBattlegroundHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getBattlegroundHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getBattlegroundHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getBattlegroundHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getBattlegroundHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getBattlegroundHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getBattlegroundHeadUpMessage();
             default:
                 return LanguageEnglish.getBattlegroundHeadUpMessage();
@@ -158,23 +174,23 @@ public class LanguageController {
 
     public static String getAncientNightmareMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAncientNightmareMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAncientNightmareMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAncientNightmareMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAncientNightmareMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAncientNightmareMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAncientNightmareMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAncientNightmareMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAncientNightmareMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAncientNightmareMessage();
             default:
                 return LanguageEnglish.getAncientNightmareMessage();
@@ -183,23 +199,23 @@ public class LanguageController {
 
     public static String getAncientNightmareHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAncientNightmareHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAncientNightmareHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAncientNightmareHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAncientNightmareHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAncientNightmareHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAncientNightmareHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAncientNightmareHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAncientNightmareHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAncientNightmareHeadUpMessage();
             default:
                 return LanguageEnglish.getAncientNightmareHeadUpMessage();
@@ -208,23 +224,23 @@ public class LanguageController {
 
     public static String getAncientArenaMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAncientArenaMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAncientArenaMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAncientArenaMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAncientArenaMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAncientArenaMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAncientArenaMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAncientArenaMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAncientArenaMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAncientArenaMessage();
             default:
                 return LanguageEnglish.getAncientArenaMessage();
@@ -233,23 +249,23 @@ public class LanguageController {
 
     public static String getAncientArenaHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAncientArenaHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAncientArenaHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAncientArenaHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAncientArenaHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAncientArenaHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAncientArenaHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAncientArenaHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAncientArenaHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAncientArenaHeadUpMessage();
             default:
                 return LanguageEnglish.getAncientArenaHeadUpMessage();
@@ -258,23 +274,23 @@ public class LanguageController {
 
     public static String getAssemblyMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAssemblyMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAssemblyMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAssemblyMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAssemblyMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAssemblyMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAssemblyMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAssemblyMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAssemblyMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAssemblyMessage();
             default:
                 return LanguageEnglish.getAssemblyMessage();
@@ -283,23 +299,23 @@ public class LanguageController {
 
     public static String getAssemblyHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAssemblyHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAssemblyHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAssemblyHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAssemblyHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAssemblyHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAssemblyHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAssemblyHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAssemblyHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAssemblyHeadUpMessage();
             default:
                 return LanguageEnglish.getAssemblyHeadUpMessage();
@@ -308,23 +324,23 @@ public class LanguageController {
 
     public static String getShadowLotteryMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getShadowLotteryMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getShadowLotteryMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getShadowLotteryMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getShadowLotteryMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getShadowLotteryMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getShadowLotteryMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getShadowLotteryMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getShadowLotteryMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getShadowLotteryMessage();
             default:
                 return LanguageEnglish.getShadowLotteryMessage();
@@ -333,23 +349,23 @@ public class LanguageController {
 
     public static String getShadowLotteryHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getShadowLotteryHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getShadowLotteryHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getShadowLotteryHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getShadowLotteryHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getShadowLotteryHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getShadowLotteryHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getShadowLotteryHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getShadowLotteryHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getShadowLotteryHeadUpMessage();
             default:
                 return LanguageEnglish.getShadowLotteryHeadUpMessage();
@@ -358,23 +374,23 @@ public class LanguageController {
 
     public static String getChannelRegisteredMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getChannelRegisteredMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getChannelRegisteredMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getChannelRegisteredMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getChannelRegisteredMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getChannelRegisteredMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getChannelRegisteredMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getChannelRegisteredMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getChannelRegisteredMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getChannelRegisteredMessage();
             default:
                 return LanguageEnglish.getChannelRegisteredMessage();
@@ -383,23 +399,23 @@ public class LanguageController {
 
     public static String getChannelAlreadyRegisteredMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getChannelAlreadyRegisteredMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getChannelAlreadyRegisteredMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getChannelAlreadyRegisteredMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getChannelAlreadyRegisteredMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getChannelAlreadyRegisteredMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getChannelAlreadyRegisteredMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getChannelAlreadyRegisteredMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getChannelAlreadyRegisteredMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getChannelAlreadyRegisteredMessage();
             default:
                 return LanguageEnglish.getChannelAlreadyRegisteredMessage();
@@ -408,23 +424,23 @@ public class LanguageController {
 
     public static String getRoleNotFoundMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getRoleNotFoundMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getRoleNotFoundMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getRoleNotFoundMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getRoleNotFoundMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getRoleNotFoundMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getRoleNotFoundMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getRoleNotFoundMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getRoleNotFoundMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getRoleNotFoundMessage();
             default:
                 return LanguageEnglish.getRoleNotFoundMessage();
@@ -433,23 +449,23 @@ public class LanguageController {
 
     public static String getChannelNotRegisteredMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getChannelNotRegisteredMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getChannelNotRegisteredMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getChannelNotRegisteredMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getChannelNotRegisteredMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getChannelNotRegisteredMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getChannelNotRegisteredMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getChannelNotRegisteredMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getChannelNotRegisteredMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getChannelNotRegisteredMessage();
             default:
                 return LanguageEnglish.getChannelNotRegisteredMessage();
@@ -458,23 +474,23 @@ public class LanguageController {
 
     public static String getTimezoneChangedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getTimezoneChangedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getTimezoneChangedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getTimezoneChangedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getTimezoneChangedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getTimezoneChangedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getTimezoneChangedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getTimezoneChangedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getTimezoneChangedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getTimezoneChangedMessage();
             default:
                 return LanguageEnglish.getTimezoneChangedMessage();
@@ -483,23 +499,23 @@ public class LanguageController {
 
     public static String getChannelUnregisteredMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getChannelUnregisteredMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getChannelUnregisteredMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getChannelUnregisteredMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getChannelUnregisteredMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getChannelUnregisteredMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getChannelUnregisteredMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getChannelUnregisteredMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getChannelNotRegisteredMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getChannelNotRegisteredMessage();
             default:
                 return LanguageEnglish.getChannelUnregisteredMessage();
@@ -508,23 +524,23 @@ public class LanguageController {
 
     public static String getUnknownTimezoneMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getUnknownTimezoneMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getUnknownTimezoneMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getUnknownTimezoneMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getUnknownTimezoneMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getUnknownTimezoneMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getUnknownTimezoneMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getUnknownTimezoneMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getUnknownTimezoneMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getUnknownTimezoneMessage();
             default:
                 return LanguageEnglish.getUnknownTimezoneMessage();
@@ -533,23 +549,23 @@ public class LanguageController {
 
     public static String getRoleChangedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getRoleChangedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getRoleChangedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getRoleChangedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getRoleChangedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getRoleChangedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getRoleChangedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getRoleChangedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getRoleChangedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getRoleChangedMessage();
             default:
                 return LanguageEnglish.getRoleChangedMessage();
@@ -558,23 +574,23 @@ public class LanguageController {
 
     public static String getRaidTheVaultMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getRaidTheVaultMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getRaidTheVaultMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getRaidTheVaultMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getRaidTheVaultMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getRaidTheVaultMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getRaidTheVaultMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getRaidTheVaultMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getRaidTheVaultMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getRaidTheVaultMessage();
             default:
                 return LanguageEnglish.getRaidTheVaultMessage();
@@ -583,23 +599,23 @@ public class LanguageController {
 
     public static String getRaidTheVaultHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getRaidTheVaultHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getRaidTheVaultHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getRaidTheVaultHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getRaidTheVaultHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getRaidTheVaultHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getRaidTheVaultHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getRaidTheVaultHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getRaidTheVaultHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getRaidTheVaultHeadUpMessage();
             default:
                 return LanguageEnglish.getRaidTheVaultHeadUpMessage();
@@ -608,23 +624,23 @@ public class LanguageController {
 
     public static String getDefendTheVaultMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getDefendTheVaultMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getDefendTheVaultMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getDefendTheVaultMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getDefendTheVaultMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getDefendTheVaultMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getDefendTheVaultMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getDefendTheVaultMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getDefendTheVaultMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getDefendTheVaultMessage();
             default:
                 return LanguageEnglish.getDefendTheVaultMessage();
@@ -633,23 +649,23 @@ public class LanguageController {
 
     public static String getDefendTheVaultHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getDefendTheVaultHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getDefendTheVaultHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getDefendTheVaultHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getDefendTheVaultHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getDefendTheVaultHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getDefendTheVaultHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getDefendTheVaultHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getDefendTheVaultHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getDefendTheVaultHeadUpMessage();
             default:
                 return LanguageEnglish.getDefendTheVaultHeadUpMessage();
@@ -658,23 +674,23 @@ public class LanguageController {
 
     public static String getLanguageNotSupportedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLanguageNotSupportedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLanguageNotSupportedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLanguageNotSupportedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLanguageNotSupportedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLanguageNotSupportedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLanguageNotSupportedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLanguageNotSupportedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLanguageNotSupportedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLanguageNotSupportedMessage();
             default:
                 return LanguageEnglish.getLanguageNotSupportedMessage();
@@ -683,23 +699,23 @@ public class LanguageController {
 
     public static String getLanguageUpdatedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLanguageUpdatedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLanguageUpdatedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLanguageUpdatedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLanguageUpdatedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLanguageUpdatedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLanguageUpdatedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLanguageUpdatedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLanguageUpdatedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLanguageUpdatedMessage();
             default:
                 return LanguageEnglish.getLanguageUpdatedMessage();
@@ -708,23 +724,23 @@ public class LanguageController {
 
     public static String getLanguageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLanguageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLanguageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLanguageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLanguageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLanguageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLanguageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLanguageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLanguageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLanguageMessage();
             default:
                 return LanguageEnglish.getLanguageMessage();
@@ -733,23 +749,23 @@ public class LanguageController {
 
     public static String getEventEnabledMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getEventEnabledMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getEventEnabledMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getEventEnabledMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getEventEnabledMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getEventEnabledMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getEventEnabledMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getEventEnabledMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getEventEnabledMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getEventEnabledMessage();
             default:
                 return LanguageEnglish.getEventEnabledMessage();
@@ -758,23 +774,23 @@ public class LanguageController {
 
     public static String getEventDisabledMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getEventDisabledMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getEventDisabledMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getEventDisabledMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getEventDisabledMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getEventDisabledMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getEventDisabledMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getEventDisabledMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getEventDisabledMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getEventDisabledMessage();
             default:
                 return LanguageEnglish.getEventDisabledMessage();
@@ -783,23 +799,23 @@ public class LanguageController {
 
     public static String getChannelNotFoundMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getChannelNotFoundMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getChannelNotFoundMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getChannelNotFoundMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getChannelNotFoundMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getChannelNotFoundMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getChannelNotFoundMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getChannelNotFoundMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getChannelNotFoundMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getChannelNotFoundMessage();
             default:
                 return LanguageEnglish.getChannelNotFoundMessage();
@@ -809,23 +825,23 @@ public class LanguageController {
 
     public static String getCustomMessageCreatedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getCustomMessageCreatedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getCustomMessageCreatedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getCustomMessageCreatedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getCustomMessageCreatedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getCustomMessageCreatedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getCustomMessageCreatedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getCustomMessageCreatedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getCustomMessageCreatedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getCustomMessageCreatedMessage();
             default:
                 return LanguageEnglish.getCustomMessageCreatedMessage();
@@ -834,23 +850,23 @@ public class LanguageController {
 
     public static String getNoCustomMessagesMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getNoCustomMessagesMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getNoCustomMessagesMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getNoCustomMessagesMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getNoCustomMessagesMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getNoCustomMessagesMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getNoCustomMessagesMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getNoCustomMessagesMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getNoCustomMessagesMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getNoCustomMessagesMessage();
             default:
                 return LanguageEnglish.getNoCustomMessagesMessage();
@@ -859,23 +875,23 @@ public class LanguageController {
 
     public static String getShowAllCustomMessages(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getShowAllCustomMessages();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getShowAllCustomMessages();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getShowAllCustomMessages();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getShowAllCustomMessages();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getShowAllCustomMessages();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getShowAllCustomMessages();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getShowAllCustomMessages();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getShowAllCustomMessages();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getShowAllCustomMessages();
             default:
                 return LanguageEnglish.getShowAllCustomMessages();
@@ -884,23 +900,23 @@ public class LanguageController {
 
     public static String getCustomMessageWithIdDeleted(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getCustomMessageWithIdDeleted();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getCustomMessageWithIdDeleted();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getCustomMessageWithIdDeleted();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getCustomMessageWithIdDeleted();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getCustomMessageWithIdDeleted();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getCustomMessageWithIdDeleted();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getCustomMessageWithIdDeleted();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getCustomMessageWithIdDeleted();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getCustomMessageWithIdDeleted();
             default:
                 return LanguageEnglish.getCustomMessageWithIdDeleted();
@@ -909,23 +925,23 @@ public class LanguageController {
 
     public static String getInvalidCommandMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInvalidCommandMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInvalidCommandMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInvalidCommandMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInvalidCommandMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInvalidCommandMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInvalidCommandMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInvalidCommandMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInvalidCommandMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInvalidCommandMessage();
             default:
                 return LanguageEnglish.getInvalidCommandMessage();
@@ -934,23 +950,23 @@ public class LanguageController {
 
     public static String getAncientArenaEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAncientArenaEmbedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAncientArenaEmbedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAncientArenaEmbedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAncientArenaEmbedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAncientArenaEmbedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAncientArenaEmbedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAncientArenaEmbedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAncientArenaEmbedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAncientArenaEmbedMessage();
             default:
                 return LanguageEnglish.getAncientArenaEmbedMessage();
@@ -959,23 +975,23 @@ public class LanguageController {
 
     public static String getLocationAncientArenaEmbedMessage1(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLocationAncientArenaEmbedMessage1();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLocationAncientArenaEmbedMessage1();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLocationAncientArenaEmbedMessage1();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLocationAncientArenaEmbedMessage1();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLocationAncientArenaEmbedMessage1();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLocationAncientArenaEmbedMessage1();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLocationAncientArenaEmbedMessage1();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLocationAncientArenaEmbedMessage1();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLocationAncientArenaEmbedMessage1();
             default:
                 return LanguageEnglish.getLocationAncientArenaEmbedMessage1();
@@ -984,23 +1000,23 @@ public class LanguageController {
 
     public static String getLocationAncientArenaEmbedMessage2(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLocationAncientArenaEmbedMessage2();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLocationAncientArenaEmbedMessage2();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLocationAncientArenaEmbedMessage2();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLocationAncientArenaEmbedMessage2();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLocationAncientArenaEmbedMessage2();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLocationAncientArenaEmbedMessage2();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLocationAncientArenaEmbedMessage2();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLocationAncientArenaEmbedMessage2();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLocationAncientArenaEmbedMessage2();
             default:
                 return LanguageEnglish.getLocationAncientArenaEmbedMessage2();
@@ -1009,23 +1025,23 @@ public class LanguageController {
 
     public static String getAncientNightmareEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAncientNightmareEmbedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAncientNightmareEmbedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAncientNightmareEmbedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAncientNightmareEmbedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAncientNightmareEmbedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAncientNightmareEmbedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAncientNightmareEmbedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAncientNightmareEmbedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAncientNightmareEmbedMessage();
             default:
                 return LanguageEnglish.getAncientNightmareEmbedMessage();
@@ -1034,23 +1050,23 @@ public class LanguageController {
 
     public static String getLocationAncientNightmareEmbedMessage1(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLocationAncientNightmareEmbedMessage1();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLocationAncientNightmareEmbedMessage1();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLocationAncientNightmareEmbedMessage1();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLocationAncientNightmareEmbedMessage1();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLocationAncientNightmareEmbedMessage1();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLocationAncientNightmareEmbedMessage1();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLocationAncientNightmareEmbedMessage1();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLocationAncientNightmareEmbedMessage1();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLocationAncientNightmareEmbedMessage1();
             default:
                 return LanguageEnglish.getLocationAncientNightmareEmbedMessage1();
@@ -1059,23 +1075,23 @@ public class LanguageController {
 
     public static String getLocationAncientNightmareEmbedMessage2(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLocationAncientNightmareEmbedMessage2();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLocationAncientNightmareEmbedMessage2();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLocationAncientNightmareEmbedMessage2();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLocationAncientNightmareEmbedMessage2();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLocationAncientNightmareEmbedMessage2();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLocationAncientNightmareEmbedMessage2();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLocationAncientNightmareEmbedMessage2();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLocationAncientNightmareEmbedMessage2();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLocationAncientNightmareEmbedMessage2();
             default:
                 return LanguageEnglish.getLocationAncientNightmareEmbedMessage2();
@@ -1084,23 +1100,23 @@ public class LanguageController {
 
     public static String getDemonGatesEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getDemonGatesEmbedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getDemonGatesEmbedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getDemonGatesEmbedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getDemonGatesEmbedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getDemonGatesEmbedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getDemonGatesEmbedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getDemonGatesEmbedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getDemonGatesEmbedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getDemonGatesEmbedMessage();
             default:
                 return LanguageEnglish.getDemonGatesEmbedMessage();
@@ -1109,23 +1125,23 @@ public class LanguageController {
 
     public static String getLocationDemonGatesEmbedMessage1(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLocationDemonGatesEmbedMessage1();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLocationDemonGatesEmbedMessage1();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLocationDemonGatesEmbedMessage1();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLocationDemonGatesEmbedMessage1();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLocationDemonGatesEmbedMessage1();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLocationDemonGatesEmbedMessage1();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLocationDemonGatesEmbedMessage1();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLocationDemonGatesEmbedMessage1();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLocationDemonGatesEmbedMessage1();
             default:
                 return LanguageEnglish.getLocationDemonGatesEmbedMessage1();
@@ -1134,23 +1150,23 @@ public class LanguageController {
 
     public static String getLocationDemonGatesEmbedMessage2(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLocationDemonGatesEmbedMessage2();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLocationDemonGatesEmbedMessage2();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLocationDemonGatesEmbedMessage2();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLocationDemonGatesEmbedMessage2();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLocationDemonGatesEmbedMessage2();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLocationDemonGatesEmbedMessage2();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLocationDemonGatesEmbedMessage2();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLocationDemonGatesEmbedMessage2();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLocationDemonGatesEmbedMessage2();
             default:
                 return LanguageEnglish.getLocationDemonGatesEmbedMessage2();
@@ -1159,23 +1175,23 @@ public class LanguageController {
 
     public static String getHauntedCarriageEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHauntedCarriageEmbedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHauntedCarriageEmbedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHauntedCarriageEmbedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHauntedCarriageEmbedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHauntedCarriageEmbedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHauntedCarriageEmbedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHauntedCarriageEmbedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHauntedCarriageEmbedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHauntedCarriageEmbedMessage();
             default:
                 return LanguageEnglish.getHauntedCarriageEmbedMessage();
@@ -1184,23 +1200,23 @@ public class LanguageController {
 
     public static String getLocationHauntedCarriageEmbedMessage1(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLocationHauntedCarriageEmbedMessage1();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLocationHauntedCarriageEmbedMessage1();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLocationHauntedCarriageEmbedMessage1();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLocationHauntedCarriageEmbedMessage1();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLocationHauntedCarriageEmbedMessage1();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLocationHauntedCarriageEmbedMessage1();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLocationHauntedCarriageEmbedMessage1();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLocationHauntedCarriageEmbedMessage1();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLocationHauntedCarriageEmbedMessage1();
             default:
                 return LanguageEnglish.getLocationHauntedCarriageEmbedMessage1();
@@ -1209,23 +1225,23 @@ public class LanguageController {
 
     public static String getLocationHauntedCarriageEmbedMessage2(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getLocationHauntedCarriageEmbedMessage2();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getLocationHauntedCarriageEmbedMessage2();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getLocationHauntedCarriageEmbedMessage2();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getLocationHauntedCarriageEmbedMessage2();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getLocationHauntedCarriageEmbedMessage2();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getLocationHauntedCarriageEmbedMessage2();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getLocationHauntedCarriageEmbedMessage2();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getLocationHauntedCarriageEmbedMessage2();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getLocationHauntedCarriageEmbedMessage2();
             default:
                 return LanguageEnglish.getLocationHauntedCarriageEmbedMessage2();
@@ -1234,23 +1250,23 @@ public class LanguageController {
 
     public static String getEmbedSpawnAtMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getEmbedSpawnAtMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getEmbedSpawnAtMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getEmbedSpawnAtMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getEmbedSpawnAtMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getEmbedSpawnAtMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getEmbedSpawnAtMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getEmbedSpawnAtMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getEmbedSpawnAtMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getEmbedSpawnAtMessage();
             default:
                 return LanguageEnglish.getEmbedSpawnAtMessage();
@@ -1259,23 +1275,23 @@ public class LanguageController {
 
     public static String getEmbedCountdownMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getEmbedCountdownMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getEmbedCountdownMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getEmbedCountdownMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getEmbedCountdownMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getEmbedCountdownMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getEmbedCountdownMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getEmbedCountdownMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getEmbedCountdownMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getEmbedCountdownMessage();
             default:
                 return LanguageEnglish.getEmbedCountdownMessage();
@@ -1284,23 +1300,23 @@ public class LanguageController {
 
     public static String getEmbedWorldEventMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getEmbedWorldEventMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getEmbedWorldEventMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getEmbedWorldEventMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getEmbedWorldEventMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getEmbedWorldEventMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getEmbedWorldEventMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getEmbedWorldEventMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getEmbedWorldEventMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getEmbedWorldEventMessage();
             default:
                 return LanguageEnglish.getEmbedWorldEventMessage();
@@ -1309,23 +1325,23 @@ public class LanguageController {
 
     public static String getInvalidTimezoneMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInvalidTimezoneMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInvalidTimezoneMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInvalidTimezoneMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInvalidTimezoneMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInvalidTimezoneMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInvalidTimezoneMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInvalidTimezoneMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInvalidTimezoneMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInvalidTimezoneMessage();
             default:
                 return LanguageEnglish.getInvalidTimezoneMessage();
@@ -1334,23 +1350,23 @@ public class LanguageController {
 
     public static String getHelpRegistersChannelMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpRegistersChannelMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpRegistersChannelMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpRegistersChannelMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpRegistersChannelMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpRegistersChannelMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpRegistersChannelMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpRegistersChannelMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpRegistersChannelMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpRegistersChannelMessage();
             default:
                 return LanguageEnglish.getHelpRegistersChannelMessage();
@@ -1359,23 +1375,23 @@ public class LanguageController {
 
     public static String getHelpUnregistersChannelMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpUnregistersChannelMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpUnregistersChannelMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpUnregistersChannelMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpUnregistersChannelMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpUnregistersChannelMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpUnregistersChannelMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpUnregistersChannelMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpUnregistersChannelMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpUnregistersChannelMessage();
             default:
                 return LanguageEnglish.getHelpUnregistersChannelMessage();
@@ -1384,23 +1400,23 @@ public class LanguageController {
 
     public static String getHelpSetRoleMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpSetRoleMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpSetRoleMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpSetRoleMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpSetRoleMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpSetRoleMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpSetRoleMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpSetRoleMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpSetRoleMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpSetRoleMessage();
             default:
                 return LanguageEnglish.getHelpSetRoleMessage();
@@ -1409,23 +1425,23 @@ public class LanguageController {
 
     public static String getHelpShowInfoMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpShowInfoMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpShowInfoMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpShowInfoMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpShowInfoMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpShowInfoMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpShowInfoMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpShowInfoMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpShowInfoMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpShowInfoMessage();
             default:
                 return LanguageEnglish.getHelpShowInfoMessage();
@@ -1434,23 +1450,23 @@ public class LanguageController {
 
     public static String getHelpCreateCustomMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpCreateCustomMessageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpCreateCustomMessageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpCreateCustomMessageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpCreateCustomMessageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpCreateCustomMessageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpCreateCustomMessageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpCreateCustomMessageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpCreateCustomMessageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpCreateCustomMessageMessage();
             default:
                 return LanguageEnglish.getHelpCreateCustomMessageMessage();
@@ -1459,23 +1475,23 @@ public class LanguageController {
 
     public static String getHelpDeleteCustomMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpDeleteCustomMessageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpDeleteCustomMessageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpDeleteCustomMessageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpDeleteCustomMessageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpDeleteCustomMessageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpDeleteCustomMessageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpDeleteCustomMessageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpDeleteCustomMessageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpDeleteCustomMessageMessage();
             default:
                 return LanguageEnglish.getHelpDeleteCustomMessageMessage();
@@ -1484,23 +1500,23 @@ public class LanguageController {
 
     public static String getHelpShowAllCustomMessagesMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpShowAllCustomMessagesMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpShowAllCustomMessagesMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpShowAllCustomMessagesMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpShowAllCustomMessagesMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpShowAllCustomMessagesMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpShowAllCustomMessagesMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpShowAllCustomMessagesMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpShowAllCustomMessagesMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpShowAllCustomMessagesMessage();
             default:
                 return LanguageEnglish.getHelpShowAllCustomMessagesMessage();
@@ -1509,23 +1525,23 @@ public class LanguageController {
 
     public static String getHelpShowCustomMessageInfoMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpShowAllCustomMessagesMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpShowAllCustomMessagesMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpShowAllCustomMessagesMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpShowAllCustomMessagesMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpShowAllCustomMessagesMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpShowAllCustomMessagesMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpShowAllCustomMessagesMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpShowAllCustomMessagesMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpShowAllCustomMessagesMessage();
             default:
                 return LanguageEnglish.getHelpShowCustomMessageInfoMessage();
@@ -1534,23 +1550,23 @@ public class LanguageController {
 
     public static String getHelpServerHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpServerHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpServerHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpServerHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpServerHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpServerHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpServerHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpServerHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpServerHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpServerHeadUpMessage();
             default:
                 return LanguageEnglish.getHelpServerHeadUpMessage();
@@ -1559,23 +1575,23 @@ public class LanguageController {
 
     public static String getHelpServerMessagesMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpServerMessagesMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpServerMessagesMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpServerMessagesMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpServerMessagesMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpServerMessagesMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpServerMessagesMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpServerMessagesMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpServerMessagesMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpServerMessagesMessage();
             default:
                 return LanguageEnglish.getHelpServerMessagesMessage();
@@ -1584,23 +1600,23 @@ public class LanguageController {
 
     public static String getHelpServerConfigMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpServerConfigMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpServerConfigMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpServerConfigMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpServerConfigMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpServerConfigMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpServerConfigMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpServerConfigMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpServerConfigMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpServerConfigMessage();
             default:
                 return LanguageEnglish.getHelpServerConfigMessage();
@@ -1609,23 +1625,23 @@ public class LanguageController {
 
     public static String getHelpServerLanguageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpServerLanguageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpServerLanguageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpServerLanguageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpServerLanguageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpServerLanguageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpServerLanguageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpServerLanguageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpServerLanguageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpServerLanguageMessage();
             default:
                 return LanguageEnglish.getHelpServerLanguageMessage();
@@ -1634,23 +1650,23 @@ public class LanguageController {
 
     public static String getHelpServerTimezoneMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpServerTimezoneMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpServerTimezoneMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpServerTimezoneMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpServerTimezoneMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpServerTimezoneMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpServerTimezoneMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpServerTimezoneMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpServerTimezoneMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpServerTimezoneMessage();
             default:
                 return LanguageEnglish.getHelpServerTimezoneMessage();
@@ -1659,23 +1675,23 @@ public class LanguageController {
 
     public static String getShowsBotInstallMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getShowsBotInstallMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getShowsBotInstallMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getShowsBotInstallMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getShowsBotInstallMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getShowsBotInstallMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getShowsBotInstallMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getShowsBotInstallMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getShowsBotInstallMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getShowsBotInstallMessage();
             default:
                 return LanguageEnglish.getShowsBotInstallMessage();
@@ -1684,23 +1700,23 @@ public class LanguageController {
 
     public static String getShowsThisMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getShowsThisMessageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getShowsThisMessageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getShowsThisMessageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getShowsThisMessageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getShowsThisMessageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getShowsThisMessageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getShowsThisMessageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getShowsThisMessageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getShowsThisMessageMessage();
             default:
                 return LanguageEnglish.getShowsThisMessageMessage();
@@ -1709,23 +1725,23 @@ public class LanguageController {
 
     public static String getSupportDiscordMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getSupportDiscordMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getSupportDiscordMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getSupportDiscordMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getSupportDiscordMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getSupportDiscordMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getSupportDiscordMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getSupportDiscordMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getSupportDiscordMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getSupportDiscordMessage();
             default:
                 return LanguageEnglish.getSupportDiscordMessage();
@@ -1734,23 +1750,23 @@ public class LanguageController {
 
     public static String getHelpServerAutoDeleteSetMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpServerAutoDeleteSetMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpServerAutoDeleteSetMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpServerAutoDeleteSetMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpServerAutoDeleteSetMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpServerAutoDeleteSetMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpServerAutoDeleteSetMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpServerAutoDeleteSetMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpServerAutoDeleteSetMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpServerAutoDeleteSetMessage();
             default:
                 return LanguageEnglish.getHelpServerAutoDeleteSetMessage();
@@ -1759,23 +1775,23 @@ public class LanguageController {
 
     public static String getHelpServerAutoDeleteValueMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpServerAutoDeleteValueMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpServerAutoDeleteValueMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpServerAutoDeleteValueMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpServerAutoDeleteValueMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpServerAutoDeleteValueMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpServerAutoDeleteValueMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpServerAutoDeleteValueMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpServerAutoDeleteValueMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpServerAutoDeleteValueMessage();
             default:
                 return LanguageEnglish.getHelpServerAutoDeleteValueMessage();
@@ -1784,23 +1800,23 @@ public class LanguageController {
 
     public static String getShortHoursMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getShortHoursMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getShortHoursMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getShortHoursMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getShortHoursMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getShortHoursMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getShortHoursMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getShortHoursMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getShortHoursMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getShortHoursMessage();
             default:
                 return LanguageEnglish.getShortHoursMessage();
@@ -1810,23 +1826,23 @@ public class LanguageController {
 
     public static String getErrorOccurredMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getErrorOccurredMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getErrorOccurredMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getErrorOccurredMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getErrorOccurredMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getErrorOccurredMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getErrorOccurredMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getErrorOccurredMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getErrorOccurredMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getErrorOccurredMessage();
             default:
                 return LanguageEnglish.getErrorOccurredMessage();
@@ -1835,23 +1851,23 @@ public class LanguageController {
 
     public static String getFooterReportToDevMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getFooterReportToDevMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getFooterReportToDevMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getFooterReportToDevMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getFooterReportToDevMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getFooterReportToDevMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getFooterReportToDevMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getFooterReportToDevMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getFooterReportToDevMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getFooterReportToDevMessage();
             default:
                 return LanguageEnglish.getFooterReportToDevMessage();
@@ -1860,23 +1876,23 @@ public class LanguageController {
 
     public static String getWrathborneInvasionMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getWrathborneInvasionMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getWrathborneInvasionMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getWrathborneInvasionMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getWrathborneInvasionMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getWrathborneInvasionMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getWrathborneInvasionMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getWrathborneInvasionMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getWrathborneInvasionMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getWrathborneInvasionMessage();
             default:
                 return LanguageEnglish.getWrathborneInvasionMessage();
@@ -1885,23 +1901,23 @@ public class LanguageController {
 
     public static String getWrathborneInvasionHeadUpMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getWrathborneInvasionHeadUpMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getWrathborneInvasionHeadUpMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getWrathborneInvasionHeadUpMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getWrathborneInvasionHeadUpMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getWrathborneInvasionHeadUpMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getWrathborneInvasionHeadUpMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getWrathborneInvasionHeadUpMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getWrathborneInvasionHeadUpMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getWrathborneInvasionHeadUpMessage();
             default:
                 return LanguageEnglish.getWrathborneInvasionHeadUpMessage();
@@ -1910,23 +1926,23 @@ public class LanguageController {
 
     public static String getInstall1Message(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInstall1Message();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInstall1Message();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInstall1Message();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInstall1Message();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInstall1Message();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInstall1Message();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInstall1Message();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInstall1Message();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInstall1Message();
             default:
                 return LanguageEnglish.getInstall1Message();
@@ -1935,23 +1951,23 @@ public class LanguageController {
 
     public static String getInstall2Message(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInstall2Message();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInstall2Message();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInstall2Message();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInstall2Message();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInstall2Message();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInstall2Message();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInstall2Message();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInstall2Message();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInstall2Message();
             default:
                 return LanguageEnglish.getInstall2Message();
@@ -1960,23 +1976,23 @@ public class LanguageController {
 
     public static String getInstall3Message(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInstall3Message();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInstall3Message();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInstall3Message();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInstall3Message();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInstall3Message();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInstall3Message();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInstall3Message();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInstall3Message();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInstall3Message();
             default:
                 return LanguageEnglish.getInstall3Message();
@@ -1985,23 +2001,23 @@ public class LanguageController {
 
     public static String getInstall4Message(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInstall4Message();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInstall4Message();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInstall4Message();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInstall4Message();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInstall4Message();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInstall4Message();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInstall4Message();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInstall4Message();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInstall4Message();
             default:
                 return LanguageEnglish.getInstall4Message();
@@ -2010,23 +2026,23 @@ public class LanguageController {
 
     public static String getInstall5Message(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInstall5Message();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInstall5Message();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInstall5Message();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInstall5Message();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInstall5Message();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInstall5Message();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInstall5Message();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInstall5Message();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInstall5Message();
             default:
                 return LanguageEnglish.getInstall5Message();
@@ -2035,23 +2051,23 @@ public class LanguageController {
 
     public static String getInstructionsMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInstructionsMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInstructionsMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInstructionsMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInstructionsMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInstructionsMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInstructionsMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInstructionsMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInstructionsMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInstructionsMessage();
             default:
                 return LanguageEnglish.getInstructionsMessage();
@@ -2060,23 +2076,23 @@ public class LanguageController {
 
     public static String getInfoTimezoneMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoTimezoneMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoTimezoneMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoTimezoneMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoTimezoneMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoTimezoneMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoTimezoneMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoTimezoneMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoTimezoneMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoTimezoneMessage();
             default:
                 return LanguageEnglish.getInfoTimezoneMessage();
@@ -2085,23 +2101,23 @@ public class LanguageController {
 
     public static String getInfoCurrentTimeMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoCurrentTimeMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoCurrentTimeMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoCurrentTimeMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoCurrentTimeMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoCurrentTimeMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoCurrentTimeMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoCurrentTimeMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoCurrentTimeMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoCurrentTimeMessage();
             default:
                 return LanguageEnglish.getInfoCurrentTimeMessage();
@@ -2110,23 +2126,23 @@ public class LanguageController {
 
     public static String getInfoTextChannelIDMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoTextChannelIDMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoTextChannelIDMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoTextChannelIDMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoTextChannelIDMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoTextChannelIDMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoTextChannelIDMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoTextChannelIDMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoTextChannelIDMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoTextChannelIDMessage();
             default:
                 return LanguageEnglish.getInfoTextChannelIDMessage();
@@ -2135,23 +2151,23 @@ public class LanguageController {
 
     public static String getInfoMentionedRoleMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoMentionedRoleMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoMentionedRoleMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoMentionedRoleMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoMentionedRoleMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoMentionedRoleMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoMentionedRoleMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoMentionedRoleMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoMentionedRoleMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoMentionedRoleMessage();
             default:
                 return LanguageEnglish.getInfoMentionedRoleMessage();
@@ -2160,23 +2176,23 @@ public class LanguageController {
 
     public static String getInfoYesMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoYesMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoYesMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoYesMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoYesMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoYesMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoYesMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoYesMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoYesMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoYesMessage();
             default:
                 return LanguageEnglish.getInfoYesMessage();
@@ -2185,23 +2201,23 @@ public class LanguageController {
 
     public static String getInfoNoMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoNoMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoNoMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoNoMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoNoMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoNoMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoNoMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoNoMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoNoMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoNoMessage();
             default:
                 return LanguageEnglish.getInfoNoMessage();
@@ -2210,23 +2226,23 @@ public class LanguageController {
 
     public static String getInfoEventMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoEventMessageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoEventMessageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoEventMessageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoEventMessageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoEventMessageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoEventMessageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoEventMessageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoEventMessageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoEventMessageMessage();
             default:
                 return LanguageEnglish.getInfoEventMessageMessage();
@@ -2235,23 +2251,23 @@ public class LanguageController {
 
     public static String getInfoHeadUpMessageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoHeadUpMessageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoHeadUpMessageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoHeadUpMessageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoHeadUpMessageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoHeadUpMessageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoHeadUpMessageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoHeadUpMessageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoHeadUpMessageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoHeadUpMessageMessage();
             default:
                 return LanguageEnglish.getInfoHeadUpMessageMessage();
@@ -2260,23 +2276,23 @@ public class LanguageController {
 
     public static String getInfoAncientNightmareMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoAncientNightmareMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoAncientNightmareMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoAncientNightmareMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoAncientNightmareMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoAncientNightmareMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoAncientNightmareMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoAncientNightmareMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoAncientNightmareMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoAncientNightmareMessage();
             default:
                 return LanguageEnglish.getInfoAncientNightmareMessage();
@@ -2285,23 +2301,23 @@ public class LanguageController {
 
     public static String getInfoAncientArenaMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoAncientArenaMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoAncientArenaMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoAncientArenaMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoAncientArenaMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoAncientArenaMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoAncientArenaMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoAncientArenaMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoAncientArenaMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoAncientArenaMessage();
             default:
                 return LanguageEnglish.getInfoAncientArenaMessage();
@@ -2310,23 +2326,23 @@ public class LanguageController {
 
     public static String getInfoAssemblyMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoAssemblyMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoAssemblyMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoAssemblyMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoAssemblyMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoAssemblyMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoAssemblyMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoAssemblyMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoAssemblyMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoAssemblyMessage();
             default:
                 return LanguageEnglish.getInfoAssemblyMessage();
@@ -2335,23 +2351,23 @@ public class LanguageController {
 
     public static String getInfoBattlegroundMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoBattlegroundMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoBattlegroundMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoBattlegroundMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoBattlegroundMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoBattlegroundMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoBattlegroundMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoBattlegroundMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoBattlegroundMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoBattlegroundMessage();
             default:
                 return LanguageEnglish.getInfoBattlegroundMessage();
@@ -2360,23 +2376,23 @@ public class LanguageController {
 
     public static String getInfoDefendTheVaultMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoDefendTheVaultMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoDefendTheVaultMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoDefendTheVaultMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoDefendTheVaultMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoDefendTheVaultMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoDefendTheVaultMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoDefendTheVaultMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoDefendTheVaultMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoDefendTheVaultMessage();
             default:
                 return LanguageEnglish.getInfoDefendTheVaultMessage();
@@ -2385,23 +2401,23 @@ public class LanguageController {
 
     public static String getInfoRaidTheVaultMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoRaidTheVaultMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoRaidTheVaultMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoRaidTheVaultMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoRaidTheVaultMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoRaidTheVaultMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoRaidTheVaultMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoRaidTheVaultMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoRaidTheVaultMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoRaidTheVaultMessage();
             default:
                 return LanguageEnglish.getInfoRaidTheVaultMessage();
@@ -2410,23 +2426,23 @@ public class LanguageController {
 
     public static String getInfoDemonGatesMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoDemonGatesMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoDemonGatesMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoDemonGatesMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoDemonGatesMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoDemonGatesMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoDemonGatesMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoDemonGatesMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoDemonGatesMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoDemonGatesMessage();
             default:
                 return LanguageEnglish.getInfoDemonGatesMessage();
@@ -2435,23 +2451,23 @@ public class LanguageController {
 
     public static String getInfoShadowLotteryMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoShadowLotteryMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoShadowLotteryMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoShadowLotteryMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoShadowLotteryMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoShadowLotteryMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoShadowLotteryMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoShadowLotteryMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoShadowLotteryMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoShadowLotteryMessage();
             default:
                 return LanguageEnglish.getInfoShadowLotteryMessage();
@@ -2460,23 +2476,23 @@ public class LanguageController {
 
     public static String getInfoHauntedCarriageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoHauntedCarriageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoHauntedCarriageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoHauntedCarriageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoHauntedCarriageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoHauntedCarriageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoHauntedCarriageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoHauntedCarriageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoHauntedCarriageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoHauntedCarriageMessage();
             default:
                 return LanguageEnglish.getInfoHauntedCarriageMessage();
@@ -2485,23 +2501,23 @@ public class LanguageController {
 
     public static String getInfoWrathborneInvasionMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoWrathborneInvasionMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoWrathborneInvasionMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoWrathborneInvasionMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoWrathborneInvasionMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoWrathborneInvasionMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoWrathborneInvasionMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoWrathborneInvasionMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoWrathborneInvasionMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoWrathborneInvasionMessage();
             default:
                 return LanguageEnglish.getInfoWrathborneInvasionMessage();
@@ -2510,23 +2526,23 @@ public class LanguageController {
 
     public static String getInfoHauntedCarriageEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoHauntedCarriageEmbedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoHauntedCarriageEmbedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoHauntedCarriageEmbedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoHauntedCarriageEmbedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoHauntedCarriageEmbedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoHauntedCarriageEmbedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoHauntedCarriageEmbedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoHauntedCarriageEmbedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoHauntedCarriageEmbedMessage();
             default:
                 return LanguageEnglish.getInfoHauntedCarriageEmbedMessage();
@@ -2535,23 +2551,23 @@ public class LanguageController {
 
     public static String getInfoDemonGatesEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoDemonGatesEmbedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoDemonGatesEmbedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoDemonGatesEmbedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoDemonGatesEmbedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoDemonGatesEmbedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoDemonGatesEmbedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoDemonGatesEmbedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoDemonGatesEmbedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoDemonGatesEmbedMessage();
             default:
                 return LanguageEnglish.getInfoDemonGatesEmbedMessage();
@@ -2560,23 +2576,23 @@ public class LanguageController {
 
     public static String getInfoAncientNightmareEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoAncientNightmareEmbedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoAncientNightmareEmbedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoAncientNightmareEmbedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoAncientNightmareEmbedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoAncientNightmareEmbedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoAncientNightmareEmbedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoAncientNightmareEmbedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoAncientNightmareEmbedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoAncientNightmareEmbedMessage();
             default:
                 return LanguageEnglish.getInfoAncientNightmareEmbedMessage();
@@ -2585,23 +2601,23 @@ public class LanguageController {
 
     public static String getInfoAncientArenaEmbedMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoAncientArenaEmbedMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoAncientArenaEmbedMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoAncientArenaEmbedMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoAncientArenaEmbedMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoAncientArenaEmbedMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoAncientArenaEmbedMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoAncientArenaEmbedMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoAncientArenaEmbedMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoAncientArenaEmbedMessage();
             default:
                 return LanguageEnglish.getInfoAncientArenaEmbedMessage();
@@ -2610,23 +2626,23 @@ public class LanguageController {
 
     public static String getErrorCannotDisableEventMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getErrorCannotDisableEventMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getErrorCannotDisableEventMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getErrorCannotDisableEventMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getErrorCannotDisableEventMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getErrorCannotDisableEventMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getErrorCannotDisableEventMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getErrorCannotDisableEventMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getErrorCannotDisableEventMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getErrorCannotDisableEventMessage();
             default:
                 return LanguageEnglish.getErrorCannotDisableEventMessage();
@@ -2635,23 +2651,23 @@ public class LanguageController {
 
     public static String getFooterCreatedByMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getFooterCreatedByMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getFooterCreatedByMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getFooterCreatedByMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getFooterCreatedByMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getFooterCreatedByMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getFooterCreatedByMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getFooterCreatedByMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getFooterCreatedByMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getFooterCreatedByMessage();
             default:
                 return LanguageEnglish.getFooterCreatedByMessage();
@@ -2660,23 +2676,23 @@ public class LanguageController {
 
     public static String getAutoDeleteEnabledMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAutoDeleteEnabledMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAutoDeleteEnabledMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAutoDeleteEnabledMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAutoDeleteEnabledMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAutoDeleteEnabledMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAutoDeleteEnabledMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAutoDeleteEnabledMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAutoDeleteEnabledMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAutoDeleteEnabledMessage();
             default:
                 return LanguageEnglish.getAutoDeleteEnabledMessage();
@@ -2685,23 +2701,23 @@ public class LanguageController {
 
     public static String getAutoDeleteDisabledMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAutoDeleteDisabledMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAutoDeleteDisabledMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAutoDeleteDisabledMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAutoDeleteDisabledMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAutoDeleteDisabledMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAutoDeleteDisabledMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAutoDeleteDisabledMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAutoDeleteDisabledMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAutoDeleteDisabledMessage();
             default:
                 return LanguageEnglish.getAutoDeleteDisabledMessage();
@@ -2710,23 +2726,23 @@ public class LanguageController {
 
     public static String getAutoDeleteValueSetMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getAutoDeleteValueSetMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getAutoDeleteValueSetMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getAutoDeleteValueSetMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getAutoDeleteValueSetMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getAutoDeleteValueSetMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getAutoDeleteValueSetMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getAutoDeleteValueSetMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getAutoDeleteValueSetMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getAutoDeleteValueSetMessage();
             default:
                 return LanguageEnglish.getAutoDeleteValueSetMessage();
@@ -2735,23 +2751,23 @@ public class LanguageController {
 
     public static String getInfoLanguageMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoLanguageMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoLanguageMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoLanguageMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoLanguageMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoLanguageMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoLanguageMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoLanguageMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoLanguageMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoLanguageMessage();
             default:
                 return LanguageEnglish.getInfoLanguageMessage();
@@ -2760,23 +2776,23 @@ public class LanguageController {
 
     public static String getInfoGuildIdMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getInfoGuildIdMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getInfoGuildIdMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getInfoGuildIdMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getInfoGuildIdMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getInfoGuildIdMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getInfoGuildIdMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getInfoGuildIdMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getInfoGuildIdMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getInfoGuildIdMessage();
             default:
                 return LanguageEnglish.getInfoGuildIdMessage();
@@ -2785,23 +2801,23 @@ public class LanguageController {
 
     public static String getEventMessagesAlreadyOnMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getEventMessagesAlreadyOnMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getEventMessagesAlreadyOnMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getEventMessagesAlreadyOnMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getEventMessagesAlreadyOnMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getEventMessagesAlreadyOnMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getEventMessagesAlreadyOnMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getEventMessagesAlreadyOnMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getEventMessagesAlreadyOnMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getEventMessagesAlreadyOnMessage();
             default:
                 return LanguageEnglish.getEventMessagesAlreadyOnMessage();
@@ -2810,23 +2826,23 @@ public class LanguageController {
 
     public static String getEventMessagesAlreadyOffMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getEventMessagesAlreadyOffMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getEventMessagesAlreadyOffMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getEventMessagesAlreadyOffMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getEventMessagesAlreadyOffMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getEventMessagesAlreadyOffMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getEventMessagesAlreadyOffMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getEventMessagesAlreadyOffMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getEventMessagesAlreadyOffMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getEventMessagesAlreadyOffMessage();
             default:
                 return LanguageEnglish.getEventMessagesAlreadyOffMessage();
@@ -2835,23 +2851,23 @@ public class LanguageController {
 
     public static String getHeadUpMessagesAlreadyOnMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHeadUpMessagesAlreadyOnMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHeadUpMessagesAlreadyOnMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHeadUpMessagesAlreadyOnMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHeadUpMessagesAlreadyOnMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHeadUpMessagesAlreadyOnMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHeadUpMessagesAlreadyOnMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHeadUpMessagesAlreadyOnMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHeadUpMessagesAlreadyOnMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHeadUpMessagesAlreadyOnMessage();
             default:
                 return LanguageEnglish.getHeadUpMessagesAlreadyOnMessage();
@@ -2860,23 +2876,23 @@ public class LanguageController {
 
     public static String getHeadUpMessagesAlreadyOffMessages(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHeadUpMessagesAlreadyOffMessages();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHeadUpMessagesAlreadyOffMessages();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHeadUpMessagesAlreadyOffMessages();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHeadUpMessagesAlreadyOffMessages();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHeadUpMessagesAlreadyOffMessages();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHeadUpMessagesAlreadyOffMessages();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHeadUpMessagesAlreadyOffMessages();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHeadUpMessagesAlreadyOffMessages();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHeadUpMessagesAlreadyOffMessages();
             default:
                 return LanguageEnglish.getHeadUpMessagesAlreadyOffMessages();
@@ -2885,23 +2901,23 @@ public class LanguageController {
 
     public static String getFooterTimesIn24HrsFormatMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getFooterTimesIn24HrsFormatMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getFooterTimesIn24HrsFormatMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getFooterTimesIn24HrsFormatMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getFooterTimesIn24HrsFormatMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getFooterTimesIn24HrsFormatMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getFooterTimesIn24HrsFormatMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getFooterTimesIn24HrsFormatMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getFooterTimesIn24HrsFormatMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getFooterTimesIn24HrsFormatMessage();
             default:
                 return LanguageEnglish.getFooterTimesIn24HrsFormatMessage();
@@ -2910,23 +2926,23 @@ public class LanguageController {
 
     public static String getHelpEventListMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpEventListMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpEventListMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpEventListMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpEventListMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpEventListMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpEventListMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpEventListMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpEventListMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpEventListMessage();
             default:
                 return LanguageEnglish.getHelpEventListMessage();
@@ -2935,23 +2951,23 @@ public class LanguageController {
 
     public static String getHelpEventSetMessage(final String lang) {
         switch (lang.toUpperCase()) {
-            case "GER":
+            case SHORT_GERMAN:
                 return LanguageGerman.getHelpEventSetMessage();
-            case "ESP":
+            case SHORT_SPAIN:
                 return LanguageSpain.getHelpEventSetMessage();
-            case "POL":
+            case SHORT_POLISH:
                 return LanguagePolish.getHelpEventSetMessage();
-            case "FRA":
+            case SHORT_FRENCH:
                 return LanguageFrench.getHelpEventSetMessage();
-            case "ITA":
+            case SHORT_ITALIAN:
                 return LanguageItalian.getHelpEventSetMessage();
-            case "RUS":
+            case SHORT_RUSSIAN:
                 return LanguageRussian.getHelpEventSetMessage();
-            case "IND":
+            case SHORT_INDONESIA:
                 return LanguageIndonesia.getHelpEventSetMessage();
-            case "UKR":
+            case SHORT_UKRAINIAN:
                 return LanguageUkrainian.getHelpEventSetMessage();
-            case "BRPT":
+            case SHORT_BRAZILIAN_PORTUGUESE:
                 return LanguageBrazilianPortuguese.getHelpEventSetMessage();
             default:
                 return LanguageEnglish.getHelpEventSetMessage();

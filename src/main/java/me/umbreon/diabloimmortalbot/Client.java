@@ -14,7 +14,6 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * TODO:
- * - Find a fix for not reloading all custom message because one is new.
  * - Command for editing custom messages.
  */
 public class Client {
@@ -40,7 +39,7 @@ public class Client {
                     .addEventListeners(new ChannelDelete(databaseRequests, notificationChannelsCache))
                     .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests, reactionRolesCache, guildsCache, notificationChannelsCache, customMessagesCache))
                     .addEventListeners(new GuildJoin())
-                    .addEventListeners(new GuildReady())
+                    //.addEventListeners(new GuildReady())
                     .addEventListeners(new MessageReactionAdd(reactionRolesCache, databaseRequests))
                     .addEventListeners(new MessageReactionRemove(reactionRolesCache))
                     .addEventListeners(new MessageDelete(reactionRolesCache, databaseRequests))

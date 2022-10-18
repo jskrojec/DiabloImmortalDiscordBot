@@ -1,5 +1,7 @@
 package me.umbreon.diabloimmortalbot.cache;
 
+import me.umbreon.diabloimmortalbot.languages.LanguageController;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,16 +59,9 @@ public class ClientCache {
         listOfAvailableEventDays.add("sunday");
         listOfAvailableEventDays.add("everyday");
 
-        listWithSupportedLanguage.add("ger");
-        listWithSupportedLanguage.add("eng");
-        listWithSupportedLanguage.add("esp");
-        listWithSupportedLanguage.add("fra");
-        listWithSupportedLanguage.add("pol");
-        listWithSupportedLanguage.add("ita");
-        listWithSupportedLanguage.add("rus");
-        listWithSupportedLanguage.add("ind");
-        listWithSupportedLanguage.add("ukr");
-        listWithSupportedLanguage.add("brpt");
+        for (String language : LanguageController.languages) {
+            listWithSupportedLanguage.add(language.toLowerCase());
+        }
     }
 
 }
