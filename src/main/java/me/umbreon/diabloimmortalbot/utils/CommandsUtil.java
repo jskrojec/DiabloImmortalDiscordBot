@@ -157,7 +157,8 @@ public class CommandsUtil {
                 .addChoice("Italia", "ITA")
                 .addChoice("Indonesia", "IND")
                 .addChoice("Russia", "RUS")
-                .addChoice("Ukrainian", "UKR");
+                .addChoice("Ukrainian", "UKR")
+                .addChoice("Brazilian Portuguese", "BRPT");
         commandDataList.add(Commands.slash("language", "Changes the bots language for your server.")
                 .addOptions(languageOptionData));
         // - /config

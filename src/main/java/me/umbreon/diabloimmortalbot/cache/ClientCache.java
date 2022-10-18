@@ -66,6 +66,7 @@ public class ClientCache {
         listWithSupportedLanguage.add("rus");
         listWithSupportedLanguage.add("ind");
         listWithSupportedLanguage.add("ukr");
+        listWithSupportedLanguage.add("brpt");
     }
 
 }

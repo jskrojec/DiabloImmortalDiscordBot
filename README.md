@@ -34,6 +34,7 @@ The message will be send in the channel where the command is executed.
 #### How do I create a reaction role?
 
 Reaction roles are created with the command /createreactionrole and it has 3 parameters. 1. The message ID 2. The role
+
 3. The emoji
 
 Here's a command example:
@@ -69,6 +70,6 @@ s. https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-U
 
 ## Languages
 
-English, French, German, Indonesia, Italian, Russian, Spain
+English, French, German, Indonesia, Italian, Russian, Spain & Brazilian Portuguese
 
 All languages will be added with the help of the community. Hit me up on Discord if you want to add a new language.
