@@ -50,7 +50,7 @@ public class UnregisterCommand {
         if (!isChannelTypeTextChannel(textChannel)) {
             String log = event.getUser().getName() + " tried to unregister " + textChannel.getName() + " but failed because that wasn't a text channel.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             //todo: Add new error message: Given channel is not a text channel.
             event.reply(LanguageController.getInvalidCommandMessage(language)).setEphemeral(true).queue();
             return;
@@ -60,7 +60,7 @@ public class UnregisterCommand {
         if (!isChannelRegistered(targetTextChannelId)) {
             String log = event.getUser().getName() + " tried to unregister " + textChannel.getName() + " but failed because that text channel was not registered.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(String.format(LanguageController.getChannelNotRegisteredMessage(language), textChannel.getAsMention())).setEphemeral(true).queue();
             return;
         }
@@ -70,7 +70,7 @@ public class UnregisterCommand {
         if (targetTextChannel == null) {
             String log = event.getUser().getName() + " tried to unregister " + textChannel.getName() + " but failed because that text channel couldn't be found.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(language)).setEphemeral(true).queue();
             return;
         }

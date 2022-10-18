@@ -47,7 +47,7 @@ public class TimezoneCommand {
         if (!isGuildValid(guild)) {
             log = "Failed to run " + getClass().getSimpleName() + " because guild was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry("global", textChannelID, log);
+            ClientLogger.createNewServerLogEntry("global", log);
             event.getHook().sendMessage("Failed to change timezone because the guild was null.").setEphemeral(true).queue();
             return;
         }
@@ -62,7 +62,7 @@ public class TimezoneCommand {
         } else {
             log = user.getName() + "#" + user.getDiscriminator() + " tried to change timezone but given timezone was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.getHook().sendMessage(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -70,7 +70,7 @@ public class TimezoneCommand {
         if (!isTimeZoneValid(givenTimezone)) {
             log = user.getName() + "#" + user.getDiscriminator() + " tried to change timezone but given timezone was not supported.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.getHook().sendMessage(LanguageController.getInvalidTimezoneMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }

@@ -38,13 +38,13 @@ public class ShadowLottery {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getShadowLotteryHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getShadowLotteryHeadUpMessage(language));
             return LanguageController.getShadowLotteryHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getShadowLotteryMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getShadowLotteryMessage(language));
             return LanguageController.getShadowLotteryMessage(language) + "\n";
         }
     }

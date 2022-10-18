@@ -42,7 +42,7 @@ public class LanguageCommand {
             language = languageOption.getAsString().toUpperCase();
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change the bots language but the language was null.";
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             LOGGER.info(log);
             event.reply(LanguageController.getLanguageNotSupportedMessage(guildLanguage)).setEphemeral(true).queue();
             return;
@@ -50,7 +50,7 @@ public class LanguageCommand {
 
         if (!isLanguageSupported(language)) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change the bots language to " + language + " but the language is not supported.";
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             LOGGER.info(log);
             event.reply(LanguageController.getLanguageNotSupportedMessage(guildLanguage)).setEphemeral(true).queue();
             return;

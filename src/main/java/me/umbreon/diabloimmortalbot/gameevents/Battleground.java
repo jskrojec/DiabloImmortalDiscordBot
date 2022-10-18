@@ -38,13 +38,13 @@ public class Battleground {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getBattlegroundHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getBattlegroundHeadUpMessage(language));
             return LanguageController.getBattlegroundHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getBattlegroundMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getBattlegroundMessage(language));
             return LanguageController.getBattlegroundMessage(language) + "\n";
         }
     }

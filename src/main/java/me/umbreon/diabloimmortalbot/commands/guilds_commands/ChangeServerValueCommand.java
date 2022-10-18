@@ -41,7 +41,7 @@ public class ChangeServerValueCommand {
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server setting but it failed because server setting was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             return;
         }
 
@@ -51,7 +51,7 @@ public class ChangeServerValueCommand {
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server setting but it failed because server value was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             return;
         }
 
@@ -66,7 +66,7 @@ public class ChangeServerValueCommand {
         if (guildsCache.isHeadUpOnServerEnabled(guildID) && serverValue) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server headup value to true but it failed because it is already set to true.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getHeadUpMessagesAlreadyOnMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -74,7 +74,7 @@ public class ChangeServerValueCommand {
         if (!guildsCache.isHeadUpOnServerEnabled(guildID) && !serverValue) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server headup value to false but it failed because it is already set to false.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getHeadUpMessagesAlreadyOffMessages(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -93,7 +93,7 @@ public class ChangeServerValueCommand {
         if (guildsCache.isEventMessageOnServerEnabled(guildID) && serverValue) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server message value to true but it failed because it is already set to true.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getEventMessagesAlreadyOnMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -101,7 +101,7 @@ public class ChangeServerValueCommand {
         if (!guildsCache.isEventMessageOnServerEnabled(guildID) && !serverValue) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change server message value to false but it failed because it is already set to false.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, "global", log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getEventMessagesAlreadyOffMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }

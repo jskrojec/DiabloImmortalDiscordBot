@@ -49,7 +49,7 @@ public class MessageReactionAdd extends ListenerAdapter implements MessageReacti
         String guildID = event.getGuild().getId();
         ReactionRole reactionRole = getReactionRoleFromCache(messageID, emojiCode);
         if (reactionRole == null) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to get a role using reaction roles but it failed because reactionRole was null.");
             LOGGER.info("{} tried to get a role using reaction roles but it failed because reactionRole was null.", commandExecutor);
             return;
@@ -57,7 +57,7 @@ public class MessageReactionAdd extends ListenerAdapter implements MessageReacti
 
         String roleID = reactionRole.getRoleID();
         if (!doRoleStillExists(event.getGuild(), roleID)) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to get a role using reaction roles but the role no longer exists so it will be deleted " +
                     "from the system. RoleID: " + roleID + " MessageID: " + messageID + " EmojiCode: " + emojiCode);
             LOGGER.info("{} tried to get a role using reaction roles but the role no longer exists so it will be " +
@@ -71,7 +71,7 @@ public class MessageReactionAdd extends ListenerAdapter implements MessageReacti
             event.getGuild().addRoleToMember(user, role).queue();
             String roleName = role.getName();
 
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " got a role using reaction roles. Added role " + roleName);
             LOGGER.info("{} got a role using reaction roles. Added role {}.", commandExecutor, roleName);
             user.openPrivateChannel().queue(privateChannel -> {
@@ -79,7 +79,7 @@ public class MessageReactionAdd extends ListenerAdapter implements MessageReacti
             });
         } catch (InsufficientPermissionException e) {
             if (e.getMessage().equals("Cannot perform action due to a lack of Permission. Missing permission: MANAGE_ROLES")) {
-                ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                         " tried to get a role using reaction roles but it failed because insufficient permissions.");
                 LOGGER.info("{} tried to get a role using reaction roles but it failed because insufficient permissions.", commandExecutor);
                 event.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
@@ -87,7 +87,7 @@ public class MessageReactionAdd extends ListenerAdapter implements MessageReacti
                 });
             }
         } catch (HierarchyException e) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to remove a role using reaction roles but it failed because insufficient permissions.");
             LOGGER.info("{} tried to remove a role using reaction roles but it failed because the bot can't modify a role with higher or equal highest role.", commandExecutor);
             event.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {

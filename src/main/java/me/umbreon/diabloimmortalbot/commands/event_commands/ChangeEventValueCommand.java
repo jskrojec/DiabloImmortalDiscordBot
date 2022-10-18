@@ -53,7 +53,7 @@ public class ChangeEventValueCommand {
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change event value but it failed because the event name was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -64,7 +64,7 @@ public class ChangeEventValueCommand {
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change event value but it failed because the event value was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -72,7 +72,7 @@ public class ChangeEventValueCommand {
         if (!doEventExist(eventName.toLowerCase())) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to change event value but it failed because the given event does not exist.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getErrorCannotDisableEventMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }

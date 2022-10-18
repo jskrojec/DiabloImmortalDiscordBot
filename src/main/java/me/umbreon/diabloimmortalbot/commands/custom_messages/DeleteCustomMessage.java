@@ -44,7 +44,7 @@ public class DeleteCustomMessage {
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to get custom message information but it failed because ID was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -52,7 +52,7 @@ public class DeleteCustomMessage {
         if (!isCustomMessageGuildIdCurrentGuildId(guildID, customMessageID)) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to get custom message information but it failed because guildID did not match!";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
         }
 

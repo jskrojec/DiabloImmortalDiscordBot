@@ -169,10 +169,10 @@ public class Notifier {
                         }
                     } catch (InsufficientPermissionException e) {
                         System.out.println(notifierChannel.getGuildID());
-                        ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "global", "Failed to send notification message cause of insufficient permissions. " + e.getMessage());
+                        ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "Failed to send notification message cause of insufficient permissions. " + e.getMessage());
                         e.printStackTrace();
                     } catch (Exception e) {
-                        ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "global", "Failed to send notification message.");
+                        ClientLogger.createNewServerLogEntry(notifierChannel.getGuildID(), "Failed to send notification message.");
                         e.printStackTrace();
                     }
 
@@ -206,7 +206,7 @@ public class Notifier {
                 if (mentionRole != null) {
                     mention = mentionRole.getAsMention();
                 } else {
-                    ClientLogger.createNewServerLogEntry(guild.getId(), textChannelID, "Tried to add mention " +
+                    ClientLogger.createNewServerLogEntry(guild.getId(), "Tried to add mention " +
                             "role, but role couldn't be found.");
                 }
                 break;

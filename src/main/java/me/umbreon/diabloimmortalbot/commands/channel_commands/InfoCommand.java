@@ -48,7 +48,7 @@ public class InfoCommand {
         if (!isGuildValid(guild)) {
             log = user.getName() + "#" + user.getDiscriminator() + " tried to use /info command but it failed because guild is null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry("unknown", textChannelID, log);
+            ClientLogger.createNewServerLogEntry("unknown", log);
             event.getHook().sendMessage(guildIsNullError).setEphemeral(true).queue();
             return;
         }
@@ -61,7 +61,7 @@ public class InfoCommand {
         if (!isChannelTypeTextChannel(textChannel)) {
             log = event.getUser().getName() + " tried to use /info command on " + textChannel.getName() + " but failed because that wasn't a text channel.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannel.getId(), log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(textChannelIsNullError).setEphemeral(true).queue();
             return;
         }
@@ -69,7 +69,7 @@ public class InfoCommand {
         if (!isChannelRegistered(textChannelID)) {
             log = event.getUser().getName() + " tried to use /info on " + textChannel.getName() + " but failed because that text channel is not registered.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(String.format(LanguageController.getChannelNotRegisteredMessage(language), textChannel.getAsMention())).setEphemeral(true).queue();
             return;
         }
@@ -78,7 +78,7 @@ public class InfoCommand {
         if (targetTextChannel == null) {
             log = "Failed to run info command. TextChannelID was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getChannelNotFoundMessage(language)).queue();
             return;
         }

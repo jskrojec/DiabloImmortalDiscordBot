@@ -38,13 +38,13 @@ public class AncientNightMare {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getAncientNightmareHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getAncientNightmareHeadUpMessage(language));
             return LanguageController.getAncientNightmareHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getAncientNightmareMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getAncientNightmareMessage(language));
             return LanguageController.getAncientNightmareMessage(language) + "\n";
         }
     }

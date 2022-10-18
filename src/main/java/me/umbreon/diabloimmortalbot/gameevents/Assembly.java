@@ -38,13 +38,13 @@ public class Assembly {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getAssemblyHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getAssemblyHeadUpMessage(language));
             return LanguageController.getAssemblyHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getAssemblyMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getAssemblyMessage(language));
             return LanguageController.getAssemblyMessage(language) + "\n";
         }
     }

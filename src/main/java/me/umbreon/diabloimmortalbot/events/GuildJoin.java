@@ -17,7 +17,7 @@ public class GuildJoin extends ListenerAdapter {
             List<CommandData> commandDataList = CommandsUtil.getCommandDataList();
             event.getGuild().updateCommands().addCommands(commandDataList).queue();
         } catch (Exception e) {
-            ClientLogger.createNewServerLogEntry(event.getGuild().getId(), "global", "Failed to register new commands on GuildJoinEvent.");
+            ClientLogger.createNewServerLogEntry(event.getGuild().getId(), "Failed to register new commands on GuildJoinEvent.");
             e.printStackTrace();
         }
     }

@@ -38,13 +38,13 @@ public class WrathborneInvasion {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getWrathborneInvasionHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getWrathborneInvasionHeadUpMessage(language));
             return LanguageController.getWrathborneInvasionHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getWrathborneInvasionMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getWrathborneInvasionMessage(language));
             return LanguageController.getWrathborneInvasionMessage(language) + "\n";
         }
     }

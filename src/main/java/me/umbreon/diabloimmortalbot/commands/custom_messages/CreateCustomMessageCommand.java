@@ -47,7 +47,7 @@ public class CreateCustomMessageCommand {
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because weekday was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -55,7 +55,7 @@ public class CreateCustomMessageCommand {
         if (!isGivenWeekdayValid(weekday)) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because weekday was invalid.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -70,7 +70,7 @@ public class CreateCustomMessageCommand {
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because time was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -78,7 +78,7 @@ public class CreateCustomMessageCommand {
         if (!StringUtils.isStringInTimePattern(time)) {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because time was invalid.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -90,7 +90,7 @@ public class CreateCustomMessageCommand {
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because repeating was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -103,7 +103,7 @@ public class CreateCustomMessageCommand {
         } else {
             String log = event.getMember().getEffectiveName() + "#" + event.getUser().getDiscriminator() + " tried to create a custom message but it failed because message was null.";
             LOGGER.info(log);
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, log);
+            ClientLogger.createNewServerLogEntry(guildID, log);
             event.reply(LanguageController.getInvalidCommandMessage(guildLanguage)).setEphemeral(true).queue();
             return;
         }
@@ -115,7 +115,7 @@ public class CreateCustomMessageCommand {
 
         customMessage.setCustomMessageID(nextAutoIncrementNumber);
         customMessagesCache.addCustomMessageToList(customMessage);
-        
+
         event.reply(LanguageController.getCustomMessageCreatedMessage(guildLanguage)).setEphemeral(true).queue();
     }
 

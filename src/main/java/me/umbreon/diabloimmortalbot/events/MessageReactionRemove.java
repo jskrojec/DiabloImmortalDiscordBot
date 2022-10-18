@@ -46,7 +46,7 @@ public class MessageReactionRemove extends ListenerAdapter implements MessageRea
         String guildID = event.getGuild().getId();
         ReactionRole reactionRole = getReactionRoleFromCache(messageID, emojiCode);
         if (reactionRole == null) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to remove a role using reaction roles but it failed because reactionRole was null.");
             LOGGER.info("{} tried to remove a role using reaction roles but it failed because reactionRole was null.", commandExecutor);
             return;
@@ -58,7 +58,7 @@ public class MessageReactionRemove extends ListenerAdapter implements MessageRea
             event.getGuild().removeRoleFromMember(user, role).queue();
             String roleName = role.getName();
 
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " removed a role using reaction roles. Added role " + roleName);
             LOGGER.info("{} removed a role using reaction roles. Added role {}.", commandExecutor, roleName);
             user.openPrivateChannel().queue(privateChannel -> {
@@ -66,7 +66,7 @@ public class MessageReactionRemove extends ListenerAdapter implements MessageRea
             });
         } catch (InsufficientPermissionException e) {
             if (e.getMessage().equals("Cannot perform action due to a lack of Permission. Missing permission: MANAGE_ROLES")) {
-                ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+                ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                         " tried to remove a role using reaction roles but it failed because insufficient permissions.");
                 LOGGER.info("{} tried to remove a role using reaction roles but it failed because insufficient permissions.", commandExecutor);
                 event.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {
@@ -74,7 +74,7 @@ public class MessageReactionRemove extends ListenerAdapter implements MessageRea
                 });
             }
         } catch (HierarchyException e) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to remove a role using reaction roles but it failed because insufficient permissions.");
             LOGGER.info("{} tried to remove a role using reaction roles but it failed because the bot can't modify a role with higher or equal highest role.", commandExecutor);
             event.getGuild().getOwner().getUser().openPrivateChannel().queue(privateChannel -> {

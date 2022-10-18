@@ -38,13 +38,13 @@ public class AncientArena {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getAncientArenaHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getAncientArenaHeadUpMessage(language));
             return LanguageController.getAncientArenaHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getAncientArenaMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getAncientArenaMessage(language));
             return LanguageController.getAncientArenaMessage(language) + "\n";
         }
     }

@@ -38,13 +38,13 @@ public class DefendVault {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getDefendTheVaultHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getDefendTheVaultHeadUpMessage(language));
             return LanguageController.getDefendTheVaultHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getDefendTheVaultMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getDefendTheVaultMessage(language));
             return LanguageController.getDefendTheVaultMessage(language) + "\n";
         }
     }

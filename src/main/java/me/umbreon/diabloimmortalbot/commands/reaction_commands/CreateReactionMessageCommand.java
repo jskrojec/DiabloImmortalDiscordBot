@@ -50,7 +50,7 @@ public class CreateReactionMessageCommand {
 
         String messageID = getMessageID(event);
         if (messageID == null) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to create a reaction role but it failed because messageID was null.");
             LOGGER.info("{} tried to create a reaction role but it failed because messageID was null.", commandExecutor);
             event.reply(StringUtils.messageIdNullError).setEphemeral(true).queue();
@@ -59,7 +59,7 @@ public class CreateReactionMessageCommand {
 
         String emote = getEmote(event);
         if (emote == null) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to create a reaction role but it failed because emoji was null.");
             LOGGER.info("{} tried to create a reaction role but it failed because emoji was null.", commandExecutor);
             event.reply(StringUtils.emoteNullError).setEphemeral(true).queue();
@@ -68,7 +68,7 @@ public class CreateReactionMessageCommand {
 
         Role role = getRole(event);
         if (role == null) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to create a reaction role but it failed because role was null.");
             LOGGER.info("{} tried to create a reaction role but it failed because role was null.", commandExecutor);
             event.reply(StringUtils.roleNullError).setEphemeral(true).queue();
@@ -76,7 +76,7 @@ public class CreateReactionMessageCommand {
         }
 
         if (hasRoleAdminPermissions(role)) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to create a new reaction role but it failed because the role has admin permissions.");
             LOGGER.info("{} tried to create a new reaction role but it failed because the role has admin permissions.", commandExecutor);
             event.reply(StringUtils.roleHasAdminPermissionsError).setEphemeral(true).queue();
@@ -85,7 +85,7 @@ public class CreateReactionMessageCommand {
 
         MessageChannelUnion channel = event.getChannel();
         if (doMessageNotExist(channel, messageID)) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to create a new reaction role but it failed because the message doesn't exist.");
             LOGGER.info("{} tried to create a new reaction role but it failed because the message doesn't exist.", commandExecutor);
             event.reply(StringUtils.messageNotFoundError).setEphemeral(true).queue();
@@ -93,7 +93,7 @@ public class CreateReactionMessageCommand {
         }
 
         if (isMaxReactionRolesReached(messageID)) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to create a reaction role but it failed because the max amount of reaction roles on this" +
                     " message is reached.");
             LOGGER.info("{} tried to create a reaction role but it failed because the max amount of reaction roles on" +
@@ -104,7 +104,7 @@ public class CreateReactionMessageCommand {
 
         Emoji emoji = Emoji.fromFormatted(emote);
         if (isEmoteAlreadyInUse(event.getChannel(), messageID, emoji)) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to create a reaction role but it failed because messageID was null.");
             LOGGER.info("{} tried to create a reaction role but it failed because messageID was null.", commandExecutor);
             event.reply(StringUtils.emoteAlreadyInUseError).setEphemeral(true).queue();
@@ -113,7 +113,7 @@ public class CreateReactionMessageCommand {
 
         String emojiCode = getEmojiCode(emoji);
         if (emojiCode == null) {
-            ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+            ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                     " tried to create a reaction role but it failed because emoji code was null.");
             LOGGER.info("{} tried to create a reaction role but it failed because emoji code was null.", commandExecutor);
             event.reply(StringUtils.emojiCodeNullError).setEphemeral(true).queue();
@@ -135,7 +135,7 @@ public class CreateReactionMessageCommand {
             }
         });
         if (unknownEmoji.get()) return;
-        ClientLogger.createNewServerLogEntry(guildID, "server-log", commandExecutor +
+        ClientLogger.createNewServerLogEntry(guildID, commandExecutor +
                 " created a new reaction role. MessageID: " + messageID + " EmojiCode: " + emojiCode +
                 " EmojiType: " + emojiType);
         LOGGER.info("{} has created a new reaction role.", commandExecutor);

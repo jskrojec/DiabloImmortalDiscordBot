@@ -38,13 +38,13 @@ public class HauntedCarriage {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getHauntedCarriageHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getHauntedCarriageHeadUpMessage(language));
             return LanguageController.getHauntedCarriageHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getHauntedCarriageMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getHauntedCarriageMessage(language));
             return LanguageController.getHauntedCarriageMessage(language) + "\n";
         }
     }

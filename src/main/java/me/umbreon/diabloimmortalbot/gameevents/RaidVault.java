@@ -38,13 +38,13 @@ public class RaidVault {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getRaidTheVaultHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getRaidTheVaultHeadUpMessage(language));
             return LanguageController.getRaidTheVaultHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getRaidTheVaultMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getRaidTheVaultMessage(language));
             return LanguageController.getRaidTheVaultMessage(language) + "\n";
         }
     }

@@ -38,13 +38,13 @@ public class DemonGates {
             if (!isHeadUpEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getDemonGatesHeadUpMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getDemonGatesHeadUpMessage(language));
             return LanguageController.getDemonGatesHeadUpMessage(language) + "\n";
         } else {
             if (!isEventMessageEnabled(guildID, textChannelID)) {
                 return "";
             }
-            ClientLogger.createNewServerLogEntry(guildID, textChannelID, LanguageController.getDemonGatesMessage(language));
+            ClientLogger.createNewServerLogEntry(guildID, LanguageController.getDemonGatesMessage(language));
             return LanguageController.getDemonGatesMessage(language) + "\n";
         }
     }
