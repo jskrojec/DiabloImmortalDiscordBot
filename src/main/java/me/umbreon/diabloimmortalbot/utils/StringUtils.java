@@ -13,6 +13,8 @@ public class StringUtils {
     public static String reactionRoleCreatedMessage = "Created a new reaction role use /reactionroleslist to see all your reaction roles";
     public static String receivedRoleMessage = "You've got the %s role.";
     public static String lostRoleMessage = "You've lost the role %s.";
+    public static String presetSetMessage = "Enabled preset %s on channel %s";
+    public static String invalidPresetMessage = "Preset %s do not exists.";
 
     private static final String DIABLO_IMMORTAL_LOGO;
     private static final String DIABLO_ANCIENT_NIGHTMARE;

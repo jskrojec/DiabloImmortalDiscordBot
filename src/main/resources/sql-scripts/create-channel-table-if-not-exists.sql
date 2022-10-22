@@ -16,5 +16,6 @@ hauntedcarriage TINYINT(1) DEFAULT 0 NOT NULL,
 hauntedcarriageembed TINYINT(1) DEFAULT 0 NOT NULL,
 demongatesembed TINYINT(1) DEFAULT 0 NOT NULL,
 ancientnightmareembed TINYINT(1) DEFAULT 0 NOT NULL,
-ancientarenaembed TINYINT(1) DEFAULT 0 NOT NULL
+ancientarenaembed TINYINT(1) DEFAULT 0 NOT NULL,
+wrathborneinvasion TINYINT(1) DEFAULT 0 NOT NULL
 )
