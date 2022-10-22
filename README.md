@@ -67,6 +67,8 @@ s. https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-U
 |/install | Shows bot instructions.
 |/languages | Shows all available languages.
 |/timezones | Shows all the GMT timezones so you can pick that timezone what matches you.
+|/today | Shows all current date's events
+|/upcoming | Shows all upcoming events from current date
 
 ## Languages
 
