@@ -169,4 +169,14 @@ public class NotificationChannelsCache {
         return notifierChannelsList.size();
     }
 
+    public NotificationChannel getNotificationChannelByChannelID(String textChannelID) {
+        return notifierChannelsList.get(textChannelID);
+    }
+
+    public void replaceNotificationChannel(NotificationChannel notificationChannel) {
+        String textChannelID = notificationChannel.getTextChannelID();
+        removeNotifierChannelFromList(textChannelID);
+        addNotifierChannelToList(notificationChannel);
+    }
+
 }

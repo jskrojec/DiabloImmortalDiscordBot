@@ -29,6 +29,7 @@ public class SQLStatements {
     private static final String UPDATE_CHANNEL_HEAD_UP_VALUE_STATEMENT;
     private static final String UPDATE_CHANNEL_ROLE_STATEMENT;
     private static final String DELETE_CHANNEL_BY_ID_STATEMENT;
+    private static final String REPLACE_CHANNEL_STATEMENT;
 
     private static final String GET_ALL_REACTION_ROLES_STATEMENT;
     //TODO: UPDATE_STATEMENTS?
@@ -60,6 +61,7 @@ public class SQLStatements {
         UPDATE_CHANNEL_HEAD_UP_VALUE_STATEMENT = loadResourceToString(DEFAULT_PATH + "update-channel-head-up-value.sql");
         UPDATE_CHANNEL_ROLE_STATEMENT = loadResourceToString(DEFAULT_PATH + "update-channel-role.sql");
         DELETE_CHANNEL_BY_ID_STATEMENT = loadResourceToString(DEFAULT_PATH + "delete-channel-by-id.sql");
+        REPLACE_CHANNEL_STATEMENT = loadResourceToString(DEFAULT_PATH + "replace-channel.sql");
 
         GET_ALL_REACTION_ROLES_STATEMENT = loadResourceToString(DEFAULT_PATH + "get-all-reaction-roles.sql");
         CREATE_REACTION_ROLE_STATEMENT = loadResourceToString(DEFAULT_PATH + "create-reaction-role.sql");
@@ -156,6 +158,10 @@ public class SQLStatements {
 
     public static String getDeleteChannelByIdStatement() {
         return DELETE_CHANNEL_BY_ID_STATEMENT;
+    }
+
+    public static String getReplaceChannelStatement() {
+        return REPLACE_CHANNEL_STATEMENT;
     }
 
     /*

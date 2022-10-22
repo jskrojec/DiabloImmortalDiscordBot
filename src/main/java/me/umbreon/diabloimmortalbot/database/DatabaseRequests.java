@@ -297,6 +297,28 @@ public class DatabaseRequests {
             e.printStackTrace();
         }
     }
+    
+    public void replaceNotificationChannel(NotificationChannel notificationChannel) {
+        try (
+                Connection connection = databaseConnection.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQLStatements.getReplaceChannelStatement())
+        ) {
+            preparedStatement.setBoolean(1, notificationChannel.isAncientArenaMessageEnabled());
+            preparedStatement.setBoolean(2, notificationChannel.isAncientNightmareMessageEnabled());
+            preparedStatement.setBoolean(3, notificationChannel.isAssemblyMessageEnabled());
+            preparedStatement.setBoolean(4, notificationChannel.isBattlegroundsMessageEnabled());
+            preparedStatement.setBoolean(5, notificationChannel.isDefendVaultMessageEnabled());
+            preparedStatement.setBoolean(6, notificationChannel.isRaidVaultMessageEnabled());
+            preparedStatement.setBoolean(7, notificationChannel.isDemonGatesMessageEnabled());
+            preparedStatement.setBoolean(8, notificationChannel.isShadowLotteryMessageEnabled());
+            preparedStatement.setBoolean(9, notificationChannel.isHauntedCarriageMessageEnabled());
+            preparedStatement.setBoolean(10, notificationChannel.isWrathborneInvasionEnabled());
+            preparedStatement.setString(11, notificationChannel.getTextChannelID());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void createNewNotifierChannel(NotificationChannel notificationChannel) {
         try (

@@ -1,10 +1,7 @@
 package me.umbreon.diabloimmortalbot.events;
 
 import me.umbreon.diabloimmortalbot.cache.*;
-import me.umbreon.diabloimmortalbot.commands.channel_commands.InfoCommand;
-import me.umbreon.diabloimmortalbot.commands.channel_commands.RegisterCommand;
-import me.umbreon.diabloimmortalbot.commands.channel_commands.RoleCommand;
-import me.umbreon.diabloimmortalbot.commands.channel_commands.UnregisterCommand;
+import me.umbreon.diabloimmortalbot.commands.channel_commands.*;
 import me.umbreon.diabloimmortalbot.commands.custom_messages.CreateCustomMessageCommand;
 import me.umbreon.diabloimmortalbot.commands.custom_messages.CustomMessageInfo;
 import me.umbreon.diabloimmortalbot.commands.custom_messages.DeleteCustomMessage;
@@ -48,6 +45,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
     private final UnregisterCommand unregisterCommand;
     private final RoleCommand roleCommand;
     private final InfoCommand infoCommand;
+    private final PresetCommand presetCommand;
 
     // help commands
     private final HelpCommand helpCommand;
@@ -92,6 +90,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
         this.unregisterCommand = new UnregisterCommand(databaseRequests, clientCache, guildsCache, notificationChannelsCache);
         this.roleCommand = new RoleCommand(databaseRequests, guildsCache, notificationChannelsCache);
         this.infoCommand = new InfoCommand(guildsCache, notificationChannelsCache);
+        this.presetCommand = new PresetCommand(notificationChannelsCache, guildsCache, databaseRequests);
 
         // help commands
         this.helpCommand = new HelpCommand(clientCache, guildsCache);
@@ -161,6 +160,9 @@ public class SlashCommandInteraction extends ListenerAdapter {
                         break;
                     case "info":
                         infoCommand.runInfoCommand(event);
+                        break;
+                    case "preset":
+                        presetCommand.runCommand(event);
                         break;
                     //help commands
                     case "help":

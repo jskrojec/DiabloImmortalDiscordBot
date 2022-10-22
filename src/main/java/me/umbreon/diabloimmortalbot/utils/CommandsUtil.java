@@ -10,6 +10,13 @@ import java.util.List;
 
 public class CommandsUtil {
 
+    public static final String PRESET_IMMORTAL = "presetimmortal";
+    public static final String PRESET_SHADOW = "presetshadow";
+    public static final String PRESET_OVERWORLD_ON = "presetoverworldon";
+    public static final String PRESET_OVERWORLD_OFF = "presetoverworldoff";
+    public static final String PRESET_DAILY_ON = "presetdailyon";
+    public static final String PRESET_DAILY_OFF = "presetdailyoff";
+
     public static List<CommandData> getCommandDataList() {
         List<CommandData> commandDataList = new ArrayList<>();
 
@@ -51,6 +58,19 @@ public class CommandsUtil {
         // - /mentionrole <ROLE> <CHANNEL>
         commandDataList.add(Commands.slash("mentionrole", "Select that role which should get mentioned in this channel")
                 .addOptions(roleOptionData, channelOptionData));
+        // - /preset <PRESET>
+
+        OptionData presetImmortalOption = new OptionData(OptionType.STRING, "preset", "true", true)
+                .addChoice("Immortal", PRESET_IMMORTAL)
+                .addChoice("Shadow", PRESET_SHADOW)
+                .addChoice("Overworld events on", PRESET_OVERWORLD_ON)
+                .addChoice("Overworld events off", PRESET_OVERWORLD_OFF)
+                .addChoice("Daily events on", PRESET_DAILY_ON)
+                .addChoice("Daily events off", PRESET_DAILY_OFF);
+
+
+        commandDataList.add(Commands.slash("preset", "Select a preset.")
+                .addOptions(presetImmortalOption, channelOptionData));
     }
 
     private static void prepareCustomMessagesCommands(List<CommandData> commandDataList) {

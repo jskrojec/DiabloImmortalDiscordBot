@@ -39,7 +39,7 @@ public class Client {
                     .addEventListeners(new ChannelDelete(databaseRequests, notificationChannelsCache))
                     .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests, reactionRolesCache, guildsCache, notificationChannelsCache, customMessagesCache))
                     .addEventListeners(new GuildJoin())
-                    //.addEventListeners(new GuildReady())
+                    .addEventListeners(new GuildReady())
                     .addEventListeners(new MessageReactionAdd(reactionRolesCache, databaseRequests))
                     .addEventListeners(new MessageReactionRemove(reactionRolesCache))
                     .addEventListeners(new MessageDelete(reactionRolesCache, databaseRequests))
