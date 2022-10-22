@@ -1,0 +1,1 @@
+UPDATE channel_notification SET ancientarena = ?, ancientnightmare = ?, assembly = ?, battlegrounds = ?, defendvault = ?, raidvault = ?, demongates = ?, shadowlottery = ?, hauntedcarriage = ?, wrathborneinvasion = ? WHERE textChannelID = ?

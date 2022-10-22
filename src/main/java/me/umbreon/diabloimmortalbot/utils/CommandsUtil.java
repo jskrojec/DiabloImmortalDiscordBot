@@ -16,6 +16,7 @@ public class CommandsUtil {
     public static final String PRESET_OVERWORLD_OFF = "presetoverworldoff";
     public static final String PRESET_DAILY_ON = "presetdailyon";
     public static final String PRESET_DAILY_OFF = "presetdailyoff";
+    public static final String LIST_PRESET = "listpreset";
 
     public static List<CommandData> getCommandDataList() {
         List<CommandData> commandDataList = new ArrayList<>();
@@ -60,15 +61,15 @@ public class CommandsUtil {
                 .addOptions(roleOptionData, channelOptionData));
         // - /preset <PRESET>
 
-        OptionData presetImmortalOption = new OptionData(OptionType.STRING, "preset", "true", true)
+        OptionData presetImmortalOption = new OptionData(OptionType.STRING, "preset", "Select a preset", true)
                 .addChoice("Immortal", PRESET_IMMORTAL)
                 .addChoice("Shadow", PRESET_SHADOW)
                 .addChoice("Overworld events on", PRESET_OVERWORLD_ON)
                 .addChoice("Overworld events off", PRESET_OVERWORLD_OFF)
                 .addChoice("Daily events on", PRESET_DAILY_ON)
-                .addChoice("Daily events off", PRESET_DAILY_OFF);
-
-
+                .addChoice("Daily events off", PRESET_DAILY_OFF)
+                .addChoice("See the preset settings", LIST_PRESET);
+        
         commandDataList.add(Commands.slash("preset", "Select a preset.")
                 .addOptions(presetImmortalOption, channelOptionData));
     }

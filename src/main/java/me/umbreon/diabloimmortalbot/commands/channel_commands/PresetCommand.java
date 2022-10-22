@@ -93,6 +93,9 @@ public class PresetCommand implements ClientCommand {
             case CommandsUtil.PRESET_DAILY_OFF:
                 setDailyEventOffPreset(notificationChannel);
                 break;
+            case CommandsUtil.LIST_PRESET:
+                event.reply(getPresetInfoMessage()).setEphemeral(true).queue();
+                return;
             default:
                 ClientLogger.createNewServerLogEntry(guildID, String.format(StringUtils.invalidPresetMessage, preset));
                 LOGGER.info(String.format(StringUtils.invalidPresetMessage, preset, preset, targetTextChannelId));
@@ -172,6 +175,29 @@ public class PresetCommand implements ClientCommand {
     private void setDailyEventOffPreset(NotificationChannel notificationChannel) {
         notificationChannel.setBattlegroundsMessageEnabled(false);
         notificationChannel.setWrathborneInvasionEnabled(false);
+    }
+
+    private String getPresetInfoMessage() {
+        String stringBuilder = "```" + "\n" +
+                "Immortal preset" + "\n" +
+                "Assembly - OFF, DefendVault - ON, ShadowLottery - OFF, RaidVault - OFF" + "\n" +
+                " " + "\n" +
+                "Shadow preset" + "\n" +
+                "Assembly - ON, DefendVault - OFF, ShadowLottery - ON, RaidVault - ON" + "\n" +
+                " " + "\n" +
+                "Overworld on preset" + "\n" +
+                "Ancient Arena - ON, Ancient Nightmare - ON, Demon Gates - ON, Haunted Carriage - ON" + "\n" +
+                " " + "\n" +
+                "Overworld off preset" + "\n" +
+                "Ancient Arena - OFF, Ancient Nightmare - OFF, Demon Gates - OFF, Haunted Carriage - OFF" + "\n" +
+                " " + "\n" +
+                "Daily event on preset" + "\n" +
+                "Battleground - ON, Wrathborne Invasion - ON" + "\n" +
+                " " + "\n" +
+                "Daily event off preset" + "\n" +
+                "Battleground - off, Wrathborne Invasion - off" + "\n" +
+                "```";
+        return stringBuilder;
     }
 
 }
