@@ -26,6 +26,7 @@ public class Client {
         GameEventsCache gameEventsCache = new GameEventsCache();
         NotificationChannelsCache notificationChannelsCache = new NotificationChannelsCache();
 
+
         ClientLogger.checkIfLogFolderExists(clientConfig.getLogFolderPath());
 
         MySQLDatabaseConnection mySQLDatabaseConnection = new MySQLDatabaseConnection(clientConfig);
@@ -37,7 +38,7 @@ public class Client {
         try {
             jda = JDABuilder.createDefault(clientConfig.getToken())
                     .addEventListeners(new ChannelDelete(databaseRequests, notificationChannelsCache))
-                    .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests, reactionRolesCache, guildsCache, notificationChannelsCache, customMessagesCache))
+                    .addEventListeners(new SlashCommandInteraction(clientCache, databaseRequests, reactionRolesCache, guildsCache, notificationChannelsCache, customMessagesCache, gameEventsCache))
                     .addEventListeners(new GuildJoin())
                     .addEventListeners(new GuildReady())
                     .addEventListeners(new MessageReactionAdd(reactionRolesCache, databaseRequests))

@@ -21,6 +21,7 @@ public class CommandsUtil {
     public static List<CommandData> getCommandDataList() {
         List<CommandData> commandDataList = new ArrayList<>();
 
+        prepareInfoCommand(commandDataList);
         prepareChannelCommands(commandDataList);
         prepareCustomMessagesCommands(commandDataList);
         prepareEventCommands(commandDataList);
@@ -29,6 +30,11 @@ public class CommandsUtil {
         prepareReactionRolesCommand(commandDataList);
 
         return commandDataList;
+    }
+
+    private static void prepareInfoCommand(List<CommandData> commandDataList) {
+        commandDataList.add(Commands.slash("today", "Show's a list with today's events."));
+        commandDataList.add(Commands.slash("upcoming", "Shows a list with upcoming events."));
     }
 
     private static void prepareReactionRolesCommand(List<CommandData> commandDataList) {
@@ -69,7 +75,7 @@ public class CommandsUtil {
                 .addChoice("Daily events on", PRESET_DAILY_ON)
                 .addChoice("Daily events off", PRESET_DAILY_OFF)
                 .addChoice("See the preset settings", LIST_PRESET);
-        
+
         commandDataList.add(Commands.slash("preset", "Select a preset.")
                 .addOptions(presetImmortalOption, channelOptionData));
     }

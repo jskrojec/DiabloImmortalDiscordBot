@@ -14,6 +14,8 @@ import me.umbreon.diabloimmortalbot.commands.help_commands.HelpCommand;
 import me.umbreon.diabloimmortalbot.commands.help_commands.InstructionCommand;
 import me.umbreon.diabloimmortalbot.commands.help_commands.LanguagesCommand;
 import me.umbreon.diabloimmortalbot.commands.help_commands.TimezonesCommand;
+import me.umbreon.diabloimmortalbot.commands.info_commands.TodayCommand;
+import me.umbreon.diabloimmortalbot.commands.info_commands.UpComingCommand;
 import me.umbreon.diabloimmortalbot.commands.reaction_commands.CreateReactionMessageCommand;
 import me.umbreon.diabloimmortalbot.commands.reaction_commands.RemoveReactionCommand;
 import me.umbreon.diabloimmortalbot.commands.server_commands.LanguageCommand;
@@ -39,6 +41,10 @@ public class SlashCommandInteraction extends ListenerAdapter {
 
     private final DatabaseRequests databaseRequests;
     private final GuildsCache guildsCache;
+
+    // info commands
+    private final TodayCommand todayCommand;
+    private final UpComingCommand upComingCommand;
 
     // channel commands
     private final RegisterCommand registerCommand;
@@ -80,10 +86,14 @@ public class SlashCommandInteraction extends ListenerAdapter {
                                    final ReactionRolesCache reactionRolesCache,
                                    final GuildsCache guildsCache,
                                    final NotificationChannelsCache notificationChannelsCache,
-                                   final CustomMessagesCache customMessagesCache) {
+                                   final CustomMessagesCache customMessagesCache,
+                                   final GameEventsCache gameEventsCache) {
         this.databaseRequests = databaseRequests;
         this.guildsCache = guildsCache;
 
+        // info commands
+        this.todayCommand = new TodayCommand(gameEventsCache, guildsCache);
+        this.upComingCommand = new UpComingCommand(gameEventsCache, guildsCache);
 
         // channel commands
         this.registerCommand = new RegisterCommand(databaseRequests, guildsCache, notificationChannelsCache);
@@ -135,6 +145,13 @@ public class SlashCommandInteraction extends ListenerAdapter {
 
             if (hasUserAdminPrivileges(member) || isServerOwner(member)) {
                 switch (event.getName().toLowerCase()) {
+                    // info commands
+                    case "today":
+                        todayCommand.runCommand(event);
+                        break;
+                    case "upcoming":
+                        upComingCommand.runCommand(event);
+                        break;
                     // custom messages commands
                     case "createcustommessage":
                         createCustomMessageCommand.runCreateCustomMessageCommand(event);
