@@ -8,11 +8,8 @@ import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
-
 public interface MessageReactionRoles {
 
-    @Nullable
     default String getEmojiCode(Emoji emoji) {
         String emojiReactionCode = emoji.getAsReactionCode();
         String emojiCode;

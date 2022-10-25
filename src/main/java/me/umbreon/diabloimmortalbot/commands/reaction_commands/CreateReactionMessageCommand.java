@@ -19,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /***********************************************************
@@ -142,7 +141,6 @@ public class CreateReactionMessageCommand {
         event.reply(StringUtils.reactionRoleCreatedMessage).setEphemeral(true).queue();
     }
 
-    @Nullable
     private String getEmojiCode(Emoji emoji) {
         String emojiReactionCode = emoji.getAsReactionCode();
         String emojiCode;
@@ -206,7 +204,6 @@ public class CreateReactionMessageCommand {
         return result.get();
     }
 
-    @Nullable
     private String getMessageID(SlashCommandInteractionEvent event) {
         OptionMapping messageIdOption = event.getOption("messageid");
 
@@ -217,7 +214,6 @@ public class CreateReactionMessageCommand {
         return null;
     }
 
-    @Nullable
     private String getEmote(SlashCommandInteractionEvent event) {
         OptionMapping emoteOption = event.getOption("emote");
 
@@ -228,7 +224,6 @@ public class CreateReactionMessageCommand {
         return null;
     }
 
-    @Nullable
     private Role getRole(SlashCommandInteractionEvent event) {
         OptionMapping roleIdOption = event.getOption("role");
 
