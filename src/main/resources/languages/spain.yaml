@@ -10,55 +10,41 @@ unknown-timezone: "Fuso orario non valido."
 language-not-supported: "Questa lingua non è supportata"
 language-updated: "La lingua del bot è impostata su %s"
 language: "Cambia el idioma del bot a España"
-
 custom-message-created: "È stato creato un nuovo messaggio personalizzato. usare >cm list per vedere i messaggi personalizzati"
 custom-message-deleted: "Messaggio personalizzato eliminato"
 no-custom-messages: "Non ci sono messaggi personalizzati"
 show-all-custom-messages: "Messaggi personalizzati:"
 custom-message-with-id-deleted: "Il messaggio personalizzato con %s è stato cancellato"
-
 invalid-command: "Comando non valido. Utilizzare >help"
 invalid-timezone: "Fuso orario non valido"
-
 custom-message-what-channel: "In quale canale di testo si desidera ricevere il messaggio personalizzato?"
 custom-message-what-day: "In quale giorno si desidera ricevere i messaggi?"
 custom-message-what-time: "A che ora?"
 custom-message-what-message: "Qual è il vostro messaggio personalizzato?"
 custom-message-is-repeating: "Questo messaggio deve essere inviato frequentemente?"
 custom-message-invalid-day: "Giorno non valido. Giorni validi: "
-
 yes-or-no: "Sì/No?"
 short-hours: "hrs"
-
 error-occurred: "Si è verificato un errore"
-
-
 info-ancient-arena: "Ancient Arena"
-
 info-demon-gates: "Demon gates"
-
 error-cannot-disable-event: "Questo evento non esiste o non è elencato come evento. Usare >elenco eventi per vedere tutti gli eventi"
-
 autodelete-enabled: "La cancellazione automatica è ora abilitata"
 autodelete-disabled: "La cancellazione automatica non è disabilitata"
 autodelete-value-set: "Il tempo di cancellazione automatica è impostato su %s"
-
 event-messages-already-on: "I messaggi di evento sono già abilitati sul server"
 event-messages-already-off: "I messaggi di evento sono già disabilitati sul server"
 headup-messages-already-on: "I messaggi headup sono già abilitati sul server"
 headup-messages-already-off: "I messaggi head up sono già disabilitati sul server"
-
 help-event-list: "Mostra tutti gli eventi disponibili da disabilitare o abilitare"
 help-event-set: "Abilita o disabilita un evento"
-
 event-cannot-disable: "Non è possibile disabilitare questo evento"
 event-do-not-exists: "Questo evento non esiste o non è elencato come evento"
-
 event-haunted-carriage: "El carruaje poseído apareció en el Cementerio de Ashwold."
 event-haunted-carriage-headup: "El carruaje poseído aparecerá en 15 minutos en el Cementerio de Ashwold."
 event-demon-gates: "Puertas Demoníacas ahora en el Reino de la Condenación."
 event-demon-gates-headup: "Puertas Demoníacas se reiniciarán en 15 minutos en el Reino de la Condenación."
-event-battleground: "El campo de batalla está abierto."
+event-battleground: "El campo de batalla ha abierto."
 event-battleground-headup: "El campo de batalla abrirá en 15 minutos."
 event-ancient-nightmare: "La pesadilla ancestral apareción en Monte Zavain - Valle Brumoso."
 event-ancient-nightmare-headup: "La pesadilla Ancestral aparecerá en 15 minutos en Monte Zavain - Valle Brumoso."
@@ -70,35 +56,27 @@ event-shadow-lottery: "La lotería de las sombras ha comenzado."
 event-shadow-lottery-headup: "La lotería de las sombras comienza en 15 minutos."
 event-raid-vault: "Asalto a la bóveda."
 event-raid-vault-headup: "Asalto a la bóveda abrirá en 15 minutos."
-event-defend-vault: "Defender la bóveda."
+event-defend-vault: "Defiende la bóveda"
 event-defend-vault-headup: "Defender la bóveda abrirá en 15 minutos."
-event-wrathborne-invasion: "Wrathborne Invasion is starting now."
-event-wrathborne-invasion-headup: "Wrathborne Invasion is starting in 15 minutes now."
-
+event-wrathborne-invasion: "La Invasión de Wrathborne ha comenzado."
+event-wrathborne-invasion-headup: "La Invasión de Wrathborne comienza en 15 minutos."
 event-enabled: "Le notifiche di %s sono ora abilitate"
 event-disabled: "Le notifiche di %s sono ora disabilitate"
-
 event-ancient-arena-embed: "Ancient Arena"
 event-ancient-arena-location1: "Location Bilefen"
 event-ancient-arena-location2: "Ancient Arena"
-
 event-ancient-nightmare-embed: "Ancient Nightmare"
 event-ancient-nightmare-location1: "Location Mount Zavian"
 event-ancient-nightmare-location2: "Misty Valley"
-
 event-demon-gates-embed: "Demon Gates"
 event-demon-gates-location1: "Location Realm of Damnation"
 event-demon-gates-location2: "Realm of Damnation"
-
 event-haunted-carriage-embed: "Haunted Carriage"
 event-haunted-carriage-location1: "Location Ashwold Cemetery"
 event-haunted-carriage-location2: "Carriage Landing"
-
 embed-spawn-at: "Spawn at"
 embed-countdown: "Conto alla rovescia"
 embed-world-event: "Evento mondiale"
-
-
 help-unregister-channel: "Desregistra ese canal"
 help-registers-channel: "Registra ese canal como canal-notificador"
 help-set-role: "Establece el rol que debe ser mencionado para este canal"
@@ -116,20 +94,16 @@ help-server-autodelete-set: "Desactiva o activa los mensajes de autoborrado en t
 help-server-autodelete-value: "Establece después de qué tiempo se deben borrar los mensajes. Valores: 24, 48 y 72 horas"
 help-show-bot-install: "Muestra las instrucciones del bot"
 help-show-help: "Muestra el mensaje de ayuda"
-
-
 install: "Instrucciones"
 install-first: "Añade el bot a tu servidor de discordia usando: https://discord.com/api/oauth2/authorize?client_id=527511535309029407&permissions=2147739712&scope=applications.commands%20bot"
 install-second: "(Puedes saltarte este paso como propietario del servidor) Crea un rol en tu servidor de discordia llamado 'Bot Admin'. Las personas con ese rol pueden controlar el bot"
 install-third: "(Puedes saltarte este paso como propietario del servidor) ¡Asigna el rol creado (Bot Admin) a ti mismo! No al bot!"
 install-fourth: "Crea un canal de texto que te guste para recibir las notificaciones"
 install-fifth: "Usa >zona horaria del servidor YOUR_TIMEZONE para establecer la zona horaria de tu servidor. Usa >timezones para ver todas las horas"
-
 footer-created-by: "%s Creado por %s"
 footer-times-in-24h-format: "Estas horas están en formato 24Hrs"
 footer-report-to-dev: "Por favor, informe a Umbreon#0001"
 footer-support-on-discord: "Soporte en Discord:"
-
 info-timezone: "Zona horaria:"
 info-language: "Idioma:"
 info-current-time: "Hora actual:"
@@ -143,7 +117,6 @@ info-headup-message: "Mensaje de cabecera"
 info-ancient-nightmare: "Antigua pesadilla"
 info-assembly: "Asamblea"
 info-battlegrounds: "Campos de batalla"
-
 info-defend-the-vault: "Defender la bóveda"
 info-raid-the-vault: "Asaltar la bóveda"
 iinfo-demon-gates: "Puertas demoníacas"
