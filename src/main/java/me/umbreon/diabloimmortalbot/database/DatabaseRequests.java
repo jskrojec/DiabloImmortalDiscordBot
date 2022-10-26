@@ -104,7 +104,8 @@ public class DatabaseRequests {
                     String timezone = resultSet.getString("timezone");
                     boolean isHeadUpEnabled = (resultSet.getInt("event_headup") == 1);
                     boolean eventMessagesEnabled = (resultSet.getInt("event_message") == 1);
-                    GuildInformation guildInformation = new GuildInformation(guildID, language, timezone, isHeadUpEnabled, eventMessagesEnabled);
+                    String adminRoleID = resultSet.getString("adminroleid");
+                    GuildInformation guildInformation = new GuildInformation(guildID, language, timezone, isHeadUpEnabled, eventMessagesEnabled, adminRoleID);
                     listWithGuildInformation.put(guildID, guildInformation);
                 }
             } catch (Exception e) {
@@ -126,6 +127,19 @@ public class DatabaseRequests {
             preparedStatement.setString(3, guildInformation.getTimezone());
             preparedStatement.setBoolean(4, guildInformation.isHeadUpEnabled());
             preparedStatement.setBoolean(5, guildInformation.isEventMessageEnabled());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateGuildAdminRole(String guildID, String adminRoleID) {
+        try (
+                Connection connection = databaseConnection.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQLStatements.getUpdateGuildAdminRoleIdStatement())
+        ) {
+            preparedStatement.setString(1, adminRoleID);
+            preparedStatement.setString(2, guildID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -297,7 +311,7 @@ public class DatabaseRequests {
             e.printStackTrace();
         }
     }
-    
+
     public void replaceNotificationChannel(NotificationChannel notificationChannel) {
         try (
                 Connection connection = databaseConnection.getConnection();
@@ -462,5 +476,6 @@ public class DatabaseRequests {
         }
         return reactionRolesMap;
     }
+
 
 }

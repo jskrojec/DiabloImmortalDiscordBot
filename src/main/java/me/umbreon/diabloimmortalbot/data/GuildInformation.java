@@ -7,6 +7,7 @@ public class GuildInformation {
     private String timezone;
     private boolean isHeadUpEnabled;
     private boolean eventMessageEnabled;
+    private String adminRoleID;
 
     /**
      * Register a new guild.
@@ -30,12 +31,14 @@ public class GuildInformation {
      * @param isHeadUpEnabled
      * @param eventMessageEnabled
      */
-    public GuildInformation(String guildID, String language, String timezone, boolean isHeadUpEnabled, boolean eventMessageEnabled) {
+    public GuildInformation(String guildID, String language, String timezone, boolean isHeadUpEnabled,
+                            boolean eventMessageEnabled, String adminRoleID) {
         this.guildID = guildID;
         this.language = language;
         this.timezone = timezone;
         this.isHeadUpEnabled = isHeadUpEnabled;
         this.eventMessageEnabled = eventMessageEnabled;
+        this.adminRoleID = adminRoleID;
     }
 
     public String getGuildID() {
@@ -78,4 +81,11 @@ public class GuildInformation {
         this.timezone = timezone;
     }
 
+    public String getAdminRoleID() {
+        return adminRoleID;
+    }
+
+    public void setAdminRoleID(String adminRoleID) {
+        this.adminRoleID = adminRoleID;
+    }
 }

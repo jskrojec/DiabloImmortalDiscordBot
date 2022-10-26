@@ -10,6 +10,9 @@ import java.util.List;
 
 public class CommandsUtil {
 
+    public static final String COMMAND_ADMIN_ROLE = "adminrole";
+    private static final String COMMAND_ADMIN_ROLE_DESC = "Change the bot admin role who can control the bot.";
+
     public static final String PRESET_IMMORTAL = "presetimmortal";
     public static final String PRESET_SHADOW = "presetshadow";
     public static final String PRESET_OVERWORLD_ON = "presetoverworldon";
@@ -17,6 +20,9 @@ public class CommandsUtil {
     public static final String PRESET_DAILY_ON = "presetdailyon";
     public static final String PRESET_DAILY_OFF = "presetdailyoff";
     public static final String LIST_PRESET = "listpreset";
+
+    private static final OptionData ROLE_COMMAND_OPTION =
+            new OptionData(OptionType.ROLE, "role", "Enter here your role", true);
 
     public static List<CommandData> getCommandDataList() {
         List<CommandData> commandDataList = new ArrayList<>();
@@ -39,10 +45,10 @@ public class CommandsUtil {
 
     private static void prepareReactionRolesCommand(List<CommandData> commandDataList) {
         OptionData messageIdOption = new OptionData(OptionType.STRING, "messageid", "Enter here your message ID.", true);
-        OptionData roleIdOption = new OptionData(OptionType.ROLE, "role", "Enter here your role", true);
+
         OptionData emojiOption = new OptionData(OptionType.STRING, "emote", "Enter here your emote", true);
 
-        commandDataList.add(Commands.slash("createreactionrole", "Create your custom reaction role.").addOptions(messageIdOption, roleIdOption, emojiOption));
+        commandDataList.add(Commands.slash("createreactionrole", "Create your custom reaction role.").addOptions(messageIdOption, ROLE_COMMAND_OPTION, emojiOption));
         commandDataList.add(Commands.slash("removereactionrole", "Removes a custom reaction role.").addOptions(messageIdOption, emojiOption));
     }
 
@@ -198,6 +204,9 @@ public class CommandsUtil {
         OptionData serverOptionData2 = new OptionData(OptionType.BOOLEAN, "servervalue", "True or false", false);
 
         commandDataList.add(Commands.slash("server", "Set's serverwide settings.").addOptions(serverOptionData1, serverOptionData2));
+
+        // - /adminrole @Role
+        commandDataList.add(Commands.slash(COMMAND_ADMIN_ROLE, COMMAND_ADMIN_ROLE_DESC).addOptions(ROLE_COMMAND_OPTION));
     }
 
 }

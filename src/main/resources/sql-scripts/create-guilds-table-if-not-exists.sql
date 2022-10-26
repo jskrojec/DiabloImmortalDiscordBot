@@ -3,5 +3,6 @@ guildID VARCHAR(20) PRIMARY KEY NOT NULL,
 language VARCHAR(5) DEFAULT 'ENG',
 timezone VARCHAR(10) DEFAULT 'GMT',
 event_headup TINYINT(1) DEFAULT 1 NOT NULL,
-event_message TINYINT(1) DEFAULT 1 NOT NULL
+event_message TINYINT(1) DEFAULT 1 NOT NULL,
+adminroleid VARCHAR(20)
 )
