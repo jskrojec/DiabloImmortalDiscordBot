@@ -67,4 +67,12 @@ public class GuildsCache {
         listWithGuildInformation.get(guildID).setEventMessageEnabled(value);
     }
 
+    public void updateGuildAdminRole(String guildID, String adminRoleID) {
+        listWithGuildInformation.get(guildID).setAdminRoleID(adminRoleID);
+    }
+    
+    public String getAdminRoleID(String guildID) {
+        return listWithGuildInformation.get(guildID).getAdminRoleID();
+    }
+
 }
