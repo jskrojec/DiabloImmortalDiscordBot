@@ -16,6 +16,7 @@ public class SQLStatements {
     private static final String UPDATE_GUILD_TIMEZONE_STATEMENT;
     private static final String UPDATE_GUILD_HEAD_UP_STATEMENT;
     private static final String UPDATE_GUILD_MESSAGE_STATEMENT;
+    private static final String UPDATE_GUILD_ADMIN_ROLE_ID_STATEMENT;
     //TODO: DELETE_STATEMENT?
 
     private static final String GET_ALL_CUSTOM_MESSAGES_STATEMENT;
@@ -50,6 +51,7 @@ public class SQLStatements {
         UPDATE_GUILD_TIMEZONE_STATEMENT = loadResourceToString(DEFAULT_PATH + "update-guild-timezone.sql");
         UPDATE_GUILD_HEAD_UP_STATEMENT = loadResourceToString(DEFAULT_PATH + "update-guild-head-up.sql");
         UPDATE_GUILD_MESSAGE_STATEMENT = loadResourceToString(DEFAULT_PATH + "update-guild-message.sql");
+        UPDATE_GUILD_ADMIN_ROLE_ID_STATEMENT = loadResourceToString(DEFAULT_PATH + "update-guild-admin-role-id.sql");
 
         GET_ALL_CUSTOM_MESSAGES_STATEMENT = loadResourceToString(DEFAULT_PATH + "get-all-custom-messages.sql");
         CREATE_CUSTOM_MESSAGE_STATEMENT = loadResourceToString(DEFAULT_PATH + "create-custom-message.sql");
@@ -114,6 +116,10 @@ public class SQLStatements {
 
     public static String getUpdateGuildMessageStatement() {
         return UPDATE_GUILD_MESSAGE_STATEMENT;
+    }
+
+    public static String getUpdateGuildAdminRoleIdStatement() {
+        return UPDATE_GUILD_ADMIN_ROLE_ID_STATEMENT;
     }
 
     /*

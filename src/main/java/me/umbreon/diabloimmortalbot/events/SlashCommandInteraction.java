@@ -19,6 +19,7 @@ import me.umbreon.diabloimmortalbot.commands.info_commands.UpComingCommand;
 import me.umbreon.diabloimmortalbot.commands.reaction_commands.CreateReactionMessageCommand;
 import me.umbreon.diabloimmortalbot.commands.reaction_commands.RemoveReactionCommand;
 import me.umbreon.diabloimmortalbot.commands.server_commands.LanguageCommand;
+import me.umbreon.diabloimmortalbot.commands.server_commands.SetAdminRoleCommand;
 import me.umbreon.diabloimmortalbot.commands.server_commands.TimezoneCommand;
 import me.umbreon.diabloimmortalbot.data.GuildInformation;
 import me.umbreon.diabloimmortalbot.database.DatabaseRequests;
@@ -29,10 +30,13 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+
+import static me.umbreon.diabloimmortalbot.utils.CommandsUtil.COMMAND_ADMIN_ROLE;
 
 /**
  * @author Umbreon Majora
@@ -42,6 +46,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
     private final DatabaseRequests databaseRequests;
     private final GuildsCache guildsCache;
 
+    private final SetAdminRoleCommand setAdminRoleCommand;
     // info commands
     private final TodayCommand todayCommand;
     private final UpComingCommand upComingCommand;
@@ -91,6 +96,8 @@ public class SlashCommandInteraction extends ListenerAdapter {
         this.databaseRequests = databaseRequests;
         this.guildsCache = guildsCache;
 
+        this.setAdminRoleCommand = new SetAdminRoleCommand(guildsCache, databaseRequests);
+
         // info commands
         this.todayCommand = new TodayCommand(gameEventsCache, guildsCache);
         this.upComingCommand = new UpComingCommand(gameEventsCache, guildsCache);
@@ -120,7 +127,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
 
         // server commands
         this.changeServerValueCommand = new ChangeServerValueCommand(databaseRequests, guildsCache);
-        this.configCommand = new ConfigCommand(clientCache, guildsCache);
+        this.configCommand = new ConfigCommand(guildsCache);
         this.timezoneCommand = new TimezoneCommand(databaseRequests, guildsCache);
         this.languageCommand = new LanguageCommand(clientCache, databaseRequests, guildsCache);
 
@@ -132,7 +139,6 @@ public class SlashCommandInteraction extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull final SlashCommandInteractionEvent event) {
         try {
-
             String guildID = event.getGuild().getId();
             registerGuildIfDoNotExist(guildID);
 
@@ -142,8 +148,8 @@ public class SlashCommandInteraction extends ListenerAdapter {
             Member member = event.getMember();
 
             LOGGER.info(member.getEffectiveName() + "#" + event.getUser().getDiscriminator() + " used " + event.getCommandString());
-
-            if (hasUserAdminPrivileges(member) || isServerOwner(member)) {
+            String adminRoleID = guildsCache.getAdminRoleID(guildID);
+            if (hasUserAdminPrivileges(member, adminRoleID)) { //|| isServerOwner(member)
                 switch (event.getName().toLowerCase()) {
                     // info commands
                     case "today":
@@ -212,7 +218,7 @@ public class SlashCommandInteraction extends ListenerAdapter {
                         changeServerValueCommand.runChangeServerValueCommand(event);
                         break;
                     case "config":
-                        configCommand.runConfigCommand(event);
+                        configCommand.runCommand(event);
                         break;
                     // reaction roles commands
                     case "createreactionrole":
@@ -220,6 +226,9 @@ public class SlashCommandInteraction extends ListenerAdapter {
                         break;
                     case "removereactionrole":
                         removeReactionCommand.runRemoveReactionCommand(event);
+                        break;
+                    case COMMAND_ADMIN_ROLE:
+                        setAdminRoleCommand.runCommand(event);
                         break;
                 }
             }
@@ -243,10 +252,19 @@ public class SlashCommandInteraction extends ListenerAdapter {
         }
     }
 
-    private boolean hasUserAdminPrivileges(final Member member) {
+    private boolean hasUserAdminPrivileges(Member member, @Nullable String adminRoleID) {
         List<Role> roles = member.getRoles();
-        Role tempRole = roles.stream()
-                .filter(role -> role.getName().equalsIgnoreCase("Bot Admin"))
+        Role tempRole;
+        if (adminRoleID == null) {
+            tempRole = roles.stream()
+                    .filter(role -> role.getName().equalsIgnoreCase("Bot Admin"))
+                    .findFirst()
+                    .orElse(null);
+            return tempRole != null;
+        }
+
+        tempRole = roles.stream()
+                .filter(role -> role.getId().equals(adminRoleID))
                 .findFirst()
                 .orElse(null);
         return tempRole != null;

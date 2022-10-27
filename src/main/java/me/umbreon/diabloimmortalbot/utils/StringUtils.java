@@ -15,6 +15,13 @@ public class StringUtils {
     public static String lostRoleMessage = "You've lost the role %s.";
     public static String presetSetMessage = "Enabled preset %s on channel %s";
     public static String invalidPresetMessage = "Preset %s do not exists.";
+    public static String updatedAdminRoleMessage = "The new bot admin role is %s.";
+
+    public static String ADMIN_ROLE_UPDATED_LOG_MESSAGE = "%s updated admin role id from %s to %s";
+    public static String ADMIN_ROLE_UPDATE_FAILED_LOG_MESSAGE = "%s tried to update the admin role id from %s but it " +
+            "failed because %s was null.";
+    public static String ADMIN_ROLE_UPDATE_FAILED_USER_MESSAGE = "Failed to update admin role, new admin role can't " +
+            "be null.";
 
     private static final String DIABLO_IMMORTAL_LOGO;
     private static final String DIABLO_ANCIENT_NIGHTMARE;
